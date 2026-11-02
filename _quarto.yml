@@ -50,7 +50,7 @@ website:
           - lecture-02/03-linear-regression.qmd
           - lecture-02/04-logistic-regression.qmd
 
+# The UBC brand (UBC-MDS/ubc-quarto-brand): colours, fonts and light/dark mode.
 format:
-  html:
-    theme: cosmo
+  ubc-html:
     toc: true

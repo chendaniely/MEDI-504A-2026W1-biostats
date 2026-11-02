@@ -50,6 +50,12 @@ Quarto extensions, committed in `_extensions/`:
 - [`coatless-quarto/embedio`](https://github.com/coatless-quarto/embedio):
   embeds each Lecture 1 slide deck at the top of its page.
   Update it with `quarto add coatless-quarto/embedio`.
+- [`UBC-MDS/ubc-quarto-brand`](https://github.com/UBC-MDS/ubc-quarto-brand)
+  (`main` at `903cdaa`, before its first release):
+  the UBC colours, fonts, and light and dark modes, through `format: ubc-html`.
+  The MDS logo it ships is deleted, since this is a different course.
+  Update it with `quarto add UBC-MDS/ubc-quarto-brand`,
+  then delete `_extensions/UBC-MDS/ubc/MDSlogo.png` again.
 
 ## Licence
 
