@@ -1,0 +1,89 @@
+{
+  // ---------------------------------------------------------------------------
+  // MEDI 504A Codespace: R, Quarto and Python, with every version pinned.
+  //
+  // Copied from chendaniely/HMHDA-0115-2026W1,
+  // which copied the setup in ehsanx/HDSx-workspace.
+  // "HDSx README" below is that repo's maintainer notes
+  // (how to change versions, and what was tested and why):
+  // https://github.com/ehsanx/HDSx-workspace/blob/main/.devcontainer/README.md
+  // ---------------------------------------------------------------------------
+  "name": "MEDI 504A workspace (R + Quarto + Python)",
+
+  // The course image, with everything preinstalled,
+  // so a new Codespace builds nothing.
+  // Tag build-5-1 from "Build course image" in chendaniely/HDSx-workspace,
+  // the recipe at ehsanx/HDSx-workspace 9d8c5e7 (adds medicaldata, tidymodels).
+  // After a rebuild, pin the new digest here
+  // (HDSx README: Changing a version).
+  "image": "ghcr.io/chendaniely/hdsx-workspace@sha256:ec62edb9d4018803f80ba89fbbebf2ff8b9b7bc940269bf07fdd41b0f2bb4af5",
+
+  "customizations": {
+    "vscode": {
+      // An extension installed at a stated version does not auto-update,
+      // so the whole term runs on these releases (no pre-release builds).
+      // vscode-R must match the sess in the course image:
+      // bump both together, then rebuild the image.
+      // r-syntax is a dependency vscode-R 3.x pulls in.
+      // Python, Jupyter and Copilot stay unpinned (HDSx README: Extensions).
+      "extensions": [
+        "quarto.quarto@1.138.0",
+        "REditorSupport.r@3.2.0",
+        "REditorSupport.r-syntax@0.1.4",
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "mechatroner.rainbow-csv@3.24.1",
+        // Clicking a rendered .html or .pdf opens it in a tab
+        // (HDSx README: HTML viewers, PDF viewers).
+        "analytic-signal.preview-html@1.0.0",
+        "mathematic.vscode-pdf@0.2.6",
+        // Leave out R Debugger, which the rocker image adds
+        // (HDSx README: Extensions).
+        "-RDebugger.r-debugger"
+      ],
+      "settings": {
+        "r.rterm.linux": "/usr/local/bin/R",
+        "r.bracketedPaste": true,
+        // Plots from Run Cell appear as images in a VS Code tab.
+        // The image's default (httpgd) embeds a forwarded port,
+        // which the Codespaces browser client shows as a blank pane.
+        "r.plot.backend": "standard",
+        // Preview still renders on save but opens nothing:
+        // its side pane comes up blank for the same reason,
+        // and its browser tab lands on "Not Found".
+        // Rendered files open in a tab instead
+        // (viewers above; HDSx README: Quarto's own preview).
+        "quarto.render.previewType": "none",
+        // Run Cell goes straight to a plain R terminal.
+        // Otherwise vscode-R 3.2 first asks where to run,
+        // defaulting to its experimental "R Interactive" window,
+        // which needs the arf console (not installed).
+        "r.interactive.executionTarget": "terminal",
+        "editor.formatOnSave": false
+      }
+    }
+  },
+
+  // Runs once after the container is built.
+  // Checks the course packages (the image already has them)
+  // and self-tests the toolchain.
+  // The leading sed strips stray carriage returns,
+  // so the scripts run even if a file was copied
+  // without git's eol=lf handling.
+  "postCreateCommand": "sed -i 's/\\r$//' .devcontainer/setup.sh .devcontainer/install-packages.sh && bash .devcontainer/setup.sh",
+  // The editor opens only once setup.sh is done,
+  // so no one starts R before its packages and sess are in.
+  "waitFor": "postCreateCommand",
+
+  // No port is forwarded:
+  // each one popped up "Open in Browser" and "Make Public"
+  // and led nowhere useful (HDSx README: Ports).
+  "otherPortsAttributes": { "onAutoForward": "ignore" },
+
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb"
+  }
+}
