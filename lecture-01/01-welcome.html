@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Daniel Chen, PhD, MPH">
 
 <title>Welcome – MEDI 504A: Biostatistics with Tidyverse</title>
 <style>
@@ -45,7 +46,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35c3568c17950149c2e0b720c3d25ea4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a32864d36d9c86c06fd8b0eefc7ccc1d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -190,6 +191,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">From tidy data to models</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/05-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units (optional)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -239,8 +246,11 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
   <ul class="collapse">
-  <li><a href="#about-these-two-sessions" id="toc-about-these-two-sessions" class="nav-link" data-scroll-target="#about-these-two-sessions">About these two sessions</a></li>
-  <li><a href="#check-your-codespace" id="toc-check-your-codespace" class="nav-link" data-scroll-target="#check-your-codespace">Check your Codespace</a></li>
+  <li><a href="#these-two-sessions" id="toc-these-two-sessions" class="nav-link" data-scroll-target="#these-two-sessions">These two sessions</a></li>
+  <li><a href="#how-these-pages-work" id="toc-how-these-pages-work" class="nav-link" data-scroll-target="#how-these-pages-work">How these pages work</a></li>
+  <li><a href="#get-your-codespace-running" id="toc-get-your-codespace-running" class="nav-link" data-scroll-target="#get-your-codespace-running">Get your Codespace running</a></li>
+  <li><a href="#where-we-are" id="toc-where-we-are" class="nav-link" data-scroll-target="#where-we-are">Where we are</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -251,12 +261,19 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-01/01-welcome.html">Lecture 1: Tidy data (Mon, Nov 2)</a></li><li class="breadcrumb-item"><a href="../lecture-01/01-welcome.html">Welcome</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Welcome</h1>
+<p class="subtitle lead">MEDI 504A: Biostatistics with Tidyverse</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Daniel Chen, PhD, MPH </p>
+          </div>
+  </div>
     
   
     
@@ -274,33 +291,74 @@ ul.task-list li input[type="checkbox"] {
     </div>
   
 </div>
-<section id="slide-contents" class="level1">
+<section id="slide-contents" class="level1 page-columns page-full">
 <h1>Slide contents</h1>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Draft outline: content to come.</p>
-</div>
-</div>
-<section id="about-these-two-sessions" class="level2">
-<h2 class="anchored" data-anchor-id="about-these-two-sessions">About these two sessions</h2>
+<section id="these-two-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="these-two-sessions">These two sessions</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Session</th>
+<th>When</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lecture 1: Tidy data</td>
+<td>Monday, Nov 2, 1:00–3:00 PM</td>
+<td>ECC 100 LT</td>
+</tr>
+<tr class="even">
+<td>Lecture 2: Modelling lab</td>
+<td>Wednesday, Nov 4, 1:00–3:00 PM</td>
+<td>DHCC 4223</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>Lecture 1: tidy data, the foundation for modelling</li>
-<li>Lecture 2: a hands-on lab with medical data: cleaning, linear regression and logistic regression</li>
+<li>Today we’ll go over tidy data, how to wrangle and visualize it, and fit a first model. I’ll be live coding, so feel free to follow along or just watch.</li>
+<li>On Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models.</li>
 </ul>
 </section>
-<section id="check-your-codespace" class="level2">
-<h2 class="anchored" data-anchor-id="check-your-codespace">Check your Codespace</h2>
+<section id="how-these-pages-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-these-pages-work">How these pages work</h2>
 <ul>
-<li>Open the course Codespace (<a href="../setup-codespaces.html">Codespaces</a>)</li>
-<li>Render <code>example.qmd</code></li>
+<li>Each section of the course website has the slides at the top and the slide contents written out below, so you can scroll and copy code without clicking through the slides.</li>
+<li>Course website: <a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/" class="uri">https://chendaniely.github.io/MEDI-504A-2026W1-biostats/</a></li>
+</ul>
+</section>
+<section id="get-your-codespace-running" class="level2">
+<h2 class="anchored" data-anchor-id="get-your-codespace-running">Get your Codespace running</h2>
+<p>Start your Codespace now, since it takes about 4 minutes to start up the first time.</p>
+<ol type="1">
+<li>Go to the <a href="../setup-codespaces.html">Codespaces</a> page and click <strong>Open in GitHub Codespaces</strong></li>
+<li>When VS Code opens, trust the folder</li>
+<li>Open <code>example.qmd</code> and render it</li>
+</ol>
+<p>Today we’re only testing the Codespace. On Wednesday you’ll fork the repository and work in your own copy.</p>
+</section>
+<section id="where-we-are" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="where-we-are">Where we are</h2>
+<p><img src="https://r4ds.hadley.nz/diagrams/data-science/base.png" class="img-fluid" style="width:80.0%" alt="The data science workflow: import, tidy, then a cycle of transform, visualize and model, then communicate."></p>
+<p>This is the data science workflow from <em>R for Data Science</em>. Today we’ll mostly be in the “tidy” and “transform” steps, and get a first look at “visualize” and “model”.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Diagram from <em>R for Data Science</em> (2e), Wickham, Çetinkaya-Rundel and Grolemund.</p>
+</div></div></section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><em>Data Science: A First Introduction</em> (DSCI 100): <a href="https://datasciencebook.ca/" class="uri">https://datasciencebook.ca/</a></li>
+<li><em>Data Science for the Biomedical Sciences</em> (ds4biomed): <a href="https://ds4biomed.tech/" class="uri">https://ds4biomed.tech/</a></li>
+<li><em>R for Data Science</em> (2e): <a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a></li>
+<li><em>Tidy Modeling with R</em>: <a href="https://www.tmwr.org/" class="uri">https://www.tmwr.org/</a></li>
+<li>Wickham (2014), Tidy Data: <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a></li>
 </ul>
 
 
@@ -709,6 +767,19 @@ Note
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

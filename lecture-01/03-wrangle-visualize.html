@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -45,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35c3568c17950149c2e0b720c3d25ea4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a32864d36d9c86c06fd8b0eefc7ccc1d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -190,6 +225,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">From tidy data to models</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/05-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units (optional)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -239,8 +280,24 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
   <ul class="collapse">
-  <li><a href="#wrangling-with-dplyr" id="toc-wrangling-with-dplyr" class="nav-link" data-scroll-target="#wrangling-with-dplyr">Wrangling with dplyr</a></li>
-  <li><a href="#visualizing-with-ggplot2" id="toc-visualizing-with-ggplot2" class="nav-link" data-scroll-target="#visualizing-with-ggplot2">Visualizing with ggplot2</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data wrangling</a></li>
+  <li><a href="#the-palmer-penguins" id="toc-the-palmer-penguins" class="nav-link" data-scroll-target="#the-palmer-penguins">The Palmer penguins</a></li>
+  <li><a href="#select-choose-columns" id="toc-select-choose-columns" class="nav-link" data-scroll-target="#select-choose-columns"><code>select()</code>: choose columns</a></li>
+  <li><a href="#filter-choose-rows" id="toc-filter-choose-rows" class="nav-link" data-scroll-target="#filter-choose-rows"><code>filter()</code>: choose rows</a></li>
+  <li><a href="#mutate-add-or-change-columns" id="toc-mutate-add-or-change-columns" class="nav-link" data-scroll-target="#mutate-add-or-change-columns"><code>mutate()</code>: add or change columns</a></li>
+  <li><a href="#doing-many-steps-at-once" id="toc-doing-many-steps-at-once" class="nav-link" data-scroll-target="#doing-many-steps-at-once">Doing many steps at once</a></li>
+  <li><a href="#the-pipe" id="toc-the-pipe" class="nav-link" data-scroll-target="#the-pipe">The pipe, <code>|&gt;</code></a></li>
+  <li><a href="#group_by-and-summarize" id="toc-group_by-and-summarize" class="nav-link" data-scroll-target="#group_by-and-summarize"><code>group_by()</code> and <code>summarize()</code></a></li>
+  <li><a href="#how-many-values-are-missing" id="toc-how-many-values-are-missing" class="nav-link" data-scroll-target="#how-many-values-are-missing">How many values are missing?</a></li>
+  <li><a href="#visualization-ask-a-question-then-answer-it" id="toc-visualization-ask-a-question-then-answer-it" class="nav-link" data-scroll-target="#visualization-ask-a-question-then-answer-it">Visualization: ask a question, then answer it</a></li>
+  <li><a href="#ggplot2-three-parts" id="toc-ggplot2-three-parts" class="nav-link" data-scroll-target="#ggplot2-three-parts">ggplot2: three parts</a></li>
+  <li><a href="#scatter-plot-two-quantitative-variables" id="toc-scatter-plot-two-quantitative-variables" class="nav-link" data-scroll-target="#scatter-plot-two-quantitative-variables">Scatter plot: two quantitative variables</a></li>
+  <li><a href="#add-colour-and-labels" id="toc-add-colour-and-labels" class="nav-link" data-scroll-target="#add-colour-and-labels">Add colour and labels</a></li>
+  <li><a href="#histogram-one-quantitative-variable" id="toc-histogram-one-quantitative-variable" class="nav-link" data-scroll-target="#histogram-one-quantitative-variable">Histogram: one quantitative variable</a></li>
+  <li><a href="#bar-plot-counts-of-a-categorical-variable" id="toc-bar-plot-counts-of-a-categorical-variable" class="nav-link" data-scroll-target="#bar-plot-counts-of-a-categorical-variable">Bar plot: counts of a categorical variable</a></li>
+  <li><a href="#rules-of-thumb" id="toc-rules-of-thumb" class="nav-link" data-scroll-target="#rules-of-thumb">Rules of thumb</a></li>
+  <li><a href="#data-and-credits" id="toc-data-and-credits" class="nav-link" data-scroll-target="#data-and-credits">Data and credits</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -274,35 +331,337 @@ ul.task-list li input[type="checkbox"] {
     </div>
   
 </div>
-<section id="slide-contents" class="level1">
+<section id="slide-contents" class="level1 page-columns page-full">
 <h1>Slide contents</h1>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Draft outline: content to come.</p>
-</div>
-</div>
-<section id="wrangling-with-dplyr" class="level2">
-<h2 class="anchored" data-anchor-id="wrangling-with-dplyr">Wrangling with dplyr</h2>
-<ul>
-<li><code>filter()</code>, <code>select()</code>, <code>mutate()</code></li>
-<li><code>group_by()</code> and <code>summarize()</code></li>
-</ul>
-<p>Source: <em>Data Science: A First Introduction</em>, chapter 3</p>
 </section>
-<section id="visualizing-with-ggplot2" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-with-ggplot2">Visualizing with ggplot2</h2>
+<section id="data-wrangling" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="data-wrangling">Data wrangling</h2>
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_wrangling.png" class="img-fluid" style="width:55.0%" alt="Cartoon of fuzzy monsters wrangling data with dplyr."></p>
+<p>Data we get in the real world is usually messy. Once we have it in a tidy shape, there are only a few dplyr functions we need for most of our work.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Artwork by Allison Horst (CC BY 4.0).</p>
+</div></div></section>
+<section id="the-palmer-penguins" class="level2">
+<h2 class="anchored" data-anchor-id="the-palmer-penguins">The Palmer penguins</h2>
+<p>This dataset has 344 penguins of 3 different species, collected from 3 islands near Palmer Station, Antarctica. It’s been built into R since version 4.5. We’ll convert it into a tibble so it prints nicely.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_len bill_dep flipper_len body_mass sex     year
+   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Adelie  Torgersen     39.1     18.7         181      3750 male    2007
+ 2 Adelie  Torgersen     39.5     17.4         186      3800 female  2007
+ 3 Adelie  Torgersen     40.3     18           195      3250 female  2007
+ 4 Adelie  Torgersen     NA       NA            NA        NA &lt;NA&gt;    2007
+ 5 Adelie  Torgersen     36.7     19.3         193      3450 female  2007
+ 6 Adelie  Torgersen     39.3     20.6         190      3650 male    2007
+ 7 Adelie  Torgersen     38.9     17.8         181      3625 female  2007
+ 8 Adelie  Torgersen     39.2     19.6         195      4675 male    2007
+ 9 Adelie  Torgersen     34.1     18.1         193      3475 &lt;NA&gt;    2007
+10 Adelie  Torgersen     42       20.2         190      4250 &lt;NA&gt;    2007
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="select-choose-columns" class="level2">
+<h2 class="anchored" data-anchor-id="select-choose-columns"><code>select()</code>: choose columns</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(penguins, species, bill_len, body_mass)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 3
+   species bill_len body_mass
+   &lt;fct&gt;      &lt;dbl&gt;     &lt;int&gt;
+ 1 Adelie      39.1      3750
+ 2 Adelie      39.5      3800
+ 3 Adelie      40.3      3250
+ 4 Adelie      NA          NA
+ 5 Adelie      36.7      3450
+ 6 Adelie      39.3      3650
+ 7 Adelie      38.9      3625
+ 8 Adelie      39.2      4675
+ 9 Adelie      34.1      3475
+10 Adelie      42        4250
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(penguins, <span class="fu">starts_with</span>(<span class="st">"bill"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 2
+   bill_len bill_dep
+      &lt;dbl&gt;    &lt;dbl&gt;
+ 1     39.1     18.7
+ 2     39.5     17.4
+ 3     40.3     18  
+ 4     NA       NA  
+ 5     36.7     19.3
+ 6     39.3     20.6
+ 7     38.9     17.8
+ 8     39.2     19.6
+ 9     34.1     18.1
+10     42       20.2
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-choose-rows" class="level2">
+<h2 class="anchored" data-anchor-id="filter-choose-rows"><code>filter()</code>: choose rows</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(penguins, flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 243 × 8
+   species island    bill_len bill_dep flipper_len body_mass sex     year
+   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Adelie  Torgersen     40.3     18           195      3250 female  2007
+ 2 Adelie  Torgersen     36.7     19.3         193      3450 female  2007
+ 3 Adelie  Torgersen     39.2     19.6         195      4675 male    2007
+ 4 Adelie  Torgersen     34.1     18.1         193      3475 &lt;NA&gt;    2007
+ 5 Adelie  Torgersen     38.6     21.2         191      3800 male    2007
+ 6 Adelie  Torgersen     34.6     21.1         198      4400 male    2007
+ 7 Adelie  Torgersen     38.7     19           195      3450 female  2007
+ 8 Adelie  Torgersen     42.5     20.7         197      4500 male    2007
+ 9 Adelie  Torgersen     46       21.5         194      4200 male    2007
+10 Adelie  Dream         36.4     17           195      3325 female  2007
+# ℹ 233 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(penguins, flipper_len <span class="sc">&gt;</span> <span class="dv">190</span> <span class="sc">&amp;</span> species <span class="sc">==</span> <span class="st">"Chinstrap"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 53 × 8
+   species   island bill_len bill_dep flipper_len body_mass sex     year
+   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Chinstrap Dream      46.5     17.9         192      3500 female  2007
+ 2 Chinstrap Dream      50       19.5         196      3900 male    2007
+ 3 Chinstrap Dream      51.3     19.2         193      3650 male    2007
+ 4 Chinstrap Dream      52.7     19.8         197      3725 male    2007
+ 5 Chinstrap Dream      45.2     17.8         198      3950 female  2007
+ 6 Chinstrap Dream      51.3     18.2         197      3750 male    2007
+ 7 Chinstrap Dream      46       18.9         195      4150 female  2007
+ 8 Chinstrap Dream      51.3     19.9         198      3700 male    2007
+ 9 Chinstrap Dream      46.6     17.8         193      3800 female  2007
+10 Chinstrap Dream      51.7     20.3         194      3775 male    2007
+# ℹ 43 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="mutate-add-or-change-columns" class="level2">
+<h2 class="anchored" data-anchor-id="mutate-add-or-change-columns"><code>mutate()</code>: add or change columns</h2>
+<p>Body mass is in grams, so let’s add a column with the mass in kilograms.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(penguins, <span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 9
+   species island    bill_len bill_dep flipper_len body_mass sex     year
+   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Adelie  Torgersen     39.1     18.7         181      3750 male    2007
+ 2 Adelie  Torgersen     39.5     17.4         186      3800 female  2007
+ 3 Adelie  Torgersen     40.3     18           195      3250 female  2007
+ 4 Adelie  Torgersen     NA       NA            NA        NA &lt;NA&gt;    2007
+ 5 Adelie  Torgersen     36.7     19.3         193      3450 female  2007
+ 6 Adelie  Torgersen     39.3     20.6         190      3650 male    2007
+ 7 Adelie  Torgersen     38.9     17.8         181      3625 female  2007
+ 8 Adelie  Torgersen     39.2     19.6         195      4675 male    2007
+ 9 Adelie  Torgersen     34.1     18.1         193      3475 &lt;NA&gt;    2007
+10 Adelie  Torgersen     42       20.2         190      4250 &lt;NA&gt;    2007
+# ℹ 334 more rows
+# ℹ 1 more variable: body_mass_kg &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p><code>mutate()</code> gives back a new data frame and doesn’t change <code>penguins</code>. If we want to keep the result, we need to assign it (<code>&lt;-</code>) to a variable.</p>
+</section>
+<section id="doing-many-steps-at-once" class="level2">
+<h2 class="anchored" data-anchor-id="doing-many-steps-at-once">Doing many steps at once</h2>
+<p>We can save each step as its own object,</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>penguins_1 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(penguins, <span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>penguins_2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(penguins_1, flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>penguins_3 <span class="ot">&lt;-</span> <span class="fu">select</span>(penguins_2, species, flipper_len, body_mass_kg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>or we can nest the function calls, but then we have to read them from the inside out.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins_nested <span class="ot">&lt;-</span> <span class="fu">select</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">mutate</span>(penguins, <span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>), flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  species, flipper_len, body_mass_kg</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="the-pipe">The pipe, <code>|&gt;</code></h2>
+<p>The pipe takes whatever is on its left and passes it in as the first argument of the function on its right. When you read code with pipes, you can say “and then” for each <code>|&gt;</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, flipper_len, body_mass_kg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 243 × 3
+   species flipper_len body_mass_kg
+   &lt;fct&gt;         &lt;int&gt;        &lt;dbl&gt;
+ 1 Adelie          195         3.25
+ 2 Adelie          193         3.45
+ 3 Adelie          195         4.68
+ 4 Adelie          193         3.48
+ 5 Adelie          191         3.8 
+ 6 Adelie          198         4.4 
+ 7 Adelie          195         3.45
+ 8 Adelie          197         4.5 
+ 9 Adelie          194         4.2 
+10 Adelie          195         3.32
+# ℹ 233 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="group_by-and-summarize" class="level2">
+<h2 class="anchored" data-anchor-id="group_by-and-summarize"><code>group_by()</code> and <code>summarize()</code></h2>
+<p><code>group_by()</code> splits the data into groups, and <code>summarize()</code> calculates a single value for each group.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_body_mass =</span> <span class="fu">mean</span>(body_mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  species   avg_body_mass
+  &lt;fct&gt;             &lt;dbl&gt;
+1 Adelie            3701.
+2 Chinstrap         3733.
+3 Gentoo            5076.</code></pre>
+</div>
+</div>
+<p>We need <code>na.rm = TRUE</code> to skip over the missing values, otherwise a single <code>NA</code> makes the whole mean <code>NA</code>.</p>
+</section>
+<section id="how-many-values-are-missing" class="level2">
+<h2 class="anchored" data-anchor-id="how-many-values-are-missing">How many values are missing?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">missing_body_mass =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(body_mass)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+      n missing_body_mass
+  &lt;int&gt;             &lt;int&gt;
+1   344                 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species, island)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  species   island        n
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;
+1 Adelie    Biscoe       44
+2 Adelie    Dream        56
+3 Adelie    Torgersen    52
+4 Chinstrap Dream        68
+5 Gentoo    Biscoe      124</code></pre>
+</div>
+</div>
+</section>
+<section id="visualization-ask-a-question-then-answer-it" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="visualization-ask-a-question-then-answer-it">Visualization: ask a question, then answer it</h2>
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/ggplot2_exploratory.png" class="img-fluid" style="width:45.0%" alt="Cartoon of fuzzy monsters exploring data with ggplot2."></p>
+<p>When we make a plot, we’re trying to answer a question about our data. A good plot answers that question clearly.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Artwork by Allison Horst (CC BY 4.0).</p>
+</div></div></section>
+<section id="ggplot2-three-parts" class="level2">
+<h2 class="anchored" data-anchor-id="ggplot2-three-parts">ggplot2: three parts</h2>
+<p>Every ggplot2 plot is built from the same parts:</p>
+<ol type="1">
+<li>Aesthetic mappings, which map columns to visual properties (<code>x</code>, <code>y</code>, <code>colour</code>, <code>fill</code>)</li>
+<li>Geometric objects (geoms), which say how to draw them (<code>geom_point()</code>, <code>geom_histogram()</code>, <code>geom_bar()</code>)</li>
+<li>Scales and labels for the axes, colours, and titles</li>
+</ol>
+<p>We add each layer, one at a time, with <code>+</code>.</p>
+</section>
+<section id="scatter-plot-two-quantitative-variables" class="level2">
+<h2 class="anchored" data-anchor-id="scatter-plot-two-quantitative-variables">Scatter plot: two quantitative variables</h2>
+<p>Is a penguin’s body mass related to its flipper length?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_len, <span class="at">y =</span> body_mass)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-wrangle-visualize_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="add-colour-and-labels" class="level2">
+<h2 class="anchored" data-anchor-id="add-colour-and-labels">Add colour and labels</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_len, <span class="at">y =</span> body_mass, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Species"</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-wrangle-visualize_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="histogram-one-quantitative-variable" class="level2">
+<h2 class="anchored" data-anchor-id="histogram-one-quantitative-variable">Histogram: one quantitative variable</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">250</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (g)"</span>, <span class="at">y =</span> <span class="st">"Number of penguins"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-wrangle-visualize_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="bar-plot-counts-of-a-categorical-variable" class="level2">
+<h2 class="anchored" data-anchor-id="bar-plot-counts-of-a-categorical-variable">Bar plot: counts of a categorical variable</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> island, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Island"</span>, <span class="at">y =</span> <span class="st">"Number of penguins"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-wrangle-visualize_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="rules-of-thumb" class="level2">
+<h2 class="anchored" data-anchor-id="rules-of-thumb">Rules of thumb</h2>
 <ul>
-<li>Aesthetics, geoms and labels</li>
+<li>Answer one question per plot</li>
+<li>Label axes, with units</li>
+<li>Use colourblind-friendly palettes</li>
+<li>Avoid pie charts, 3D, and tables of numbers when a plot will do</li>
 </ul>
-<p>Source: <em>Data Science: A First Introduction</em>, chapter 4</p>
+</section>
+<section id="data-and-credits" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
+<ul>
+<li><code>penguins</code>: R’s <code>datasets::penguins</code> (R 4.5 or newer), Horst, Hill and Gorman’s Palmer penguins.</li>
+<li>Adapted from chapters 3 and 4 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).</li>
+</ul>
 
 
 </section>
@@ -710,6 +1069,19 @@ Note
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

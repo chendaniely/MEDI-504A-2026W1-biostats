@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -45,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35c3568c17950149c2e0b720c3d25ea4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a32864d36d9c86c06fd8b0eefc7ccc1d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,6 +116,35 @@ ul.task-list li input[type="checkbox"] {
   </style>
   
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -190,6 +254,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">From tidy data to models</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/05-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units (optional)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -239,8 +309,18 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
   <ul class="collapse">
-  <li><a href="#why-models-need-tidy-data" id="toc-why-models-need-tidy-data" class="nav-link" data-scroll-target="#why-models-need-tidy-data">Why models need tidy data</a></li>
-  <li><a href="#coming-up-in-lecture-2" id="toc-coming-up-in-lecture-2" class="nav-link" data-scroll-target="#coming-up-in-lecture-2">Coming up in Lecture 2</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#two-kinds-of-questions" id="toc-two-kinds-of-questions" class="nav-link" data-scroll-target="#two-kinds-of-questions">Two kinds of questions</a></li>
+  <li><a href="#models-need-tidy-data" id="toc-models-need-tidy-data" class="nav-link" data-scroll-target="#models-need-tidy-data">Models need tidy data</a></li>
+  <li><a href="#sacramento-house-sales" id="toc-sacramento-house-sales" class="nav-link" data-scroll-target="#sacramento-house-sales">Sacramento house sales</a></li>
+  <li><a href="#is-size-related-to-price" id="toc-is-size-related-to-price" class="nav-link" data-scroll-target="#is-size-related-to-price">Is size related to price?</a></li>
+  <li><a href="#linear-regression-the-line-of-best-fit" id="toc-linear-regression-the-line-of-best-fit" class="nav-link" data-scroll-target="#linear-regression-the-line-of-best-fit">Linear regression: the line of best fit</a></li>
+  <li><a href="#fit-it-with-tidymodels" id="toc-fit-it-with-tidymodels" class="nav-link" data-scroll-target="#fit-it-with-tidymodels">Fit it with tidymodels</a></li>
+  <li><a href="#read-the-coefficients" id="toc-read-the-coefficients" class="nav-link" data-scroll-target="#read-the-coefficients">Read the coefficients</a></li>
+  <li><a href="#see-the-line" id="toc-see-the-line" class="nav-link" data-scroll-target="#see-the-line">See the line</a></li>
+  <li><a href="#more-than-one-predictor" id="toc-more-than-one-predictor" class="nav-link" data-scroll-target="#more-than-one-predictor">More than one predictor</a></li>
+  <li><a href="#coming-up-on-wednesday" id="toc-coming-up-on-wednesday" class="nav-link" data-scroll-target="#coming-up-on-wednesday">Coming up on Wednesday</a></li>
+  <li><a href="#data-and-credits" id="toc-data-and-credits" class="nav-link" data-scroll-target="#data-and-credits">Data and credits</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -276,32 +356,182 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="slide-contents" class="level1">
 <h1>Slide contents</h1>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Draft outline: content to come.</p>
-</div>
-</div>
-<section id="why-models-need-tidy-data" class="level2">
-<h2 class="anchored" data-anchor-id="why-models-need-tidy-data">Why models need tidy data</h2>
-<ul>
-<li>One row per observation, one column per variable, ready for a model formula</li>
-</ul>
 </section>
-<section id="coming-up-in-lecture-2" class="level2">
-<h2 class="anchored" data-anchor-id="coming-up-in-lecture-2">Coming up in Lecture 2</h2>
+<section id="two-kinds-of-questions" class="level2">
+<h2 class="anchored" data-anchor-id="two-kinds-of-questions">Two kinds of questions</h2>
+<p>When we want to predict something, the type of outcome tells us what kind of model to use.</p>
 <ul>
-<li>Linear regression</li>
-<li>Logistic regression</li>
+<li>Regression, when the outcome is <em>quantitative</em>. What will this house sell for? How heavy will this baby be at birth?</li>
+<li>Classification, when the outcome is <em>categorical</em>. Will this patient’s cancer come back, yes or no?</li>
 </ul>
-<p>Source: <em>Tidy Modeling with R</em></p>
+<p>Today we’ll fit a linear regression. On Wednesday we’ll fit linear and logistic regressions on medical data.</p>
+</section>
+<section id="models-need-tidy-data" class="level2">
+<h2 class="anchored" data-anchor-id="models-need-tidy-data">Models need tidy data</h2>
+<p>A model formula like <code>price ~ sqft</code> expects the data to have one row per observation (each house sale) and one column per variable (the price and the size), which is exactly what tidy data gives us.</p>
+</section>
+<section id="sacramento-house-sales" class="level2">
+<h2 class="anchored" data-anchor-id="sacramento-house-sales">Sacramento house sales</h2>
+<p>This is a dataset of house sales in Sacramento, California. It comes with tidymodels, in the modeldata package.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Sacramento</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 932 × 9
+   city           zip     beds baths  sqft type        price latitude longitude
+   &lt;fct&gt;          &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+ 1 SACRAMENTO     z95838     2     1   836 Residential 59222     38.6     -121.
+ 2 SACRAMENTO     z95823     3     1  1167 Residential 68212     38.5     -121.
+ 3 SACRAMENTO     z95815     2     1   796 Residential 68880     38.6     -121.
+ 4 SACRAMENTO     z95815     2     1   852 Residential 69307     38.6     -121.
+ 5 SACRAMENTO     z95824     2     1   797 Residential 81900     38.5     -121.
+ 6 SACRAMENTO     z95841     3     1  1122 Condo       89921     38.7     -121.
+ 7 SACRAMENTO     z95842     3     2  1104 Residential 90895     38.7     -121.
+ 8 SACRAMENTO     z95820     3     1  1177 Residential 91002     38.5     -121.
+ 9 RANCHO_CORDOVA z95670     2     2   941 Condo       94905     38.6     -121.
+10 RIO_LINDA      z95673     3     2  1146 Residential 98937     38.7     -121.
+# ℹ 922 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="is-size-related-to-price" class="level2">
+<h2 class="anchored" data-anchor-id="is-size-related-to-price">Is size related to price?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Sacramento, <span class="fu">aes</span>(<span class="at">x =</span> sqft, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"House size (square feet)"</span>, <span class="at">y =</span> <span class="st">"Sale price (USD)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-tidy-to-models_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-regression-the-line-of-best-fit" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-the-line-of-best-fit">Linear regression: the line of best fit</h2>
+<p><span class="math display">\[
+\text{price} = \beta_0 + \beta_1 \times \text{sqft}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> is the intercept, where the line crosses the y axis</li>
+<li><span class="math inline">\(\beta_1\)</span> is the slope, how much the price changes for each extra square foot</li>
+</ul>
+<p>The “best” line is the one with the smallest squared vertical distances between the line and the data points.</p>
+</section>
+<section id="fit-it-with-tidymodels" class="level2">
+<h2 class="anchored" data-anchor-id="fit-it-with-tidymodels">Fit it with tidymodels</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>house_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(price <span class="sc">~</span> sqft, <span class="at">data =</span> Sacramento)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>house_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>house_fit <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(house_recipe) <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(house_spec) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> Sacramento)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>house_fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow [trained] ══════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: linear_reg()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+0 Recipe Steps
+
+── Model ───────────────────────────────────────────────────────────────────────
+
+Call:
+stats::lm(formula = ..y ~ ., data = data)
+
+Coefficients:
+(Intercept)         sqft  
+    13859.4        138.5  </code></pre>
+</div>
+</div>
+</section>
+<section id="read-the-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="read-the-coefficients">Read the coefficients</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(house_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)   13859.   6949.        1.99 4.64e-  2
+2 sqft            139.      3.80     36.5  1.11e-181</code></pre>
+</div>
+</div>
+<p>For every extra square foot, the predicted price goes up by about 139 USD.</p>
+</section>
+<section id="see-the-line" class="level2">
+<h2 class="anchored" data-anchor-id="see-the-line">See the line</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Sacramento, <span class="fu">aes</span>(<span class="at">x =</span> sqft, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"House size (square feet)"</span>, <span class="at">y =</span> <span class="st">"Sale price (USD)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-tidy-to-models_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="more-than-one-predictor" class="level2">
+<h2 class="anchored" data-anchor-id="more-than-one-predictor">More than one predictor</h2>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_m X_m
+\]</span></p>
+<p>To use more predictors, we add them to the formula.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(price <span class="sc">~</span> sqft <span class="sc">+</span> beds <span class="sc">+</span> baths, <span class="at">data =</span> Sacramento)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Recipe ──────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Inputs </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Number of variables by role</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>outcome:   1
+predictor: 3</code></pre>
+</div>
+</div>
+<p>Now each slope is how much the outcome changes for one predictor, when the other predictors stay the same.</p>
+</section>
+<section id="coming-up-on-wednesday" class="level2">
+<h2 class="anchored" data-anchor-id="coming-up-on-wednesday">Coming up on Wednesday</h2>
+<ul>
+<li>A linear regression on a clinical trial, to see if treating periodontal disease during pregnancy changed the baby’s birth weight</li>
+<li>A logistic regression for a yes/no outcome, to see if the storage age of transfused blood is associated with prostate cancer coming back</li>
+</ul>
+<p>For the logistic regression we’ll report odds ratios.</p>
+</section>
+<section id="data-and-credits" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
+<ul>
+<li><code>Sacramento</code>: from modeldata, loaded with tidymodels.</li>
+<li>Adapted from chapter 8 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).</li>
+</ul>
 
 
 </section>
@@ -709,6 +939,19 @@ Note
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

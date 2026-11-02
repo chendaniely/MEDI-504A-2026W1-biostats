@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -45,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-35c3568c17950149c2e0b720c3d25ea4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a32864d36d9c86c06fd8b0eefc7ccc1d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -190,6 +225,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">From tidy data to models</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/05-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units (optional)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -239,9 +280,26 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
   <ul class="collapse">
-  <li><a href="#what-makes-data-tidy" id="toc-what-makes-data-tidy" class="nav-link" data-scroll-target="#what-makes-data-tidy">What makes data tidy</a></li>
-  <li><a href="#untidy-examples" id="toc-untidy-examples" class="nav-link" data-scroll-target="#untidy-examples">Untidy examples</a></li>
-  <li><a href="#reshaping-with-tidyr" id="toc-reshaping-with-tidyr" class="nav-link" data-scroll-target="#reshaping-with-tidyr">Reshaping with tidyr</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#what-is-tidy-data" id="toc-what-is-tidy-data" class="nav-link" data-scroll-target="#what-is-tidy-data">What is tidy data?</a></li>
+  <li><a href="#the-original-definition-2014" id="toc-the-original-definition-2014" class="nav-link" data-scroll-target="#the-original-definition-2014">The original definition (2014)</a></li>
+  <li><a href="#tidy-or-not-1-of-4" id="toc-tidy-or-not-1-of-4" class="nav-link" data-scroll-target="#tidy-or-not-1-of-4">Tidy or not? (1 of 4)</a></li>
+  <li><a href="#tidy-or-not-2-of-4" id="toc-tidy-or-not-2-of-4" class="nav-link" data-scroll-target="#tidy-or-not-2-of-4">Tidy or not? (2 of 4)</a></li>
+  <li><a href="#tidy-or-not-3-of-4" id="toc-tidy-or-not-3-of-4" class="nav-link" data-scroll-target="#tidy-or-not-3-of-4">Tidy or not? (3 of 4)</a></li>
+  <li><a href="#tidy-or-not-4-of-4" id="toc-tidy-or-not-4-of-4" class="nav-link" data-scroll-target="#tidy-or-not-4-of-4">Tidy or not? (4 of 4)</a></li>
+  <li><a href="#why-bother" id="toc-why-bother" class="nav-link" data-scroll-target="#why-bother">Why bother?</a></li>
+  <li><a href="#five-ways-data-gets-messy" id="toc-five-ways-data-gets-messy" class="nav-link" data-scroll-target="#five-ways-data-gets-messy">Five ways data gets messy</a></li>
+  <li><a href="#problem-1-column-headers-are-values" id="toc-problem-1-column-headers-are-values" class="nav-link" data-scroll-target="#problem-1-column-headers-are-values">Problem 1: column headers are values</a></li>
+  <li><a href="#pivot_longer-wide-to-long" id="toc-pivot_longer-wide-to-long" class="nav-link" data-scroll-target="#pivot_longer-wide-to-long"><code>pivot_longer()</code>: wide to long</a></li>
+  <li><a href="#now-we-can-summarize-it" id="toc-now-we-can-summarize-it" class="nav-link" data-scroll-target="#now-we-can-summarize-it">Now we can summarize it</a></li>
+  <li><a href="#problem-1-again-the-billboard-chart" id="toc-problem-1-again-the-billboard-chart" class="nav-link" data-scroll-target="#problem-1-again-the-billboard-chart">Problem 1 again: the Billboard chart</a></li>
+  <li><a href="#tidy-the-weeks" id="toc-tidy-the-weeks" class="nav-link" data-scroll-target="#tidy-the-weeks">Tidy the weeks</a></li>
+  <li><a href="#problem-2-multiple-variables-in-one-column" id="toc-problem-2-multiple-variables-in-one-column" class="nav-link" data-scroll-target="#problem-2-multiple-variables-in-one-column">Problem 2: multiple variables in one column</a></li>
+  <li><a href="#split-the-header-into-three-variables" id="toc-split-the-header-into-three-variables" class="nav-link" data-scroll-target="#split-the-header-into-three-variables">Split the header into three variables</a></li>
+  <li><a href="#problem-3-variables-in-rows-and-columns" id="toc-problem-3-variables-in-rows-and-columns" class="nav-link" data-scroll-target="#problem-3-variables-in-rows-and-columns">Problem 3: variables in rows and columns</a></li>
+  <li><a href="#pivot-longer-then-wider" id="toc-pivot-longer-then-wider" class="nav-link" data-scroll-target="#pivot-longer-then-wider">Pivot longer, then wider</a></li>
+  <li><a href="#the-tidyr-toolkit" id="toc-the-tidyr-toolkit" class="nav-link" data-scroll-target="#the-tidyr-toolkit">The tidyr toolkit</a></li>
+  <li><a href="#data-and-credits" id="toc-data-and-credits" class="nav-link" data-scroll-target="#data-and-credits">Data and credits</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -275,43 +333,560 @@ ul.task-list li input[type="checkbox"] {
     </div>
   
 </div>
-<section id="slide-contents" class="level1">
+<section id="slide-contents" class="level1 page-columns page-full">
 <h1>Slide contents</h1>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Draft outline: content to come.</p>
-</div>
-</div>
-<section id="what-makes-data-tidy" class="level2">
-<h2 class="anchored" data-anchor-id="what-makes-data-tidy">What makes data tidy</h2>
-<ul>
-<li>Each variable is a column</li>
-<li>Each observation is a row</li>
-<li>Each value is a cell</li>
-</ul>
-<p>Source: Wickham (2014), <em>Tidy Data</em></p>
 </section>
-<section id="untidy-examples" class="level2">
-<h2 class="anchored" data-anchor-id="untidy-examples">Untidy examples</h2>
-<ul>
+<section id="what-is-tidy-data" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="what-is-tidy-data">What is tidy data?</h2>
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_1.jpg" class="img-fluid" style="width:70.0%" alt="Illustration of tidy data: each variable is a column, each observation is a row, each value is a cell."></p>
+<ol type="1">
+<li>Each <strong>variable</strong> is a column; each column is a variable</li>
+<li>Each <strong>observation</strong> is a row; each row is an observation</li>
+<li>Each <strong>value</strong> is a cell; each cell is a single value</li>
+</ol>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Rules from <a href="https://r4ds.hadley.nz/data-tidy.html"><em>R for Data Science</em> (2e), chapter 5</a>. Illustration by Julia Lowndes and Allison Horst, from the <a href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">Openscapes blog</a> (CC BY 4.0).</p>
+</div></div></section>
+<section id="the-original-definition-2014" class="level2">
+<h2 class="anchored" data-anchor-id="the-original-definition-2014">The original definition (2014)</h2>
+<p>The original <em>Tidy Data</em> paper from 2014 defines it a little differently:</p>
+<ol type="1">
+<li>Each variable forms a column</li>
+<li>Each observation forms a row</li>
+<li>Each <strong>type of observational unit</strong> forms a table</li>
+</ol>
+<p>The third rule is really about databases, where data is split into separate tables and joined back together. The newer definition replaces it with “each value is a cell”. We’ll come back to observational units at the end, in the optional <a href="../lecture-01/05-observational-units.html">Observational units</a> section.</p>
+</section>
+<section id="tidy-or-not-1-of-4" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-or-not-1-of-4">Tidy or not? (1 of 4)</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>country</th>
+<th>year</th>
+<th>rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>1999</td>
+<td>745/19987071</td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td>2000</td>
+<td>2666/20595360</td>
+</tr>
+<tr class="odd">
+<td>Brazil</td>
+<td>1999</td>
+<td>37737/172006362</td>
+</tr>
+<tr class="even">
+<td>Brazil</td>
+<td>2000</td>
+<td>80488/174504898</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Not tidy. The <code>rate</code> column has two values in each cell, the number of cases and the population.</p>
+</div>
+</section>
+<section id="tidy-or-not-2-of-4" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-or-not-2-of-4">Tidy or not? (2 of 4)</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>country</th>
+<th>1999</th>
+<th>2000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>745</td>
+<td>2666</td>
+</tr>
+<tr class="even">
+<td>Brazil</td>
+<td>37737</td>
+<td>80488</td>
+</tr>
+<tr class="odd">
+<td>China</td>
+<td>212258</td>
+<td>213766</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Not tidy. The years are column headers, but they’re really values of a <code>year</code> variable.</p>
+</div>
+</section>
+<section id="tidy-or-not-3-of-4" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-or-not-3-of-4">Tidy or not? (3 of 4)</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>country</th>
+<th>year</th>
+<th>type</th>
+<th>count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>1999</td>
+<td>cases</td>
+<td>745</td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td>1999</td>
+<td>population</td>
+<td>19987071</td>
+</tr>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>2000</td>
+<td>cases</td>
+<td>2666</td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td>2000</td>
+<td>population</td>
+<td>20595360</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Not tidy. The <code>count</code> column mixes two different variables, cases and population.</p>
+</div>
+</section>
+<section id="tidy-or-not-4-of-4" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-or-not-4-of-4">Tidy or not? (4 of 4)</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>country</th>
+<th>year</th>
+<th>cases</th>
+<th>population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>1999</td>
+<td>745</td>
+<td>19987071</td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td>2000</td>
+<td>2666</td>
+<td>20595360</td>
+</tr>
+<tr class="odd">
+<td>Brazil</td>
+<td>1999</td>
+<td>37737</td>
+<td>172006362</td>
+</tr>
+<tr class="even">
+<td>Brazil</td>
+<td>2000</td>
+<td>80488</td>
+<td>174504898</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Tidy! Each row is an observation, each column is a variable, and each cell has a single value.</p>
+</div>
+</section>
+<section id="why-bother" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="why-bother">Why bother?</h2>
+<p><img src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_2.jpg" class="img-fluid" style="width:70.0%" alt="Illustration: tidy datasets are all alike, but every messy dataset is messy in its own way."></p>
+<p>Once our data is tidy, we can use the same tools every time we summarize, plot, or model it.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p>Illustration by Julia Lowndes and Allison Horst (CC BY 4.0).</p>
+</div></div></section>
+<section id="five-ways-data-gets-messy" class="level2">
+<h2 class="anchored" data-anchor-id="five-ways-data-gets-messy">Five ways data gets messy</h2>
+<p>The <em>Tidy Data</em> paper lists five common ways data gets messy:</p>
+<ol type="1">
 <li>Column headers are values, not variable names</li>
-<li>Several variables stored in one column</li>
-<li>Variables stored in both rows and columns</li>
-</ul>
+<li>Multiple variables are stored in one column</li>
+<li>Variables are stored in both rows and columns</li>
+<li>Multiple types of observational units are stored in the same table</li>
+<li>A single observational unit is stored in multiple tables</li>
+</ol>
+<p>We’ll go through the first three using the datasets from the paper. Problems 4 and 5 are about observational units, which are in the optional <a href="../lecture-01/05-observational-units.html">Observational units</a> section.</p>
 </section>
-<section id="reshaping-with-tidyr" class="level2">
-<h2 class="anchored" data-anchor-id="reshaping-with-tidyr">Reshaping with tidyr</h2>
+<section id="problem-1-column-headers-are-values" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1-column-headers-are-values">Problem 1: column headers are values</h2>
+<p>This is a Pew survey that counts people by religion and income. The income brackets are column headers, but they’re really values of an <code>income</code> variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pew <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/pew.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 18 Columns: 11
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (1): religion
+dbl (10): &lt;$10k, $10-20k, $20-30k, $30-40k, $40-50k, $50-75k, $75-100k, $100...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pew</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 11
+   religion `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`
+   &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Agnostic      27        34        60        81        76       137        122
+ 2 Atheist       12        27        37        52        35        70         73
+ 3 Buddhist      27        21        30        34        33        58         62
+ 4 Catholic     418       617       732       670       638      1116        949
+ 5 Don’t k…      15        14        15        11        10        35         21
+ 6 Evangel…     575       869      1064       982       881      1486        949
+ 7 Hindu          1         9         7         9        11        34         47
+ 8 Histori…     228       244       236       238       197       223        131
+ 9 Jehovah…      20        27        24        24        21        30         15
+10 Jewish        19        19        25        25        30        95         69
+11 Mainlin…     289       495       619       655       651      1107        939
+12 Mormon        29        40        48        51        56       112         85
+13 Muslim         6         7         9        10         9        23         16
+14 Orthodox      13        17        23        32        32        47         38
+15 Other C…       9         7        11        13        13        14         18
+16 Other F…      20        33        40        46        49        63         46
+17 Other W…       5         2         3         4         2         7          3
+18 Unaffil…     217       299       374       365       341       528        407
+# ℹ 3 more variables: `$100-150k` &lt;dbl&gt;, `&gt;150k` &lt;dbl&gt;,
+#   `Don't know/refused` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="pivot_longer-wide-to-long" class="level2">
+<h2 class="anchored" data-anchor-id="pivot_longer-wide-to-long"><code>pivot_longer()</code>: wide to long</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pew_tidy <span class="ot">&lt;-</span> pew <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>religion,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"income"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"frequency"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>pew_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 180 × 3
+   religion income             frequency
+   &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;
+ 1 Agnostic &lt;$10k                     27
+ 2 Agnostic $10-20k                   34
+ 3 Agnostic $20-30k                   60
+ 4 Agnostic $30-40k                   81
+ 5 Agnostic $40-50k                   76
+ 6 Agnostic $50-75k                  137
+ 7 Agnostic $75-100k                 122
+ 8 Agnostic $100-150k                109
+ 9 Agnostic &gt;150k                     84
+10 Agnostic Don't know/refused        96
+# ℹ 170 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="now-we-can-summarize-it" class="level2">
+<h2 class="anchored" data-anchor-id="now-we-can-summarize-it">Now we can summarize it</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pew_tidy <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(religion) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">sum</span>(frequency))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   religion                count
+   &lt;chr&gt;                   &lt;dbl&gt;
+ 1 Agnostic                  826
+ 2 Atheist                   515
+ 3 Buddhist                  411
+ 4 Catholic                 8054
+ 5 Don’t know/refused        272
+ 6 Evangelical Prot         9472
+ 7 Hindu                     257
+ 8 Historically Black Prot  1995
+ 9 Jehovah's Witness         215
+10 Jewish                    682
+11 Mainline Prot            7470
+12 Mormon                    581
+13 Muslim                    116
+14 Orthodox                  363
+15 Other Christian           129
+16 Other Faiths              449
+17 Other World Religions      42
+18 Unaffiliated             3707</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-1-again-the-billboard-chart" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1-again-the-billboard-chart">Problem 1 again: the Billboard chart</h2>
+<p>Each row is a song, and <code>wk1</code> to <code>wk76</code> hold its rank for each week it was on the chart. The week number is a value hiding in the column headers.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>billboard <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/billboard.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 317 Columns: 81
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (2): artist, track
+dbl  (66): year, wk1, wk2, wk3, wk4, wk5, wk6, wk7, wk8, wk9, wk10, wk11, wk...
+lgl  (11): wk66, wk67, wk68, wk69, wk70, wk71, wk72, wk73, wk74, wk75, wk76
+date  (1): date.entered
+time  (1): time
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>billboard</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 317 × 81
+    year artist     track time  date.entered   wk1   wk2   wk3   wk4   wk5   wk6
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt; &lt;tim&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  2000 2 Pac      Baby… 04:22 2000-02-26      87    82    72    77    87    94
+ 2  2000 2Ge+her    The … 03:15 2000-09-02      91    87    92    NA    NA    NA
+ 3  2000 3 Doors D… Kryp… 03:53 2000-04-08      81    70    68    67    66    57
+ 4  2000 3 Doors D… Loser 04:24 2000-10-21      76    76    72    69    67    65
+ 5  2000 504 Boyz   Wobb… 03:35 2000-04-15      57    34    25    17    17    31
+ 6  2000 98^0       Give… 03:24 2000-08-19      51    39    34    26    26    19
+ 7  2000 A*Teens    Danc… 03:44 2000-07-08      97    97    96    95   100    NA
+ 8  2000 Aaliyah    I Do… 04:15 2000-01-29      84    62    51    41    38    35
+ 9  2000 Aaliyah    Try … 04:03 2000-03-18      59    53    38    28    21    18
+10  2000 Adams, Yo… Open… 05:30 2000-08-26      76    76    74    69    68    67
+# ℹ 307 more rows
+# ℹ 70 more variables: wk7 &lt;dbl&gt;, wk8 &lt;dbl&gt;, wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;,
+#   wk12 &lt;dbl&gt;, wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;,
+#   wk18 &lt;dbl&gt;, wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;,
+#   wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;,
+#   wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;,
+#   wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="tidy-the-weeks" class="level2">
+<h2 class="anchored" data-anchor-id="tidy-the-weeks">Tidy the weeks</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>billboard_tidy <span class="ot">&lt;-</span> billboard <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"wk"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">week =</span> as.integer),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span> <span class="co"># drop weeks the song was not on the chart</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the date at a rank = the date it entered + (week - 1) weeks</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> date.entered <span class="sc">+</span> (week <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(artist, track, week) <span class="sc">|&gt;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, artist, track, time, week, rank, date)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>billboard_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,307 × 7
+    year artist  track                   time    week  rank date      
+   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;time&gt; &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    
+ 1  2000 2 Pac   Baby Don't Cry (Keep... 04:22      1    87 2000-02-26
+ 2  2000 2 Pac   Baby Don't Cry (Keep... 04:22      2    82 2000-03-04
+ 3  2000 2 Pac   Baby Don't Cry (Keep... 04:22      3    72 2000-03-11
+ 4  2000 2 Pac   Baby Don't Cry (Keep... 04:22      4    77 2000-03-18
+ 5  2000 2 Pac   Baby Don't Cry (Keep... 04:22      5    87 2000-03-25
+ 6  2000 2 Pac   Baby Don't Cry (Keep... 04:22      6    94 2000-04-01
+ 7  2000 2 Pac   Baby Don't Cry (Keep... 04:22      7    99 2000-04-08
+ 8  2000 2Ge+her The Hardest Part Of ... 03:15      1    91 2000-09-02
+ 9  2000 2Ge+her The Hardest Part Of ... 03:15      2    87 2000-09-09
+10  2000 2Ge+her The Hardest Part Of ... 03:15      3    92 2000-09-16
+# ℹ 5,297 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-2-multiple-variables-in-one-column" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2-multiple-variables-in-one-column">Problem 2: multiple variables in one column</h2>
+<p>These are the WHO tuberculosis counts from the paper (<code>who2</code> comes with tidyr). A column name like <code>sp_m_014</code> has three variables in it, the diagnosis method (<code>sp</code>), gender (<code>m</code>), and age group (<code>014</code>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>who2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7,240 × 58
+   country      year sp_m_014 sp_m_1524 sp_m_2534 sp_m_3544 sp_m_4554 sp_m_5564
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan  1980       NA        NA        NA        NA        NA        NA
+ 2 Afghanistan  1981       NA        NA        NA        NA        NA        NA
+ 3 Afghanistan  1982       NA        NA        NA        NA        NA        NA
+ 4 Afghanistan  1983       NA        NA        NA        NA        NA        NA
+ 5 Afghanistan  1984       NA        NA        NA        NA        NA        NA
+ 6 Afghanistan  1985       NA        NA        NA        NA        NA        NA
+ 7 Afghanistan  1986       NA        NA        NA        NA        NA        NA
+ 8 Afghanistan  1987       NA        NA        NA        NA        NA        NA
+ 9 Afghanistan  1988       NA        NA        NA        NA        NA        NA
+10 Afghanistan  1989       NA        NA        NA        NA        NA        NA
+# ℹ 7,230 more rows
+# ℹ 50 more variables: sp_m_65 &lt;dbl&gt;, sp_f_014 &lt;dbl&gt;, sp_f_1524 &lt;dbl&gt;,
+#   sp_f_2534 &lt;dbl&gt;, sp_f_3544 &lt;dbl&gt;, sp_f_4554 &lt;dbl&gt;, sp_f_5564 &lt;dbl&gt;,
+#   sp_f_65 &lt;dbl&gt;, sn_m_014 &lt;dbl&gt;, sn_m_1524 &lt;dbl&gt;, sn_m_2534 &lt;dbl&gt;,
+#   sn_m_3544 &lt;dbl&gt;, sn_m_4554 &lt;dbl&gt;, sn_m_5564 &lt;dbl&gt;, sn_m_65 &lt;dbl&gt;,
+#   sn_f_014 &lt;dbl&gt;, sn_f_1524 &lt;dbl&gt;, sn_f_2534 &lt;dbl&gt;, sn_f_3544 &lt;dbl&gt;,
+#   sn_f_4554 &lt;dbl&gt;, sn_f_5564 &lt;dbl&gt;, sn_f_65 &lt;dbl&gt;, ep_m_014 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="split-the-header-into-three-variables" class="level2">
+<h2 class="anchored" data-anchor-id="split-the-header-into-three-variables">Split the header into three variables</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>who2 <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">!</span>(country<span class="sc">:</span>year),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"count"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 76,046 × 6
+   country      year diagnosis gender age   count
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+ 1 Afghanistan  1997 sp        m      014       0
+ 2 Afghanistan  1997 sp        m      1524     10
+ 3 Afghanistan  1997 sp        m      2534      6
+ 4 Afghanistan  1997 sp        m      3544      3
+ 5 Afghanistan  1997 sp        m      4554      5
+ 6 Afghanistan  1997 sp        m      5564      2
+ 7 Afghanistan  1997 sp        m      65        0
+ 8 Afghanistan  1997 sp        f      014       5
+ 9 Afghanistan  1997 sp        f      1524     38
+10 Afghanistan  1997 sp        f      2534     36
+# ℹ 76,036 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="problem-3-variables-in-rows-and-columns" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3-variables-in-rows-and-columns">Problem 3: variables in rows and columns</h2>
+<p>These are daily temperatures from a weather station in Mexico. The days of the month are spread across <code>d1</code> to <code>d31</code>, and the maximum and minimum temperatures (<code>tmax</code>, <code>tmin</code>) are stuck in the rows of the <code>element</code> column.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/weather.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 22 Columns: 35
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (2): id, element
+dbl (25): year, month, d1, d2, d3, d4, d5, d6, d7, d8, d10, d11, d13, d14, d...
+lgl  (8): d9, d12, d18, d19, d20, d21, d22, d24
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>weather</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 22 × 35
+   id       year month element    d1    d2    d3    d4    d5    d6    d7    d8
+   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 MX17004  2010     1 tmax       NA  NA    NA      NA  NA      NA    NA    NA
+ 2 MX17004  2010     1 tmin       NA  NA    NA      NA  NA      NA    NA    NA
+ 3 MX17004  2010     2 tmax       NA  27.3  24.1    NA  NA      NA    NA    NA
+ 4 MX17004  2010     2 tmin       NA  14.4  14.4    NA  NA      NA    NA    NA
+ 5 MX17004  2010     3 tmax       NA  NA    NA      NA  32.1    NA    NA    NA
+ 6 MX17004  2010     3 tmin       NA  NA    NA      NA  14.2    NA    NA    NA
+ 7 MX17004  2010     4 tmax       NA  NA    NA      NA  NA      NA    NA    NA
+ 8 MX17004  2010     4 tmin       NA  NA    NA      NA  NA      NA    NA    NA
+ 9 MX17004  2010     5 tmax       NA  NA    NA      NA  NA      NA    NA    NA
+10 MX17004  2010     5 tmin       NA  NA    NA      NA  NA      NA    NA    NA
+# ℹ 12 more rows
+# ℹ 23 more variables: d9 &lt;lgl&gt;, d10 &lt;dbl&gt;, d11 &lt;dbl&gt;, d12 &lt;lgl&gt;, d13 &lt;dbl&gt;,
+#   d14 &lt;dbl&gt;, d15 &lt;dbl&gt;, d16 &lt;dbl&gt;, d17 &lt;dbl&gt;, d18 &lt;lgl&gt;, d19 &lt;lgl&gt;,
+#   d20 &lt;lgl&gt;, d21 &lt;lgl&gt;, d22 &lt;lgl&gt;, d23 &lt;dbl&gt;, d24 &lt;lgl&gt;, d25 &lt;dbl&gt;,
+#   d26 &lt;dbl&gt;, d27 &lt;dbl&gt;, d28 &lt;dbl&gt;, d29 &lt;dbl&gt;, d30 &lt;dbl&gt;, d31 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="pivot-longer-then-wider" class="level2">
+<h2 class="anchored" data-anchor-id="pivot-longer-then-wider">Pivot longer, then wider</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>weather_tidy <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"d"</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"day"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"d"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">day =</span> as.integer),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"temp"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day)) <span class="sc">|&gt;</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> element, <span class="co"># tmax and tmin become their own columns</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> temp</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, date, tmax, tmin) <span class="sc">|&gt;</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(id, date)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>weather_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 33 × 4
+   id      date        tmax  tmin
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 MX17004 2010-01-30  27.8  14.5
+ 2 MX17004 2010-02-02  27.3  14.4
+ 3 MX17004 2010-02-03  24.1  14.4
+ 4 MX17004 2010-02-11  29.7  13.4
+ 5 MX17004 2010-02-23  29.9  10.7
+ 6 MX17004 2010-03-05  32.1  14.2
+ 7 MX17004 2010-03-10  34.5  16.8
+ 8 MX17004 2010-03-16  31.1  17.6
+ 9 MX17004 2010-04-27  36.3  16.7
+10 MX17004 2010-05-27  33.2  18.2
+# ℹ 23 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="the-tidyr-toolkit" class="level2">
+<h2 class="anchored" data-anchor-id="the-tidyr-toolkit">The tidyr toolkit</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Use it when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pivot_longer()</code></td>
+<td>values are spread across column headers (wide to long)</td>
+</tr>
+<tr class="even">
+<td><code>pivot_wider()</code></td>
+<td>variables are stuck in rows (long to wide)</td>
+</tr>
+<tr class="odd">
+<td><code>separate_wider_delim()</code>, or <code>names_sep</code> in <code>pivot_longer()</code></td>
+<td>one column or header holds several variables</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-and-credits" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
 <ul>
-<li><code>pivot_longer()</code></li>
-<li><code>pivot_wider()</code></li>
+<li><code>pew.csv</code>, <code>billboard.csv</code>, <code>weather.csv</code>: the tidy data paper’s examples, via <a href="https://github.com/chendaniely/pandas_for_everyone"><code>chendaniely/pandas_for_everyone</code></a> and <a href="https://github.com/hadley/tidy-data"><code>hadley/tidy-data</code></a>.</li>
+<li><code>who2</code>: from tidyr, loaded with the tidyverse.</li>
+<li>Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, 59(10). <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a></li>
+<li>The tidy-or-not quiz is adapted from <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).</li>
 </ul>
 
 
@@ -720,6 +1295,19 @@ Note
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
