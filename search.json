@@ -1,0 +1,432 @@
+[
+  {
+    "objectID": "lecture-02/04-logistic-regression.html",
+    "href": "lecture-02/04-logistic-regression.html",
+    "title": "Logistic regression",
+    "section": "",
+    "text": "Note\n\n\n\nDraft outline: content to come.\n\n\n\nFit a logistic regression with tidymodels\nReport odds ratios with tidy(exponentiate = TRUE)\nInterpret them for a clinical audience",
+    "crumbs": [
+      "Local setup",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/02-clean-and-tidy.html",
+    "href": "lecture-02/02-clean-and-tidy.html",
+    "title": "Cleaning and tidying a medical dataset",
+    "section": "",
+    "text": "Note\n\n\n\nDraft outline: content to come.\n\n\n\nLoad a medicaldata dataset\nClean variable names and types\nReshape it into tidy form\n\nBased on the examples in Data Science for the Biomedical Sciences.",
+    "crumbs": [
+      "Local setup",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Cleaning and tidying a medical dataset"
+    ]
+  },
+  {
+    "objectID": "lecture-01/slides/04-tidy-to-models.html#why-models-need-tidy-data",
+    "href": "lecture-01/slides/04-tidy-to-models.html#why-models-need-tidy-data",
+    "title": "From tidy data to models",
+    "section": "Why models need tidy data",
+    "text": "Why models need tidy data\n\nOne row per observation, one column per variable, ready for a model formula"
+  },
+  {
+    "objectID": "lecture-01/slides/04-tidy-to-models.html#coming-up-in-lecture-2",
+    "href": "lecture-01/slides/04-tidy-to-models.html#coming-up-in-lecture-2",
+    "title": "From tidy data to models",
+    "section": "Coming up in Lecture 2",
+    "text": "Coming up in Lecture 2\n\nLinear regression\nLogistic regression\n\nSource: Tidy Modeling with R"
+  },
+  {
+    "objectID": "lecture-01/slides/02-tidy-data.html#what-makes-data-tidy",
+    "href": "lecture-01/slides/02-tidy-data.html#what-makes-data-tidy",
+    "title": "Tidy data",
+    "section": "What makes data tidy",
+    "text": "What makes data tidy\n\nEach variable is a column\nEach observation is a row\nEach value is a cell\n\nSource: Wickham (2014), Tidy Data"
+  },
+  {
+    "objectID": "lecture-01/slides/02-tidy-data.html#untidy-examples",
+    "href": "lecture-01/slides/02-tidy-data.html#untidy-examples",
+    "title": "Tidy data",
+    "section": "Untidy examples",
+    "text": "Untidy examples\n\nColumn headers are values, not variable names\nSeveral variables stored in one column\nVariables stored in both rows and columns"
+  },
+  {
+    "objectID": "lecture-01/slides/02-tidy-data.html#reshaping-with-tidyr",
+    "href": "lecture-01/slides/02-tidy-data.html#reshaping-with-tidyr",
+    "title": "Tidy data",
+    "section": "Reshaping with tidyr",
+    "text": "Reshaping with tidyr\n\npivot_longer()\npivot_wider()"
+  },
+  {
+    "objectID": "lecture-01/04-tidy-to-models.html",
+    "href": "lecture-01/04-tidy-to-models.html",
+    "title": "From tidy data to models",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "From tidy data to models"
+    ]
+  },
+  {
+    "objectID": "lecture-01/04-tidy-to-models.html#why-models-need-tidy-data",
+    "href": "lecture-01/04-tidy-to-models.html#why-models-need-tidy-data",
+    "title": "From tidy data to models",
+    "section": "Why models need tidy data",
+    "text": "Why models need tidy data\n\nOne row per observation, one column per variable, ready for a model formula",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "From tidy data to models"
+    ]
+  },
+  {
+    "objectID": "lecture-01/04-tidy-to-models.html#coming-up-in-lecture-2",
+    "href": "lecture-01/04-tidy-to-models.html#coming-up-in-lecture-2",
+    "title": "From tidy data to models",
+    "section": "Coming up in Lecture 2",
+    "text": "Coming up in Lecture 2\n\nLinear regression\nLogistic regression\n\nSource: Tidy Modeling with R",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "From tidy data to models"
+    ]
+  },
+  {
+    "objectID": "lecture-01/02-tidy-data.html",
+    "href": "lecture-01/02-tidy-data.html",
+    "title": "Tidy data",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Tidy data"
+    ]
+  },
+  {
+    "objectID": "lecture-01/02-tidy-data.html#what-makes-data-tidy",
+    "href": "lecture-01/02-tidy-data.html#what-makes-data-tidy",
+    "title": "Tidy data",
+    "section": "What makes data tidy",
+    "text": "What makes data tidy\n\nEach variable is a column\nEach observation is a row\nEach value is a cell\n\nSource: Wickham (2014), Tidy Data",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Tidy data"
+    ]
+  },
+  {
+    "objectID": "lecture-01/02-tidy-data.html#untidy-examples",
+    "href": "lecture-01/02-tidy-data.html#untidy-examples",
+    "title": "Tidy data",
+    "section": "Untidy examples",
+    "text": "Untidy examples\n\nColumn headers are values, not variable names\nSeveral variables stored in one column\nVariables stored in both rows and columns",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Tidy data"
+    ]
+  },
+  {
+    "objectID": "lecture-01/02-tidy-data.html#reshaping-with-tidyr",
+    "href": "lecture-01/02-tidy-data.html#reshaping-with-tidyr",
+    "title": "Tidy data",
+    "section": "Reshaping with tidyr",
+    "text": "Reshaping with tidyr\n\npivot_longer()\npivot_wider()",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Tidy data"
+    ]
+  },
+  {
+    "objectID": "setup-codespaces.html",
+    "href": "setup-codespaces.html",
+    "title": "Codespaces",
+    "section": "",
+    "text": "A GitHub Codespace is VS Code in your browser, already set up with R, Quarto, the tidyverse, tidymodels and medicaldata. All you need is a GitHub account.\nThis Codespace uses the same setup as the HDSx course book, whose pages walk through each step with screenshots:"
+  },
+  {
+    "objectID": "setup-codespaces.html#check-that-it-works",
+    "href": "setup-codespaces.html#check-that-it-works",
+    "title": "Codespaces",
+    "section": "Check that it works",
+    "text": "Check that it works\nOnce the Codespace is ready, open example.qmd and render it. It loads the course packages, draws three charts, and fits a small logistic regression. The rendered files go in the _site/ folder: click _site/example.html to open the page. It should match the Example page on this website."
+  },
+  {
+    "objectID": "example.html",
+    "href": "example.html",
+    "title": "My First Report",
+    "section": "",
+    "text": "This is a Quarto document. It mixes ordinary writing with live code, so your report and your analysis always stay in sync. When you render it, Quarto runs the code below and builds a finished HTML page.\nTry it now: change author: \"Your Name\" in the header above to your own name, then render this file."
+  },
+  {
+    "objectID": "example.html#welcome-to-your-practice-report",
+    "href": "example.html#welcome-to-your-practice-report",
+    "title": "My First Report",
+    "section": "",
+    "text": "This is a Quarto document. It mixes ordinary writing with live code, so your report and your analysis always stay in sync. When you render it, Quarto runs the code below and builds a finished HTML page.\nTry it now: change author: \"Your Name\" in the header above to your own name, then render this file."
+  },
+  {
+    "objectID": "example.html#packages",
+    "href": "example.html#packages",
+    "title": "My First Report",
+    "section": "Packages",
+    "text": "Packages\nEvery package this report uses, loaded once at the top: the tidyverse for data and charts, tidymodels for modelling, and medicaldata for example datasets.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)"
+  },
+  {
+    "objectID": "example.html#a-first-look-at-the-data",
+    "href": "example.html#a-first-look-at-the-data",
+    "title": "My First Report",
+    "section": "A first look at the data",
+    "text": "A first look at the data\ndata/patients.csv is a small, made-up practice dataset of 12 synthetic patients, It comes from ehsanx/HDSx-workspace, The code chunk below reads it and shows the first few rows.\n\npatients &lt;- read.csv(\"data/patients.csv\")\nhead(patients)\n\n  id age sex region systolic_bp diabetes\n1  1  54   F  North         128       no\n2  2  61   M  North         141      yes\n3  3  47   F  South         119       no\n4  4  72   M   East         150      yes\n5  5  38   F   West         112       no\n6  6  59   M  South         134       no"
+  },
+  {
+    "objectID": "example.html#a-first-chart",
+    "href": "example.html#a-first-chart",
+    "title": "My First Report",
+    "section": "A first chart",
+    "text": "A first chart\n\nggplot(patients, aes(x = age)) +\n  geom_histogram(binwidth = 5) +\n  labs(x = \"Age (years)\", y = \"Number of patients\")"
+  },
+  {
+    "objectID": "example.html#a-second-chart",
+    "href": "example.html#a-second-chart",
+    "title": "My First Report",
+    "section": "A second chart",
+    "text": "A second chart\n\nggplot(patients, aes(x = age, y = systolic_bp, colour = diabetes)) +\n  geom_point(size = 3) +\n  labs(x = \"Age (years)\", y = \"Systolic blood pressure (mm Hg)\",\n       colour = \"Diabetes\")"
+  },
+  {
+    "objectID": "example.html#a-medicaldata-dataset",
+    "href": "example.html#a-medicaldata-dataset",
+    "title": "My First Report",
+    "section": "A medicaldata dataset",
+    "text": "A medicaldata dataset\nmedicaldata has 15 medical datasets to explore, each described on the package website.\n\n\n\n\n\n\nNote\n\n\n\nThe website also lists a few newer datasets that the installed version (0.2.0, from CRAN) doesn’t have yet: run data(package = \"medicaldata\") to see the ones you can load.\nTo get the newer datasets too, install the development version from GitHub in the R terminal, then restart R:\n\nremotes::install_github(\"higgi13425/medicaldata\")\n\n\n\ncovid_testing holds deidentified COVID-19 test results from 2020.\n\nggplot(covid_testing, aes(x = age)) +\n  geom_histogram(binwidth = 5) +\n  labs(x = \"Age (years)\", y = \"Number of tests\")"
+  },
+  {
+    "objectID": "example.html#a-quick-model",
+    "href": "example.html#a-quick-model",
+    "title": "My First Report",
+    "section": "A quick model",
+    "text": "A quick model\nlicorice_gargle comes from a randomised trial (Ruetzler et al., 2013): before surgery, patients gargled either licorice or sugar water, and were asked about sore throat afterwards. A logistic regression compares the odds of a sore throat 30 minutes after surgery. An odds ratio below 1 means fewer sore throats with licorice.\n\nlicorice &lt;- licorice_gargle |&gt;\n  mutate(\n    gargle = factor(treat, levels = c(0, 1), labels = c(\"sugar\", \"licorice\")),\n    sore_throat = factor(pacu30min_throatPain &gt; 0, levels = c(FALSE, TRUE),\n                         labels = c(\"no\", \"yes\"))\n  ) |&gt;\n  drop_na(sore_throat)\n\nlogistic_reg() |&gt;\n  fit(sore_throat ~ gargle, data = licorice) |&gt;\n  tidy(exponentiate = TRUE, conf.int = TRUE)\n\n# A tibble: 2 × 7\n  term           estimate std.error statistic p.value conf.low conf.high\n  &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)       0.568     0.193     -2.93 0.00337    0.386     0.824\n2 garglelicorice    0.408     0.305     -2.93 0.00334    0.221     0.736"
+  },
+  {
+    "objectID": "example.html#your-turn",
+    "href": "example.html#your-turn",
+    "title": "My First Report",
+    "section": "Your turn",
+    "text": "Your turn\n\nAdd a sentence here describing what you notice in the charts.\nRender again and check that both your sentence and the charts appear."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MEDI 504A — Biostatistics with Tidyverse",
+    "section": "",
+    "text": "UBC MEDI 504A (Emerging Topics in Experimental Medicine), Winter 2026 term. Two sessions: tidy data as the foundation, then linear and logistic regression on medical data.\nCourse website: https://chendaniely.github.io/MEDI-504A-2026W1-biostats/\n\n\n\nLecture 1: Tidy data. Monday, Nov 2, 2026, 1:00–3:00 PM PST, ECC 100 LT. Start at Welcome.\nLecture 2: Modelling lab. Wednesday, Nov 4, 2026, 1:00–3:00 PM PST, DHCC 4223. Start at Clone the repository.\n\nWork in a Codespace, with nothing to install, or on your own computer (local setup).\n\n\n\n\nTimbers, T., Campbell, T., & Lee, M. Data Science: A First Introduction. https://datasciencebook.ca/\nChen, D. Data Science for the Biomedical Sciences. https://ds4biomed.tech/\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science (2nd ed.). https://r4ds.hadley.nz/\nKuhn, M., & Silge, J. Tidy Modeling with R. https://www.tmwr.org/\nWickham, H. (2014). Tidy Data. Journal of Statistical Software, 59(10), 1–23. https://doi.org/10.18637/jss.v059.i10\n\n\n\n\nThis repository is a Quarto website. .github/workflows/publish.yml renders it on every push to main and publishes it to GitHub Pages from the gh-pages branch. To preview it locally, run quarto preview.\nQuarto extensions, committed in _extensions/:\n\ncoatless-quarto/embedio: embeds each Lecture 1 slide deck at the top of its page. Update it with quarto add coatless-quarto/embedio.",
+    "crumbs": [
+      "Local setup",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#sessions",
+    "href": "index.html#sessions",
+    "title": "MEDI 504A — Biostatistics with Tidyverse",
+    "section": "",
+    "text": "Lecture 1: Tidy data. Monday, Nov 2, 2026, 1:00–3:00 PM PST, ECC 100 LT. Start at Welcome.\nLecture 2: Modelling lab. Wednesday, Nov 4, 2026, 1:00–3:00 PM PST, DHCC 4223. Start at Clone the repository.\n\nWork in a Codespace, with nothing to install, or on your own computer (local setup).",
+    "crumbs": [
+      "Local setup",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "MEDI 504A — Biostatistics with Tidyverse",
+    "section": "",
+    "text": "Timbers, T., Campbell, T., & Lee, M. Data Science: A First Introduction. https://datasciencebook.ca/\nChen, D. Data Science for the Biomedical Sciences. https://ds4biomed.tech/\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science (2nd ed.). https://r4ds.hadley.nz/\nKuhn, M., & Silge, J. Tidy Modeling with R. https://www.tmwr.org/\nWickham, H. (2014). Tidy Data. Journal of Statistical Software, 59(10), 1–23. https://doi.org/10.18637/jss.v059.i10",
+    "crumbs": [
+      "Local setup",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "index.html#building-the-website",
+    "href": "index.html#building-the-website",
+    "title": "MEDI 504A — Biostatistics with Tidyverse",
+    "section": "",
+    "text": "This repository is a Quarto website. .github/workflows/publish.yml renders it on every push to main and publishes it to GitHub Pages from the gh-pages branch. To preview it locally, run quarto preview.\nQuarto extensions, committed in _extensions/:\n\ncoatless-quarto/embedio: embeds each Lecture 1 slide deck at the top of its page. Update it with quarto add coatless-quarto/embedio.",
+    "crumbs": [
+      "Local setup",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "setup-local.html",
+    "href": "setup-local.html",
+    "title": "Local setup",
+    "section": "",
+    "text": "Note\n\n\n\nDraft: these steps will be finalized before Lecture 2.\nYou can follow along in a Codespace with nothing to install. To work on your own computer instead, install the following before Lecture 2."
+  },
+  {
+    "objectID": "setup-local.html#r",
+    "href": "setup-local.html#r",
+    "title": "Local setup",
+    "section": "R",
+    "text": "R\nInstall a current version of R from CRAN: https://cloud.r-project.org/."
+  },
+  {
+    "objectID": "setup-local.html#an-editor",
+    "href": "setup-local.html#an-editor",
+    "title": "Local setup",
+    "section": "An editor",
+    "text": "An editor\nUse either of these:\n\nPositron: https://positron.posit.co/\nRStudio Desktop: https://posit.co/download/rstudio-desktop/"
+  },
+  {
+    "objectID": "setup-local.html#quarto",
+    "href": "setup-local.html#quarto",
+    "title": "Local setup",
+    "section": "Quarto",
+    "text": "Quarto\nInstall Quarto to render the lecture documents: https://quarto.org/docs/get-started/."
+  },
+  {
+    "objectID": "setup-local.html#r-packages",
+    "href": "setup-local.html#r-packages",
+    "title": "Local setup",
+    "section": "R packages",
+    "text": "R packages\nRun this once in the R console:\ninstall.packages(c(\"tidyverse\", \"tidymodels\", \"medicaldata\"))"
+  },
+  {
+    "objectID": "setup-local.html#git",
+    "href": "setup-local.html#git",
+    "title": "Local setup",
+    "section": "Git",
+    "text": "Git\nYou’ll clone the course repository in Lecture 2. Install Git by following Happy Git and GitHub for the useR: https://happygitwithr.com/install-git.html."
+  },
+  {
+    "objectID": "lecture-01/01-welcome.html",
+    "href": "lecture-01/01-welcome.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "lecture-01/01-welcome.html#about-these-two-sessions",
+    "href": "lecture-01/01-welcome.html#about-these-two-sessions",
+    "title": "Welcome",
+    "section": "About these two sessions",
+    "text": "About these two sessions\n\nLecture 1: tidy data, the foundation for modelling\nLecture 2: a hands-on lab with medical data: cleaning, linear regression and logistic regression",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "lecture-01/01-welcome.html#check-your-codespace",
+    "href": "lecture-01/01-welcome.html#check-your-codespace",
+    "title": "Welcome",
+    "section": "Check your Codespace",
+    "text": "Check your Codespace\n\nOpen the course Codespace (Codespaces)\nRender example.qmd",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "lecture-01/03-wrangle-visualize.html",
+    "href": "lecture-01/03-wrangle-visualize.html",
+    "title": "Wrangling and visualizing",
+    "section": "",
+    "text": "View slides in full screen",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Wrangling and visualizing"
+    ]
+  },
+  {
+    "objectID": "lecture-01/03-wrangle-visualize.html#wrangling-with-dplyr",
+    "href": "lecture-01/03-wrangle-visualize.html#wrangling-with-dplyr",
+    "title": "Wrangling and visualizing",
+    "section": "Wrangling with dplyr",
+    "text": "Wrangling with dplyr\n\nfilter(), select(), mutate()\ngroup_by() and summarize()\n\nSource: Data Science: A First Introduction, chapter 3",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Wrangling and visualizing"
+    ]
+  },
+  {
+    "objectID": "lecture-01/03-wrangle-visualize.html#visualizing-with-ggplot2",
+    "href": "lecture-01/03-wrangle-visualize.html#visualizing-with-ggplot2",
+    "title": "Wrangling and visualizing",
+    "section": "Visualizing with ggplot2",
+    "text": "Visualizing with ggplot2\n\nAesthetics, geoms and labels\n\nSource: Data Science: A First Introduction, chapter 4",
+    "crumbs": [
+      "Local setup",
+      "Lecture 1: Tidy data (Mon, Nov 2)",
+      "Wrangling and visualizing"
+    ]
+  },
+  {
+    "objectID": "lecture-01/slides/01-welcome.html#about-these-two-sessions",
+    "href": "lecture-01/slides/01-welcome.html#about-these-two-sessions",
+    "title": "Welcome",
+    "section": "About these two sessions",
+    "text": "About these two sessions\n\nLecture 1: tidy data, the foundation for modelling\nLecture 2: a hands-on lab with medical data: cleaning, linear regression and logistic regression"
+  },
+  {
+    "objectID": "lecture-01/slides/01-welcome.html#check-your-codespace",
+    "href": "lecture-01/slides/01-welcome.html#check-your-codespace",
+    "title": "Welcome",
+    "section": "Check your Codespace",
+    "text": "Check your Codespace\n\nOpen the course Codespace (Codespaces)\nRender example.qmd"
+  },
+  {
+    "objectID": "lecture-01/slides/03-wrangle-visualize.html#wrangling-with-dplyr",
+    "href": "lecture-01/slides/03-wrangle-visualize.html#wrangling-with-dplyr",
+    "title": "Wrangling and visualizing",
+    "section": "Wrangling with dplyr",
+    "text": "Wrangling with dplyr\n\nfilter(), select(), mutate()\ngroup_by() and summarize()\n\nSource: Data Science: A First Introduction, chapter 3"
+  },
+  {
+    "objectID": "lecture-01/slides/03-wrangle-visualize.html#visualizing-with-ggplot2",
+    "href": "lecture-01/slides/03-wrangle-visualize.html#visualizing-with-ggplot2",
+    "title": "Wrangling and visualizing",
+    "section": "Visualizing with ggplot2",
+    "text": "Visualizing with ggplot2\n\nAesthetics, geoms and labels\n\nSource: Data Science: A First Introduction, chapter 4"
+  },
+  {
+    "objectID": "lecture-02/01-clone-the-repo.html",
+    "href": "lecture-02/01-clone-the-repo.html",
+    "title": "Clone the repository",
+    "section": "",
+    "text": "Note\n\n\n\nDraft outline: content to come.\n\n\n\nFork the course repository on GitHub\nClone your fork, or open a Codespace from it\nOpen the project and render example.qmd",
+    "crumbs": [
+      "Local setup",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Clone the repository"
+    ]
+  },
+  {
+    "objectID": "lecture-02/03-linear-regression.html",
+    "href": "lecture-02/03-linear-regression.html",
+    "title": "Linear regression",
+    "section": "",
+    "text": "Note\n\n\n\nDraft outline: content to come.\n\n\n\nFit a linear regression with tidymodels\nRead the coefficients with tidy()\nCheck the fit",
+    "crumbs": [
+      "Local setup",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Linear regression"
+    ]
+  }
+]
