@@ -1,0 +1,120 @@
+---
+title: "My First Report"
+author: "Your Name"
+format:
+  html:
+    embed-resources: true
+  typst: default
+---
+
+## Welcome to your practice report
+
+This is a **Quarto** document.
+It mixes ordinary writing with live code,
+so your report and your analysis always stay in sync.
+When you render it,
+Quarto runs the code below and builds a finished HTML page.
+
+Try it now:
+change `author: "Your Name"` in the header above to your own name,
+then render this file.
+
+## Packages
+
+Every package this report uses, loaded once at the top:
+the tidyverse for data and charts,
+`tidymodels` for modelling,
+and `medicaldata` for example datasets.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+## A first look at the data
+
+`data/patients.csv` is a small, made-up practice dataset of 12 synthetic patients,
+It comes from
+[`ehsanx/HDSx-workspace`](https://github.com/ehsanx/HDSx-workspace/blob/7e3d2f65348f3ac689be41dfaefb7eaf1c04fb2a/data/patients.csv),
+The code chunk below reads it and shows the first few rows.
+
+```{r}
+patients <- read.csv("data/patients.csv")
+head(patients)
+```
+
+## A first chart
+
+```{r}
+ggplot(patients, aes(x = age)) +
+  geom_histogram(binwidth = 5) +
+  labs(x = "Age (years)", y = "Number of patients")
+```
+
+## A second chart
+
+```{r}
+ggplot(patients, aes(x = age, y = systolic_bp, colour = diabetes)) +
+  geom_point(size = 3) +
+  labs(x = "Age (years)", y = "Systolic blood pressure (mm Hg)",
+       colour = "Diabetes")
+```
+
+## A medicaldata dataset
+
+`medicaldata` has 15 medical datasets to explore,
+each described on the
+[package website](https://higgi13425.github.io/medicaldata/reference/).
+
+::: {.callout-note}
+The website also lists a few newer datasets
+that the installed version (0.2.0, from CRAN) doesn't have yet:
+run `data(package = "medicaldata")` to see the ones you can load.
+
+To get the newer datasets too,
+install the development version from GitHub in the R terminal,
+then restart R:
+
+```{r}
+#| eval: false
+remotes::install_github("higgi13425/medicaldata")
+```
+:::
+
+`covid_testing` holds deidentified COVID-19 test results from 2020.
+
+```{r}
+ggplot(covid_testing, aes(x = age)) +
+  geom_histogram(binwidth = 5) +
+  labs(x = "Age (years)", y = "Number of tests")
+```
+
+## A quick model
+
+`licorice_gargle` comes from a randomised trial (Ruetzler et al., 2013):
+before surgery, patients gargled either licorice or sugar water,
+and were asked about sore throat afterwards.
+A logistic regression compares the odds of a sore throat
+30 minutes after surgery.
+An odds ratio below 1 means fewer sore throats with licorice.
+
+```{r}
+licorice <- licorice_gargle |>
+  mutate(
+    gargle = factor(treat, levels = c(0, 1), labels = c("sugar", "licorice")),
+    sore_throat = factor(pacu30min_throatPain > 0, levels = c(FALSE, TRUE),
+                         labels = c("no", "yes"))
+  ) |>
+  drop_na(sore_throat)
+
+logistic_reg() |>
+  fit(sore_throat ~ gargle, data = licorice) |>
+  tidy(exponentiate = TRUE, conf.int = TRUE)
+```
+
+## Your turn
+
+- Add a sentence here describing what you notice in the charts.
+- Render again and check that both your sentence and the charts appear.

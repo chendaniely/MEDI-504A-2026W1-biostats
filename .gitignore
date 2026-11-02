@@ -6,3 +6,8 @@
 .Rproj.user/
 .Rbuildignore
 *.pdf
+
+example.html
+example.pdf
+
+.quarto
