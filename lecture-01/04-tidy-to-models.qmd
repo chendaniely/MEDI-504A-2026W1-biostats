@@ -1,0 +1,13 @@
+---
+title: "From tidy data to models"
+---
+
+:::{.column-page-inset-right}
+
+{{< revealjs file="/lecture-01/slides/04-tidy-to-models.html" height="500px" class="ratio ratio-16x9" >}}
+
+:::
+
+# Slide contents
+
+{{< include /lecture-01/slides/04-tidy-to-models.qmd >}}

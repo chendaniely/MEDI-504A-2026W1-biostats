@@ -1,0 +1,20 @@
+---
+title: "Wrangling and visualizing"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+## Wrangling with dplyr
+
+- `filter()`, `select()`, `mutate()`
+- `group_by()` and `summarize()`
+
+Source: *Data Science: A First Introduction*, chapter 3
+
+## Visualizing with ggplot2
+
+- Aesthetics, geoms and labels
+
+Source: *Data Science: A First Introduction*, chapter 4

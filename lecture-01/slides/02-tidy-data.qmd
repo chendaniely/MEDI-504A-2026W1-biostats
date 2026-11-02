@@ -1,0 +1,26 @@
+---
+title: "Tidy data"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+## What makes data tidy
+
+- Each variable is a column
+- Each observation is a row
+- Each value is a cell
+
+Source: Wickham (2014), *Tidy Data*
+
+## Untidy examples
+
+- Column headers are values, not variable names
+- Several variables stored in one column
+- Variables stored in both rows and columns
+
+## Reshaping with tidyr
+
+- `pivot_longer()`
+- `pivot_wider()`

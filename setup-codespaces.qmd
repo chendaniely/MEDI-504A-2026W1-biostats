@@ -1,0 +1,31 @@
+---
+title: "Codespaces"
+---
+
+A GitHub Codespace is VS Code in your browser,
+already set up with R, Quarto,
+the tidyverse, `tidymodels` and `medicaldata`.
+All you need is a GitHub account.
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/chendaniely/MEDI-504A-2026W1-biostats)
+
+This Codespace uses the same setup as the
+[HDSx course book](https://ehsanx.github.io/HDSx/),
+whose pages walk through each step with screenshots:
+
+- [Opening Your First Codespace](https://ehsanx.github.io/HDSx/weeks/week02-modern-workflows/workflows03-open-codespace.html)
+- [The Setup](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html):
+  R, Quarto and GitHub Copilot in your Codespace
+- [Reopening a Codespace](https://ehsanx.github.io/HDSx/weeks/week02-modern-workflows/workflows04-reopen-codespace.html)
+- [Stop Your Codespace](https://ehsanx.github.io/HDSx/weeks/week02-modern-workflows/workflows10-stop-codespace.html)
+
+## Check that it works
+
+Once the Codespace is ready,
+open `example.qmd` and render it.
+It loads the course packages,
+draws three charts,
+and fits a small logistic regression.
+The rendered files go in the `_site/` folder:
+click `_site/example.html` to open the page.
+It should match the [Example](example.qmd) page on this website.

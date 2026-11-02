@@ -11,3 +11,6 @@ example.html
 example.pdf
 
 .quarto
+
+# Quarto website output (published from the gh-pages branch)
+/_site/

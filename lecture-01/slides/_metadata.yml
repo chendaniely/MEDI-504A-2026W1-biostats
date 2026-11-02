@@ -1,0 +1,5 @@
+format:
+  revealjs:
+    footer: "MEDI 504A · chendaniely/MEDI-504A-2026W1-biostats"
+    slide-number: true
+    show-slide-number: all

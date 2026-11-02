@@ -1,0 +1,11 @@
+---
+title: "Clone the repository"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+- Fork the course repository on GitHub
+- Clone your fork, or open a Codespace from it
+- Open the project and render `example.qmd`

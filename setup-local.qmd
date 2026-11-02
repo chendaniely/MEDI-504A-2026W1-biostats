@@ -1,0 +1,43 @@
+---
+title: "Local setup"
+---
+
+::: {.callout-note}
+Draft: these steps will be finalized before Lecture 2.
+:::
+
+You can follow along in a [Codespace](setup-codespaces.qmd)
+with nothing to install.
+To work on your own computer instead,
+install the following before Lecture 2.
+
+## R
+
+Install a current version of R from CRAN:
+<https://cloud.r-project.org/>.
+
+## An editor
+
+Use either of these:
+
+- Positron: <https://positron.posit.co/>
+- RStudio Desktop: <https://posit.co/download/rstudio-desktop/>
+
+## Quarto
+
+Install Quarto to render the lecture documents:
+<https://quarto.org/docs/get-started/>.
+
+## R packages
+
+Run this once in the R console:
+
+```r
+install.packages(c("tidyverse", "tidymodels", "medicaldata"))
+```
+
+## Git
+
+You'll clone the course repository in Lecture 2.
+Install Git by following *Happy Git and GitHub for the useR*:
+<https://happygitwithr.com/install-git.html>.

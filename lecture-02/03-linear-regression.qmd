@@ -1,0 +1,11 @@
+---
+title: "Linear regression"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+- Fit a linear regression with `tidymodels`
+- Read the coefficients with `tidy()`
+- Check the fit

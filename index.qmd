@@ -1,0 +1,7 @@
+---
+# README.md brings its own heading,
+# so this sets only the browser-tab title.
+pagetitle: "MEDI 504A: Biostatistics with Tidyverse"
+---
+
+{{< include README.md >}}

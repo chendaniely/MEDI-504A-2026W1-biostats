@@ -1,0 +1,13 @@
+---
+title: "Cleaning and tidying a medical dataset"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+- Load a `medicaldata` dataset
+- Clean variable names and types
+- Reshape it into tidy form
+
+Based on the examples in *Data Science for the Biomedical Sciences*.

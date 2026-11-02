@@ -1,0 +1,20 @@
+---
+title: "From tidy data to models"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+## Why models need tidy data
+
+- One row per observation,
+  one column per variable,
+  ready for a model formula
+
+## Coming up in Lecture 2
+
+- Linear regression
+- Logistic regression
+
+Source: *Tidy Modeling with R*

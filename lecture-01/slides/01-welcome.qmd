@@ -1,0 +1,18 @@
+---
+title: "Welcome"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+## About these two sessions
+
+- Lecture 1: tidy data, the foundation for modelling
+- Lecture 2: a hands-on lab with medical data:
+  cleaning, linear regression and logistic regression
+
+## Check your Codespace
+
+- Open the course Codespace ([Codespaces](/setup-codespaces.qmd))
+- Render `example.qmd`

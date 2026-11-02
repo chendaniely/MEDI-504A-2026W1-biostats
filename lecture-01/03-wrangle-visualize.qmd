@@ -1,0 +1,13 @@
+---
+title: "Wrangling and visualizing"
+---
+
+:::{.column-page-inset-right}
+
+{{< revealjs file="/lecture-01/slides/03-wrangle-visualize.html" height="500px" class="ratio ratio-16x9" >}}
+
+:::
+
+# Slide contents
+
+{{< include /lecture-01/slides/03-wrangle-visualize.qmd >}}

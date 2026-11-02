@@ -1,0 +1,11 @@
+---
+title: "Logistic regression"
+---
+
+::: {.callout-note}
+Draft outline: content to come.
+:::
+
+- Fit a logistic regression with `tidymodels`
+- Report odds ratios with `tidy(exponentiate = TRUE)`
+- Interpret them for a clinical audience

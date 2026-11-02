@@ -1,0 +1,52 @@
+project:
+  type: website
+  execute-dir: project
+  render:
+    - index.qmd
+    - example.qmd
+    - setup-local.qmd
+    - setup-codespaces.qmd
+    - lecture-01/*.qmd
+    - lecture-01/slides/*.qmd
+    - lecture-02/*.qmd
+
+website:
+  title: "MEDI 504A: Biostatistics with Tidyverse"
+  site-url: https://chendaniely.github.io/MEDI-504A-2026W1-biostats/
+  repo-url: https://github.com/chendaniely/MEDI-504A-2026W1-biostats
+  navbar:
+    left:
+      - href: setup-local.qmd
+        text: Local setup
+      - href: setup-codespaces.qmd
+        text: Codespaces
+      - href: example.qmd
+        text: Example
+    right:
+      - icon: github
+        text: GitHub
+        href: https://github.com/chendaniely/MEDI-504A-2026W1-biostats
+        aria-label: GitHub repository
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - href: index.qmd
+        text: Overview
+      - section: "Lecture 1: Tidy data (Mon, Nov 2)"
+        contents:
+          - lecture-01/01-welcome.qmd
+          - lecture-01/02-tidy-data.qmd
+          - lecture-01/03-wrangle-visualize.qmd
+          - lecture-01/04-tidy-to-models.qmd
+      - section: "Lecture 2: Modelling lab (Wed, Nov 4)"
+        contents:
+          - lecture-02/01-clone-the-repo.qmd
+          - lecture-02/02-clean-and-tidy.qmd
+          - lecture-02/03-linear-regression.qmd
+          - lecture-02/04-logistic-regression.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true

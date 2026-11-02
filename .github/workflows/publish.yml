@@ -1,0 +1,59 @@
+name: Publish website
+
+# Renders the Quarto website and publishes it to the gh-pages branch,
+# which GitHub Pages serves.
+# The gh-pages branch must exist before the first run.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One publish at a time,
+# so two quick pushes don't race to update gh-pages.
+concurrency:
+  group: publish-website
+  cancel-in-progress: false
+
+env:
+  # The same versions as the course Codespace image.
+  QUARTO_VERSION: "1.10.19"
+  R_VERSION: "4.6.1"
+
+# Actions are pinned to full commit SHAs, with the release in a comment,
+# because this job can push to the repository.
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+        with:
+          version: ${{ env.QUARTO_VERSION }}
+
+      - uses: r-lib/actions/setup-r@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
+        with:
+          r-version: ${{ env.R_VERSION }}
+          use-public-rspm: true
+
+      # The course packages, for the lecture code.
+      - uses: r-lib/actions/setup-r-dependencies@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
+        with:
+          packages: |
+            any::knitr
+            any::rmarkdown
+            any::tidyverse
+            any::tidymodels
+            any::medicaldata
+
+      - name: Render and publish to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

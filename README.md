@@ -1,8 +1,52 @@
 # MEDI 504A — Biostatistics with Tidyverse
 
-UBC MEDI 504A, Winter 2026 term.
+UBC MEDI 504A (Emerging Topics in Experimental Medicine), Winter 2026 term.
+Two sessions:
+tidy data as the foundation,
+then linear and logistic regression on medical data.
+
+Course website: <https://chendaniely.github.io/MEDI-504A-2026W1-biostats/>
 
 ## Sessions
 
-- **Lecture:** Monday, Nov 2, 2026 — 1:00–3:00 PM PST
-- **Lab:** Wednesday, Nov 4, 2026 — 1:00–3:00 PM PST
+- **Lecture 1: Tidy data.**
+  Monday, Nov 2, 2026, 1:00–3:00 PM PST, ECC 100 LT.
+  Start at [Welcome](lecture-01/01-welcome.qmd).
+- **Lecture 2: Modelling lab.**
+  Wednesday, Nov 4, 2026, 1:00–3:00 PM PST, DHCC 4223.
+  Start at [Clone the repository](lecture-02/01-clone-the-repo.qmd).
+
+Work in a [Codespace](setup-codespaces.qmd), with nothing to install,
+or on your own computer ([local setup](setup-local.qmd)).
+
+## References
+
+- Timbers, T., Campbell, T., & Lee, M.
+  *Data Science: A First Introduction*.
+  <https://datasciencebook.ca/>
+- Chen, D.
+  *Data Science for the Biomedical Sciences*.
+  <https://ds4biomed.tech/>
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023).
+  *R for Data Science* (2nd ed.).
+  <https://r4ds.hadley.nz/>
+- Kuhn, M., & Silge, J.
+  *Tidy Modeling with R*.
+  <https://www.tmwr.org/>
+- Wickham, H. (2014).
+  Tidy Data.
+  *Journal of Statistical Software*, *59*(10), 1–23.
+  <https://doi.org/10.18637/jss.v059.i10>
+
+## Building the website
+
+This repository is a Quarto website.
+`.github/workflows/publish.yml` renders it on every push to `main`
+and publishes it to GitHub Pages from the `gh-pages` branch.
+To preview it locally, run `quarto preview`.
+
+Quarto extensions, committed in `_extensions/`:
+
+- [`coatless-quarto/embedio`](https://github.com/coatless-quarto/embedio):
+  embeds each Lecture 1 slide deck at the top of its page.
+  Update it with `quarto add coatless-quarto/embedio`.
