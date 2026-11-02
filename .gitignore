@@ -1,0 +1,8 @@
+*.rds
+*.rda
+*.RData
+.Rhistory
+.Rdata
+.Rproj.user/
+.Rbuildignore
+*.pdf
