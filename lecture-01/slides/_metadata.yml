@@ -3,3 +3,10 @@ format:
     footer: "MEDI 504A · chendaniely/MEDI-504A-2026W1-biostats"
     slide-number: true
     show-slide-number: all
+    # Long code output scrolls instead of running off the slide.
+    scrollable: true
+    smaller: true
+
+# Slides hide code by default; these lectures are about the code.
+execute:
+  echo: true

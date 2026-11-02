@@ -50,3 +50,11 @@ Quarto extensions, committed in `_extensions/`:
 - [`coatless-quarto/embedio`](https://github.com/coatless-quarto/embedio):
   embeds each Lecture 1 slide deck at the top of its page.
   Update it with `quarto add coatless-quarto/embedio`.
+
+## Licence
+
+The prose (lecture text, slides, exercises and the website)
+is licensed under [CC BY-NC-SA 4.0](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/LICENSE-CONTENT.md),
+and the code under the [MIT licence](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/LICENSE),
+matching *Data Science: A First Introduction*,
+which some of the material is adapted from.

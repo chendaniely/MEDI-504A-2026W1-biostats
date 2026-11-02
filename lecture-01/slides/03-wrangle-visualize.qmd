@@ -2,19 +2,204 @@
 title: "Wrangling and visualizing"
 ---
 
-::: {.callout-note}
-Draft outline: content to come.
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+## Data wrangling
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_wrangling.png){fig-alt="Cartoon of fuzzy monsters wrangling data with dplyr." width="55%"}
+
+Data we get in the real world is usually messy.
+Once we have it in a tidy shape,
+there are only a few dplyr functions we need for most of our work.
+
+::: {.aside}
+Artwork by Allison Horst (CC BY 4.0).
 :::
 
-## Wrangling with dplyr
+## The Palmer penguins
 
-- `filter()`, `select()`, `mutate()`
-- `group_by()` and `summarize()`
+This dataset has 344 penguins of 3 different species,
+collected from 3 islands near Palmer Station, Antarctica.
+It's been built into R since version 4.5.
+We'll convert it into a tibble so it prints nicely.
 
-Source: *Data Science: A First Introduction*, chapter 3
+```{r}
+penguins <- as_tibble(penguins)
+penguins
+```
 
-## Visualizing with ggplot2
+## `select()`: choose columns
 
-- Aesthetics, geoms and labels
+```{r}
+select(penguins, species, bill_len, body_mass)
+```
 
-Source: *Data Science: A First Introduction*, chapter 4
+```{r}
+select(penguins, starts_with("bill"))
+```
+
+## `filter()`: choose rows
+
+```{r}
+filter(penguins, flipper_len > 190)
+```
+
+```{r}
+filter(penguins, flipper_len > 190 & species == "Chinstrap")
+```
+
+## `mutate()`: add or change columns
+
+Body mass is in grams,
+so let's add a column with the mass in kilograms.
+
+```{r}
+mutate(penguins, body_mass_kg = body_mass / 1000)
+```
+
+`mutate()` gives back a new data frame and doesn't change `penguins`.
+If we want to keep the result, we need to assign it (`<-`) to a variable.
+
+## Doing many steps at once
+
+We can save each step as its own object,
+
+```{r}
+penguins_1 <- mutate(penguins, body_mass_kg = body_mass / 1000)
+penguins_2 <- filter(penguins_1, flipper_len > 190)
+penguins_3 <- select(penguins_2, species, flipper_len, body_mass_kg)
+```
+
+or we can nest the function calls,
+but then we have to read them from the inside out.
+
+```{r}
+penguins_nested <- select(
+  filter(mutate(penguins, body_mass_kg = body_mass / 1000), flipper_len > 190),
+  species, flipper_len, body_mass_kg
+)
+```
+
+## The pipe, `|>`
+
+The pipe takes whatever is on its left
+and passes it in as the first argument of the function on its right.
+When you read code with pipes,
+you can say "and then" for each `|>`.
+
+```{r}
+penguins |>
+  mutate(body_mass_kg = body_mass / 1000) |>
+  filter(flipper_len > 190) |>
+  select(species, flipper_len, body_mass_kg)
+```
+
+## `group_by()` and `summarize()`
+
+`group_by()` splits the data into groups,
+and `summarize()` calculates a single value for each group.
+
+```{r}
+penguins |>
+  group_by(species) |>
+  summarize(avg_body_mass = mean(body_mass, na.rm = TRUE))
+```
+
+We need `na.rm = TRUE` to skip over the missing values,
+otherwise a single `NA` makes the whole mean `NA`.
+
+## How many values are missing?
+
+```{r}
+penguins |>
+  summarize(n = n(), missing_body_mass = sum(is.na(body_mass)))
+```
+
+```{r}
+penguins |>
+  count(species, island)
+```
+
+## Visualization: ask a question, then answer it
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/ggplot2_exploratory.png){fig-alt="Cartoon of fuzzy monsters exploring data with ggplot2." width="45%"}
+
+When we make a plot,
+we're trying to answer a question about our data.
+A good plot answers that question clearly.
+
+::: {.aside}
+Artwork by Allison Horst (CC BY 4.0).
+:::
+
+## ggplot2: three parts
+
+Every ggplot2 plot is built from the same parts:
+
+1. Aesthetic mappings, which map columns to visual properties
+   (`x`, `y`, `colour`, `fill`)
+2. Geometric objects (geoms), which say how to draw them
+   (`geom_point()`, `geom_histogram()`, `geom_bar()`)
+3. Scales and labels for the axes, colours, and titles
+
+We add each layer, one at a time, with `+`.
+
+## Scatter plot: two quantitative variables
+
+Is a penguin's body mass related to its flipper length?
+
+```{r}
+#| warning: false
+ggplot(penguins, aes(x = flipper_len, y = body_mass)) +
+  geom_point()
+```
+
+## Add colour and labels
+
+```{r}
+#| warning: false
+ggplot(penguins, aes(x = flipper_len, y = body_mass, colour = species)) +
+  geom_point() +
+  labs(
+    x = "Flipper length (mm)",
+    y = "Body mass (g)",
+    colour = "Species"
+  )
+```
+
+## Histogram: one quantitative variable
+
+```{r}
+#| warning: false
+ggplot(penguins, aes(x = body_mass, fill = species)) +
+  geom_histogram(binwidth = 250, alpha = 0.6, position = "identity") +
+  labs(x = "Body mass (g)", y = "Number of penguins", fill = "Species")
+```
+
+## Bar plot: counts of a categorical variable
+
+```{r}
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar() +
+  labs(x = "Island", y = "Number of penguins", fill = "Species")
+```
+
+## Rules of thumb
+
+- Answer one question per plot
+- Label axes, with units
+- Use colourblind-friendly palettes
+- Avoid pie charts, 3D, and tables of numbers when a plot will do
+
+## Data and credits
+
+- `penguins`: R's `datasets::penguins` (R 4.5 or newer),
+  Horst, Hill and Gorman's Palmer penguins.
+- Adapted from chapters 3 and 4 of
+  [*Data Science: A First Introduction*](https://datasciencebook.ca/)
+  (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).

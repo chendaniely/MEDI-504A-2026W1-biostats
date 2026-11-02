@@ -2,25 +2,266 @@
 title: "Tidy data"
 ---
 
-::: {.callout-note}
-Draft outline: content to come.
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+## What is tidy data?
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_1.jpg){fig-alt="Illustration of tidy data: each variable is a column, each observation is a row, each value is a cell." width="70%"}
+
+1. Each **variable** is a column; each column is a variable
+2. Each **observation** is a row; each row is an observation
+3. Each **value** is a cell; each cell is a single value
+
+::: {.aside}
+Rules from [*R for Data Science* (2e), chapter 5](https://r4ds.hadley.nz/data-tidy.html).
+Illustration by Julia Lowndes and Allison Horst,
+from the [Openscapes blog](https://www.openscapes.org/blog/2020/10/12/tidy-data/)
+(CC BY 4.0).
 :::
 
-## What makes data tidy
+## The original definition (2014)
 
-- Each variable is a column
-- Each observation is a row
-- Each value is a cell
+The original *Tidy Data* paper from 2014 defines it a little differently:
 
-Source: Wickham (2014), *Tidy Data*
+1. Each variable forms a column
+2. Each observation forms a row
+3. Each **type of observational unit** forms a table
 
-## Untidy examples
+The third rule is really about databases,
+where data is split into separate tables and joined back together.
+The newer definition replaces it with "each value is a cell".
+We'll come back to observational units at the end,
+in the optional
+[Observational units](/lecture-01/05-observational-units.qmd) section.
 
-- Column headers are values, not variable names
-- Several variables stored in one column
-- Variables stored in both rows and columns
+## Tidy or not? (1 of 4)
 
-## Reshaping with tidyr
+| country     | year | rate              |
+|-------------|------|-------------------|
+| Afghanistan | 1999 | 745/19987071      |
+| Afghanistan | 2000 | 2666/20595360     |
+| Brazil      | 1999 | 37737/172006362   |
+| Brazil      | 2000 | 80488/174504898   |
 
-- `pivot_longer()`
-- `pivot_wider()`
+::: {.fragment}
+Not tidy.
+The `rate` column has two values in each cell,
+the number of cases and the population.
+:::
+
+## Tidy or not? (2 of 4)
+
+| country     | 1999   | 2000   |
+|-------------|--------|--------|
+| Afghanistan | 745    | 2666   |
+| Brazil      | 37737  | 80488  |
+| China       | 212258 | 213766 |
+
+::: {.fragment}
+Not tidy.
+The years are column headers,
+but they're really values of a `year` variable.
+:::
+
+## Tidy or not? (3 of 4)
+
+| country     | year | type       | count      |
+|-------------|------|------------|------------|
+| Afghanistan | 1999 | cases      | 745        |
+| Afghanistan | 1999 | population | 19987071   |
+| Afghanistan | 2000 | cases      | 2666       |
+| Afghanistan | 2000 | population | 20595360   |
+
+::: {.fragment}
+Not tidy.
+The `count` column mixes two different variables,
+cases and population.
+:::
+
+## Tidy or not? (4 of 4)
+
+| country     | year | cases  | population |
+|-------------|------|--------|------------|
+| Afghanistan | 1999 | 745    | 19987071   |
+| Afghanistan | 2000 | 2666   | 20595360   |
+| Brazil      | 1999 | 37737  | 172006362  |
+| Brazil      | 2000 | 80488  | 174504898  |
+
+::: {.fragment}
+Tidy!
+Each row is an observation,
+each column is a variable,
+and each cell has a single value.
+:::
+
+## Why bother?
+
+![](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/tidydata_2.jpg){fig-alt="Illustration: tidy datasets are all alike, but every messy dataset is messy in its own way." width="70%"}
+
+Once our data is tidy,
+we can use the same tools every time we summarize, plot, or model it.
+
+::: {.aside}
+Illustration by Julia Lowndes and Allison Horst (CC BY 4.0).
+:::
+
+## Five ways data gets messy
+
+The *Tidy Data* paper lists five common ways data gets messy:
+
+1. Column headers are values, not variable names
+2. Multiple variables are stored in one column
+3. Variables are stored in both rows and columns
+4. Multiple types of observational units are stored in the same table
+5. A single observational unit is stored in multiple tables
+
+We'll go through the first three using the datasets from the paper.
+Problems 4 and 5 are about observational units,
+which are in the optional
+[Observational units](/lecture-01/05-observational-units.qmd) section.
+
+## Problem 1: column headers are values
+
+This is a Pew survey that counts people by religion and income.
+The income brackets are column headers,
+but they're really values of an `income` variable.
+
+```{r}
+pew <- read_csv("data/pew.csv")
+pew
+```
+
+## `pivot_longer()`: wide to long
+
+```{r}
+pew_tidy <- pew |>
+  pivot_longer(
+    cols = -religion,
+    names_to = "income",
+    values_to = "frequency"
+  )
+pew_tidy
+```
+
+## Now we can summarize it
+
+```{r}
+pew_tidy |>
+  group_by(religion) |>
+  summarize(count = sum(frequency))
+```
+
+## Problem 1 again: the Billboard chart
+
+Each row is a song,
+and `wk1` to `wk76` hold its rank for each week it was on the chart.
+The week number is a value hiding in the column headers.
+
+```{r}
+billboard <- read_csv("data/billboard.csv")
+billboard
+```
+
+## Tidy the weeks
+
+```{r}
+billboard_tidy <- billboard |>
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    names_prefix = "wk",
+    names_transform = list(week = as.integer),
+    values_to = "rank",
+    values_drop_na = TRUE # drop weeks the song was not on the chart
+  ) |>
+  # the date at a rank = the date it entered + (week - 1) weeks
+  mutate(date = date.entered + (week - 1) * 7) |>
+  arrange(artist, track, week) |>
+  select(year, artist, track, time, week, rank, date)
+billboard_tidy
+```
+
+## Problem 2: multiple variables in one column
+
+These are the WHO tuberculosis counts from the paper
+(`who2` comes with tidyr).
+A column name like `sp_m_014` has three variables in it,
+the diagnosis method (`sp`), gender (`m`), and age group (`014`).
+
+```{r}
+who2
+```
+
+## Split the header into three variables
+
+```{r}
+who2 |>
+  pivot_longer(
+    cols = !(country:year),
+    names_to = c("diagnosis", "gender", "age"),
+    names_sep = "_",
+    values_to = "count",
+    values_drop_na = TRUE
+  )
+```
+
+## Problem 3: variables in rows and columns
+
+These are daily temperatures from a weather station in Mexico.
+The days of the month are spread across `d1` to `d31`,
+and the maximum and minimum temperatures (`tmax`, `tmin`)
+are stuck in the rows of the `element` column.
+
+```{r}
+weather <- read_csv("data/weather.csv")
+weather
+```
+
+## Pivot longer, then wider
+
+```{r}
+weather_tidy <- weather |>
+  pivot_longer(
+    cols = starts_with("d"),
+    names_to = "day",
+    names_prefix = "d",
+    names_transform = list(day = as.integer),
+    values_to = "temp",
+    values_drop_na = TRUE
+  ) |>
+  mutate(date = make_date(year, month, day)) |>
+  pivot_wider(
+    names_from = element, # tmax and tmin become their own columns
+    values_from = temp
+  ) |>
+  select(id, date, tmax, tmin) |>
+  arrange(id, date)
+weather_tidy
+```
+
+## The tidyr toolkit
+
+| Function | Use it when |
+|---|---|
+| `pivot_longer()` | values are spread across column headers (wide to long) |
+| `pivot_wider()` | variables are stuck in rows (long to wide) |
+| `separate_wider_delim()`, or `names_sep` in `pivot_longer()` | one column or header holds several variables |
+
+## Data and credits
+
+- `pew.csv`, `billboard.csv`, `weather.csv`:
+  the tidy data paper's examples,
+  via [`chendaniely/pandas_for_everyone`](https://github.com/chendaniely/pandas_for_everyone)
+  and [`hadley/tidy-data`](https://github.com/hadley/tidy-data).
+- `who2`: from tidyr, loaded with the tidyverse.
+- Wickham, H. (2014). Tidy Data.
+  *Journal of Statistical Software*, 59(10).
+  <https://doi.org/10.18637/jss.v059.i10>
+- The tidy-or-not quiz is adapted from
+  [*Data Science: A First Introduction*](https://datasciencebook.ca/)
+  (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).

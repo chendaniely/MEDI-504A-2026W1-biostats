@@ -27,6 +27,8 @@ website:
         text: GitHub
         href: https://github.com/chendaniely/MEDI-504A-2026W1-biostats
         aria-label: GitHub repository
+  page-footer:
+    center: "Prose: CC BY-NC-SA 4.0 · Code: MIT"
   sidebar:
     style: docked
     search: true
@@ -39,6 +41,8 @@ website:
           - lecture-01/02-tidy-data.qmd
           - lecture-01/03-wrangle-visualize.qmd
           - lecture-01/04-tidy-to-models.qmd
+          - href: lecture-01/05-observational-units.qmd
+            text: "Observational units (optional)"
       - section: "Lecture 2: Modelling lab (Wed, Nov 4)"
         contents:
           - lecture-02/01-clone-the-repo.qmd

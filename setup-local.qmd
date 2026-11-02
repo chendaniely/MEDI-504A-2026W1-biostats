@@ -13,8 +13,9 @@ install the following before Lecture 2.
 
 ## R
 
-Install a current version of R from CRAN:
+Install R 4.5 or newer from CRAN:
 <https://cloud.r-project.org/>.
+Lecture 1 uses the `penguins` data built into R since version 4.5.
 
 ## An editor
 

@@ -1,0 +1,135 @@
+---
+title: "Observational units"
+subtitle: "Optional, if time"
+---
+
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+## The original third rule
+
+The original definition from the 2014 *Tidy Data* paper is:
+
+1. Each variable forms a column
+2. Each observation forms a row
+3. Each **type of observational unit** forms a table
+
+An observational unit is the kind of thing you're observing,
+for example a song, a patient, or a hospital visit.
+The third rule says different kinds of things belong in different tables.
+
+## The tidy Billboard data, again
+
+Here's the tidy Billboard data from the
+[Tidy data](/lecture-01/02-tidy-data.qmd) section again.
+
+```{r}
+billboard_tidy <- read_csv("data/billboard.csv") |>
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    names_prefix = "wk",
+    names_transform = list(week = as.integer),
+    values_to = "rank",
+    values_drop_na = TRUE
+  ) |>
+  mutate(date = date.entered + (week - 1) * 7) |>
+  arrange(artist, track, week) |>
+  select(year, artist, track, time, week, rank, date)
+billboard_tidy
+```
+
+## Problem 4: multiple observational units
+
+Our tidy Billboard table still mixes two kinds of things.
+The song information (year, artist, track, time)
+is repeated on every row, for every week the song was on the chart.
+We can split it into two tables that share an `id` column.
+
+```{r}
+song <- billboard_tidy |>
+  distinct(artist, track, year, time) |>
+  mutate(id = row_number(), .before = 1)
+song
+
+rank <- billboard_tidy |>
+  left_join(song, by = c("artist", "track", "year", "time")) |>
+  select(id, week, date, rank)
+rank
+```
+
+## Join them back together
+
+The `id` column links the two tables,
+so we can always join them back together when an analysis needs both.
+
+```{r}
+rank |>
+  left_join(song, by = "id")
+```
+
+## Problem 5: one unit in many tables
+
+This is the opposite problem,
+where the same kind of observation is split across many files,
+for example one file per year or one file per hospital site.
+If the files have the same columns,
+we can stack them together with `bind_rows()`,
+or give `read_csv()` all the file names at once.
+
+## How hospitals store data
+
+Hospital databases follow the paper's third rule.
+Each kind of observational unit gets its own table,
+and the tables are linked together by ID columns.
+
+- `patients` has one row per patient
+- `encounters` has one row per visit, with the patient's ID
+- `conditions`, `medications`, and `observations` have one row per record,
+  with the patient and encounter IDs
+
+To analyze the data, we join the tables we need into one tidy table.
+
+[Synthea](https://synthetichealth.github.io/synthea/) creates fake,
+but realistic, patient records that are stored this way.
+Its [downloads page](https://synthetichealth.github.io/downloads.html)
+has samples of 100 patients as CSV files,
+and in the HL7 FHIR and C-CDA formats.
+
+## Beyond CSVs: health data standards
+
+In practice, health data usually doesn't come to us as a folder of CSV files.
+It's stored and shared using data standards.
+
+- [HL7](https://www.hl7.org/) is the family of standards
+  hospital systems use to exchange clinical data
+- [FHIR](https://hl7.org/fhir/) (Fast Healthcare Interoperability Resources)
+  is HL7's newer standard,
+  where data like a patient, an encounter, or an observation
+  is sent as a "resource" through web APIs
+- The [OMOP Common Data Model](https://ohdsi.github.io/CommonDataModel/),
+  from the [OHDSI](https://www.ohdsi.org/) community,
+  is a shared database layout for observational health data,
+  so the same analysis code can run on databases from many hospitals
+
+All of these follow the same idea as the paper's third rule,
+with one table (or resource) for each kind of observational unit,
+linked together by IDs.
+
+## Data and credits
+
+- `billboard.csv`: the tidy data paper's Billboard example,
+  via [`chendaniely/pandas_for_everyone`](https://github.com/chendaniely/pandas_for_everyone)
+  and [`hadley/tidy-data`](https://github.com/hadley/tidy-data).
+- Wickham, H. (2014). Tidy Data.
+  *Journal of Statistical Software*, 59(10).
+  <https://doi.org/10.18637/jss.v059.i10>
+- Synthea synthetic patient records:
+  <https://synthetichealth.github.io/synthea/>
+- Standards: [HL7](https://www.hl7.org/), [FHIR](https://hl7.org/fhir/),
+  [OHDSI](https://www.ohdsi.org/) and its
+  [OMOP Common Data Model](https://ohdsi.github.io/CommonDataModel/).

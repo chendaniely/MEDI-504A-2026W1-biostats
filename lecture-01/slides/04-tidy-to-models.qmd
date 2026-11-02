@@ -2,19 +2,128 @@
 title: "From tidy data to models"
 ---
 
-::: {.callout-note}
-Draft outline: content to come.
-:::
+## Packages
 
-## Why models need tidy data
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+```
 
-- One row per observation,
-  one column per variable,
-  ready for a model formula
+## Two kinds of questions
 
-## Coming up in Lecture 2
+When we want to predict something,
+the type of outcome tells us what kind of model to use.
 
-- Linear regression
-- Logistic regression
+- Regression, when the outcome is *quantitative*.
+  What will this house sell for?
+  How heavy will this baby be at birth?
+- Classification, when the outcome is *categorical*.
+  Will this patient's cancer come back, yes or no?
 
-Source: *Tidy Modeling with R*
+Today we'll fit a linear regression.
+On Wednesday we'll fit linear and logistic regressions on medical data.
+
+## Models need tidy data
+
+A model formula like `price ~ sqft` expects the data to have
+one row per observation (each house sale)
+and one column per variable (the price and the size),
+which is exactly what tidy data gives us.
+
+## Sacramento house sales
+
+This is a dataset of house sales in Sacramento, California.
+It comes with tidymodels, in the modeldata package.
+
+```{r}
+Sacramento
+```
+
+## Is size related to price?
+
+```{r}
+ggplot(Sacramento, aes(x = sqft, y = price)) +
+  geom_point(alpha = 0.4) +
+  labs(x = "House size (square feet)", y = "Sale price (USD)")
+```
+
+## Linear regression: the line of best fit
+
+$$
+\text{price} = \beta_0 + \beta_1 \times \text{sqft}
+$$
+
+- $\beta_0$ is the intercept, where the line crosses the y axis
+- $\beta_1$ is the slope,
+  how much the price changes for each extra square foot
+
+The "best" line is the one with the smallest squared vertical distances
+between the line and the data points.
+
+## Fit it with tidymodels
+
+```{r}
+house_recipe <- recipe(price ~ sqft, data = Sacramento)
+
+house_spec <- linear_reg() |>
+  set_engine("lm") |>
+  set_mode("regression")
+
+house_fit <- workflow() |>
+  add_recipe(house_recipe) |>
+  add_model(house_spec) |>
+  fit(data = Sacramento)
+house_fit
+```
+
+## Read the coefficients
+
+```{r}
+tidy(house_fit)
+```
+
+For every extra square foot,
+the predicted price goes up by about `r round(tidy(house_fit)$estimate[2])` USD.
+
+## See the line
+
+```{r}
+ggplot(Sacramento, aes(x = sqft, y = price)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(x = "House size (square feet)", y = "Sale price (USD)")
+```
+
+## More than one predictor
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_m X_m
+$$
+
+To use more predictors, we add them to the formula.
+
+```{r}
+recipe(price ~ sqft + beds + baths, data = Sacramento)
+```
+
+Now each slope is how much the outcome changes for one predictor,
+when the other predictors stay the same.
+
+## Coming up on Wednesday
+
+- A linear regression on a clinical trial,
+  to see if treating periodontal disease during pregnancy
+  changed the baby's birth weight
+- A logistic regression for a yes/no outcome,
+  to see if the storage age of transfused blood
+  is associated with prostate cancer coming back
+
+For the logistic regression we'll report odds ratios.
+
+## Data and credits
+
+- `Sacramento`: from modeldata, loaded with tidymodels.
+- Adapted from chapter 8 of
+  [*Data Science: A First Introduction*](https://datasciencebook.ca/)
+  (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).
