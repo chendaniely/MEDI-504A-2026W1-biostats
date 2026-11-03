@@ -1,0 +1,41 @@
+---
+title: "Homework"
+---
+
+The homework is a Quarto document, `homework.qmd`,
+in the top folder of the course repository.
+You'll write your code and your answers in that file,
+render it,
+and hand it in on Canvas.
+The due date is on Canvas.
+
+If you want to read through the homework before you start,
+you can also
+[view `homework.qmd` on GitHub](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/homework.qmd).
+
+## 1. Open your fork
+
+You'll work in the fork of the course repository you made in the lab,
+either in a Codespace or on your own computer.
+If you don't have a fork yet,
+follow [Clone the repository](lecture-02/01-clone-the-repo.qmd) first.
+
+## 2. Get the homework into your fork
+
+If your fork doesn't have a `homework.qmd` file in its top folder,
+your fork was made before the homework was added.
+To bring it up to date:
+
+1. On your fork's page on GitHub,
+   click **Sync fork**, then **Update branch**.
+2. In your Codespace or on your computer,
+   open a terminal in the repository and run `git pull`.
+
+## 3. Open the homework file
+
+Open `homework.qmd`
+and follow the instructions at the top of the file.
+Be careful to open `homework.qmd`,
+and not this website's own `homework-instructions.qmd` file next to it.
+Every question has a hint,
+and the hints are written so you can paste them into Copilot Chat as your prompt.

@@ -9,6 +9,9 @@ project:
     - lecture-01/*.qmd
     - lecture-01/slides/*.qmd
     - lecture-02/*.qmd
+    # homework.qmd and homework_solution.qmd are left out on purpose:
+    # they render as individual documents, not website pages
+    - homework-instructions.qmd
 
 website:
   title: "MEDI 504A: Biostatistics with Tidyverse"
@@ -41,6 +44,7 @@ website:
           - lecture-01/02-tidy-data.qmd
           - lecture-01/03-wrangle-visualize.qmd
           - lecture-01/04-tidy-to-models.qmd
+          - lecture-01/05-extra-functions.qmd
           - href: lecture-01/05-observational-units.qmd
             text: "Observational units (optional)"
       - section: "Lecture 2: Modelling lab (Wed, Nov 4)"
@@ -49,6 +53,8 @@ website:
           - lecture-02/02-clean-and-tidy.qmd
           - lecture-02/03-linear-regression.qmd
           - lecture-02/04-logistic-regression.qmd
+      - href: homework-instructions.qmd
+        text: Homework
 
 # The UBC brand (UBC-MDS/ubc-quarto-brand): colours, fonts and light/dark mode.
 format:

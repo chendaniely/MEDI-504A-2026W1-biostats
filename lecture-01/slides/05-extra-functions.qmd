@@ -1,0 +1,98 @@
+---
+title: "Extra functions for the homework"
+---
+
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+## Why these functions?
+
+The homework uses a few functions we didn't get to in the lecture.
+Each slide shows one of them on the penguins,
+the same data we used in
+[Wrangling and visualizing](/lecture-01/03-wrangle-visualize.qmd).
+
+```{r}
+penguins <- as_tibble(penguins)
+```
+
+## `min()`, `max()`, and `desc()`
+
+`min()` and `max()` give the smallest and largest values,
+and `arrange(desc())` sorts from the largest to the smallest.
+
+```{r}
+penguins |>
+  group_by(species) |>
+  summarize(
+    lightest = min(body_mass, na.rm = TRUE),
+    heaviest = max(body_mass, na.rm = TRUE)
+  ) |>
+  arrange(desc(heaviest))
+```
+
+## `mdy()`: dates from text
+
+lubridate, which loads with the tidyverse,
+turns text into real dates.
+We pick the function named after the order of the date's parts:
+`mdy()` for month/day/year,
+`dmy()` for day/month/year,
+and `ymd()` for year-month-day.
+
+```{r}
+mdy("1/5/2015")
+dmy("5/1/2015")
+ymd("2015-01-05")
+```
+
+All three are the 5th of January, 2015.
+
+## `geom_col()`: bars from numbers we already have
+
+`geom_bar()` counts the rows for us.
+When our table already has the numbers,
+`geom_col()` draws them as they are.
+These two plots are the same.
+
+```{r}
+#| layout-ncol: 2
+# geom_bar() counts the rows for each species
+ggplot(penguins, aes(y = species)) +
+  geom_bar() +
+  labs(x = "Number of penguins", y = "Species")
+
+# geom_col() draws the counts that count() already made
+penguins |>
+  count(species) |>
+  ggplot(aes(x = n, y = species)) +
+  geom_col() +
+  labs(x = "Number of penguins", y = "Species")
+```
+
+## `fct_relevel()` and `fct_collapse()`
+
+A factor's first level is its reference level in a model.
+`fct_relevel()` moves a level to the front,
+and `fct_collapse()` combines several levels into one.
+
+```{r}
+penguins |>
+  mutate(species = fct_relevel(species, "Gentoo")) |>
+  count(species)
+```
+
+```{r}
+penguins |>
+  mutate(island = fct_collapse(island, other = c("Dream", "Torgersen"))) |>
+  count(island)
+```
+
+## Data and credits
+
+- `penguins`: R's `datasets::penguins` (R 4.5 or newer),
+  Horst, Hill and Gorman's Palmer penguins.

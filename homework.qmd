@@ -1,0 +1,613 @@
+---
+title: "Homework: from tidy data to a model"
+author: "Your Name"
+format:
+  html:
+    embed-resources: true
+  typst: default
+---
+
+In the lectures,
+we took data that wasn't "tidy",
+reshaped it,
+summarized it,
+and then used it to fit linear and logistic regressions.
+In this homework,
+you'll go through these steps yourself on new data.
+In Part 1,
+we'll tidy and summarize the Ebola case counts
+from the 2014–2015 West Africa outbreak.
+In Part 2,
+you'll pick a clinical trial
+and use a model to answer the question it asks.
+
+Write your code in the empty code chunks
+(the blocks that start with `{r}`),
+and answer each question in full sentences underneath it.
+
+## Handing it in
+
+The due date is on Canvas.
+When you're done:
+
+1. Change `author: "Your Name"` at the top of this file to your own name.
+2. Render this file.
+   This makes two new files, `homework.html` and `homework.pdf`,
+   in the same folder as `homework.qmd`
+   (the top folder of the repository).
+   If you're working in a Codespace,
+   right-click each one in the Explorer and choose **Download**
+   to save it to your computer.
+3. Upload `homework.qmd`, `homework.html`, and `homework.pdf` to Canvas.
+
+## Using the hints
+
+Every question has a hint underneath it.
+In this file,
+a hint is the text between a `::: {.callout-tip collapse="true"}` line
+and the `:::` line after it.
+In the rendered HTML,
+you can click on a hint to open it.
+
+The hints are written so you can use them as your prompt for Copilot Chat.
+Each one says what the code needs to do, one step at a time.
+Copilot Chat is part of your Codespace,
+and the [HDSx setup page](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html)
+shows how to use it.
+If you're working on your own computer and don't have Copilot Chat there,
+do the homework in your Codespace.
+
+For each code chunk:
+
+1. Open Copilot Chat.
+2. Paste in the hint,
+   and add "Write R code for this using the tidyverse and tidymodels."
+3. Copy the code it gives you into the empty chunk, and run it.
+4. Compare your result with what the end of the hint says you should see.
+   If it doesn't match,
+   paste the error message (or your result) back into Copilot Chat
+   and ask it what went wrong.
+
+Copilot can explain code as well as write it,
+so ask it about any line you don't understand.
+You'll be explaining your results in your own words,
+so you need to know what your code did.
+
+Every function a hint mentions links to its documentation page,
+where you'll find what the function does and a few examples.
+Some hints also link to the slides where we did the same thing in the lectures.
+
+At the end of each code chunk,
+put the name of the data frame you made on a line by itself,
+for example `ebola_tidy`.
+This prints the data frame when you render,
+so your TA can grade it
+and you can compare it with the hint.
+For a figure, end the chunk with the plot.
+
+The packages we need are already loaded in the chunk below.
+If Copilot adds `library()` lines to its code,
+you can delete them.
+
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+## Part 1: Ebola case counts
+
+`data/ebola.csv` has the number of Ebola cases and deaths in each country
+from the 2014–2015 West Africa outbreak.
+Caitlin Rivers compiled it from the WHO situation reports
+([`cmrivers/ebola`](https://github.com/cmrivers/ebola),
+`country_timeseries.csv`).
+
+```{r}
+ebola <- read_csv("data/ebola.csv")
+ebola
+```
+
+### 1.1 Tidy the data
+
+Notice that a column name like `Cases_Guinea` holds two variables,
+the type of count (cases or deaths) and the country.
+This is the same problem as the `who2` data from Lecture 1.
+Make a new data frame, `ebola_tidy`,
+with one row for each country in each report,
+and a column each for the date, the country, the cases, and the deaths.
+This will take a `pivot_longer()` that splits the column names,
+and then a `pivot_wider()`.
+The `Date` column is text,
+so we'll also turn it into a real date with `mdy()`.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Start from the `ebola` data frame.
+Its columns are `Date`, `Day`, and one column for each count type and country,
+such as `Cases_Guinea` and `Deaths_Liberia`.
+Steps 1 and 2 are the same as the `who2` example in Lecture 1
+([Split the header into three variables](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#split-the-header-into-three-variables)).
+
+1. Use
+   [`pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html)
+   on every column except `Date` and `Day`
+   (`cols = -c(Date, Day)`),
+   so each count gets its own row.
+   Split each old column name at the underscore
+   into two new columns, `type` and `country`,
+   with `names_to = c("type", "country")` and `names_sep = "_"`.
+   Put the numbers in a column called `count` (`values_to = "count"`),
+   and drop the rows where the count is missing (`values_drop_na = TRUE`).
+2. Use
+   [`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)
+   to turn the `type` column back into two columns,
+   `Cases` and `Deaths`, with their values from `count`.
+3. Use
+   [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+   and [`mdy()`](https://lubridate.tidyverse.org/reference/ymd.html)
+   to change `Date` from text into a date.
+   `mdy()` reads dates written month/day/year, like `1/5/2015`.
+   It comes from the lubridate package, which loads with the tidyverse
+   (see [`mdy()`: dates from text](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#mdy-dates-from-text)
+   in Lecture 1's Extra functions slides).
+4. Save the result as `ebola_tidy`,
+   and put `ebola_tidy` on the last line of the chunk so it prints.
+
+When it works,
+the first line of the printed output says `# A tibble: 375 × 5`,
+the columns are `Date`, `Day`, `country`, `Cases`, and `Deaths`,
+and you'll see `<date>` under `Date`.
+:::
+
+```{r}
+# your code here
+# end the chunk with ebola_tidy on its own line, so it prints
+```
+
+### 1.2 Summarize by country
+
+Now that our data is tidy,
+let's summarize it by country.
+
+The counts are **cumulative**.
+Each report gives the total number of cases so far,
+not the new cases since the last report.
+
+Make a table with one row for each country.
+It should have the date of the country's first and last report,
+its number of cases and deaths,
+and its case fatality ratio (the deaths divided by the cases).
+Sort the table from the most cases to the fewest.
+
+A few counts go down from one report to the next,
+because a later report corrected an earlier one.
+That means you can use either the last report or the largest count,
+as long as you say which one you used.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Start from `ebola_tidy`.
+Lecture 1's Extra functions slide
+[`min()`, `max()`, and `desc()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#min-max-and-desc)
+does the same steps on the penguins.
+
+1. Use
+   [`group_by(country)`](https://dplyr.tidyverse.org/reference/group_by.html)
+   so the summary is calculated for each country.
+2. Use
+   [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+   to make these columns:
+   - `first_report`, the earliest `Date`,
+     with [`min()`](https://search.r-project.org/R/refmans/base/html/Extremes.html)
+   - `last_report`, the latest `Date`, with `max()`
+   - `cases`, the largest value of `Cases`, with `max(Cases, na.rm = TRUE)`
+   - `deaths`, the largest value of `Deaths`, with `max(Deaths, na.rm = TRUE)`
+
+   `min()` gives the smallest value and `max()` the largest.
+   For dates, the smallest is the earliest.
+   `na.rm = TRUE` tells them to skip over missing values.
+3. Use
+   [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+   to add `cfr`, the case fatality ratio, as `deaths / cases`.
+4. Use
+   [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html)
+   with [`desc(cases)`](https://dplyr.tidyverse.org/reference/desc.html)
+   to sort from the most cases to the fewest.
+   `desc()` stands for descending, so the largest comes first.
+5. Save the result as `ebola_summary`,
+   and put `ebola_summary` on the last line of the chunk so it prints.
+
+This uses the largest count,
+so write "I used the largest count" in your answer below.
+
+When it works,
+the first line of the printed output says `# A tibble: 8 × 6`,
+and the first row is `SierraLeone`, with `10030` cases.
+:::
+
+```{r}
+# your code here
+# end the chunk with ebola_summary on its own line, so it prints
+```
+
+What would `sum(Cases)` give you for each country?
+Why is that the wrong number?
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Try it.
+Copy your summary code,
+change `max(Cases, na.rm = TRUE)` to
+[`sum(Cases, na.rm = TRUE)`](https://search.r-project.org/R/refmans/base/html/sum.html),
+and compare Sierra Leone's number with the one in your table.
+
+Then look at a few rows of `ebola_tidy` for one country, in date order.
+Does each row count the new cases since the last report,
+or everyone who has had Ebola so far?
+What happens to a person who got sick in March
+when we add up every report from March to January?
+:::
+
+*Your answer here.*
+
+### 1.3 A figure
+
+Make one figure from `ebola_tidy` or from your summary table,
+and label the axes with their units.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Pick one of these, or make your own:
+
+- A line chart of the cases over time, with one line per country.
+  Use [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
+  with `ebola_tidy`,
+  and inside [`aes()`](https://ggplot2.tidyverse.org/reference/aes.html)
+  put `Date` on the x-axis, `Cases` on the y-axis,
+  and colour the lines by `country`.
+  Then add [`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html).
+- A bar chart of the cases in each country.
+  Use `ggplot()` with `ebola_summary`,
+  put `cases` on the x-axis and `country` on the y-axis,
+  and add [`geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html).
+  `geom_col()` makes each bar as long as a number in your table.
+  (`geom_bar()`, which you'll use in Part 2, counts rows instead,
+  so here it would make every country's bar 1 long.
+  Lecture 1's Extra functions slide
+  [`geom_col()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#geom_col-bars-from-numbers-we-already-have)
+  shows the two side by side.)
+
+Add [`labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
+to give each axis a title.
+Cases and deaths are counts of people,
+so a title like "Cumulative cases (people)" gives the units.
+
+If you see a warning that says "Removed rows containing missing values",
+that's fine.
+Those are the reports that had no number for that country.
+
+When you're done,
+each axis has a title that says what's plotted and in what units.
+:::
+
+```{r}
+# your code here
+# end the chunk with your plot, so it shows
+```
+
+### 1.4 What do you see?
+
+In a few sentences,
+tell us what your table and figure show.
+Then compare the case fatality ratios across the countries.
+Which countries' ratios would you trust the least, and why?
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Use your table from 1.2 to answer these:
+
+- Which three countries had the most cases?
+  Roughly how many cases did the other countries have?
+- What are the case fatality ratios of the three biggest countries?
+  Is the ratio higher in some countries than in others?
+- Pick a country with only a few cases.
+  If one more person there had died,
+  what would its case fatality ratio be?
+  What if the same thing happened in Sierra Leone?
+
+Copilot can help you read the table,
+but write the answer in your own words.
+:::
+
+*Your answer here.*
+
+## Part 2: A model
+
+For Part 2,
+pick one of these three clinical trials.
+Each one comes with a question for you to answer with a model.
+Before you start,
+read the trial's page on the medicaldata website
+to see what each variable means and how it's coded.
+
+- [`laryngoscope`](https://higgi13425.github.io/medicaldata/reference/laryngoscope.html):
+  99 adults with obesity who needed a breathing tube for elective surgery
+  were randomized to a standard Macintosh laryngoscope
+  or a Pentax AWS video laryngoscope.
+  Does the video laryngoscope change how long intubation takes?
+- [`indo_rct`](https://higgi13425.github.io/medicaldata/reference/indo_rct.html):
+  602 patients at high risk of pancreatitis after ERCP
+  were randomized to rectal indomethacin or a placebo.
+  Does indomethacin prevent pancreatitis after ERCP?
+- [`strep_tb`](https://higgi13425.github.io/medicaldata/reference/strep_tb.html):
+  in the 1948 Medical Research Council trial,
+  107 patients with pulmonary tuberculosis
+  were randomized to streptomycin with bed rest or to bed rest alone.
+  Did streptomycin make patients more likely to improve
+  on their chest X-ray at 6 months?
+
+Which trial did you pick?
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Open the trial's page from the links above.
+To see its columns,
+run [`glimpse()`](https://dplyr.tidyverse.org/reference/glimpse.html)
+on it in a code chunk, for example `glimpse(laryngoscope)`.
+Pick the trial whose question you find the most interesting.
+Any of the three is fine.
+:::
+
+*Your answer here.*
+
+### 2.1 Clean the variables you need
+
+Like a lot of the data we get,
+these trials store some of their categories as codes.
+Recode the outcome, the treatment,
+and any other variables you plan to use.
+Numbers that stand for categories, like `0` and `1`,
+should become factors with readable labels,
+and labels like `1_yes` or `2_male` should become `yes` and `male`.
+Then check the **reference level** of each factor,
+the level that the other levels get compared to.
+For the treatment,
+the reference level should be the control group.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+A **factor** is how R stores a categorical variable.
+Recode your variables the same way as the lab's
+[Coded variables exercise](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/02-clean-and-tidy.html#exercise-4-coded-variables).
+Use [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+with [`factor(column, levels = ..., labels = ...)`](https://search.r-project.org/R/refmans/base/html/factor.html)
+to turn coded values into categories with readable names.
+The first level you list becomes the reference level,
+so list the control group first.
+Then use [`select()`](https://dplyr.tidyverse.org/reference/select.html)
+to keep only the columns you need,
+and [`drop_na()`](https://tidyr.tidyverse.org/reference/drop_na.html)
+to drop the rows with missing values in them.
+Save the result as `trial`.
+
+Here's what to recode in each trial (its page has the details):
+
+- `laryngoscope`:
+  `Randomization` is 0 = Macintosh, 1 = video laryngoscope,
+  and `gender` is 0 = female, 1 = male.
+  The intubation time is `total_intubation_time`, in seconds.
+  `age` and `BMI` are already numbers.
+- `indo_rct`:
+  `outcome` is `0_no` or `1_yes` (pancreatitis after ERCP),
+  `rx` is `0_placebo` or `1_indomethacin`,
+  and `gender` is `1_female` or `2_male`.
+  `age` and `risk` (a risk score) are already numbers.
+- `strep_tb`:
+  `improved` is `TRUE` or `FALSE`,
+  so make it a factor with `FALSE` as `no` and `TRUE` as `yes`.
+  `arm` lists `Streptomycin` first,
+  so use [`fct_relevel(arm, "Control")`](https://forcats.tidyverse.org/reference/fct_relevel.html)
+  to make `Control` the reference level
+  (see Lecture 1's Extra functions slide
+  [`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#fct_relevel-and-fct_collapse)).
+  `baseline_condition` is `1_Good`, `2_Fair`, or `3_Poor`.
+  `gender` and `baseline_cavitation` are already readable.
+
+Put `trial` on the last line of the chunk so it prints.
+
+To check your work,
+run [`count()`](https://dplyr.tidyverse.org/reference/count.html)
+on each column you recoded, for example `count(trial, arm)`.
+You should see readable labels, not numbers or codes,
+with the control group listed first.
+:::
+
+```{r}
+# your code here
+# end the chunk with trial on its own line, so it prints
+```
+
+### 2.2 Look at the outcome
+
+Before we fit a model,
+let's look at the variable we want to explain, the **outcome**.
+Which variable answers your trial's question?
+Plot its distribution,
+with a histogram if it's a number on a continuous scale,
+or a bar chart of counts if it's a category.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Run [`glimpse(trial)`](https://dplyr.tidyverse.org/reference/glimpse.html)
+and find your outcome.
+Next to its name you'll see its type.
+`<dbl>` means it's a number,
+and `<fct>` means it's a factor (a category).
+
+- For a number, use [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
+  with `trial`,
+  put the outcome on the x-axis inside `aes()`,
+  and add [`geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html).
+  Try a few values of `binwidth` until you can see the shape clearly.
+- For a category, use `ggplot()` with `trial`,
+  put the outcome on the x-axis inside `aes()`,
+  and add [`geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.html),
+  which counts the patients in each category.
+
+To compare the treatment groups,
+you can also add `fill = ` and the treatment column inside `aes()`.
+Add [`labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
+to give each axis a title.
+
+A histogram shows how the values are spread out,
+and a bar chart shows one bar for each category.
+:::
+
+```{r}
+# your code here
+# end the chunk with your plot, so it shows
+```
+
+### 2.3 Fit a model
+
+Should your outcome get a linear or a logistic regression?
+Say why in one sentence,
+based on what your plot in 2.2 shows.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+A linear regression models the average of an outcome
+that's a number on a continuous scale, like a weight or a time.
+A logistic regression models the odds of one of two outcomes,
+like yes or no.
+We fit one of each in Lecture 2's
+Linear regression and Logistic regression sections.
+Which kind of plot did you need in 2.2?
+:::
+
+*Your answer here.*
+
+Now fit the model with the treatment and at least one other variable,
+and show the estimates with their confidence intervals using `tidy()`.
+For a logistic regression,
+use `exponentiate = TRUE` to get odds ratios.
+If an estimate or its confidence interval comes out enormous,
+count that variable against the outcome to see why.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+A model formula puts the outcome on the left of the `~`
+and the explanatory variables on the right, joined by `+`,
+for example `outcome ~ treatment + age`.
+Use your own column names in place of `outcome` and `treatment`.
+
+1. Fit the model the same way we did in the lab.
+   Start with [`linear_reg()`](https://parsnip.tidymodels.org/reference/linear_reg.html)
+   or [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.html),
+   then use `|>` to pass it to [`fit()`](https://parsnip.tidymodels.org/reference/fit.html)
+   with your formula and `data = trial`,
+   like `linear_reg() |> fit(outcome ~ treatment + age, data = trial)`.
+   Save the result as `trial_fit`.
+2. Use `tidy(trial_fit, conf.int = TRUE)` to see the estimates
+   with their 95% confidence intervals
+   (see `tidy()` for a
+   [linear](https://broom.tidymodels.org/reference/tidy.lm.html)
+   or a [logistic](https://broom.tidymodels.org/reference/tidy.glm.html) model).
+   For a logistic regression, add `exponentiate = TRUE`
+   to turn the estimates into odds ratios.
+
+If an estimate is huge (with an `e+` in it, like `4.6e+07`)
+or a confidence limit is `NA`,
+run `count(trial, that_variable, outcome)`
+and look for a group where every patient had the same outcome.
+The model can't estimate an effect for that group,
+so leave the variable out,
+or combine its levels with
+[`fct_collapse()`](https://forcats.tidyverse.org/reference/fct_collapse.html)
+(see Lecture 1's Extra functions slide
+[`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#fct_relevel-and-fct_collapse)).
+
+Make the `tidy()` line the last line of the chunk,
+so its table prints.
+
+When it works,
+`tidy()` gives one row for the intercept and one for each variable,
+with the columns `estimate`, `conf.low`, and `conf.high`.
+:::
+
+```{r}
+# your code here
+# end the chunk with your tidy() table, so it prints
+```
+
+### 2.4 What does the model say?
+
+Interpret at least two variables from your model in full sentences.
+For each one,
+say how big the effect is and in which direction,
+in the outcome's units (or as an odds ratio),
+along with its confidence interval.
+Then use your model to answer the trial's question.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Each row of your `tidy()` output after the intercept is one variable.
+For a category,
+the estimate compares that group with the reference level
+(the control group, for the treatment).
+For a number,
+the estimate is the change for every 1 unit increase,
+such as one more year of age.
+As in Lecture 1,
+each estimate is the change for one variable
+when the other variables stay the same
+(you'll also see this written as "all else equal").
+
+You can fill in a sentence like one of these:
+
+- Linear regression, for a category:
+  "When the other variables stay the same,
+  patients who [group] had an average [outcome]
+  [estimate] [units] [higher or lower] than patients who [reference group]
+  (95% CI: [conf.low] to [conf.high])."
+- Linear regression, for a number:
+  "When the other variables stay the same,
+  every 1 [unit] increase in [variable] went with an average [outcome]
+  [estimate] [units] [higher or lower]
+  (95% CI: [conf.low] to [conf.high])."
+- Logistic regression, for a category:
+  "When the other variables stay the same,
+  patients who [group] had [estimate] times the odds of [outcome]
+  of patients who [reference group]
+  (odds ratio [estimate], 95% CI: [conf.low] to [conf.high])."
+- Logistic regression, for a number:
+  "When the other variables stay the same,
+  the odds of [outcome] were multiplied by [estimate]
+  for every 1 [unit] increase in [variable]
+  (95% CI: [conf.low] to [conf.high])."
+
+An odds ratio below 1 means lower odds,
+and above 1 means higher odds.
+If a confidence interval includes 0 (for a linear regression)
+or 1 (for a logistic regression),
+the data don't show a clear effect for that variable.
+Finish by answering the trial's question with yes or no,
+and in which direction.
+:::
+
+*Your answer here.*
