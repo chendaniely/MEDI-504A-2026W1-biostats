@@ -6,6 +6,8 @@ format:
     # Long code output scrolls instead of running off the slide.
     scrollable: true
     smaller: true
+    # Smaller code output, so 80-character lines fit in the brand's font.
+    css: ../../slides.css
 
 # Slides hide code by default; these lectures are about the code.
 execute:

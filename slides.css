@@ -1,0 +1,9 @@
+/* Slide styles, loaded after the UBC brand by each slides/_metadata.yml. */
+
+/* The brand sets code blocks to 0.9em,
+   and Atkinson Hyperlegible Mono is wider than most monospace fonts,
+   so R's 80-character output lines wrap on a slide.
+   At 0.65em an 80-character line fits with room for a scrollbar. */
+.reveal .cell-output pre {
+  font-size: 0.65em;
+}
