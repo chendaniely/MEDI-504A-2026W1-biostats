@@ -35,9 +35,8 @@ The original *Tidy Data* paper from 2014 defines it a little differently:
 The third rule is really about databases,
 where data is split into separate tables and joined back together.
 The newer definition replaces it with "each value is a cell".
-We'll come back to observational units at the end,
-in the optional
-[Observational units](/lecture-01/05-observational-units.qmd) section.
+We'll come back to observational units in Lecture 2,
+in the [Observational units](/lecture-02/03-observational-units.qmd) section.
 
 ## Tidy or not? (1 of 4)
 
@@ -122,8 +121,8 @@ The *Tidy Data* paper lists five common ways data gets messy:
 
 We'll go through the first three using the datasets from the paper.
 Problems 4 and 5 are about observational units,
-which are in the optional
-[Observational units](/lecture-01/05-observational-units.qmd) section.
+which we'll cover in Lecture 2's
+[Observational units](/lecture-02/03-observational-units.qmd) section.
 
 ## Problem 1: column headers are values
 

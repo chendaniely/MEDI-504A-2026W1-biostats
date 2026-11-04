@@ -1,0 +1,66 @@
+---
+title: "Solutions: Linear regression"
+---
+
+::: {.callout-note}
+These are the solutions to the
+[Linear regression](../lecture-02/04-linear-regression.qmd) exercises.
+Try each exercise yourself before you look.
+:::
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+`opt_clean`, made at the top of the Linear regression page:
+
+```{r}
+opt_clean <- opt |>
+  mutate(
+    Birth.outcome = str_trim(Birth.outcome),
+    Group = factor(Group, levels = c("C", "T"),
+                   labels = c("control", "treatment"))
+  ) |>
+  filter(Birth.outcome == "Live birth") |>
+  select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)
+```
+
+## Exercise 1: Fit a linear regression
+
+```{r}
+ggplot(opt_clean, aes(x = Group, y = Birthweight)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.3) +
+  labs(x = "Group", y = "Birth weight (g)")
+```
+
+**(1)** The two groups look almost the same,
+with a long tail of very light babies in both.
+
+```{r}
+bw_fit <- linear_reg() |>
+  fit(Birthweight ~ Group, data = opt_clean)
+
+bw_tidy <- tidy(bw_fit, conf.int = TRUE)
+bw_tidy
+```
+
+- The intercept, `r round(bw_tidy$estimate[1])` g,
+  is the control group's mean birth weight.
+- The treatment coefficient, `r round(bw_tidy$estimate[2])` g,
+  is the difference between the treatment and control means.
+- Its 95% confidence interval,
+  `r round(bw_tidy$conf.low[2])` to `r round(bw_tidy$conf.high[2])` g,
+  includes 0 (p = `r signif(bw_tidy$p.value[2], 2)`):
+  no evidence that the treatment changed birth weight.
+
+The group means show where the intercept and the treatment coefficient come from:
+
+```{r}
+opt_clean |>
+  group_by(Group) |>
+  summarize(n = n(), mean_birthweight = mean(Birthweight))
+```

@@ -1,0 +1,82 @@
+---
+title: "Linear regression"
+---
+
+**Question:** in the Obstetrics and Periodontal Therapy trial,
+did periodontal treatment during pregnancy change the baby's birth weight?
+([Michalowicz et al., 2006](https://doi.org/10.1056/NEJMoa062249))
+
+Birth weight is a quantitative outcome,
+so we use linear regression.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+We'll start from `opt_clean`:
+live births only,
+with `Group` labelled `control` and `treatment`.
+The code below makes it.
+Cleaning `opt` like this is an exercise in
+[Extra practice: cleaning and tidying](07-practice-clean-and-tidy.qmd).
+
+```{r}
+opt_clean <- opt |>
+  mutate(
+    Birth.outcome = str_trim(Birth.outcome),
+    Group = factor(Group, levels = c("C", "T"),
+                   labels = c("control", "treatment"))
+  ) |>
+  filter(Birth.outcome == "Live birth") |>
+  select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)
+```
+
+## Exercise 1: Fit a linear regression
+
+$$
+\text{birth weight} = \beta_0 + \beta_1 \times \text{treatment}
+$$
+
+`treatment` is 1 for the treatment group and 0 for control.
+
+::: {.callout-note}
+## Your turn
+
+1. Before we model, let's look at the outcome.
+   Plot birth weight by group:
+   a box plot with the individual babies jittered on top.
+   Do the groups look different?
+2. Fit the model with `linear_reg()`,
+   and show the coefficients with 95% confidence intervals.
+3. What does the intercept, $\beta_0$, estimate?
+4. What does the treatment coefficient, $\beta_1$, estimate?
+5. Does its confidence interval include 0?
+   What do you conclude?
+
+```{r}
+#| eval: false
+ggplot(opt_clean, aes(x = ____, y = ____)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.3)
+
+bw_fit <- linear_reg() |>
+  fit(____ ~ ____, data = opt_clean)
+
+tidy(bw_fit, conf.int = ____)
+```
+:::
+
+For more practice,
+including a t-test, covariates, residuals, and gestational age,
+see [Extra practice: linear regression](08-practice-linear-regression.qmd).
+
+## Data and credits
+
+- `opt` from [`medicaldata`](https://higgi13425.github.io/medicaldata/reference/opt.html)
+  (Higgins).
+- Linear regression with tidymodels follows
+  [*Tidy Modeling with R*](https://www.tmwr.org/)
+  and chapter 8 of [*Data Science: A First Introduction*](https://datasciencebook.ca/).

@@ -1,6 +1,5 @@
 ---
 title: "Observational units"
-subtitle: "Optional, if time"
 ---
 
 ## Packages
@@ -24,7 +23,7 @@ The third rule says different kinds of things belong in different tables.
 
 ## The tidy Billboard data, again
 
-Here's the tidy Billboard data from the
+Here's the tidy Billboard data from Lecture 1's
 [Tidy data](/lecture-01/02-tidy-data.qmd) section again.
 
 ```{r}

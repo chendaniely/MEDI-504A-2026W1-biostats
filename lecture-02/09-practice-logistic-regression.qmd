@@ -1,0 +1,131 @@
+---
+title: "Extra practice: logistic regression"
+---
+
+These exercises go further than the
+[Logistic regression](05-logistic-regression.qmd) section of the lab.
+Once you've tried them,
+check your answers against the
+[solutions](../lecture-02-solutions/09-practice-logistic-regression.qmd).
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+They start from the lab's `blood` data,
+and the last exercise uses `cmv`,
+from [Extra practice: cleaning and tidying](07-practice-clean-and-tidy.qmd).
+The code below makes both again,
+so this page works on its own.
+
+```{r}
+blood <- blood_storage |>
+  mutate(
+    recurrence = factor(Recurrence, levels = c(0, 1), labels = c("no", "yes")),
+    rbc_age_group = factor(RBC.Age.Group, levels = 1:3,
+                           labels = c("younger", "middle", "older"))
+  )
+
+cmv <- cytomegalovirus |>
+  mutate(
+    cmv = factor(cmv, levels = c(0, 1), labels = c("no", "yes")),
+    recipient.cmv = factor(recipient.cmv, levels = c(0, 1),
+                           labels = c("negative", "positive")),
+    donor.cmv = factor(donor.cmv, levels = c(0, 1),
+                       labels = c("negative", "positive"))
+  )
+```
+
+## Exercise 1: Adjust for other risk factors
+
+ds4biomed's model 3 adds age,
+prostate volume (`PVol`),
+preoperative PSA (`PreopPSA`, ng/mL)
+and tumour volume (`TVol`, coded 1 to 3).
+
+::: {.callout-note}
+## Your turn
+
+1. Add `Age`, `PVol`, `PreopPSA` and `factor(TVol)`
+   to the lab's model of `recurrence` on `rbc_age_group`.
+2. Does storage age now show an association?
+3. Interpret the odds ratio for `PreopPSA`.
+4. Why are the confidence intervals for `TVol` so wide?
+   Hint: `count(blood, TVol, recurrence)`.
+
+```{r}
+#| eval: false
+rec_fit_adj <- logistic_reg() |>
+  fit(recurrence ~ ____, data = blood)
+
+rec_or <- tidy(rec_fit_adj, exponentiate = TRUE, conf.int = TRUE)
+rec_or
+```
+:::
+
+## Exercise 2: Plot the odds ratios
+
+::: {.callout-note}
+## Your turn
+
+Plot each odds ratio from Exercise 1 with its confidence interval,
+on a log scale, with a dashed line at 1.
+
+```{r}
+#| eval: false
+rec_or |>
+  filter(term != "(Intercept)") |>
+  ggplot(aes(x = estimate, y = term)) +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  geom_pointrange(aes(xmin = ____, xmax = ____)) +
+  scale_x_log10()
+```
+:::
+
+## Exercise 3: The same as `glm()`?
+
+ds4biomed fits these models with `glm()` directly.
+
+::: {.callout-note}
+## Your turn
+
+Fit the lab's model, `recurrence ~ rbc_age_group`, with
+`glm(..., family = binomial)`
+and compare the odds ratios with the ones from `logistic_reg()`.
+:::
+
+## Exercise 4: What does this model ignore?
+
+::: {.callout-note}
+## Your turn
+
+`blood_storage` also has `TimeToRecurrence` and `Censor`.
+What does logistic regression leave out?
+What kind of model did the original study use?
+:::
+
+## Exercise 5: Cytomegalovirus
+
+This is the exercise from ds4biomed's
+[analysis chapter](https://ds4biomed.tech/analysis-intro.html).
+
+::: {.callout-note}
+## Your turn
+
+Start from `cmv`, made at the top of this page.
+
+1. Fit a logistic regression of `cmv` on `donor.cmv`,
+   `recipient.cmv` and `time.to.transplant`.
+2. Report the odds ratios with 95% confidence intervals.
+   Which predictor is associated with CMV reactivation?
+:::
+
+## Data and credits
+
+- `blood_storage` and `cytomegalovirus` from
+  [`medicaldata`](https://higgi13425.github.io/medicaldata/) (Higgins).
+- Adapted from the analysis and tidymodels chapters of
+  [*Data Science for the Biomedical Sciences*](https://ds4biomed.tech/).

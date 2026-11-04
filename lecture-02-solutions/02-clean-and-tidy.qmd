@@ -1,0 +1,72 @@
+---
+title: "Solutions: Cleaning and tidying medical data"
+---
+
+::: {.callout-note}
+These are the solutions to the
+[Cleaning and tidying](../lecture-02/02-clean-and-tidy.qmd) exercises.
+Try each exercise yourself before you look.
+:::
+
+```{r}
+#| message: false
+library(tidyverse)
+library(medicaldata)
+```
+
+## Exercise 1: Gum health over the trial's visits
+
+```{r}
+gums <- opt |>
+  select(PID, Group, BL.GE, BL.PD.avg, V3.GE, V3.PD.avg, V5.GE, V5.PD.avg)
+
+gums_tidy <- gums |>
+  pivot_longer(
+    cols = -c(PID, Group),
+    names_to = c("visit", "measure"),
+    names_pattern = "(BL|V3|V5)\\.(.*)",
+    values_to = "value",
+    values_drop_na = TRUE
+  ) |>
+  pivot_wider(names_from = measure, values_from = value)
+gums_tidy
+```
+
+```{r}
+gums_summary <- gums_tidy |>
+  group_by(Group, visit) |>
+  summarize(
+    avg_pd = mean(PD.avg, na.rm = TRUE),
+    avg_ge = mean(GE, na.rm = TRUE),
+    .groups = "drop"
+  )
+gums_summary
+```
+
+**(c)** The treatment group's gums got better.
+Its mean pocket depth fell from 2.90 mm at baseline to 2.45 mm at visit 5,
+and its gingival index fell from 1.45 to 1.15,
+while the control group stayed about the same.
+[Linear regression](../lecture-02/04-linear-regression.qmd) asks
+whether the treatment also changed birth weight.
+
+```{r}
+ggplot(gums_summary, aes(x = visit, y = avg_pd, colour = Group, group = Group)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Visit", y = "Mean pocket depth (mm)", colour = "Group")
+```
+
+## Exercise 2: Coded variables
+
+```{r}
+blood <- blood_storage |>
+  mutate(
+    recurrence = factor(Recurrence, levels = c(0, 1), labels = c("no", "yes")),
+    rbc_age_group = factor(RBC.Age.Group, levels = 1:3,
+                           labels = c("younger", "middle", "older"))
+  )
+
+blood |>
+  count(rbc_age_group, recurrence)
+```

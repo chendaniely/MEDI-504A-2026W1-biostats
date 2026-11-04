@@ -1,0 +1,113 @@
+---
+title: "Extra practice: linear regression"
+---
+
+These exercises go further than the
+[Linear regression](04-linear-regression.qmd) section of the lab.
+Once you've tried them,
+check your answers against the
+[solutions](../lecture-02-solutions/08-practice-linear-regression.qmd).
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+They start from the lab's `opt_clean` data
+and its model of birth weight on group, `bw_fit`.
+The code below makes both again,
+so this page works on its own.
+
+```{r}
+opt_clean <- opt |>
+  mutate(
+    Birth.outcome = str_trim(Birth.outcome),
+    Group = factor(Group, levels = c("C", "T"),
+                   labels = c("control", "treatment"))
+  ) |>
+  filter(Birth.outcome == "Live birth") |>
+  select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)
+
+bw_fit <- linear_reg() |>
+  fit(Birthweight ~ Group, data = opt_clean)
+```
+
+## Exercise 1: The same as a t-test?
+
+::: {.callout-note}
+## Your turn
+
+Run a two-sample t-test with equal variances.
+Compare its t statistic and p-value
+with the treatment row of `tidy(bw_fit)`.
+
+```{r}
+#| eval: false
+t.test(Birthweight ~ Group, data = opt_clean, var.equal = TRUE)
+```
+:::
+
+## Exercise 2: Add covariates
+
+::: {.callout-note}
+## Your turn
+
+1. Fit a model that also includes the mother's `Age`, `BMI`
+   and the `Clinic` she enrolled at.
+2. Use `glance()` to find how many rows the model used (`nobs`).
+   Why is it fewer than the rows in `opt_clean`?
+3. Did the treatment estimate change much?
+   Why might that be in a randomized trial?
+
+```{r}
+#| eval: false
+bw_fit_adj <- linear_reg() |>
+  fit(Birthweight ~ ____, data = opt_clean)
+
+tidy(bw_fit_adj, conf.int = TRUE)
+glance(bw_fit_adj)
+```
+:::
+
+## Exercise 3: Check the fit
+
+Residuals, the observed minus the fitted values,
+should scatter evenly around 0.
+
+::: {.callout-note}
+## Your turn
+
+Plot the residuals of `bw_fit` against its fitted values.
+What do you see?
+
+```{r}
+#| eval: false
+augment(bw_fit, new_data = opt_clean) |>
+  ggplot(aes(x = .pred, y = ____)) +
+  geom_jitter(width = 5, alpha = 0.3) +
+  geom_hline(yintercept = 0)
+```
+:::
+
+## Exercise 4: Gestational age
+
+The trial's main outcome was gestational age at birth
+(`GA.at.outcome`, in days).
+
+::: {.callout-note}
+## Your turn
+
+Fit a linear regression of gestational age on `Group`,
+then adjust for `Age`, `BMI` and `Clinic`.
+Did the treatment change gestational age?
+:::
+
+## Data and credits
+
+- `opt` from [`medicaldata`](https://higgi13425.github.io/medicaldata/reference/opt.html)
+  (Higgins).
+- Linear regression with tidymodels follows
+  [*Tidy Modeling with R*](https://www.tmwr.org/)
+  and chapter 8 of [*Data Science: A First Introduction*](https://datasciencebook.ca/).

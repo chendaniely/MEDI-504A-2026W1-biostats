@@ -1,0 +1,13 @@
+---
+title: "Observational units"
+---
+
+:::{.column-page-inset-right}
+
+{{< revealjs file="/lecture-02/slides/03-observational-units.html" height="500px" class="ratio ratio-16x9" >}}
+
+:::
+
+# Slide contents
+
+{{< include /lecture-02/slides/03-observational-units.qmd >}}

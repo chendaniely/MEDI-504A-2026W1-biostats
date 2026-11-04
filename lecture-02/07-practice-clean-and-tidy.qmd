@@ -1,0 +1,145 @@
+---
+title: "Extra practice: cleaning and tidying"
+---
+
+These exercises go further than the
+[Cleaning and tidying](02-clean-and-tidy.qmd) section of the lab.
+Once you've tried them,
+check your answers against the
+[solutions](../lecture-02-solutions/07-practice-clean-and-tidy.qmd).
+
+```{r}
+#| message: false
+library(tidyverse)
+library(medicaldata)
+```
+
+## Exercise 1: Tumour growth over time
+
+This exercise follows the
+[tidy data chapter](https://ds4biomed.tech/clean-data-tidy.html)
+of *Data Science for the Biomedical Sciences*.
+Mice with a human glioma xenograft were assigned to one of 4 groups:
+control (`1.CTR`), drug (`2.D`), radiation (`3.R`),
+or drug and radiation (`4.D+R`).
+Tumour size (mm³) was measured over 28 days.
+
+`data/tumorgrowth_wide.csv` is ds4biomed's
+`data/tumorgrowth_long.csv`
+([`chendaniely/ds4biomed`](https://github.com/chendaniely/ds4biomed/tree/learner/data),
+`learner` branch),
+renamed because it's in wide format:
+a version of the `tumorgrowth` data
+from the [`medicaldata`](https://github.com/higgi13425/medicaldata) GitHub repository.
+
+```{r}
+tumor <- read_csv("data/tumorgrowth_wide.csv")
+tumor
+```
+
+::: {.callout-note}
+## Your turn
+
+1. Which tidy-data problem does this table have?
+2. Pivot the day columns into `day` and `size`,
+   with `day` as an integer, dropping missing sizes.
+   Call the result `tumor_tidy`.
+3. Calculate the mean tumour size for each group on each day.
+4. Plot each mouse's tumour size over time, coloured by group.
+
+```{r}
+#| eval: false
+tumor_tidy <- tumor |>
+  pivot_longer(
+    `0`:last_col(),
+    names_to = ____,
+    names_transform = list(day = as.integer),
+    values_to = ____,
+    values_drop_na = TRUE
+  )
+
+tumor_tidy |>
+  group_by(____, ____) |>
+  summarize(avg_size = mean(size))
+
+ggplot(tumor_tidy, aes(x = day, y = size, group = ID, colour = ____)) +
+  geom_line()
+```
+:::
+
+## Exercise 2: Cleaning a clinical trial dataset
+
+`opt` is the Obstetrics and Periodontal Therapy trial
+from the lab's gum health exercise.
+This time we'll get it ready to model birth weight.
+It has 171 columns, so start with the ones you need.
+
+```{r}
+opt |>
+  select(PID, Group, Age, BMI, Birth.outcome, Birthweight) |>
+  glimpse()
+```
+
+::: {.callout-note}
+## Your turn
+
+1. Count the values of `Birth.outcome`.
+   What's odd about the labels?
+2. How many rows does `filter(opt, Birth.outcome == "Live birth")` return?
+   Why?
+3. Make `opt_clean`:
+   trim the spaces from `Birth.outcome` with `str_trim()`,
+   keep live births only,
+   relabel `Group` as `control` and `treatment`,
+   and keep `PID`, `Clinic`, `Group`, `Age`, `BMI`,
+   `Birthweight` and `GA.at.outcome`.
+4. How many values are missing in each column of `opt_clean`?
+
+```{r}
+#| eval: false
+opt_clean <- opt |>
+  mutate(
+    Birth.outcome = ____,
+    Group = factor(Group, levels = c("C", "T"),
+                   labels = c(____, ____))
+  ) |>
+  filter(____) |>
+  select(____)
+
+opt_clean |>
+  summarize(across(everything(), \(x) sum(is.na(x))))
+```
+:::
+
+This is the `opt_clean` that [Linear regression](04-linear-regression.qmd) starts from.
+
+## Exercise 3: Cytomegalovirus
+
+`cytomegalovirus` (from `medicaldata`) follows 64 patients
+after a stem cell transplant
+([Sobecks et al., 2011](https://higgi13425.github.io/medicaldata/reference/cytomegalovirus.html)).
+`cmv` is whether CMV reactivated (0 = no, 1 = yes),
+and `recipient.cmv` and `donor.cmv` are the CMV serostatus
+of the patient and the donor (0 = negative, 1 = positive).
+
+::: {.callout-note}
+## Your turn
+
+1. Make `cmv`: recode `cmv` as a factor with labels `no` and `yes`,
+   and `recipient.cmv` and `donor.cmv` as factors
+   with labels `negative` and `positive`.
+2. How many values are missing in `time.to.transplant`?
+
+```{r}
+#| eval: false
+cmv <- cytomegalovirus |>
+  mutate(
+    cmv = factor(____, levels = ____, labels = ____),
+    recipient.cmv = ____,
+    donor.cmv = ____
+  )
+```
+:::
+
+You'll model `cmv` in
+[Extra practice: logistic regression](09-practice-logistic-regression.qmd).

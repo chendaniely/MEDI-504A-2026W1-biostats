@@ -1,0 +1,122 @@
+---
+title: "Solutions: Extra practice: logistic regression"
+---
+
+::: {.callout-note}
+These are the solutions to the
+[Extra practice: logistic regression](../lecture-02/09-practice-logistic-regression.qmd) exercises.
+Try each exercise yourself before you look.
+:::
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+`blood` and `cmv`, made at the top of the exercise page:
+
+```{r}
+blood <- blood_storage |>
+  mutate(
+    recurrence = factor(Recurrence, levels = c(0, 1), labels = c("no", "yes")),
+    rbc_age_group = factor(RBC.Age.Group, levels = 1:3,
+                           labels = c("younger", "middle", "older"))
+  )
+
+cmv <- cytomegalovirus |>
+  mutate(
+    cmv = factor(cmv, levels = c(0, 1), labels = c("no", "yes")),
+    recipient.cmv = factor(recipient.cmv, levels = c(0, 1),
+                           labels = c("negative", "positive")),
+    donor.cmv = factor(donor.cmv, levels = c(0, 1),
+                       labels = c("negative", "positive"))
+  )
+```
+
+## Exercise 1: Adjust for other risk factors
+
+```{r}
+rec_fit_adj <- logistic_reg() |>
+  fit(recurrence ~ rbc_age_group + Age + PVol + PreopPSA + factor(TVol),
+      data = blood)
+
+rec_or <- tidy(rec_fit_adj, exponentiate = TRUE, conf.int = TRUE)
+rec_or
+```
+
+```{r}
+blood |>
+  summarize(across(c(Age, PVol, PreopPSA, TVol), \(x) sum(is.na(x))))
+```
+
+- `glm()` drops rows with missing `PVol`, `PreopPSA` or `TVol`.
+- Storage age still shows no association.
+- Each 1 ng/mL of preoperative PSA multiplies the odds of recurrence by
+  `r round(rec_or$estimate[rec_or$term == "PreopPSA"], 2)`
+  (95% CI `r round(rec_or$conf.low[rec_or$term == "PreopPSA"], 2)`
+  to `r round(rec_or$conf.high[rec_or$term == "PreopPSA"], 2)`).
+- Larger tumour volumes (`TVol` 2 and 3, compared with 1)
+  have much higher odds of recurrence,
+  but very wide confidence intervals:
+  few men in the lowest tumour-volume group had a recurrence.
+
+```{r}
+blood |>
+  count(TVol, recurrence)
+```
+
+## Exercise 2: Plot the odds ratios
+
+```{r}
+#| warning: false
+rec_or |>
+  filter(term != "(Intercept)") |>
+  ggplot(aes(x = estimate, y = term)) +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  geom_pointrange(aes(xmin = conf.low, xmax = conf.high)) +
+  scale_x_log10() +
+  labs(x = "Odds ratio (log scale, 95% CI)", y = NULL)
+```
+
+## Exercise 3: The same as `glm()`
+
+```{r}
+glm(recurrence ~ rbc_age_group, data = blood, family = binomial) |>
+  tidy(exponentiate = TRUE, conf.int = TRUE)
+
+logistic_reg() |>
+  fit(recurrence ~ rbc_age_group, data = blood) |>
+  tidy(exponentiate = TRUE, conf.int = TRUE)
+```
+
+The same odds ratios:
+`logistic_reg()` uses `glm()` underneath.
+
+## Exercise 4: What does this model ignore?
+
+Time.
+The men were followed for different lengths of time
+(`TimeToRecurrence`),
+and some left the study before a recurrence could be seen
+(`Censor`).
+Logistic regression only asks *whether* recurrence happened;
+survival analysis, as the original study used,
+also models *when*.
+
+## Exercise 5: Cytomegalovirus
+
+```{r}
+cmv_fit <- logistic_reg() |>
+  fit(cmv ~ donor.cmv + recipient.cmv + time.to.transplant, data = cmv)
+
+cmv_or <- tidy(cmv_fit, exponentiate = TRUE, conf.int = TRUE)
+cmv_or
+```
+
+A CMV-positive recipient has
+`r round(cmv_or$estimate[cmv_or$term == "recipient.cmvpositive"], 1)` times the odds of reactivation
+(95% CI `r round(cmv_or$conf.low[cmv_or$term == "recipient.cmvpositive"], 1)`
+to `r round(cmv_or$conf.high[cmv_or$term == "recipient.cmvpositive"], 1)`).
+With only 64 patients, every interval is wide.

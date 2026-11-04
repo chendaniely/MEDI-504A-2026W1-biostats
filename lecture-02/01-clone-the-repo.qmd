@@ -2,10 +2,85 @@
 title: "Clone the repository"
 ---
 
-::: {.callout-note}
-Draft outline: content to come.
+Today you work in your own copy of the course repository,
+so you can save your work as you go.
+
+## 1. Fork the repository
+
+1. Sign in to GitHub and open
+   <https://github.com/chendaniely/MEDI-504A-2026W1-biostats>.
+2. Click **Fork**, check that **Owner** is your own account,
+   then click **Create fork**.
+
+Your fork lives at
+`https://github.com/<your-username>/MEDI-504A-2026W1-biostats`.
+
+::: {.callout-warning}
+Your fork is public.
+Never put real patient data in it.
 :::
 
-- Fork the course repository on GitHub
-- Clone your fork, or open a Codespace from it
-- Open the project and render `example.qmd`
+## 2. Open your fork
+
+Choose one.
+
+::: {.panel-tabset}
+
+### Codespace
+
+On your fork's page,
+click **Code** → **Codespaces** → **Create codespace on main**.
+It's the same setup as the [Codespaces](../setup-codespaces.qmd) page,
+now saving to your fork.
+
+### Positron
+
+1. Copy your fork's URL from **Code** → **HTTPS**.
+2. In Positron, run **Git: Clone** from the Command Palette
+   and paste the URL.
+3. Open the cloned folder.
+
+### RStudio
+
+1. Copy your fork's URL from **Code** → **HTTPS**.
+2. **File** → **New Project** → **Version Control** → **Git**,
+   and paste the URL.
+
+:::
+
+If you work on your own computer,
+complete the [local setup](../setup-local.qmd) first.
+
+## 3. Check it works
+
+Open `example.qmd` and render it.
+If it renders, everything you need for today is installed.
+
+## Where things are
+
+- `data/`: the data files for today
+- `lecture-02/`: one file per section of today's lab;
+  open each `.qmd` and work through it.
+  The files that start with `07` to `09` are extra practice for after class.
+- `homework.qmd`: the homework
+  (the [Homework](../homework-instructions.qmd) page explains it)
+
+Every file reads data with paths that start at the repository's top folder,
+such as `read_csv("data/tumorgrowth_wide.csv")`.
+
+::: {.callout-tip}
+## RStudio: run chunks from the top folder
+
+RStudio runs a chunk from the document's own folder by default,
+so `data/...` paths fail.
+Change **Tools** → **Global Options** → **R Markdown** →
+**Evaluate chunks in directory** to **Project**.
+Positron and Codespaces run code from the top folder already.
+:::
+
+## Save your work
+
+Commit and push to your fork as you go:
+in the **Source Control** panel (Positron, Codespaces)
+or the **Git** pane (RStudio),
+stage your changes, write a message, commit, then push.

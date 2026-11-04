@@ -9,6 +9,8 @@ project:
     - lecture-01/*.qmd
     - lecture-01/slides/*.qmd
     - lecture-02/*.qmd
+    - lecture-02/slides/*.qmd
+    - lecture-02-solutions/*.qmd
     # homework.qmd and homework_solution.qmd are left out on purpose:
     # they render as individual documents, not website pages
     - homework-instructions.qmd
@@ -44,15 +46,27 @@ website:
           - lecture-01/02-tidy-data.qmd
           - lecture-01/03-wrangle-visualize.qmd
           - lecture-01/04-tidy-to-models.qmd
-          - lecture-01/05-extra-functions.qmd
-          - href: lecture-01/05-observational-units.qmd
-            text: "Observational units (optional)"
       - section: "Lecture 2: Modelling lab (Wed, Nov 4)"
         contents:
           - lecture-02/01-clone-the-repo.qmd
           - lecture-02/02-clean-and-tidy.qmd
-          - lecture-02/03-linear-regression.qmd
-          - lecture-02/04-logistic-regression.qmd
+          - lecture-02/03-observational-units.qmd
+          - lecture-02/04-linear-regression.qmd
+          - lecture-02/05-logistic-regression.qmd
+          - lecture-02/06-extra-functions.qmd
+      - section: "Extra practice"
+        contents:
+          - lecture-02/07-practice-clean-and-tidy.qmd
+          - lecture-02/08-practice-linear-regression.qmd
+          - lecture-02/09-practice-logistic-regression.qmd
+      - section: "Lecture 2 solutions"
+        contents:
+          - lecture-02-solutions/02-clean-and-tidy.qmd
+          - lecture-02-solutions/04-linear-regression.qmd
+          - lecture-02-solutions/05-logistic-regression.qmd
+          - lecture-02-solutions/07-practice-clean-and-tidy.qmd
+          - lecture-02-solutions/08-practice-linear-regression.qmd
+          - lecture-02-solutions/09-practice-logistic-regression.qmd
       - href: homework-instructions.qmd
         text: Homework
 

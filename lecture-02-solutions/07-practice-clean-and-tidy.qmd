@@ -1,0 +1,103 @@
+---
+title: "Solutions: Extra practice: cleaning and tidying"
+---
+
+::: {.callout-note}
+These are the solutions to the
+[Extra practice: cleaning and tidying](../lecture-02/07-practice-clean-and-tidy.qmd) exercises.
+Try each exercise yourself before you look.
+:::
+
+```{r}
+#| message: false
+library(tidyverse)
+library(medicaldata)
+```
+
+## Exercise 1: Tumour growth over time
+
+**(1)** Column headers are values, not variable names:
+the headers `0` to `28` are values of a `day` variable.
+
+```{r}
+tumor <- read_csv("data/tumorgrowth_wide.csv")
+
+tumor_tidy <- tumor |>
+  pivot_longer(
+    `0`:last_col(),
+    names_to = "day",
+    names_transform = list(day = as.integer),
+    values_to = "size",
+    values_drop_na = TRUE
+  )
+tumor_tidy
+```
+
+```{r}
+tumor_tidy |>
+  group_by(Grp, day) |>
+  summarize(avg_size = mean(size), .groups = "drop")
+```
+
+```{r}
+ggplot(tumor_tidy, aes(x = day, y = size, group = ID, colour = Grp)) +
+  geom_line(alpha = 0.6) +
+  labs(x = "Day", y = "Tumour size (mm³)", colour = "Group")
+```
+
+## Exercise 2: Cleaning a clinical trial dataset
+
+```{r}
+opt |>
+  count(Birth.outcome)
+```
+
+**(1)** The labels end in trailing spaces (`"Live birth          "`).
+
+```{r}
+opt |>
+  filter(Birth.outcome == "Live birth") |>
+  nrow()
+```
+
+**(2)** 0 rows:
+`"Live birth"` doesn't match `"Live birth          "`.
+
+```{r}
+opt_clean <- opt |>
+  mutate(
+    Birth.outcome = str_trim(Birth.outcome),
+    Group = factor(Group, levels = c("C", "T"),
+                   labels = c("control", "treatment"))
+  ) |>
+  filter(Birth.outcome == "Live birth") |>
+  select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)
+opt_clean
+```
+
+```{r}
+opt_clean |>
+  summarize(across(everything(), \(x) sum(is.na(x))))
+```
+
+**(4)** Only `BMI` has missing values:
+`r sum(is.na(opt_clean$BMI))` of `r nrow(opt_clean)` live births.
+
+## Exercise 3: Cytomegalovirus
+
+```{r}
+cmv <- cytomegalovirus |>
+  mutate(
+    cmv = factor(cmv, levels = c(0, 1), labels = c("no", "yes")),
+    recipient.cmv = factor(recipient.cmv, levels = c(0, 1),
+                           labels = c("negative", "positive")),
+    donor.cmv = factor(donor.cmv, levels = c(0, 1),
+                       labels = c("negative", "positive"))
+  )
+
+cmv |>
+  count(cmv, recipient.cmv, donor.cmv)
+
+cmv |>
+  summarize(missing_time = sum(is.na(time.to.transplant)))
+```

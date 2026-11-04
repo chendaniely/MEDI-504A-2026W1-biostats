@@ -1,0 +1,88 @@
+---
+title: "Logistic regression"
+---
+
+**Question:** among men who received blood transfusions
+during radical prostatectomy,
+is the storage age of the transfused red blood cells
+associated with prostate cancer recurrence?
+([Cata et al., 2011](https://higgi13425.github.io/medicaldata/reference/blood_storage.html))
+
+Recurrence is a yes/no outcome,
+so we use logistic regression
+and report odds ratios.
+This section follows the
+[analysis](https://ds4biomed.tech/analysis-intro.html) and
+[tidymodels](https://ds4biomed.tech/machine-learning-tidymodels.html) chapters
+of *Data Science for the Biomedical Sciences*.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+We'll start from `blood`,
+which you made in the
+[Coded variables](02-clean-and-tidy.qmd#exercise-2-coded-variables) exercise.
+The code below makes it again,
+so this page works on its own.
+The outcome must be a factor,
+and its second level (`yes`) is the event the model predicts.
+
+```{r}
+blood <- blood_storage |>
+  mutate(
+    recurrence = factor(Recurrence, levels = c(0, 1), labels = c("no", "yes")),
+    rbc_age_group = factor(RBC.Age.Group, levels = 1:3,
+                           labels = c("younger", "middle", "older"))
+  )
+```
+
+## Exercise 1: Fit a logistic regression
+
+Logistic regression models the log-odds of the event:
+
+$$
+\log\left(\frac{p}{1 - p}\right) = \beta_0 + \beta_1 X_1 + \dots
+$$
+
+where $p$ is the probability of recurrence.
+Exponentiating a coefficient, $e^{\beta}$, gives an **odds ratio**.
+
+::: {.callout-note}
+## Your turn
+
+1. Before we model, let's look at the outcome.
+   Plot the proportion of men with a recurrence in each storage-age group
+   as stacked bars (`geom_bar(position = "fill")`).
+   Does recurrence look different between the groups?
+2. Fit a logistic regression of `recurrence` on `rbc_age_group`.
+3. Show the odds ratios with 95% confidence intervals.
+4. What group are the odds ratios compared with?
+   Is older stored blood associated with recurrence?
+
+```{r}
+#| eval: false
+ggplot(blood, aes(x = ____, fill = ____)) +
+  geom_bar(position = "fill")
+
+rec_fit <- logistic_reg() |>
+  fit(____ ~ ____, data = blood)
+
+tidy(rec_fit, exponentiate = ____, conf.int = ____)
+```
+:::
+
+For more practice,
+including adjusting for other risk factors, plotting odds ratios,
+and the cytomegalovirus data,
+see [Extra practice: logistic regression](09-practice-logistic-regression.qmd).
+
+## Data and credits
+
+- `blood_storage` from
+  [`medicaldata`](https://higgi13425.github.io/medicaldata/) (Higgins).
+- Adapted from the analysis and tidymodels chapters of
+  [*Data Science for the Biomedical Sciences*](https://ds4biomed.tech/).

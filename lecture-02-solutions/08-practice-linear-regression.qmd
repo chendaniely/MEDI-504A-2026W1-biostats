@@ -1,0 +1,101 @@
+---
+title: "Solutions: Extra practice: linear regression"
+---
+
+::: {.callout-note}
+These are the solutions to the
+[Extra practice: linear regression](../lecture-02/08-practice-linear-regression.qmd) exercises.
+Try each exercise yourself before you look.
+:::
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+`opt_clean` and `bw_fit`, made at the top of the exercise page:
+
+```{r}
+opt_clean <- opt |>
+  mutate(
+    Birth.outcome = str_trim(Birth.outcome),
+    Group = factor(Group, levels = c("C", "T"),
+                   labels = c("control", "treatment"))
+  ) |>
+  filter(Birth.outcome == "Live birth") |>
+  select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)
+
+bw_fit <- linear_reg() |>
+  fit(Birthweight ~ Group, data = opt_clean)
+
+bw_tidy <- tidy(bw_fit, conf.int = TRUE)
+bw_tidy
+```
+
+## Exercise 1: The same as a t-test
+
+```{r}
+t.test(Birthweight ~ Group, data = opt_clean, var.equal = TRUE)
+```
+
+The t statistic has the same size as the regression's
+(the sign flips because `t.test()` subtracts treatment from control),
+and the p-value is identical.
+A regression with one two-level predictor
+is a two-sample t-test with equal variances.
+
+## Exercise 2: Add covariates
+
+```{r}
+bw_fit_adj <- linear_reg() |>
+  fit(Birthweight ~ Group + Age + BMI + Clinic, data = opt_clean)
+
+bw_adj_tidy <- tidy(bw_fit_adj, conf.int = TRUE)
+bw_adj_tidy
+glance(bw_fit_adj)
+```
+
+- The model used `r glance(bw_fit_adj)$nobs` of `r nrow(opt_clean)` rows:
+  `lm()` drops the `r sum(is.na(opt_clean$BMI))` rows with missing BMI.
+- The treatment estimate moves from `r round(bw_tidy$estimate[2])`
+  to `r round(bw_adj_tidy$estimate[2])` g,
+  still with a confidence interval that includes 0.
+  Randomization balances the covariates between groups,
+  so adjusting for them barely changes the treatment effect.
+
+## Exercise 3: Check the fit
+
+```{r}
+augment(bw_fit, new_data = opt_clean) |>
+  ggplot(aes(x = .pred, y = .resid)) +
+  geom_jitter(width = 5, alpha = 0.3) +
+  geom_hline(yintercept = 0) +
+  labs(x = "Fitted birth weight (g)", y = "Residual (g)")
+```
+
+With one two-level predictor there are only two fitted values.
+The residuals are skewed:
+a long tail of babies born much lighter than average,
+often preterm.
+
+## Exercise 4: Gestational age
+
+```{r}
+ga_fit <- linear_reg() |>
+  fit(GA.at.outcome ~ Group, data = opt_clean)
+ga_tidy <- tidy(ga_fit, conf.int = TRUE)
+ga_tidy
+
+ga_fit_adj <- linear_reg() |>
+  fit(GA.at.outcome ~ Group + Age + BMI + Clinic, data = opt_clean)
+ga_adj_tidy <- tidy(ga_fit_adj, conf.int = TRUE)
+ga_adj_tidy
+```
+
+Treatment changed gestational age by `r round(ga_tidy$estimate[2], 1)` days
+(95% CI `r round(ga_tidy$conf.low[2], 1)` to `r round(ga_tidy$conf.high[2], 1)`),
+and by `r round(ga_adj_tidy$estimate[2], 1)` days after adjusting:
+no evidence of an effect,
+which matches the trial's published result.

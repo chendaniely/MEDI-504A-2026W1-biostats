@@ -9,11 +9,27 @@ title: "Extra functions for the homework"
 library(tidyverse)
 ```
 
-## Why these functions?
+## The homework
 
-The homework uses a few functions we didn't get to in the lecture.
-Each slide shows one of them on the penguins,
-the same data we used in
+The homework, `homework.qmd` in your fork,
+puts both lectures together.
+The [Homework](/homework-instructions.qmd) page says how to get it
+and hand it in.
+
+| In the homework | Where we've seen it |
+|---|---|
+| Split and reshape the Ebola columns | Lecture 1, the `who2` example |
+| Summarize each country | Lecture 1, `group_by()` and `summarize()` |
+| Recode a trial's variables | Today, Coded variables |
+| Plot the outcome | Lecture 1, histograms and bar plots |
+| Pick linear or logistic, then fit and interpret it | Today, Linear and Logistic regression |
+| `min()`, `max()`, `desc()`, `mdy()`, `geom_col()`, `fct_relevel()` | The next slides |
+
+## The functions we haven't used yet
+
+The homework uses a few functions we didn't get to in the lectures.
+Each of the next slides shows one of them on the penguins,
+the same data we used in Lecture 1's
 [Wrangling and visualizing](/lecture-01/03-wrangle-visualize.qmd).
 
 ```{r}

@@ -1,13 +1,118 @@
 ---
-title: "Cleaning and tidying a medical dataset"
+title: "Cleaning and tidying medical data"
 ---
 
+Before you can model data, it has to be tidy and clean:
+one row per observation,
+one column per variable,
+and values coded the way you'll analyze them.
+In class, we'll do one exercise that reshapes data into a tidy shape,
+and one that recodes numbers into categories we can read.
+For more practice,
+see [Extra practice: cleaning and tidying](07-practice-clean-and-tidy.qmd).
+
+```{r}
+#| message: false
+library(tidyverse)
+library(medicaldata)
+```
+
+## Exercise 1: Gum health over the trial's visits
+
+`opt` (from `medicaldata`) is the Obstetrics and Periodontal Therapy trial:
+pregnant women with periodontal disease were randomized
+to periodontal treatment (`T`) or control (`C`)
+([Michalowicz et al., 2006](https://doi.org/10.1056/NEJMoa062249)).
+Their gums were examined at baseline (`BL`), visit 3 (`V3`), and visit 5 (`V5`).
+We'll look at two of the measures:
+the gingival index (`GE`, where higher means more inflamed gums)
+and the average pocket depth in millimetres (`PD.avg`).
+
+```{r}
+gums <- opt |>
+  select(PID, Group, BL.GE, BL.PD.avg, V3.GE, V3.PD.avg, V5.GE, V5.PD.avg)
+gums
+```
+
 ::: {.callout-note}
-Draft outline: content to come.
+## Your turn
+
+A header like `V3.PD.avg` packs two variables into one name:
+the visit (`V3`) and the measure (`PD.avg`).
+`PD.avg` has a dot of its own,
+so `names_sep = "."` would split it in the wrong place.
+The `names_pattern` below reads "the visit, a dot, then the rest".
+
+1. Pivot the six measure columns into `visit`, `measure`, and `value`,
+   dropping missing values.
+2. Pivot `measure` back out, so `GE` and `PD.avg` are their own columns.
+   Call the result `gums_tidy`.
+3. Calculate the mean pocket depth and gingival index
+   for each group at each visit.
+   What happened to the treatment group's gums?
+4. Plot the mean pocket depth at each visit, coloured by group.
+
+```{r}
+#| eval: false
+gums_tidy <- gums |>
+  pivot_longer(
+    cols = ____,
+    names_to = c(____, ____),
+    names_pattern = "(BL|V3|V5)\\.(.*)",
+    values_to = "value",
+    values_drop_na = TRUE
+  ) |>
+  pivot_wider(names_from = ____, values_from = ____)
+
+gums_summary <- gums_tidy |>
+  group_by(____, ____) |>
+  summarize(
+    avg_pd = mean(PD.avg, na.rm = TRUE),
+    avg_ge = mean(GE, na.rm = TRUE)
+  )
+
+ggplot(gums_summary, aes(x = visit, y = ____, colour = ____, group = ____)) +
+  geom_line() +
+  geom_point()
+```
 :::
 
-- Load a `medicaldata` dataset
-- Clean variable names and types
-- Reshape it into tidy form
+## Exercise 2: Coded variables
 
-Based on the examples in *Data Science for the Biomedical Sciences*.
+`blood_storage` (from `medicaldata`) follows 316 men
+who received blood transfusions during radical prostatectomy
+([Cata et al., 2011](https://higgi13425.github.io/medicaldata/reference/blood_storage.html)).
+Its categories are stored as numbers:
+
+```{r}
+blood_storage |>
+  count(RBC.Age.Group, Recurrence)
+```
+
+- `Recurrence`: 0 = no, 1 = yes
+  (biochemical recurrence of prostate cancer)
+- `RBC.Age.Group`: storage age of the transfused red blood cells,
+  in terciles: 1 = younger, 2 = middle, 3 = older
+
+::: {.callout-note}
+## Your turn
+
+Make `blood`:
+add `recurrence`, a factor with labels `no` and `yes`,
+and `rbc_age_group`, a factor with labels `younger`, `middle` and `older`.
+Then count `rbc_age_group` by `recurrence`.
+
+```{r}
+#| eval: false
+blood <- blood_storage |>
+  mutate(
+    recurrence = factor(Recurrence, levels = ____, labels = ____),
+    rbc_age_group = factor(RBC.Age.Group, levels = ____, labels = ____)
+  )
+
+blood |>
+  count(____, ____)
+```
+:::
+
+You'll model `blood` in [Logistic regression](05-logistic-regression.qmd).

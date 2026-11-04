@@ -49,15 +49,16 @@ and the `:::` line after it.
 In the rendered HTML,
 you can click on a hint to open it.
 
-The hints are written so you can use them as your prompt for Copilot Chat.
-Each one says what the code needs to do, one step at a time.
-Copilot Chat is part of your Codespace,
-and the [HDSx setup page](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html)
+Each hint says what the code needs to do, one step at a time.
+You're welcome to use GitHub Copilot in your Codespace for the homework,
+and the hints are written so you can use them as your prompt for Copilot Chat.
+The [HDSx setup page](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html)
 shows how to use it.
-If you're working on your own computer and don't have Copilot Chat there,
-do the homework in your Codespace.
+If you work on your own computer without Copilot,
+follow the hint's steps yourself,
+using the links to each function's documentation.
 
-For each code chunk:
+With Copilot, for each code chunk:
 
 1. Open Copilot Chat.
 2. Paste in the hint,
@@ -153,8 +154,8 @@ Steps 1 and 2 are the same as the `who2` example in Lecture 1
    to change `Date` from text into a date.
    `mdy()` reads dates written month/day/year, like `1/5/2015`.
    It comes from the lubridate package, which loads with the tidyverse
-   (see [`mdy()`: dates from text](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#mdy-dates-from-text)
-   in Lecture 1's Extra functions slides).
+   (see [`mdy()`: dates from text](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html#mdy-dates-from-text)
+   in Lecture 2's Extra functions slides).
 4. Save the result as `ebola_tidy`,
    and put `ebola_tidy` on the last line of the chunk so it prints.
 
@@ -193,8 +194,8 @@ as long as you say which one you used.
 ## Hint
 
 Start from `ebola_tidy`.
-Lecture 1's Extra functions slide
-[`min()`, `max()`, and `desc()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#min-max-and-desc)
+Lecture 2's Extra functions slide
+[`min()`, `max()`, and `desc()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html#min-max-and-desc)
 does the same steps on the penguins.
 
 1. Use
@@ -281,8 +282,8 @@ Pick one of these, or make your own:
   `geom_col()` makes each bar as long as a number in your table.
   (`geom_bar()`, which you'll use in Part 2, counts rows instead,
   so here it would make every country's bar 1 long.
-  Lecture 1's Extra functions slide
-  [`geom_col()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#geom_col-bars-from-numbers-we-already-have)
+  Lecture 2's Extra functions slide
+  [`geom_col()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html#geom_col-bars-from-numbers-we-already-have)
   shows the two side by side.)
 
 Add [`labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
@@ -389,7 +390,7 @@ the reference level should be the control group.
 
 A **factor** is how R stores a categorical variable.
 Recode your variables the same way as the lab's
-[Coded variables exercise](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/02-clean-and-tidy.html#exercise-4-coded-variables).
+[Coded variables exercise](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/02-clean-and-tidy.html#exercise-2-coded-variables).
 Use [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 with [`factor(column, levels = ..., labels = ...)`](https://search.r-project.org/R/refmans/base/html/factor.html)
 to turn coded values into categories with readable names.
@@ -419,8 +420,8 @@ Here's what to recode in each trial (its page has the details):
   `arm` lists `Streptomycin` first,
   so use [`fct_relevel(arm, "Control")`](https://forcats.tidyverse.org/reference/fct_relevel.html)
   to make `Control` the reference level
-  (see Lecture 1's Extra functions slide
-  [`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#fct_relevel-and-fct_collapse)).
+  (see Lecture 2's Extra functions slide
+  [`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html#fct_relevel-and-fct_collapse)).
   `baseline_condition` is `1_Good`, `2_Fair`, or `3_Poor`.
   `gender` and `baseline_cavitation` are already readable.
 
@@ -538,8 +539,8 @@ The model can't estimate an effect for that group,
 so leave the variable out,
 or combine its levels with
 [`fct_collapse()`](https://forcats.tidyverse.org/reference/fct_collapse.html)
-(see Lecture 1's Extra functions slide
-[`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/05-extra-functions.html#fct_relevel-and-fct_collapse)).
+(see Lecture 2's Extra functions slide
+[`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html#fct_relevel-and-fct_collapse)).
 
 Make the `tidy()` line the last line of the chunk,
 so its table prints.
