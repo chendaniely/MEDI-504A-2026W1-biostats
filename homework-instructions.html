@@ -79,18 +79,18 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>
-div.callout-relevance-project.callout {
-  border-left-color: #0077C8;
+div.callout-activity.callout {
+  border-left-color: #0055B7;
 }
-div.callout-relevance-project.callout-style-default .callout-header {
-  background-color: rgba(0, 119, 200, 0.13);
+div.callout-activity.callout-style-default .callout-header {
+  background-color: rgba(0, 85, 183, 0.13);
 }
-div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
-div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
   font-family: 'Font Awesome 7 Free';
   font-weight: 900;
   font-style: normal;
-  content: '\f542' !important;
+  content: '\e53d' !important;
   background-image: none;
 }
 div.callout-definition.callout {
@@ -107,6 +107,20 @@ div.callout-definition.callout-style-default .callout-icon::before, div.callout-
   content: '\f518' !important;
   background-image: none;
 }
+div.callout-relevance-project.callout {
+  border-left-color: #0077C8;
+}
+div.callout-relevance-project.callout-style-default .callout-header {
+  background-color: rgba(0, 119, 200, 0.13);
+}
+div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f542' !important;
+  background-image: none;
+}
 div.callout-exercise.callout {
   border-left-color: #1C5F2E;
 }
@@ -119,20 +133,6 @@ div.callout-exercise.callout-style-default .callout-icon::before, div.callout-ex
   font-weight: 900;
   font-style: normal;
   content: '\f44b' !important;
-  background-image: none;
-}
-div.callout-activity.callout {
-  border-left-color: #0055B7;
-}
-div.callout-activity.callout-style-default .callout-header {
-  background-color: rgba(0, 85, 183, 0.13);
-}
-div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
-div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
-  font-family: 'Font Awesome 7 Free';
-  font-weight: 900;
-  font-style: normal;
-  content: '\e53d' !important;
   background-image: none;
 }
 </style>
@@ -445,13 +445,13 @@ div.callout-activity.callout-style-default .callout-icon::before, div.callout-ac
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear regression</span></a>
+ <span class="menu-text">Interpreting a linear regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Logistic regression</span></a>
+ <span class="menu-text">Interpreting a logistic regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -663,7 +663,7 @@ div.callout-activity.callout-style-default .callout-icon::before, div.callout-ac
 </section>
 <section id="open-the-homework-file" class="level2">
 <h2 class="anchored" data-anchor-id="open-the-homework-file">3. Open the homework file</h2>
-<p>Open <code>homework.qmd</code> (not this website’s own <code>homework-instructions.qmd</code> file next to it) and follow the instructions at the top of the file. Every question has a hint, and the hints are written so you can paste them into Copilot Chat as your prompt.</p>
+<p>Open <code>homework.qmd</code> (not this website’s own <code>homework-instructions.qmd</code> file next to it) and follow the instructions at the top of the file. We want you to use GitHub Copilot’s agent in your Codespace for the homework, one question at a time, and the file explains how. Every question has a hint you can give the agent as its instructions.</p>
 
 
 </section>

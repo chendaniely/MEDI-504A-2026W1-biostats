@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Linear regression – MEDI 504A: Biostatistics with Tidyverse</title>
+<title>Interpreting a linear regression – MEDI 504A: Biostatistics with Tidyverse</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -114,20 +114,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>
-div.callout-exercise.callout {
-  border-left-color: #1C5F2E;
-}
-div.callout-exercise.callout-style-default .callout-header {
-  background-color: rgba(28, 95, 46, 0.13);
-}
-div.callout-exercise .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
-div.callout-exercise.callout-style-default .callout-icon::before, div.callout-exercise.callout-titled .callout-icon::before {
-  font-family: 'Font Awesome 7 Free';
-  font-weight: 900;
-  font-style: normal;
-  content: '\f44b' !important;
-  background-image: none;
-}
 div.callout-activity.callout {
   border-left-color: #0055B7;
 }
@@ -140,20 +126,6 @@ div.callout-activity.callout-style-default .callout-icon::before, div.callout-ac
   font-weight: 900;
   font-style: normal;
   content: '\e53d' !important;
-  background-image: none;
-}
-div.callout-relevance-project.callout {
-  border-left-color: #0077C8;
-}
-div.callout-relevance-project.callout-style-default .callout-header {
-  background-color: rgba(0, 119, 200, 0.13);
-}
-div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
-div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
-  font-family: 'Font Awesome 7 Free';
-  font-weight: 900;
-  font-style: normal;
-  content: '\f542' !important;
   background-image: none;
 }
 div.callout-definition.callout {
@@ -170,7 +142,42 @@ div.callout-definition.callout-style-default .callout-icon::before, div.callout-
   content: '\f518' !important;
   background-image: none;
 }
+div.callout-relevance-project.callout {
+  border-left-color: #0077C8;
+}
+div.callout-relevance-project.callout-style-default .callout-header {
+  background-color: rgba(0, 119, 200, 0.13);
+}
+div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f542' !important;
+  background-image: none;
+}
+div.callout-exercise.callout {
+  border-left-color: #1C5F2E;
+}
+div.callout-exercise.callout-style-default .callout-header {
+  background-color: rgba(28, 95, 46, 0.13);
+}
+div.callout-exercise .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-exercise.callout-style-default .callout-icon::before, div.callout-exercise.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f44b' !important;
+  background-image: none;
+}
 </style>
+ 
+  <style>
+  .slide-deck {
+      border: 3px solid #dee2e6;
+  }
+  </style>
+  
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -418,7 +425,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/04-linear-regression.html">Linear regression</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/04-linear-regression.html">Interpreting a linear regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -509,13 +516,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Linear regression</span></a>
+ <span class="menu-text">Interpreting a linear regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Logistic regression</span></a>
+ <span class="menu-text">Interpreting a logistic regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -682,18 +689,36 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exercise-1-fit-a-linear-regression" id="toc-exercise-1-fit-a-linear-regression" class="nav-link active" data-scroll-target="#exercise-1-fit-a-linear-regression">Exercise 1: Fit a linear regression</a></li>
+  <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#back-to-sacramento" id="toc-back-to-sacramento" class="nav-link" data-scroll-target="#back-to-sacramento">Back to Sacramento</a></li>
+  <li><a href="#dummy-variables" id="toc-dummy-variables" class="nav-link" data-scroll-target="#dummy-variables">Dummy variables</a></li>
+  <li><a href="#two-names-for-the-same-idea" id="toc-two-names-for-the-same-idea" class="nav-link" data-scroll-target="#two-names-for-the-same-idea">Two names for the same idea</a></li>
+  <li><a href="#type-as-dummy-variables" id="toc-type-as-dummy-variables" class="nav-link" data-scroll-target="#type-as-dummy-variables"><code>type</code> as dummy variables</a></li>
+  <li><a href="#fit-the-model" id="toc-fit-the-model" class="nav-link" data-scroll-target="#fit-the-model">Fit the model</a></li>
+  <li><a href="#interpreting-a-continuous-variable" id="toc-interpreting-a-continuous-variable" class="nav-link" data-scroll-target="#interpreting-a-continuous-variable">Interpreting a continuous variable</a></li>
+  <li><a href="#interpreting-a-categorical-variable" id="toc-interpreting-a-categorical-variable" class="nav-link" data-scroll-target="#interpreting-a-categorical-variable">Interpreting a categorical variable</a></li>
+  <li><a href="#when-the-interval-includes-0" id="toc-when-the-interval-includes-0" class="nav-link" data-scroll-target="#when-the-interval-includes-0">When the interval includes 0</a></li>
+  <li><a href="#the-intercept" id="toc-the-intercept" class="nav-link" data-scroll-target="#the-intercept">The intercept</a></li>
+  <li><a href="#the-same-model-in-base-r" id="toc-the-same-model-in-base-r" class="nav-link" data-scroll-target="#the-same-model-in-base-r">The same model in base R</a></li>
   <li><a href="#data-and-credits" id="toc-data-and-credits" class="nav-link" data-scroll-target="#data-and-credits">Data and credits</a></li>
+  </ul></li>
+  <li><a href="#lab-exercise" id="toc-lab-exercise" class="nav-link" data-scroll-target="#lab-exercise">Lab exercise</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-fit-a-linear-regression" id="toc-exercise-1-fit-a-linear-regression" class="nav-link" data-scroll-target="#exercise-1-fit-a-linear-regression">Exercise 1: Fit a linear regression</a></li>
+  <li><a href="#data-and-credits-1" id="toc-data-and-credits-1" class="nav-link" data-scroll-target="#data-and-credits-1">Data and credits</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/04-linear-regression.html">Linear regression</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/04-linear-regression.html">Interpreting a linear regression</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Linear regression</h1>
+<h1 class="title">Interpreting a linear regression</h1>
 </div>
 
 
@@ -710,23 +735,201 @@ window.Quarto = {
 </header>
 
 
+<div class="column-page-inset-right">
+    <p><a href="../lecture-02/slides/04-linear-regression.html" target="_blank">View slides in full screen</a></p>
+       <div class="ratio ratio-16x9">
+      <iframe class="slide-deck" src="../lecture-02/slides/04-linear-regression.html" height="500px" width="100%"></iframe>
+    </div>
+  
+</div>
+<section id="slide-contents" class="level1">
+<h1>Slide contents</h1>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="back-to-sacramento" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-sacramento">Back to Sacramento</h2>
+<p>On Monday we fit <code>price ~ sqft</code> on the Sacramento house sales. Let’s add <code>type</code>, a categorical variable, so we can see how to read both kinds of variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Sacramento <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(type)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  type             n
+  &lt;fct&gt;        &lt;int&gt;
+1 Condo           53
+2 Multi_Family    13
+3 Residential    866</code></pre>
+</div>
+</div>
+</section>
+<section id="dummy-variables" class="level2">
+<h2 class="anchored" data-anchor-id="dummy-variables">Dummy variables</h2>
+<ul>
+<li>A regression needs numbers, so R turns a categorical variable (a factor) into <strong>dummy variables</strong>, also called indicator variables</li>
+<li>Each dummy variable is a 0/1 column for one level, and there’s one for every level except the first</li>
+<li>The level without a column is the <strong>reference level</strong>, and every other level gets compared with it</li>
+</ul>
+</section>
+<section id="two-names-for-the-same-idea" class="level2">
+<h2 class="anchored" data-anchor-id="two-names-for-the-same-idea">Two names for the same idea</h2>
+<ul>
+<li>Statistics calls this <strong>dummy variable encoding</strong></li>
+<li>Computer science and machine learning call it <strong>one-hot encoding</strong></li>
+<li>Both turn each level of a categorical variable into a 0/1 column</li>
+<li>One-hot encoding usually keeps a column for every level, while a regression with an intercept drops one, the reference level (R does this for us)</li>
+</ul>
+</section>
+<section id="type-as-dummy-variables" class="level2">
+<h2 class="anchored" data-anchor-id="type-as-dummy-variables"><code>type</code> as dummy variables</h2>
+<p><code>type</code> has 3 levels, so it becomes 2 dummy variables, with <code>Condo</code> as the reference:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><code>type</code></th>
+<th style="text-align: center;"><code>typeMulti_Family</code></th>
+<th style="text-align: center;"><code>typeResidential</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Condo</code></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td><code>Multi_Family</code></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td><code>Residential</code></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fit-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="fit-the-model">Fit the model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>house_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(price <span class="sc">~</span> sqft <span class="sc">+</span> type, <span class="at">data =</span> Sacramento)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>house_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(house_fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>house_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 7
+  term             estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)         6885.  12169.       0.566 5.72e-  1  -16996.    30766.
+2 sqft                 139.      3.88    35.7   1.64e-176     131.      146.
+3 typeMulti_Family  -66224.  26222.      -2.53  1.17e-  2 -117686.   -14762.
+4 typeResidential     8253.  12151.       0.679 4.97e-  1  -15594.    32100.</code></pre>
+</div>
+</div>
+<ul>
+<li>One row for <code>sqft</code></li>
+<li>One row for each dummy variable, and no row for <code>Condo</code>, the reference level</li>
+</ul>
+</section>
+<section id="interpreting-a-continuous-variable" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-continuous-variable">Interpreting a continuous variable</h2>
+<blockquote class="blockquote">
+<p>For every 1 [unit] increase in [variable], we expect [outcome] to increase (or decrease) by [estimate] [units], all else remaining the same.</p>
+</blockquote>
+<p>For <code>sqft</code>:</p>
+<blockquote class="blockquote">
+<p>For every 1 square foot increase in size, we expect the sale price to increase by $139, all else remaining the same (95% CI: $131 to $146).</p>
+</blockquote>
+<ul>
+<li>“All else remaining the same” means the other variables in the model, so here, a house of the same <code>type</code></li>
+</ul>
+</section>
+<section id="interpreting-a-categorical-variable" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-categorical-variable">Interpreting a categorical variable</h2>
+<blockquote class="blockquote">
+<p>We expect [outcome] for [level] to be [estimate] [units] higher (or lower) than for [reference level], all else remaining the same.</p>
+</blockquote>
+<p>For <code>typeMulti_Family</code>:</p>
+<blockquote class="blockquote">
+<p>We expect multi-family homes to sell for $66,224 less than condos, all else remaining the same (95% CI: $14,762 to $117,686 less).</p>
+</blockquote>
+<ul>
+<li>Here “all else” is the size: a multi-family home and a condo with the same square footage</li>
+<li>The comparison is always with the reference level, <code>Condo</code></li>
+</ul>
+</section>
+<section id="when-the-interval-includes-0" class="level2">
+<h2 class="anchored" data-anchor-id="when-the-interval-includes-0">When the interval includes 0</h2>
+<p>For <code>typeResidential</code>:</p>
+<blockquote class="blockquote">
+<p>We expect residential homes to sell for $8,253 more than condos, all else remaining the same (95% CI: -$15,594 to $32,100).</p>
+</blockquote>
+<ul>
+<li>The interval includes 0, so the data don’t show a clear difference between residential homes and condos of the same size</li>
+<li>We still report the estimate and its interval, and say that it’s unclear</li>
+</ul>
+</section>
+<section id="the-intercept" class="level2">
+<h2 class="anchored" data-anchor-id="the-intercept">The intercept</h2>
+<ul>
+<li>The intercept is the expected outcome when every continuous variable is 0 and every categorical variable is at its reference level</li>
+<li>Here that’s a condo with 0 square feet, which doesn’t exist, so we don’t interpret it</li>
+</ul>
+</section>
+<section id="the-same-model-in-base-r" class="level2">
+<h2 class="anchored" data-anchor-id="the-same-model-in-base-r">The same model in base R</h2>
+<p>Base R’s <code>lm()</code> fits the same model with less code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(price <span class="sc">~</span> sqft <span class="sc">+</span> type, <span class="at">data =</span> Sacramento) <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 7
+  term             estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)         6885.  12169.       0.566 5.72e-  1  -16996.    30766.
+2 sqft                 139.      3.88    35.7   1.64e-176     131.      146.
+3 typeMulti_Family  -66224.  26222.      -2.53  1.17e-  2 -117686.   -14762.
+4 typeResidential     8253.  12151.       0.679 4.97e-  1  -15594.    32100.</code></pre>
+</div>
+</div>
+<ul>
+<li>The same estimates and intervals as <code>linear_reg()</code></li>
+<li>We use tidymodels because every kind of model goes through the same steps</li>
+</ul>
+</section>
+<section id="data-and-credits" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
+<ul>
+<li><code>Sacramento</code>: from modeldata, loaded with tidymodels</li>
+<li>Interpreting coefficients follows chapter 8 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> and the <a href="https://ds4biomed.tech/analysis-intro.html">analysis chapter</a> of <em>Data Science for the Biomedical Sciences</em></li>
+</ul>
+</section>
+</section>
+<section id="lab-exercise" class="level1">
+<h1>Lab exercise</h1>
 <p>Let’s ask whether periodontal treatment during pregnancy changed the baby’s birth weight in the Obstetrics and Periodontal Therapy trial (<a href="https://doi.org/10.1056/NEJMoa062249">Michalowicz et al., 2006</a>).</p>
 <p>Birth weight is a quantitative outcome, so we use linear regression.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We’ll start from <code>opt_clean</code>, made by the code below, which keeps only live births and labels <code>Group</code> as <code>control</code> and <code>treatment</code>. Cleaning <code>opt</code> like this is an exercise in <a href="../lecture-02/07-practice-clean-and-tidy.html">Extra practice: cleaning and tidying</a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>opt_clean <span class="ot">&lt;-</span> opt <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Birth.outcome =</span> <span class="fu">str_trim</span>(Birth.outcome),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">factor</span>(Group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"T"</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"treatment"</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Birth.outcome <span class="sc">==</span> <span class="st">"Live birth"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>opt_clean <span class="ot">&lt;-</span> opt <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Birth.outcome =</span> <span class="fu">str_trim</span>(Birth.outcome),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">factor</span>(Group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"T"</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"treatment"</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Birth.outcome <span class="sc">==</span> <span class="st">"Live birth"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="exercise-1-fit-a-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1-fit-a-linear-regression">Exercise 1: Fit a linear regression</h2>
@@ -752,27 +955,28 @@ window.Quarto = {
 <li>Does its confidence interval include 0? What do you conclude?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(opt_clean, <span class="fu">aes</span>(<span class="at">x =</span> ____, <span class="at">y =</span> ____)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>bw_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(____ <span class="sc">~</span> ____, <span class="at">data =</span> opt_clean)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(bw_fit, <span class="at">conf.int =</span> ____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(opt_clean, <span class="fu">aes</span>(<span class="at">x =</span> ____, <span class="at">y =</span> ____)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>bw_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(____ <span class="sc">~</span> ____, <span class="at">data =</span> opt_clean)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(bw_fit, <span class="at">conf.int =</span> ____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 <p>For more practice, including a t-test, covariates, residuals, and gestational age, see <a href="../lecture-02/08-practice-linear-regression.html">Extra practice: linear regression</a>.</p>
 </section>
-<section id="data-and-credits" class="level2">
-<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
+<section id="data-and-credits-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits-1">Data and credits</h2>
 <ul>
 <li><code>opt</code> from <a href="https://higgi13425.github.io/medicaldata/reference/opt.html"><code>medicaldata</code></a> (Higgins).</li>
 <li>Linear regression with tidymodels follows <a href="https://www.tmwr.org/"><em>Tidy Modeling with R</em></a> and chapter 8 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a>.</li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

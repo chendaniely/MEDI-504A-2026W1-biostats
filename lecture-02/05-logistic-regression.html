@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Logistic regression – MEDI 504A: Biostatistics with Tidyverse</title>
+<title>Interpreting a logistic regression – MEDI 504A: Biostatistics with Tidyverse</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -128,6 +128,20 @@ div.callout-definition.callout-style-default .callout-icon::before, div.callout-
   content: '\f518' !important;
   background-image: none;
 }
+div.callout-activity.callout {
+  border-left-color: #0055B7;
+}
+div.callout-activity.callout-style-default .callout-header {
+  background-color: rgba(0, 85, 183, 0.13);
+}
+div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\e53d' !important;
+  background-image: none;
+}
 div.callout-relevance-project.callout {
   border-left-color: #0077C8;
 }
@@ -156,21 +170,14 @@ div.callout-exercise.callout-style-default .callout-icon::before, div.callout-ex
   content: '\f44b' !important;
   background-image: none;
 }
-div.callout-activity.callout {
-  border-left-color: #0055B7;
-}
-div.callout-activity.callout-style-default .callout-header {
-  background-color: rgba(0, 85, 183, 0.13);
-}
-div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
-div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
-  font-family: 'Font Awesome 7 Free';
-  font-weight: 900;
-  font-style: normal;
-  content: '\e53d' !important;
-  background-image: none;
-}
 </style>
+ 
+  <style>
+  .slide-deck {
+      border: 3px solid #dee2e6;
+  }
+  </style>
+  
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -418,7 +425,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/05-logistic-regression.html">Logistic regression</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/05-logistic-regression.html">Interpreting a logistic regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -509,13 +516,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear regression</span></a>
+ <span class="menu-text">Interpreting a linear regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Logistic regression</span></a>
+ <span class="menu-text">Interpreting a logistic regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -682,18 +689,36 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exercise-1-fit-a-logistic-regression" id="toc-exercise-1-fit-a-logistic-regression" class="nav-link active" data-scroll-target="#exercise-1-fit-a-logistic-regression">Exercise 1: Fit a logistic regression</a></li>
+  <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#a-sore-throat-after-surgery" id="toc-a-sore-throat-after-surgery" class="nav-link" data-scroll-target="#a-sore-throat-after-surgery">A sore throat after surgery</a></li>
+  <li><a href="#recode-the-variables" id="toc-recode-the-variables" class="nav-link" data-scroll-target="#recode-the-variables">Recode the variables</a></li>
+  <li><a href="#which-level-are-we-modelling" id="toc-which-level-are-we-modelling" class="nav-link" data-scroll-target="#which-level-are-we-modelling">Which level are we modelling?</a></li>
+  <li><a href="#fit-the-model" id="toc-fit-the-model" class="nav-link" data-scroll-target="#fit-the-model">Fit the model</a></li>
+  <li><a href="#exponentiate-to-get-odds-ratios" id="toc-exponentiate-to-get-odds-ratios" class="nav-link" data-scroll-target="#exponentiate-to-get-odds-ratios">Exponentiate to get odds ratios</a></li>
+  <li><a href="#interpreting-a-continuous-variable" id="toc-interpreting-a-continuous-variable" class="nav-link" data-scroll-target="#interpreting-a-continuous-variable">Interpreting a continuous variable</a></li>
+  <li><a href="#interpreting-a-categorical-variable" id="toc-interpreting-a-categorical-variable" class="nav-link" data-scroll-target="#interpreting-a-categorical-variable">Interpreting a categorical variable</a></li>
+  <li><a href="#a-categorical-variable-with-more-levels" id="toc-a-categorical-variable-with-more-levels" class="nav-link" data-scroll-target="#a-categorical-variable-with-more-levels">A categorical variable with more levels</a></li>
+  <li><a href="#odds-not-probability" id="toc-odds-not-probability" class="nav-link" data-scroll-target="#odds-not-probability">Odds, not probability</a></li>
+  <li><a href="#the-same-model-in-base-r" id="toc-the-same-model-in-base-r" class="nav-link" data-scroll-target="#the-same-model-in-base-r">The same model in base R</a></li>
   <li><a href="#data-and-credits" id="toc-data-and-credits" class="nav-link" data-scroll-target="#data-and-credits">Data and credits</a></li>
+  </ul></li>
+  <li><a href="#lab-exercise" id="toc-lab-exercise" class="nav-link" data-scroll-target="#lab-exercise">Lab exercise</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-fit-a-logistic-regression" id="toc-exercise-1-fit-a-logistic-regression" class="nav-link" data-scroll-target="#exercise-1-fit-a-logistic-regression">Exercise 1: Fit a logistic regression</a></li>
+  <li><a href="#data-and-credits-1" id="toc-data-and-credits-1" class="nav-link" data-scroll-target="#data-and-credits-1">Data and credits</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/05-logistic-regression.html">Logistic regression</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02/01-clone-the-repo.html">Lecture 2: Modelling lab (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../lecture-02/05-logistic-regression.html">Interpreting a logistic regression</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Logistic regression</h1>
+<h1 class="title">Interpreting a logistic regression</h1>
 </div>
 
 
@@ -710,21 +735,207 @@ window.Quarto = {
 </header>
 
 
-<p>Let’s ask whether the storage age of transfused red blood cells is associated with prostate cancer recurrence in men who received blood transfusions during radical prostatectomy (<a href="https://higgi13425.github.io/medicaldata/reference/blood_storage.html">Cata et al., 2011</a>).</p>
-<p>Recurrence is a yes/no outcome, so we use logistic regression and report odds ratios.</p>
+<div class="column-page-inset-right">
+    <p><a href="../lecture-02/slides/05-logistic-regression.html" target="_blank">View slides in full screen</a></p>
+       <div class="ratio ratio-16x9">
+      <iframe class="slide-deck" src="../lecture-02/slides/05-logistic-regression.html" height="500px" width="100%"></iframe>
+    </div>
+  
+</div>
+<section id="slide-contents" class="level1">
+<h1>Slide contents</h1>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="a-sore-throat-after-surgery" class="level2">
+<h2 class="anchored" data-anchor-id="a-sore-throat-after-surgery">A sore throat after surgery</h2>
+<p><code>licorice_gargle</code> (from <code>medicaldata</code>) is a trial of 235 adults having thoracic surgery with a large breathing tube. Before the tube went in, they were randomized to gargle licorice or sugar water. Our outcome is any sore throat 30 minutes after surgery.</p>
+</section>
+<section id="recode-the-variables" class="level2">
+<h2 class="anchored" data-anchor-id="recode-the-variables">Recode the variables</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sore <span class="ot">&lt;-</span> licorice_gargle <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sore_throat =</span> <span class="fu">factor</span>(pacu30min_throatPain <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>)),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treat, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"sugar"</span>, <span class="st">"licorice"</span>)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">smoking =</span> <span class="fu">factor</span>(preOp_smoking, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"never"</span>, <span class="st">"past"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"current"</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sore_throat, treatment,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">bmi =</span> preOp_calcBMI, smoking) <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="which-level-are-we-modelling" class="level2">
+<h2 class="anchored" data-anchor-id="which-level-are-we-modelling">Which level are we modelling?</h2>
+<ul>
+<li><code>logistic_reg()</code> models the odds of the outcome’s <strong>second</strong> level</li>
+<li><code>sore_throat</code> has the levels <code>no</code>, then <code>yes</code>, so every result is about the odds of a sore throat</li>
+<li>The predictors are a mix of both kinds:
+<ul>
+<li><code>treatment</code>: 2 levels, so 1 dummy variable (reference <code>sugar</code>)</li>
+<li><code>bmi</code>: continuous, in kg/m²</li>
+<li><code>smoking</code>: 3 levels, so 2 dummy variables (reference <code>never</code>)</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(sore, sore_throat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  sore_throat   n
+1          no 169
+2         yes  64</code></pre>
+</div>
+</div>
+</section>
+<section id="fit-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="fit-the-model">Fit the model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sore_fit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(sore_throat <span class="sc">~</span> treatment <span class="sc">+</span> bmi <span class="sc">+</span> smoking,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> sore)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(sore_fit, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  term              estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)         0.0240    0.979     0.0245 0.980      -1.91     1.95  
+2 treatmentlicorice  -0.956     0.316    -3.02   0.00252    -1.59    -0.346 
+3 bmi                -0.0517    0.0385   -1.34   0.179      -0.129    0.0229
+4 smokingpast         1.48      0.428     3.45   0.000551    0.664    2.35  
+5 smokingcurrent      0.635     0.410     1.55   0.121      -0.152    1.46  </code></pre>
+</div>
+</div>
+<ul>
+<li>These estimates are on the <strong>log-odds</strong> scale, <span class="math inline">\(\log\left(\frac{p}{1 - p}\right)\)</span>, which is hard to read</li>
+</ul>
+</section>
+<section id="exponentiate-to-get-odds-ratios" class="level2">
+<h2 class="anchored" data-anchor-id="exponentiate-to-get-odds-ratios">Exponentiate to get odds ratios</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sore_or <span class="ot">&lt;-</span> sore_fit <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sore_or</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  term              estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)          1.02     0.979     0.0245 0.980       0.149     7.02 
+2 treatmentlicorice    0.384    0.316    -3.02   0.00252     0.204     0.707
+3 bmi                  0.950    0.0385   -1.34   0.179       0.879     1.02 
+4 smokingpast          4.38     0.428     3.45   0.000551    1.94     10.5  
+5 smokingcurrent       1.89     0.410     1.55   0.121       0.859     4.33 </code></pre>
+</div>
+</div>
+<ul>
+<li><code>exponentiate = TRUE</code> turns each estimate and its interval into an <strong>odds ratio</strong> (<code>std.error</code>, <code>statistic</code>, and <code>p.value</code> stay on the log-odds scale)</li>
+<li>An odds ratio of 1 means no difference, below 1 means lower odds, and above 1 means higher odds</li>
+</ul>
+</section>
+<section id="interpreting-a-continuous-variable" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-continuous-variable">Interpreting a continuous variable</h2>
+<blockquote class="blockquote">
+<p>For every 1 [unit] increase in [variable], we expect the odds of [outcome] to be multiplied by [odds ratio], all else remaining the same.</p>
+</blockquote>
+<p>For <code>bmi</code>:</p>
+<blockquote class="blockquote">
+<p>For every 1 kg/m² increase in BMI, we expect the odds of a sore throat to be multiplied by 0.95, all else remaining the same (95% CI: 0.88 to 1.02).</p>
+</blockquote>
+<ul>
+<li>Multiplied by 0.95 is the same as 5% lower odds</li>
+<li>The interval includes 1, so the data don’t show a clear effect of BMI</li>
+</ul>
+</section>
+<section id="interpreting-a-categorical-variable" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-a-categorical-variable">Interpreting a categorical variable</h2>
+<blockquote class="blockquote">
+<p>We expect the odds of [outcome] for [level] to be [odds ratio] times the odds for [reference level], all else remaining the same.</p>
+</blockquote>
+<p>For <code>treatmentlicorice</code>:</p>
+<blockquote class="blockquote">
+<p>We expect the odds of a sore throat for patients who gargled licorice to be 0.38 times the odds for patients who gargled sugar water, all else remaining the same (95% CI: 0.20 to 0.71).</p>
+</blockquote>
+<ul>
+<li>That’s 62% lower odds, and the interval doesn’t include 1</li>
+</ul>
+</section>
+<section id="a-categorical-variable-with-more-levels" class="level2">
+<h2 class="anchored" data-anchor-id="a-categorical-variable-with-more-levels">A categorical variable with more levels</h2>
+<p>Each dummy variable compares one level with the reference, <code>never</code>. For <code>smokingpast</code>:</p>
+<blockquote class="blockquote">
+<p>We expect the odds of a sore throat for past smokers to be 4.38 times the odds for people who never smoked, all else remaining the same (95% CI: 1.94 to 10.48).</p>
+</blockquote>
+<ul>
+<li><code>smokingcurrent</code> compares current smokers with people who never smoked, not with past smokers</li>
+<li>Its interval (0.86 to 4.33) includes 1, so that comparison isn’t clear</li>
+</ul>
+</section>
+<section id="odds-not-probability" class="level2">
+<h2 class="anchored" data-anchor-id="odds-not-probability">Odds, not probability</h2>
+<ul>
+<li>An odds ratio compares odds, not probabilities</li>
+<li>Say “0.38 times the odds”, not “0.38 times as likely” or “62% less likely”</li>
+<li>The two are close only when the outcome is rare, and here 27% of patients had a sore throat</li>
+</ul>
+</section>
+<section id="the-same-model-in-base-r" class="level2">
+<h2 class="anchored" data-anchor-id="the-same-model-in-base-r">The same model in base R</h2>
+<p>Base R’s <code>glm()</code> fits the same model with less code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(sore_throat <span class="sc">~</span> treatment <span class="sc">+</span> bmi <span class="sc">+</span> smoking,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> binomial, <span class="at">data =</span> sore) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 7
+  term              estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)          1.02     0.979     0.0245 0.980       0.149     7.02 
+2 treatmentlicorice    0.384    0.316    -3.02   0.00252     0.204     0.707
+3 bmi                  0.950    0.0385   -1.34   0.179       0.879     1.02 
+4 smokingpast          4.38     0.428     3.45   0.000551    1.94     10.5  
+5 smokingcurrent       1.89     0.410     1.55   0.121       0.859     4.33 </code></pre>
+</div>
+</div>
+<ul>
+<li><code>family = binomial</code> is what makes <code>glm()</code> a logistic regression</li>
+<li>The same odds ratios and intervals as <code>logistic_reg()</code></li>
+<li>We use tidymodels because every kind of model goes through the same steps</li>
+</ul>
+</section>
+<section id="data-and-credits" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
+<ul>
+<li><code>licorice_gargle</code> from <a href="https://higgi13425.github.io/medicaldata/reference/licorice_gargle.html"><code>medicaldata</code></a>, contributed by Amy Nowacki (<a href="https://www.causeweb.org/tshs/licorice-gargle/">TSHS Resources Portal</a>)</li>
+<li>Odds ratios with tidymodels follow the <a href="https://ds4biomed.tech/analysis-intro.html">analysis</a> and <a href="https://ds4biomed.tech/machine-learning-tidymodels.html">tidymodels</a> chapters of <em>Data Science for the Biomedical Sciences</em></li>
+</ul>
+</section>
+</section>
+<section id="lab-exercise" class="level1">
+<h1>Lab exercise</h1>
+<p>Let’s ask whether the storage age of transfused red blood cells is associated with prostate cancer recurrence in men who received blood transfusions during radical prostatectomy (<a href="https://higgi13425.github.io/medicaldata/reference/blood_storage.html">Cata et al., 2011</a>).</p>
+<p>Recurrence is a yes/no outcome, so we use logistic regression and report odds ratios.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>We’ll start from <code>blood</code>, which you made in the <a href="../lecture-02/02-clean-and-tidy.html#exercise-2-coded-variables">Coded variables</a> exercise. The code below makes it again, so this page works on its own. The outcome must be a factor, and its second level (<code>yes</code>) is the event the model predicts.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>blood <span class="ot">&lt;-</span> blood_storage <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">recurrence =</span> <span class="fu">factor</span>(Recurrence, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>)),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rbc_age_group =</span> <span class="fu">factor</span>(RBC.Age.Group, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"younger"</span>, <span class="st">"middle"</span>, <span class="st">"older"</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>blood <span class="ot">&lt;-</span> blood_storage <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">recurrence =</span> <span class="fu">factor</span>(Recurrence, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>)),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rbc_age_group =</span> <span class="fu">factor</span>(RBC.Age.Group, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"younger"</span>, <span class="st">"middle"</span>, <span class="st">"older"</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="exercise-1-fit-a-logistic-regression" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1-fit-a-logistic-regression">Exercise 1: Fit a logistic regression</h2>
@@ -750,26 +961,27 @@ window.Quarto = {
 <li>What group are the odds ratios compared with? Is older stored blood associated with recurrence?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blood, <span class="fu">aes</span>(<span class="at">x =</span> ____, <span class="at">fill =</span> ____)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>rec_fit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(____ <span class="sc">~</span> ____, <span class="at">data =</span> blood)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(rec_fit, <span class="at">exponentiate =</span> ____, <span class="at">conf.int =</span> ____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blood, <span class="fu">aes</span>(<span class="at">x =</span> ____, <span class="at">fill =</span> ____)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>rec_fit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(____ <span class="sc">~</span> ____, <span class="at">data =</span> blood)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(rec_fit, <span class="at">exponentiate =</span> ____, <span class="at">conf.int =</span> ____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 <p>For more practice, including adjusting for other risk factors, plotting odds ratios, and the cytomegalovirus data, see <a href="../lecture-02/09-practice-logistic-regression.html">Extra practice: logistic regression</a>.</p>
 </section>
-<section id="data-and-credits" class="level2">
-<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
+<section id="data-and-credits-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-credits-1">Data and credits</h2>
 <ul>
 <li><code>blood_storage</code> from <a href="https://higgi13425.github.io/medicaldata/"><code>medicaldata</code></a> (Higgins).</li>
 <li>Adapted from the <a href="https://ds4biomed.tech/analysis-intro.html">analysis</a> and <a href="https://ds4biomed.tech/machine-learning-tidymodels.html">tidymodels</a> chapters of <a href="https://ds4biomed.tech/"><em>Data Science for the Biomedical Sciences</em></a>.</li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

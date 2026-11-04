@@ -345,7 +345,7 @@
     "href": "lecture-02-solutions/09-practice-logistic-regression.html#exercise-1-adjust-for-other-risk-factors",
     "title": "Solutions: Extra practice: logistic regression",
     "section": "Exercise 1: Adjust for other risk factors",
-    "text": "Exercise 1: Adjust for other risk factors\n\nrec_fit_adj &lt;- logistic_reg() |&gt;\n  fit(recurrence ~ rbc_age_group + Age + PVol + PreopPSA + factor(TVol),\n      data = blood)\n\nrec_or &lt;- tidy(rec_fit_adj, exponentiate = TRUE, conf.int = TRUE)\nrec_or\n\n# A tibble: 8 × 7\n  term                estimate std.error statistic  p.value  conf.low conf.high\n  &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)          0.00216   1.84     -3.34    0.000851 0.0000392    0.0637\n2 rbc_age_groupmiddle  0.797     0.425    -0.533   0.594    0.341        1.82  \n3 rbc_age_groupolder   1.12      0.401     0.285   0.775    0.509        2.48  \n4 Age                  1.03      0.0245    1.09    0.275    0.980        1.08  \n5 PVol                 1.00      0.00653   0.00702 0.994    0.987        1.01  \n6 PreopPSA             1.06      0.0245    2.44    0.0148   1.01         1.12  \n7 factor(TVol)2        7.93      1.06      1.95    0.0515   1.49       148.    \n8 factor(TVol)3       22.8       1.07      2.93    0.00339  4.26       429.    \n\n\n\nblood |&gt;\n  summarize(across(c(Age, PVol, PreopPSA, TVol), \\(x) sum(is.na(x))))\n\n  Age PVol PreopPSA TVol\n1   0    9        3    6\n\n\nglm() drops rows with missing PVol, PreopPSA, or TVol.\n(2) Storage age still shows no association.\n(3) For every 1 ng/mL increase in preoperative PSA, the odds of recurrence are multiplied by 1.06 (95% CI 1.01 to 1.12), when the other variables stay the same.\n(4) Larger tumour volumes (TVol 2 and 3, compared with 1) have much higher odds of recurrence, but very wide confidence intervals, because few men in the lowest tumour-volume group had a recurrence.\n\nblood |&gt;\n  count(TVol, recurrence)\n\n  TVol recurrence   n\n1    1         no  62\n2    1        yes   2\n3    2         no 134\n4    2        yes  19\n5    3         no  63\n6    3        yes  30\n7   NA         no   3\n8   NA        yes   3",
+    "text": "Exercise 1: Adjust for other risk factors\n\nrec_fit_adj &lt;- logistic_reg() |&gt;\n  fit(recurrence ~ rbc_age_group + Age + PVol + PreopPSA + factor(TVol),\n      data = blood)\n\nrec_or &lt;- tidy(rec_fit_adj, exponentiate = TRUE, conf.int = TRUE)\nrec_or\n\n# A tibble: 8 × 7\n  term                estimate std.error statistic  p.value  conf.low conf.high\n  &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)          0.00216   1.84     -3.34    0.000851 0.0000392    0.0637\n2 rbc_age_groupmiddle  0.797     0.425    -0.533   0.594    0.341        1.82  \n3 rbc_age_groupolder   1.12      0.401     0.285   0.775    0.509        2.48  \n4 Age                  1.03      0.0245    1.09    0.275    0.980        1.08  \n5 PVol                 1.00      0.00653   0.00702 0.994    0.987        1.01  \n6 PreopPSA             1.06      0.0245    2.44    0.0148   1.01         1.12  \n7 factor(TVol)2        7.93      1.06      1.95    0.0515   1.49       148.    \n8 factor(TVol)3       22.8       1.07      2.93    0.00339  4.26       429.    \n\n\n\nblood |&gt;\n  summarize(across(c(Age, PVol, PreopPSA, TVol), \\(x) sum(is.na(x))))\n\n  Age PVol PreopPSA TVol\n1   0    9        3    6\n\n\nThe model drops rows with missing PVol, PreopPSA, or TVol.\n(2) Storage age still shows no association.\n(3) For every 1 ng/mL increase in preoperative PSA, the odds of recurrence are multiplied by 1.06 (95% CI 1.01 to 1.12), when the other variables stay the same.\n(4) Larger tumour volumes (TVol 2 and 3, compared with 1) have much higher odds of recurrence, but very wide confidence intervals, because few men in the lowest tumour-volume group had a recurrence.\n\nblood |&gt;\n  count(TVol, recurrence)\n\n  TVol recurrence   n\n1    1         no  62\n2    1        yes   2\n3    2         no 134\n4    2        yes  19\n5    3         no  63\n6    3        yes  30\n7   NA         no   3\n8   NA        yes   3",
     "crumbs": [
       "Homework",
       "Lecture 2 solutions",
@@ -529,6 +529,90 @@
     "text": "Data and credits\n\npenguins: R’s datasets::penguins (R 4.5 or newer), Horst, Hill and Gorman’s Palmer penguins."
   },
   {
+    "objectID": "lecture-02/slides/04-linear-regression.html#packages",
+    "href": "lecture-02/slides/04-linear-regression.html#packages",
+    "title": "Interpreting a linear regression",
+    "section": "Packages",
+    "text": "Packages\n\nlibrary(tidyverse)\nlibrary(tidymodels)"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#back-to-sacramento",
+    "href": "lecture-02/slides/04-linear-regression.html#back-to-sacramento",
+    "title": "Interpreting a linear regression",
+    "section": "Back to Sacramento",
+    "text": "Back to Sacramento\nOn Monday we fit price ~ sqft on the Sacramento house sales. Let’s add type, a categorical variable, so we can see how to read both kinds of variables.\n\nSacramento |&gt;\n  count(type)\n\n# A tibble: 3 × 2\n  type             n\n  &lt;fct&gt;        &lt;int&gt;\n1 Condo           53\n2 Multi_Family    13\n3 Residential    866"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#dummy-variables",
+    "href": "lecture-02/slides/04-linear-regression.html#dummy-variables",
+    "title": "Interpreting a linear regression",
+    "section": "Dummy variables",
+    "text": "Dummy variables\n\nA regression needs numbers, so R turns a categorical variable (a factor) into dummy variables, also called indicator variables\nEach dummy variable is a 0/1 column for one level, and there’s one for every level except the first\nThe level without a column is the reference level, and every other level gets compared with it"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#two-names-for-the-same-idea",
+    "href": "lecture-02/slides/04-linear-regression.html#two-names-for-the-same-idea",
+    "title": "Interpreting a linear regression",
+    "section": "Two names for the same idea",
+    "text": "Two names for the same idea\n\nStatistics calls this dummy variable encoding\nComputer science and machine learning call it one-hot encoding\nBoth turn each level of a categorical variable into a 0/1 column\nOne-hot encoding usually keeps a column for every level, while a regression with an intercept drops one, the reference level (R does this for us)"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#type-as-dummy-variables",
+    "href": "lecture-02/slides/04-linear-regression.html#type-as-dummy-variables",
+    "title": "Interpreting a linear regression",
+    "section": "type as dummy variables",
+    "text": "type as dummy variables\ntype has 3 levels, so it becomes 2 dummy variables, with Condo as the reference:\n\n\n\ntype\ntypeMulti_Family\ntypeResidential\n\n\n\n\nCondo\n0\n0\n\n\nMulti_Family\n1\n0\n\n\nResidential\n0\n1"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#fit-the-model",
+    "href": "lecture-02/slides/04-linear-regression.html#fit-the-model",
+    "title": "Interpreting a linear regression",
+    "section": "Fit the model",
+    "text": "Fit the model\n\nhouse_fit &lt;- linear_reg() |&gt;\n  fit(price ~ sqft + type, data = Sacramento)\n\nhouse_tidy &lt;- tidy(house_fit, conf.int = TRUE)\nhouse_tidy\n\n# A tibble: 4 × 7\n  term             estimate std.error statistic   p.value conf.low conf.high\n  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)         6885.  12169.       0.566 5.72e-  1  -16996.    30766.\n2 sqft                 139.      3.88    35.7   1.64e-176     131.      146.\n3 typeMulti_Family  -66224.  26222.      -2.53  1.17e-  2 -117686.   -14762.\n4 typeResidential     8253.  12151.       0.679 4.97e-  1  -15594.    32100.\n\n\n\nOne row for sqft\nOne row for each dummy variable, and no row for Condo, the reference level"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#interpreting-a-continuous-variable",
+    "href": "lecture-02/slides/04-linear-regression.html#interpreting-a-continuous-variable",
+    "title": "Interpreting a linear regression",
+    "section": "Interpreting a continuous variable",
+    "text": "Interpreting a continuous variable\n\nFor every 1 [unit] increase in [variable], we expect [outcome] to increase (or decrease) by [estimate] [units], all else remaining the same.\n\nFor sqft:\n\nFor every 1 square foot increase in size, we expect the sale price to increase by $139, all else remaining the same (95% CI: $131 to $146).\n\n\n“All else remaining the same” means the other variables in the model, so here, a house of the same type"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#interpreting-a-categorical-variable",
+    "href": "lecture-02/slides/04-linear-regression.html#interpreting-a-categorical-variable",
+    "title": "Interpreting a linear regression",
+    "section": "Interpreting a categorical variable",
+    "text": "Interpreting a categorical variable\n\nWe expect [outcome] for [level] to be [estimate] [units] higher (or lower) than for [reference level], all else remaining the same.\n\nFor typeMulti_Family:\n\nWe expect multi-family homes to sell for $66,224 less than condos, all else remaining the same (95% CI: $14,762 to $117,686 less).\n\n\nHere “all else” is the size: a multi-family home and a condo with the same square footage\nThe comparison is always with the reference level, Condo"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#when-the-interval-includes-0",
+    "href": "lecture-02/slides/04-linear-regression.html#when-the-interval-includes-0",
+    "title": "Interpreting a linear regression",
+    "section": "When the interval includes 0",
+    "text": "When the interval includes 0\nFor typeResidential:\n\nWe expect residential homes to sell for $8,253 more than condos, all else remaining the same (95% CI: -$15,594 to $32,100).\n\n\nThe interval includes 0, so the data don’t show a clear difference between residential homes and condos of the same size\nWe still report the estimate and its interval, and say that it’s unclear"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#the-intercept",
+    "href": "lecture-02/slides/04-linear-regression.html#the-intercept",
+    "title": "Interpreting a linear regression",
+    "section": "The intercept",
+    "text": "The intercept\n\nThe intercept is the expected outcome when every continuous variable is 0 and every categorical variable is at its reference level\nHere that’s a condo with 0 square feet, which doesn’t exist, so we don’t interpret it"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#the-same-model-in-base-r",
+    "href": "lecture-02/slides/04-linear-regression.html#the-same-model-in-base-r",
+    "title": "Interpreting a linear regression",
+    "section": "The same model in base R",
+    "text": "The same model in base R\nBase R’s lm() fits the same model with less code:\n\nlm(price ~ sqft + type, data = Sacramento) |&gt;\n  tidy(conf.int = TRUE)\n\n# A tibble: 4 × 7\n  term             estimate std.error statistic   p.value conf.low conf.high\n  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)         6885.  12169.       0.566 5.72e-  1  -16996.    30766.\n2 sqft                 139.      3.88    35.7   1.64e-176     131.      146.\n3 typeMulti_Family  -66224.  26222.      -2.53  1.17e-  2 -117686.   -14762.\n4 typeResidential     8253.  12151.       0.679 4.97e-  1  -15594.    32100.\n\n\n\nThe same estimates and intervals as linear_reg()\nWe use tidymodels because every kind of model goes through the same steps"
+  },
+  {
+    "objectID": "lecture-02/slides/04-linear-regression.html#data-and-credits",
+    "href": "lecture-02/slides/04-linear-regression.html#data-and-credits",
+    "title": "Interpreting a linear regression",
+    "section": "Data and credits",
+    "text": "Data and credits\n\nSacramento: from modeldata, loaded with tidymodels\nInterpreting coefficients follows chapter 8 of Data Science: A First Introduction and the analysis chapter of Data Science for the Biomedical Sciences"
+  },
+  {
     "objectID": "lecture-02/09-practice-logistic-regression.html",
     "href": "lecture-02/09-practice-logistic-regression.html",
     "title": "Extra practice: logistic regression",
@@ -663,37 +747,181 @@
   {
     "objectID": "lecture-02/05-logistic-regression.html",
     "href": "lecture-02/05-logistic-regression.html",
-    "title": "Logistic regression",
+    "title": "Interpreting a logistic regression",
     "section": "",
-    "text": "Let’s ask whether the storage age of transfused red blood cells is associated with prostate cancer recurrence in men who received blood transfusions during radical prostatectomy (Cata et al., 2011).\nRecurrence is a yes/no outcome, so we use logistic regression and report odds ratios.\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)\nWe’ll start from blood, which you made in the Coded variables exercise. The code below makes it again, so this page works on its own. The outcome must be a factor, and its second level (yes) is the event the model predicts.\nblood &lt;- blood_storage |&gt;\n  mutate(\n    recurrence = factor(Recurrence, levels = c(0, 1), labels = c(\"no\", \"yes\")),\n    rbc_age_group = factor(RBC.Age.Group, levels = 1:3,\n                           labels = c(\"younger\", \"middle\", \"older\"))\n  )",
+    "text": "View slides in full screen",
     "crumbs": [
       "Homework",
       "Lecture 2: Modelling lab (Wed, Nov 4)",
-      "Logistic regression"
+      "Interpreting a logistic regression"
     ]
   },
   {
-    "objectID": "lecture-02/05-logistic-regression.html#exercise-1-fit-a-logistic-regression",
-    "href": "lecture-02/05-logistic-regression.html#exercise-1-fit-a-logistic-regression",
-    "title": "Logistic regression",
-    "section": "Exercise 1: Fit a logistic regression",
-    "text": "Exercise 1: Fit a logistic regression\nLogistic regression models the log-odds of the event:\n\\[\n\\log\\left(\\frac{p}{1 - p}\\right) = \\beta_0 + \\beta_1 X_1 + \\dots\n\\]\nwhere \\(p\\) is the probability of recurrence. Exponentiating a coefficient, \\(e^{\\beta}\\), gives an odds ratio.\n\n\n\n\n\n\nNoteYour turn\n\n\n\n\nBefore we model, let’s look at the outcome. Plot the proportion of men with a recurrence in each storage-age group as stacked bars (geom_bar(position = \"fill\")). Does recurrence look different between the groups?\nFit a logistic regression of recurrence on rbc_age_group.\nShow the odds ratios with 95% confidence intervals.\nWhat group are the odds ratios compared with? Is older stored blood associated with recurrence?\n\n\nggplot(blood, aes(x = ____, fill = ____)) +\n  geom_bar(position = \"fill\")\n\nrec_fit &lt;- logistic_reg() |&gt;\n  fit(____ ~ ____, data = blood)\n\ntidy(rec_fit, exponentiate = ____, conf.int = ____)\n\n\n\nFor more practice, including adjusting for other risk factors, plotting odds ratios, and the cytomegalovirus data, see Extra practice: logistic regression.",
+    "objectID": "lecture-02/05-logistic-regression.html#packages",
+    "href": "lecture-02/05-logistic-regression.html#packages",
+    "title": "Interpreting a logistic regression",
+    "section": "Packages",
+    "text": "Packages\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)",
     "crumbs": [
       "Homework",
       "Lecture 2: Modelling lab (Wed, Nov 4)",
-      "Logistic regression"
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#a-sore-throat-after-surgery",
+    "href": "lecture-02/05-logistic-regression.html#a-sore-throat-after-surgery",
+    "title": "Interpreting a logistic regression",
+    "section": "A sore throat after surgery",
+    "text": "A sore throat after surgery\nlicorice_gargle (from medicaldata) is a trial of 235 adults having thoracic surgery with a large breathing tube. Before the tube went in, they were randomized to gargle licorice or sugar water. Our outcome is any sore throat 30 minutes after surgery.",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#recode-the-variables",
+    "href": "lecture-02/05-logistic-regression.html#recode-the-variables",
+    "title": "Interpreting a logistic regression",
+    "section": "Recode the variables",
+    "text": "Recode the variables\n\nsore &lt;- licorice_gargle |&gt;\n  mutate(\n    sore_throat = factor(pacu30min_throatPain &gt; 0,\n                         levels = c(FALSE, TRUE),\n                         labels = c(\"no\", \"yes\")),\n    treatment = factor(treat, levels = c(0, 1),\n                       labels = c(\"sugar\", \"licorice\")),\n    smoking = factor(preOp_smoking, levels = c(3, 2, 1),\n                     labels = c(\"never\", \"past\",\n                                \"current\"))\n  ) |&gt;\n  select(sore_throat, treatment,\n         bmi = preOp_calcBMI, smoking) |&gt;\n  drop_na()",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#which-level-are-we-modelling",
+    "href": "lecture-02/05-logistic-regression.html#which-level-are-we-modelling",
+    "title": "Interpreting a logistic regression",
+    "section": "Which level are we modelling?",
+    "text": "Which level are we modelling?\n\nlogistic_reg() models the odds of the outcome’s second level\nsore_throat has the levels no, then yes, so every result is about the odds of a sore throat\nThe predictors are a mix of both kinds:\n\ntreatment: 2 levels, so 1 dummy variable (reference sugar)\nbmi: continuous, in kg/m²\nsmoking: 3 levels, so 2 dummy variables (reference never)\n\n\n\ncount(sore, sore_throat)\n\n  sore_throat   n\n1          no 169\n2         yes  64",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#fit-the-model",
+    "href": "lecture-02/05-logistic-regression.html#fit-the-model",
+    "title": "Interpreting a logistic regression",
+    "section": "Fit the model",
+    "text": "Fit the model\n\nsore_fit &lt;- logistic_reg() |&gt;\n  fit(sore_throat ~ treatment + bmi + smoking,\n      data = sore)\n\ntidy(sore_fit, conf.int = TRUE)\n\n# A tibble: 5 × 7\n  term              estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)         0.0240    0.979     0.0245 0.980      -1.91     1.95  \n2 treatmentlicorice  -0.956     0.316    -3.02   0.00252    -1.59    -0.346 \n3 bmi                -0.0517    0.0385   -1.34   0.179      -0.129    0.0229\n4 smokingpast         1.48      0.428     3.45   0.000551    0.664    2.35  \n5 smokingcurrent      0.635     0.410     1.55   0.121      -0.152    1.46  \n\n\n\nThese estimates are on the log-odds scale, \\(\\log\\left(\\frac{p}{1 - p}\\right)\\), which is hard to read",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#exponentiate-to-get-odds-ratios",
+    "href": "lecture-02/05-logistic-regression.html#exponentiate-to-get-odds-ratios",
+    "title": "Interpreting a logistic regression",
+    "section": "Exponentiate to get odds ratios",
+    "text": "Exponentiate to get odds ratios\n\nsore_or &lt;- sore_fit |&gt;\n  tidy(exponentiate = TRUE, conf.int = TRUE)\nsore_or\n\n# A tibble: 5 × 7\n  term              estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)          1.02     0.979     0.0245 0.980       0.149     7.02 \n2 treatmentlicorice    0.384    0.316    -3.02   0.00252     0.204     0.707\n3 bmi                  0.950    0.0385   -1.34   0.179       0.879     1.02 \n4 smokingpast          4.38     0.428     3.45   0.000551    1.94     10.5  \n5 smokingcurrent       1.89     0.410     1.55   0.121       0.859     4.33 \n\n\n\nexponentiate = TRUE turns each estimate and its interval into an odds ratio (std.error, statistic, and p.value stay on the log-odds scale)\nAn odds ratio of 1 means no difference, below 1 means lower odds, and above 1 means higher odds",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#interpreting-a-continuous-variable",
+    "href": "lecture-02/05-logistic-regression.html#interpreting-a-continuous-variable",
+    "title": "Interpreting a logistic regression",
+    "section": "Interpreting a continuous variable",
+    "text": "Interpreting a continuous variable\n\nFor every 1 [unit] increase in [variable], we expect the odds of [outcome] to be multiplied by [odds ratio], all else remaining the same.\n\nFor bmi:\n\nFor every 1 kg/m² increase in BMI, we expect the odds of a sore throat to be multiplied by 0.95, all else remaining the same (95% CI: 0.88 to 1.02).\n\n\nMultiplied by 0.95 is the same as 5% lower odds\nThe interval includes 1, so the data don’t show a clear effect of BMI",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#interpreting-a-categorical-variable",
+    "href": "lecture-02/05-logistic-regression.html#interpreting-a-categorical-variable",
+    "title": "Interpreting a logistic regression",
+    "section": "Interpreting a categorical variable",
+    "text": "Interpreting a categorical variable\n\nWe expect the odds of [outcome] for [level] to be [odds ratio] times the odds for [reference level], all else remaining the same.\n\nFor treatmentlicorice:\n\nWe expect the odds of a sore throat for patients who gargled licorice to be 0.38 times the odds for patients who gargled sugar water, all else remaining the same (95% CI: 0.20 to 0.71).\n\n\nThat’s 62% lower odds, and the interval doesn’t include 1",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#a-categorical-variable-with-more-levels",
+    "href": "lecture-02/05-logistic-regression.html#a-categorical-variable-with-more-levels",
+    "title": "Interpreting a logistic regression",
+    "section": "A categorical variable with more levels",
+    "text": "A categorical variable with more levels\nEach dummy variable compares one level with the reference, never. For smokingpast:\n\nWe expect the odds of a sore throat for past smokers to be 4.38 times the odds for people who never smoked, all else remaining the same (95% CI: 1.94 to 10.48).\n\n\nsmokingcurrent compares current smokers with people who never smoked, not with past smokers\nIts interval (0.86 to 4.33) includes 1, so that comparison isn’t clear",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#odds-not-probability",
+    "href": "lecture-02/05-logistic-regression.html#odds-not-probability",
+    "title": "Interpreting a logistic regression",
+    "section": "Odds, not probability",
+    "text": "Odds, not probability\n\nAn odds ratio compares odds, not probabilities\nSay “0.38 times the odds”, not “0.38 times as likely” or “62% less likely”\nThe two are close only when the outcome is rare, and here 27% of patients had a sore throat",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#the-same-model-in-base-r",
+    "href": "lecture-02/05-logistic-regression.html#the-same-model-in-base-r",
+    "title": "Interpreting a logistic regression",
+    "section": "The same model in base R",
+    "text": "The same model in base R\nBase R’s glm() fits the same model with less code:\n\nglm(sore_throat ~ treatment + bmi + smoking,\n    family = binomial, data = sore) |&gt;\n  tidy(exponentiate = TRUE, conf.int = TRUE)\n\n# A tibble: 5 × 7\n  term              estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)          1.02     0.979     0.0245 0.980       0.149     7.02 \n2 treatmentlicorice    0.384    0.316    -3.02   0.00252     0.204     0.707\n3 bmi                  0.950    0.0385   -1.34   0.179       0.879     1.02 \n4 smokingpast          4.38     0.428     3.45   0.000551    1.94     10.5  \n5 smokingcurrent       1.89     0.410     1.55   0.121       0.859     4.33 \n\n\n\nfamily = binomial is what makes glm() a logistic regression\nThe same odds ratios and intervals as logistic_reg()\nWe use tidymodels because every kind of model goes through the same steps",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
     ]
   },
   {
     "objectID": "lecture-02/05-logistic-regression.html#data-and-credits",
     "href": "lecture-02/05-logistic-regression.html#data-and-credits",
-    "title": "Logistic regression",
+    "title": "Interpreting a logistic regression",
+    "section": "Data and credits",
+    "text": "Data and credits\n\nlicorice_gargle from medicaldata, contributed by Amy Nowacki (TSHS Resources Portal)\nOdds ratios with tidymodels follow the analysis and tidymodels chapters of Data Science for the Biomedical Sciences",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#exercise-1-fit-a-logistic-regression",
+    "href": "lecture-02/05-logistic-regression.html#exercise-1-fit-a-logistic-regression",
+    "title": "Interpreting a logistic regression",
+    "section": "Exercise 1: Fit a logistic regression",
+    "text": "Exercise 1: Fit a logistic regression\nLogistic regression models the log-odds of the event:\n\\[\n\\log\\left(\\frac{p}{1 - p}\\right) = \\beta_0 + \\beta_1 X_1 + \\dots\n\\]\nwhere \\(p\\) is the probability of recurrence. Exponentiating a coefficient, \\(e^{\\beta}\\), gives an odds ratio.\n\n\n\n\n\n\nNoteYour turn\n\n\n\n\nBefore we model, let’s look at the outcome. Plot the proportion of men with a recurrence in each storage-age group as stacked bars (geom_bar(position = \"fill\")). Does recurrence look different between the groups?\nFit a logistic regression of recurrence on rbc_age_group.\nShow the odds ratios with 95% confidence intervals.\nWhat group are the odds ratios compared with? Is older stored blood associated with recurrence?\n\n\nggplot(blood, aes(x = ____, fill = ____)) +\n  geom_bar(position = \"fill\")\n\nrec_fit &lt;- logistic_reg() |&gt;\n  fit(____ ~ ____, data = blood)\n\ntidy(rec_fit, exponentiate = ____, conf.int = ____)\n\n\n\nFor more practice, including adjusting for other risk factors, plotting odds ratios, and the cytomegalovirus data, see Extra practice: logistic regression.",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a logistic regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/05-logistic-regression.html#data-and-credits-1",
+    "href": "lecture-02/05-logistic-regression.html#data-and-credits-1",
+    "title": "Interpreting a logistic regression",
     "section": "Data and credits",
     "text": "Data and credits\n\nblood_storage from medicaldata (Higgins).\nAdapted from the analysis and tidymodels chapters of Data Science for the Biomedical Sciences.",
     "crumbs": [
       "Homework",
       "Lecture 2: Modelling lab (Wed, Nov 4)",
-      "Logistic regression"
+      "Interpreting a logistic regression"
     ]
   },
   {
@@ -2208,37 +2436,181 @@
   {
     "objectID": "lecture-02/04-linear-regression.html",
     "href": "lecture-02/04-linear-regression.html",
-    "title": "Linear regression",
+    "title": "Interpreting a linear regression",
     "section": "",
-    "text": "Let’s ask whether periodontal treatment during pregnancy changed the baby’s birth weight in the Obstetrics and Periodontal Therapy trial (Michalowicz et al., 2006).\nBirth weight is a quantitative outcome, so we use linear regression.\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)\nWe’ll start from opt_clean, made by the code below, which keeps only live births and labels Group as control and treatment. Cleaning opt like this is an exercise in Extra practice: cleaning and tidying.\nopt_clean &lt;- opt |&gt;\n  mutate(\n    Birth.outcome = str_trim(Birth.outcome),\n    Group = factor(Group, levels = c(\"C\", \"T\"),\n                   labels = c(\"control\", \"treatment\"))\n  ) |&gt;\n  filter(Birth.outcome == \"Live birth\") |&gt;\n  select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)",
+    "text": "View slides in full screen",
     "crumbs": [
       "Homework",
       "Lecture 2: Modelling lab (Wed, Nov 4)",
-      "Linear regression"
+      "Interpreting a linear regression"
     ]
   },
   {
-    "objectID": "lecture-02/04-linear-regression.html#exercise-1-fit-a-linear-regression",
-    "href": "lecture-02/04-linear-regression.html#exercise-1-fit-a-linear-regression",
-    "title": "Linear regression",
-    "section": "Exercise 1: Fit a linear regression",
-    "text": "Exercise 1: Fit a linear regression\n\\[\n\\text{birth weight} = \\beta_0 + \\beta_1 \\times \\text{treatment}\n\\]\ntreatment is 1 for the treatment group and 0 for control.\n\n\n\n\n\n\nNoteYour turn\n\n\n\n\nBefore we model, let’s look at the outcome. Plot birth weight by group as a box plot, with the individual babies jittered on top. Do the groups look different?\nFit the model with linear_reg(), and show the coefficients with 95% confidence intervals.\nWhat does the intercept, \\(\\beta_0\\), estimate?\nWhat does the treatment coefficient, \\(\\beta_1\\), estimate?\nDoes its confidence interval include 0? What do you conclude?\n\n\nggplot(opt_clean, aes(x = ____, y = ____)) +\n  geom_boxplot(outlier.shape = NA) +\n  geom_jitter(width = 0.2, alpha = 0.3)\n\nbw_fit &lt;- linear_reg() |&gt;\n  fit(____ ~ ____, data = opt_clean)\n\ntidy(bw_fit, conf.int = ____)\n\n\n\nFor more practice, including a t-test, covariates, residuals, and gestational age, see Extra practice: linear regression.",
+    "objectID": "lecture-02/04-linear-regression.html#packages",
+    "href": "lecture-02/04-linear-regression.html#packages",
+    "title": "Interpreting a linear regression",
+    "section": "Packages",
+    "text": "Packages\n\nlibrary(tidyverse)\nlibrary(tidymodels)",
     "crumbs": [
       "Homework",
       "Lecture 2: Modelling lab (Wed, Nov 4)",
-      "Linear regression"
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#back-to-sacramento",
+    "href": "lecture-02/04-linear-regression.html#back-to-sacramento",
+    "title": "Interpreting a linear regression",
+    "section": "Back to Sacramento",
+    "text": "Back to Sacramento\nOn Monday we fit price ~ sqft on the Sacramento house sales. Let’s add type, a categorical variable, so we can see how to read both kinds of variables.\n\nSacramento |&gt;\n  count(type)\n\n# A tibble: 3 × 2\n  type             n\n  &lt;fct&gt;        &lt;int&gt;\n1 Condo           53\n2 Multi_Family    13\n3 Residential    866",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#dummy-variables",
+    "href": "lecture-02/04-linear-regression.html#dummy-variables",
+    "title": "Interpreting a linear regression",
+    "section": "Dummy variables",
+    "text": "Dummy variables\n\nA regression needs numbers, so R turns a categorical variable (a factor) into dummy variables, also called indicator variables\nEach dummy variable is a 0/1 column for one level, and there’s one for every level except the first\nThe level without a column is the reference level, and every other level gets compared with it",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#two-names-for-the-same-idea",
+    "href": "lecture-02/04-linear-regression.html#two-names-for-the-same-idea",
+    "title": "Interpreting a linear regression",
+    "section": "Two names for the same idea",
+    "text": "Two names for the same idea\n\nStatistics calls this dummy variable encoding\nComputer science and machine learning call it one-hot encoding\nBoth turn each level of a categorical variable into a 0/1 column\nOne-hot encoding usually keeps a column for every level, while a regression with an intercept drops one, the reference level (R does this for us)",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#type-as-dummy-variables",
+    "href": "lecture-02/04-linear-regression.html#type-as-dummy-variables",
+    "title": "Interpreting a linear regression",
+    "section": "type as dummy variables",
+    "text": "type as dummy variables\ntype has 3 levels, so it becomes 2 dummy variables, with Condo as the reference:\n\n\n\ntype\ntypeMulti_Family\ntypeResidential\n\n\n\n\nCondo\n0\n0\n\n\nMulti_Family\n1\n0\n\n\nResidential\n0\n1",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#fit-the-model",
+    "href": "lecture-02/04-linear-regression.html#fit-the-model",
+    "title": "Interpreting a linear regression",
+    "section": "Fit the model",
+    "text": "Fit the model\n\nhouse_fit &lt;- linear_reg() |&gt;\n  fit(price ~ sqft + type, data = Sacramento)\n\nhouse_tidy &lt;- tidy(house_fit, conf.int = TRUE)\nhouse_tidy\n\n# A tibble: 4 × 7\n  term             estimate std.error statistic   p.value conf.low conf.high\n  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)         6885.  12169.       0.566 5.72e-  1  -16996.    30766.\n2 sqft                 139.      3.88    35.7   1.64e-176     131.      146.\n3 typeMulti_Family  -66224.  26222.      -2.53  1.17e-  2 -117686.   -14762.\n4 typeResidential     8253.  12151.       0.679 4.97e-  1  -15594.    32100.\n\n\n\nOne row for sqft\nOne row for each dummy variable, and no row for Condo, the reference level",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#interpreting-a-continuous-variable",
+    "href": "lecture-02/04-linear-regression.html#interpreting-a-continuous-variable",
+    "title": "Interpreting a linear regression",
+    "section": "Interpreting a continuous variable",
+    "text": "Interpreting a continuous variable\n\nFor every 1 [unit] increase in [variable], we expect [outcome] to increase (or decrease) by [estimate] [units], all else remaining the same.\n\nFor sqft:\n\nFor every 1 square foot increase in size, we expect the sale price to increase by $139, all else remaining the same (95% CI: $131 to $146).\n\n\n“All else remaining the same” means the other variables in the model, so here, a house of the same type",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#interpreting-a-categorical-variable",
+    "href": "lecture-02/04-linear-regression.html#interpreting-a-categorical-variable",
+    "title": "Interpreting a linear regression",
+    "section": "Interpreting a categorical variable",
+    "text": "Interpreting a categorical variable\n\nWe expect [outcome] for [level] to be [estimate] [units] higher (or lower) than for [reference level], all else remaining the same.\n\nFor typeMulti_Family:\n\nWe expect multi-family homes to sell for $66,224 less than condos, all else remaining the same (95% CI: $14,762 to $117,686 less).\n\n\nHere “all else” is the size: a multi-family home and a condo with the same square footage\nThe comparison is always with the reference level, Condo",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#when-the-interval-includes-0",
+    "href": "lecture-02/04-linear-regression.html#when-the-interval-includes-0",
+    "title": "Interpreting a linear regression",
+    "section": "When the interval includes 0",
+    "text": "When the interval includes 0\nFor typeResidential:\n\nWe expect residential homes to sell for $8,253 more than condos, all else remaining the same (95% CI: -$15,594 to $32,100).\n\n\nThe interval includes 0, so the data don’t show a clear difference between residential homes and condos of the same size\nWe still report the estimate and its interval, and say that it’s unclear",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#the-intercept",
+    "href": "lecture-02/04-linear-regression.html#the-intercept",
+    "title": "Interpreting a linear regression",
+    "section": "The intercept",
+    "text": "The intercept\n\nThe intercept is the expected outcome when every continuous variable is 0 and every categorical variable is at its reference level\nHere that’s a condo with 0 square feet, which doesn’t exist, so we don’t interpret it",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#the-same-model-in-base-r",
+    "href": "lecture-02/04-linear-regression.html#the-same-model-in-base-r",
+    "title": "Interpreting a linear regression",
+    "section": "The same model in base R",
+    "text": "The same model in base R\nBase R’s lm() fits the same model with less code:\n\nlm(price ~ sqft + type, data = Sacramento) |&gt;\n  tidy(conf.int = TRUE)\n\n# A tibble: 4 × 7\n  term             estimate std.error statistic   p.value conf.low conf.high\n  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)         6885.  12169.       0.566 5.72e-  1  -16996.    30766.\n2 sqft                 139.      3.88    35.7   1.64e-176     131.      146.\n3 typeMulti_Family  -66224.  26222.      -2.53  1.17e-  2 -117686.   -14762.\n4 typeResidential     8253.  12151.       0.679 4.97e-  1  -15594.    32100.\n\n\n\nThe same estimates and intervals as linear_reg()\nWe use tidymodels because every kind of model goes through the same steps",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
     ]
   },
   {
     "objectID": "lecture-02/04-linear-regression.html#data-and-credits",
     "href": "lecture-02/04-linear-regression.html#data-and-credits",
-    "title": "Linear regression",
+    "title": "Interpreting a linear regression",
+    "section": "Data and credits",
+    "text": "Data and credits\n\nSacramento: from modeldata, loaded with tidymodels\nInterpreting coefficients follows chapter 8 of Data Science: A First Introduction and the analysis chapter of Data Science for the Biomedical Sciences",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#exercise-1-fit-a-linear-regression",
+    "href": "lecture-02/04-linear-regression.html#exercise-1-fit-a-linear-regression",
+    "title": "Interpreting a linear regression",
+    "section": "Exercise 1: Fit a linear regression",
+    "text": "Exercise 1: Fit a linear regression\n\\[\n\\text{birth weight} = \\beta_0 + \\beta_1 \\times \\text{treatment}\n\\]\ntreatment is 1 for the treatment group and 0 for control.\n\n\n\n\n\n\nNoteYour turn\n\n\n\n\nBefore we model, let’s look at the outcome. Plot birth weight by group as a box plot, with the individual babies jittered on top. Do the groups look different?\nFit the model with linear_reg(), and show the coefficients with 95% confidence intervals.\nWhat does the intercept, \\(\\beta_0\\), estimate?\nWhat does the treatment coefficient, \\(\\beta_1\\), estimate?\nDoes its confidence interval include 0? What do you conclude?\n\n\nggplot(opt_clean, aes(x = ____, y = ____)) +\n  geom_boxplot(outlier.shape = NA) +\n  geom_jitter(width = 0.2, alpha = 0.3)\n\nbw_fit &lt;- linear_reg() |&gt;\n  fit(____ ~ ____, data = opt_clean)\n\ntidy(bw_fit, conf.int = ____)\n\n\n\nFor more practice, including a t-test, covariates, residuals, and gestational age, see Extra practice: linear regression.",
+    "crumbs": [
+      "Homework",
+      "Lecture 2: Modelling lab (Wed, Nov 4)",
+      "Interpreting a linear regression"
+    ]
+  },
+  {
+    "objectID": "lecture-02/04-linear-regression.html#data-and-credits-1",
+    "href": "lecture-02/04-linear-regression.html#data-and-credits-1",
+    "title": "Interpreting a linear regression",
     "section": "Data and credits",
     "text": "Data and credits\n\nopt from medicaldata (Higgins).\nLinear regression with tidymodels follows Tidy Modeling with R and chapter 8 of Data Science: A First Introduction.",
     "crumbs": [
       "Homework",
       "Lecture 2: Modelling lab (Wed, Nov 4)",
-      "Linear regression"
+      "Interpreting a linear regression"
     ]
   },
   {
@@ -2485,6 +2857,90 @@
     "text": "Data and credits\n\nbillboard.csv: the tidy data paper’s Billboard example, via chendaniely/pandas_for_everyone and hadley/tidy-data\nWickham, H. (2014). Tidy Data. Journal of Statistical Software, 59(10). https://doi.org/10.18637/jss.v059.i10 (PDF: https://vita.had.co.nz/papers/tidy-data.pdf)\nSynthea synthetic patient records: https://synthetichealth.github.io/synthea/\nStandards: HL7, FHIR, OHDSI and its OMOP Common Data Model."
   },
   {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#packages",
+    "href": "lecture-02/slides/05-logistic-regression.html#packages",
+    "title": "Interpreting a logistic regression",
+    "section": "Packages",
+    "text": "Packages\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#a-sore-throat-after-surgery",
+    "href": "lecture-02/slides/05-logistic-regression.html#a-sore-throat-after-surgery",
+    "title": "Interpreting a logistic regression",
+    "section": "A sore throat after surgery",
+    "text": "A sore throat after surgery\nlicorice_gargle (from medicaldata) is a trial of 235 adults having thoracic surgery with a large breathing tube. Before the tube went in, they were randomized to gargle licorice or sugar water. Our outcome is any sore throat 30 minutes after surgery."
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#recode-the-variables",
+    "href": "lecture-02/slides/05-logistic-regression.html#recode-the-variables",
+    "title": "Interpreting a logistic regression",
+    "section": "Recode the variables",
+    "text": "Recode the variables\n\nsore &lt;- licorice_gargle |&gt;\n  mutate(\n    sore_throat = factor(pacu30min_throatPain &gt; 0,\n                         levels = c(FALSE, TRUE),\n                         labels = c(\"no\", \"yes\")),\n    treatment = factor(treat, levels = c(0, 1),\n                       labels = c(\"sugar\", \"licorice\")),\n    smoking = factor(preOp_smoking, levels = c(3, 2, 1),\n                     labels = c(\"never\", \"past\",\n                                \"current\"))\n  ) |&gt;\n  select(sore_throat, treatment,\n         bmi = preOp_calcBMI, smoking) |&gt;\n  drop_na()"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#which-level-are-we-modelling",
+    "href": "lecture-02/slides/05-logistic-regression.html#which-level-are-we-modelling",
+    "title": "Interpreting a logistic regression",
+    "section": "Which level are we modelling?",
+    "text": "Which level are we modelling?\n\nlogistic_reg() models the odds of the outcome’s second level\nsore_throat has the levels no, then yes, so every result is about the odds of a sore throat\nThe predictors are a mix of both kinds:\n\ntreatment: 2 levels, so 1 dummy variable (reference sugar)\nbmi: continuous, in kg/m²\nsmoking: 3 levels, so 2 dummy variables (reference never)\n\n\n\ncount(sore, sore_throat)\n\n  sore_throat   n\n1          no 169\n2         yes  64"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#fit-the-model",
+    "href": "lecture-02/slides/05-logistic-regression.html#fit-the-model",
+    "title": "Interpreting a logistic regression",
+    "section": "Fit the model",
+    "text": "Fit the model\n\nsore_fit &lt;- logistic_reg() |&gt;\n  fit(sore_throat ~ treatment + bmi + smoking,\n      data = sore)\n\ntidy(sore_fit, conf.int = TRUE)\n\n# A tibble: 5 × 7\n  term              estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)         0.0240    0.979     0.0245 0.980      -1.91     1.95  \n2 treatmentlicorice  -0.956     0.316    -3.02   0.00252    -1.59    -0.346 \n3 bmi                -0.0517    0.0385   -1.34   0.179      -0.129    0.0229\n4 smokingpast         1.48      0.428     3.45   0.000551    0.664    2.35  \n5 smokingcurrent      0.635     0.410     1.55   0.121      -0.152    1.46  \n\n\n\nThese estimates are on the log-odds scale, \\(\\log\\left(\\frac{p}{1 - p}\\right)\\), which is hard to read"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#exponentiate-to-get-odds-ratios",
+    "href": "lecture-02/slides/05-logistic-regression.html#exponentiate-to-get-odds-ratios",
+    "title": "Interpreting a logistic regression",
+    "section": "Exponentiate to get odds ratios",
+    "text": "Exponentiate to get odds ratios\n\nsore_or &lt;- sore_fit |&gt;\n  tidy(exponentiate = TRUE, conf.int = TRUE)\nsore_or\n\n# A tibble: 5 × 7\n  term              estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)          1.02     0.979     0.0245 0.980       0.149     7.02 \n2 treatmentlicorice    0.384    0.316    -3.02   0.00252     0.204     0.707\n3 bmi                  0.950    0.0385   -1.34   0.179       0.879     1.02 \n4 smokingpast          4.38     0.428     3.45   0.000551    1.94     10.5  \n5 smokingcurrent       1.89     0.410     1.55   0.121       0.859     4.33 \n\n\n\nexponentiate = TRUE turns each estimate and its interval into an odds ratio (std.error, statistic, and p.value stay on the log-odds scale)\nAn odds ratio of 1 means no difference, below 1 means lower odds, and above 1 means higher odds"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#interpreting-a-continuous-variable",
+    "href": "lecture-02/slides/05-logistic-regression.html#interpreting-a-continuous-variable",
+    "title": "Interpreting a logistic regression",
+    "section": "Interpreting a continuous variable",
+    "text": "Interpreting a continuous variable\n\nFor every 1 [unit] increase in [variable], we expect the odds of [outcome] to be multiplied by [odds ratio], all else remaining the same.\n\nFor bmi:\n\nFor every 1 kg/m² increase in BMI, we expect the odds of a sore throat to be multiplied by 0.95, all else remaining the same (95% CI: 0.88 to 1.02).\n\n\nMultiplied by 0.95 is the same as 5% lower odds\nThe interval includes 1, so the data don’t show a clear effect of BMI"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#interpreting-a-categorical-variable",
+    "href": "lecture-02/slides/05-logistic-regression.html#interpreting-a-categorical-variable",
+    "title": "Interpreting a logistic regression",
+    "section": "Interpreting a categorical variable",
+    "text": "Interpreting a categorical variable\n\nWe expect the odds of [outcome] for [level] to be [odds ratio] times the odds for [reference level], all else remaining the same.\n\nFor treatmentlicorice:\n\nWe expect the odds of a sore throat for patients who gargled licorice to be 0.38 times the odds for patients who gargled sugar water, all else remaining the same (95% CI: 0.20 to 0.71).\n\n\nThat’s 62% lower odds, and the interval doesn’t include 1"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#a-categorical-variable-with-more-levels",
+    "href": "lecture-02/slides/05-logistic-regression.html#a-categorical-variable-with-more-levels",
+    "title": "Interpreting a logistic regression",
+    "section": "A categorical variable with more levels",
+    "text": "A categorical variable with more levels\nEach dummy variable compares one level with the reference, never. For smokingpast:\n\nWe expect the odds of a sore throat for past smokers to be 4.38 times the odds for people who never smoked, all else remaining the same (95% CI: 1.94 to 10.48).\n\n\nsmokingcurrent compares current smokers with people who never smoked, not with past smokers\nIts interval (0.86 to 4.33) includes 1, so that comparison isn’t clear"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#odds-not-probability",
+    "href": "lecture-02/slides/05-logistic-regression.html#odds-not-probability",
+    "title": "Interpreting a logistic regression",
+    "section": "Odds, not probability",
+    "text": "Odds, not probability\n\nAn odds ratio compares odds, not probabilities\nSay “0.38 times the odds”, not “0.38 times as likely” or “62% less likely”\nThe two are close only when the outcome is rare, and here 27% of patients had a sore throat"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#the-same-model-in-base-r",
+    "href": "lecture-02/slides/05-logistic-regression.html#the-same-model-in-base-r",
+    "title": "Interpreting a logistic regression",
+    "section": "The same model in base R",
+    "text": "The same model in base R\nBase R’s glm() fits the same model with less code:\n\nglm(sore_throat ~ treatment + bmi + smoking,\n    family = binomial, data = sore) |&gt;\n  tidy(exponentiate = TRUE, conf.int = TRUE)\n\n# A tibble: 5 × 7\n  term              estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)          1.02     0.979     0.0245 0.980       0.149     7.02 \n2 treatmentlicorice    0.384    0.316    -3.02   0.00252     0.204     0.707\n3 bmi                  0.950    0.0385   -1.34   0.179       0.879     1.02 \n4 smokingpast          4.38     0.428     3.45   0.000551    1.94     10.5  \n5 smokingcurrent       1.89     0.410     1.55   0.121       0.859     4.33 \n\n\n\nfamily = binomial is what makes glm() a logistic regression\nThe same odds ratios and intervals as logistic_reg()\nWe use tidymodels because every kind of model goes through the same steps"
+  },
+  {
+    "objectID": "lecture-02/slides/05-logistic-regression.html#data-and-credits",
+    "href": "lecture-02/slides/05-logistic-regression.html#data-and-credits",
+    "title": "Interpreting a logistic regression",
+    "section": "Data and credits",
+    "text": "Data and credits\n\nlicorice_gargle from medicaldata, contributed by Amy Nowacki (TSHS Resources Portal)\nOdds ratios with tidymodels follow the analysis and tidymodels chapters of Data Science for the Biomedical Sciences"
+  },
+  {
     "objectID": "lecture-02-solutions/02-clean-and-tidy.html",
     "href": "lecture-02-solutions/02-clean-and-tidy.html",
     "title": "Solutions: Cleaning and tidying medical data",
@@ -2573,7 +3029,7 @@
     "href": "lecture-02-solutions/08-practice-linear-regression.html#exercise-2-add-covariates",
     "title": "Solutions: Extra practice: linear regression",
     "section": "Exercise 2: Add covariates",
-    "text": "Exercise 2: Add covariates\n\nbw_fit_adj &lt;- linear_reg() |&gt;\n  fit(Birthweight ~ Group + Age + BMI + Clinic, data = opt_clean)\n\nbw_adj_tidy &lt;- tidy(bw_fit_adj, conf.int = TRUE)\nbw_adj_tidy\n\n# A tibble: 7 × 7\n  term           estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)     3042.      127.      24.0   1.04e-93 2793.      3291.  \n2 Grouptreatment    -6.20     43.0     -0.144 8.85e- 1  -90.7       78.3 \n3 Age                2.77      4.02     0.688 4.92e- 1   -5.13      10.7 \n4 BMI                5.76      3.21     1.80  7.31e- 2   -0.540     12.1 \n5 ClinicMN          17.6      56.8      0.310 7.57e- 1  -94.0      129.  \n6 ClinicMS        -110.       60.7     -1.82  6.95e- 2 -230.         8.82\n7 ClinicNY         -16.5      70.3     -0.234 8.15e- 1 -155.       122.  \n\nglance(bw_fit_adj)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1    0.0116       0.00332  578.      1.40   0.212     6 -5612. 11240. 11277.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\n\n(2) The model used 722 of 793 rows, because lm() drops the 71 rows with missing BMI.\n(3) The treatment estimate moves from -21 to -6 g, and its confidence interval still includes 0. Randomization balances the covariates between groups, so adjusting for them barely changes the treatment effect.",
+    "text": "Exercise 2: Add covariates\n\nbw_fit_adj &lt;- linear_reg() |&gt;\n  fit(Birthweight ~ Group + Age + BMI + Clinic, data = opt_clean)\n\nbw_adj_tidy &lt;- tidy(bw_fit_adj, conf.int = TRUE)\nbw_adj_tidy\n\n# A tibble: 7 × 7\n  term           estimate std.error statistic  p.value conf.low conf.high\n  &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)     3042.      127.      24.0   1.04e-93 2793.      3291.  \n2 Grouptreatment    -6.20     43.0     -0.144 8.85e- 1  -90.7       78.3 \n3 Age                2.77      4.02     0.688 4.92e- 1   -5.13      10.7 \n4 BMI                5.76      3.21     1.80  7.31e- 2   -0.540     12.1 \n5 ClinicMN          17.6      56.8      0.310 7.57e- 1  -94.0      129.  \n6 ClinicMS        -110.       60.7     -1.82  6.95e- 2 -230.         8.82\n7 ClinicNY         -16.5      70.3     -0.234 8.15e- 1 -155.       122.  \n\nglance(bw_fit_adj)\n\n# A tibble: 1 × 12\n  r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC\n      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1    0.0116       0.00332  578.      1.40   0.212     6 -5612. 11240. 11277.\n# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;\n\n\n(2) The model used 722 of 793 rows, because the model drops the 71 rows with missing BMI.\n(3) The treatment estimate moves from -21 to -6 g, and its confidence interval still includes 0. Randomization balances the covariates between groups, so adjusting for them barely changes the treatment effect.",
     "crumbs": [
       "Homework",
       "Lecture 2 solutions",
@@ -2630,7 +3086,7 @@
     "href": "homework-instructions.html#open-the-homework-file",
     "title": "Homework",
     "section": "3. Open the homework file",
-    "text": "3. Open the homework file\nOpen homework.qmd (not this website’s own homework-instructions.qmd file next to it) and follow the instructions at the top of the file. Every question has a hint, and the hints are written so you can paste them into Copilot Chat as your prompt."
+    "text": "3. Open the homework file\nOpen homework.qmd (not this website’s own homework-instructions.qmd file next to it) and follow the instructions at the top of the file. We want you to use GitHub Copilot’s agent in your Codespace for the homework, one question at a time, and the file explains how. Every question has a hint you can give the agent as its instructions."
   },
   {
     "objectID": "README-prompt.html",
