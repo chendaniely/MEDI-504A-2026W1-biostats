@@ -92,8 +92,6 @@ website:
           - lecture-02/07-practice-clean-and-tidy.qmd
           - lecture-02/08-practice-linear-regression.qmd
           - lecture-02/09-practice-logistic-regression.qmd
-      # Starts collapsed: collapse-solutions.html closes it
-      # unless the page is one of the solutions.
       - section: "Solutions"
         contents:
           - lecture-02-solutions/02-clean-and-tidy.qmd
@@ -114,5 +112,3 @@ filters:
 format:
   ubc-html:
     toc: true
-    # Starts the sidebar's Solutions section collapsed.
-    include-after-body: collapse-solutions.html
