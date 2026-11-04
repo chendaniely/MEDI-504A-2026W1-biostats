@@ -1128,25 +1128,6 @@ dbl (31): Group, ID, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
     });
   })();
 </script>
-<script>
-// Start the sidebar's "Solutions" section collapsed,
-// unless the page being shown is one of the solutions.
-// Quarto's collapse-level can only collapse nested sections,
-// not one top-level section on its own.
-document.addEventListener("DOMContentLoaded", () => {
-  const label = [...document.querySelectorAll("#quarto-sidebar .sidebar-item-section .menu-text")]
-    .find((el) => el.textContent.trim() === "Solutions");
-  if (!label) return;
-  const list = document.querySelector(`ul[aria-labelledby="${label.id}"]`);
-  if (!list || list.querySelector(".sidebar-link.active")) return;
-  list.classList.remove("show");
-  const toggle = label.closest("button, a");
-  if (toggle) {
-    toggle.classList.add("collapsed");
-    toggle.setAttribute("aria-expanded", "false");
-  }
-});
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
