@@ -7,41 +7,50 @@ format:
   typst: default
 ---
 
+The due date, and where to hand it in, are on Canvas.
+
+## What you are doing
+
 In the lectures,
 we took data that wasn't "tidy",
 reshaped it,
 summarized it,
 and then used it to fit linear and logistic regressions.
 In this homework,
-you'll do the same on new data.
+you'll do the same on new data,
+with GitHub Copilot's agent writing most of the code.
 
-- In Part 1,
-  we'll tidy and summarize the Ebola case counts
-  from the 2014–2015 West Africa outbreak.
-- In Part 2,
-  you'll pick a clinical trial
-  and use a model to answer its question.
+By the end of this homework you'll have:
+
+1. A tidy version of the Ebola case counts
+   from the 2014–2015 West Africa outbreak,
+   a summary table by country,
+   and a figure (Part 1).
+2. A model of a clinical trial you pick,
+   and what it says about the trial's question (Part 2).
+3. A few sentences on how working with the agent went.
+
+Everything here comes from the two lectures,
+and the hints link to the slides and exercises where we did the same thing.
+
+## Read this before you start
+
+### Where to write
 
 Write your code in the empty code chunks
 (the blocks that start with `{r}`),
-and answer each question in full sentences underneath it.
+and answer each question in full sentences underneath it,
+where it says *Your answer here.*
 
-## Handing it in
+### Use Copilot's agent
 
-The due date is on Canvas.
-When you're done:
-
-1. Change `author: "Your Name"` at the top of this file to your own name.
-2. Render this file.
-   This makes two new files, `homework.html` and `homework.pdf`,
-   in the same folder as `homework.qmd`
-   (the top folder of the repository).
-   If you're working in a Codespace,
-   right-click each one in the Explorer and choose **Download**
-   to save it to your computer.
-3. Upload `homework.qmd`, `homework.html`, and `homework.pdf` to Canvas.
-
-## Using the hints
+We want you to use GitHub Copilot's agent for this homework,
+so you get some practice working with one.
+It's in the Copilot Chat panel of your Codespace,
+and the [HDSx setup page](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html)
+shows how to use it.
+Set the mode under the chat box to **Agent**,
+so Copilot can edit `homework.qmd` and run code for you.
 
 Every question has a hint underneath it.
 In this file,
@@ -49,35 +58,35 @@ a hint is the text between a `::: {.callout-tip collapse="true"}` line
 and the `:::` line after it.
 In the rendered HTML,
 you can click on a hint to open it.
+Each hint says what the code needs to do, one step at a time,
+and links to each function's documentation
+and to the slides where we did the same thing.
 
-Each hint says what the code needs to do, one step at a time.
-Every function it mentions links to its documentation page,
-which says what the function does and has a few examples.
-Some hints also link to the lecture slides where we did the same thing.
+Work through the homework one question at a time:
 
-You're welcome to use GitHub Copilot in your Codespace,
-and the hints are written so you can paste them into Copilot Chat as your prompt.
-The [HDSx setup page](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html)
-shows how to use it.
+1. Ask the agent to do one question,
+   for example "Do question 1.1 in homework.qmd.
+   Follow its hint, and use the tidyverse and tidymodels like the lectures."
+2. Read the changes it suggests before you keep them.
+   If it changed something you didn't ask for,
+   like another chunk or a hint,
+   undo that part.
+3. Run the chunk,
+   and compare the result with the end of the hint ("When it works, …").
+   If it doesn't match,
+   tell the agent what you see,
+   or paste in the error message.
+4. Ask the agent to explain any line you don't understand.
+
+The agent can draft your written answers too.
+Read each one against your results and fix anything that's wrong,
+since you're the one handing it in.
+
 If you work on your own computer without Copilot,
-follow the hint's steps yourself,
+follow each hint's steps yourself,
 using the documentation links.
 
-With Copilot, for each code chunk:
-
-1. Open Copilot Chat.
-2. Paste in the hint,
-   and add "Write R code for this using the tidyverse and tidymodels."
-3. Copy the code it gives you into the empty chunk, and run it.
-4. Compare your result with what the end of the hint says you should see.
-   If it doesn't match,
-   paste the error message (or your result) back into Copilot Chat
-   and ask it what went wrong.
-
-Copilot can explain code as well as write it,
-so ask it about any line you don't understand.
-You'll explain your results in your own words,
-so you need to know what your code did.
+### Make each chunk print its result
 
 At the end of each code chunk,
 put the name of the data frame you made on a line by itself,
@@ -95,8 +104,8 @@ and you can compare it with the hint.
 - For a figure, end the chunk with the plot.
 
 The packages we need are already loaded in the chunk below.
-If Copilot adds `library()` lines to its code,
-you can delete them.
+If the agent adds `library()` lines to its code,
+you can delete them if the library call is already made.
 
 ## Packages
 
@@ -108,6 +117,14 @@ library(medicaldata)
 ```
 
 ## Part 1: Ebola case counts
+
+From the lectures:
+
+- [Reshaping with `pivot_longer()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#pivot_longer-wide-to-long)
+  and [splitting a header into several variables](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#split-the-header-into-three-variables)
+- [`group_by()` and `summarize()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#group_by-and-summarize)
+- [Making a figure with ggplot2](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#ggplot2-three-parts)
+- [Extra functions for the homework](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html)
 
 `data/ebola.csv` has the number of Ebola cases and deaths in each country
 from the 2014–2015 West Africa outbreak.
@@ -335,13 +352,20 @@ Use your table from 1.2 to answer these:
   what would its case fatality ratio be?
   What if the same thing happened in Sierra Leone?
 
-Copilot can help you read the table,
-but write the answer in your own words.
+The agent can help you read the table and draft the answer,
+but check what it writes against your table and figure.
 :::
 
 *Your answer here.*
 
 ## Part 2: A model
+
+From the lectures:
+
+- [Regression or classification?](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/04-tidy-to-models.html#two-kinds-of-questions)
+- [Recoding coded variables](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/02-clean-and-tidy.html#exercise-2-coded-variables)
+- [Fitting a linear regression](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/04-linear-regression.html#exercise-1-fit-a-linear-regression)
+  and a [logistic regression](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/05-logistic-regression.html#exercise-1-fit-a-logistic-regression)
 
 For Part 2,
 pick one of these three clinical trials.
@@ -629,3 +653,70 @@ and in which direction.
 :::
 
 *Your answer here.*
+
+## Working with the agent
+
+In 3 or 4 sentences:
+what did you ask Copilot's agent to do,
+what did it get wrong or do differently from the lectures,
+and how did you check its work?
+This part isn't graded.
+
+*Your answer here.*
+
+## Submit
+
+1. Change `author: "Your Name"` at the top of this file to your own name.
+2. Render this file.
+   This makes two new files, `homework.html` and `homework.pdf`,
+   in the same folder as `homework.qmd`
+   (the top folder of the repository).
+   If you're working in a Codespace,
+   right-click each one in the Explorer and choose **Download**
+   to save it to your computer.
+3. Upload `homework.qmd`, `homework.html`, and `homework.pdf` to Canvas.
+
+## Before you submit, check
+
+- [ ] `author:` at the top of the file has your name.
+- [ ] Every code chunk ends with the data frame you made
+      (or `head()` of it) or with the plot, so the result prints.
+- [ ] Every question has an answer in full sentences,
+      including which trial you picked in Part 2.
+- [ ] Your answers match the results your code printed.
+- [ ] You filled in "Working with the agent".
+- [ ] The file renders to both HTML and PDF.
+- [ ] You uploaded `homework.qmd`, `homework.html`, and `homework.pdf` to Canvas.
+
+## Grading
+
+Your TA grades the results your code printed and your written answers,
+not how your code looks,
+so any code that gets to the right result is fine.
+
+| Item | Marks |
+|---|--:|
+| 1.1 Tidy the data | 15 |
+| 1.2 The summary table | 15 |
+| 1.2 Why not `sum()`? | 5 |
+| 1.3 A figure | 5 |
+| 1.4 What do you see? | 10 |
+| 2.1 Clean the variables you need | 10 |
+| 2.2 A plot of the outcome | 10 |
+| 2.3 Linear or logistic, and why | 5 |
+| 2.3 The fitted model | 10 |
+| 2.4 What does the model say? | 15 |
+| Working with the agent | not graded |
+| **Total** | **100** |
+
+## If you get stuck
+
+- Paste the error message into Copilot Chat and ask the agent what went wrong.
+- The Lecture 2 solutions work through the lab's
+  [linear](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02-solutions/04-linear-regression.html)
+  and [logistic](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02-solutions/05-logistic-regression.html)
+  regressions,
+  which are close to Part 2.
+- Ask your TA.
+  Include the code you ran and the error message you got,
+  not just "it didn't work".

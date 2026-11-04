@@ -35,5 +35,7 @@ To bring it up to date:
 Open `homework.qmd`
 (not this website's own `homework-instructions.qmd` file next to it)
 and follow the instructions at the top of the file.
-Every question has a hint,
-and the hints are written so you can paste them into Copilot Chat as your prompt.
+We want you to use GitHub Copilot's agent in your Codespace for the homework,
+one question at a time,
+and the file explains how.
+Every question has a hint you can give the agent as its instructions.
