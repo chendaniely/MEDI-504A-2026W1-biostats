@@ -53,7 +53,20 @@ Quarto extensions, committed in `_extensions/`
 and installed or updated by `make extensions`:
 
 - [`coatless-quarto/embedio`](https://github.com/coatless-quarto/embedio):
-  embeds each Lecture 1 slide deck at the top of its page.
+  embeds each slide deck at the top of its page.
+- [`mcanouil/quarto-revealjs-a11y`](https://github.com/mcanouil/quarto-revealjs-a11y)
+  (0.1.1): accessibility for the slides;
+  `+` and `-` change the font size and `0` resets it.
+- [`quarto-ext/pointer`](https://github.com/quarto-ext/pointer):
+  a laser pointer on the slides (press `q`).
+- [`mcanouil/quarto-revealjs-cascade`](https://github.com/mcanouil/quarto-revealjs-cascade)
+  (0.3.2): a slide started with `---` repeats the previous slide's heading.
+  It's on for the slides only,
+  since on a normal page it deletes every `---` horizontal rule.
+- [`coatless-quarto/custom-callout`](https://github.com/coatless-quarto/custom-callout):
+  new callout types, defined under `custom-callout:` in `_quarto.yml`.
+- [`quarto-ext/include-code-files`](https://github.com/quarto-ext/include-code-files):
+  shows a code file in a page.
 - [`UBC-MDS/ubc-quarto-brand`](https://github.com/UBC-MDS/ubc-quarto-brand)
   (`main` at `903cdaa`, before its first release):
   the UBC colours, fonts, and light and dark modes, through `format: ubc-html`.

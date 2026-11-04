@@ -28,6 +28,11 @@ packages:  ## Install the R packages that are missing
 
 extensions:  ## Install or update the Quarto extensions in _extensions/
 	quarto add coatless-quarto/embedio --no-prompt
+	quarto add coatless-quarto/custom-callout --no-prompt
+	quarto add quarto-ext/pointer --no-prompt
+	quarto add quarto-ext/include-code-files --no-prompt
+	quarto add mcanouil/quarto-revealjs-a11y@0.1.1 --no-prompt
+	quarto add mcanouil/quarto-revealjs-cascade@0.3.2 --no-prompt
 	quarto add UBC-MDS/ubc-quarto-brand --no-prompt
 	# a different course: never ship the MDS logo the brand includes
 	rm -f _extensions/UBC-MDS/ubc/MDSlogo.png

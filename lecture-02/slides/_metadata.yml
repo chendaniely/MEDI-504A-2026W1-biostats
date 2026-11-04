@@ -8,6 +8,16 @@ format:
     smaller: true
     # Smaller code output, so 80-character lines fit in the brand's font.
     css: ../../slides.css
+    # a11y: + and - change the font size (0 resets), with a settings menu.
+    # pointer: press q for a laser pointer.
+    revealjs-plugins:
+      - a11y
+      - pointer
+
+# cascade: a slide started with --- repeats the previous slide's heading.
+# Slides only: on a normal page it would delete every --- horizontal rule.
+filters:
+  - cascade
 
 # Slides hide code by default; these lectures are about the code.
 execute:

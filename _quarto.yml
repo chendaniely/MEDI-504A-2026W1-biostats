@@ -70,6 +70,13 @@ website:
       - href: homework-instructions.qmd
         text: Homework
 
+# custom-callout: define new callout types under `custom-callout:` (none yet).
+# include-code-files: show a code file in a page, `{.r include="file.R"}`.
+# The slide-only extensions (a11y, pointer, cascade) are in each slides/_metadata.yml.
+filters:
+  - custom-callout
+  - include-code-files
+
 # The UBC brand (UBC-MDS/ubc-quarto-brand): colours, fonts and light/dark mode.
 format:
   ubc-html:
