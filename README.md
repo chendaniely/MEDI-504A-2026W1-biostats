@@ -43,19 +43,22 @@ or on your own computer ([local setup](setup-local.qmd)).
 This repository is a Quarto website.
 `.github/workflows/publish.yml` renders it on every push to `main`
 and publishes it to GitHub Pages from the `gh-pages` branch.
-To preview it locally, run `quarto preview`.
 
-Quarto extensions, committed in `_extensions/`:
+To work on it locally, with R 4.5+ and Quarto 1.10+ installed
+(the UBC brand extension needs 1.10),
+run `make setup` once, then `make preview`.
+`make help` lists the other targets.
+
+Quarto extensions, committed in `_extensions/`
+and installed or updated by `make extensions`:
 
 - [`coatless-quarto/embedio`](https://github.com/coatless-quarto/embedio):
   embeds each Lecture 1 slide deck at the top of its page.
-  Update it with `quarto add coatless-quarto/embedio`.
 - [`UBC-MDS/ubc-quarto-brand`](https://github.com/UBC-MDS/ubc-quarto-brand)
   (`main` at `903cdaa`, before its first release):
   the UBC colours, fonts, and light and dark modes, through `format: ubc-html`.
-  The MDS logo it ships is deleted, since this is a different course.
-  Update it with `quarto add UBC-MDS/ubc-quarto-brand`,
-  then delete `_extensions/UBC-MDS/ubc/MDSlogo.png` again.
+  The MDS logo it ships is deleted, since this is a different course;
+  `make extensions` deletes it again after each update.
 
 ## Licence
 

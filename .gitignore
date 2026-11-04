@@ -15,9 +15,15 @@ example.pdf
 # Quarto website output (published from the gh-pages branch)
 /_site/
 
+/.quarto/
+**/*.quarto_ipynb
+
 # Homework solution and TA rubric: instructor only until after the homework is due.
 /homework_solution.qmd
 /homework_solution.html
 
 # Rendered homework (students upload it to Canvas)
 /homework.html
+
+# Figures from rendering a single .qmd outside the website
+**/*_files/

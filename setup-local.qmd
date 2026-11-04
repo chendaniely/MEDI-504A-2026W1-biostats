@@ -2,14 +2,18 @@
 title: "Local setup"
 ---
 
-::: {.callout-note}
-Draft: these steps will be finalized before Lecture 2.
-:::
-
 You can follow along in a [Codespace](setup-codespaces.qmd)
-with nothing to install.
+with nothing to install,
+and the Codespace is where you can use GitHub Copilot for the homework.
 To work on your own computer instead,
-install the following before Lecture 2.
+install everything below before Lecture 2.
+None of it needs AI tools.
+
+## A GitHub account
+
+In Lecture 2 you'll make your own copy (a fork) of the course repository,
+so you'll need a free GitHub account:
+<https://github.com/signup>.
 
 ## R
 
@@ -24,21 +28,53 @@ Use either of these:
 - Positron: <https://positron.posit.co/>
 - RStudio Desktop: <https://posit.co/download/rstudio-desktop/>
 
-## Quarto
+## Quarto 1.10 or newer
 
-Install Quarto to render the lecture documents:
-<https://quarto.org/docs/get-started/>.
+Install Quarto from <https://quarto.org/docs/get-started/>,
+even if your editor came with its own copy.
+The course website's theme needs Quarto 1.10 or newer,
+and the copy that comes with Positron or RStudio is usually older.
+With an older Quarto,
+rendering stops with an error that says the "UBC brand" extension
+"is incompatible with this quarto version".
+
+After you install it,
+restart your editor,
+open its terminal,
+and run:
+
+```bash
+quarto --version
+```
+
+It should print 1.10 or a higher number.
+
+Quarto also makes the homework's PDF, using Typst,
+so you don't need to install LaTeX.
 
 ## R packages
 
 Run this once in the R console:
 
 ```r
-install.packages(c("tidyverse", "tidymodels", "medicaldata"))
+install.packages(c(
+  "tidyverse", "tidymodels", "medicaldata", "knitr", "rmarkdown"
+))
 ```
+
+Quarto uses knitr and rmarkdown to run the R code in a document.
 
 ## Git
 
-You'll clone the course repository in Lecture 2.
+You'll clone your fork in Lecture 2.
 Install Git by following *Happy Git and GitHub for the useR*:
 <https://happygitwithr.com/install-git.html>.
+
+## Check that it works
+
+Once you've cloned your fork in Lecture 2,
+open `example.qmd` and render it,
+as the [Clone the repository](lecture-02/01-clone-the-repo.qmd) page shows.
+If it renders, everything you need is installed.
+If you use RStudio,
+also follow that page's tip on running chunks from the top folder.
