@@ -85,6 +85,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-23cb96394853766321799e15746e136a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome-7-free-7.2.0/fontawesome.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,6 +113,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>
+div.callout-activity.callout {
+  border-left-color: #0055B7;
+}
+div.callout-activity.callout-style-default .callout-header {
+  background-color: rgba(0, 85, 183, 0.13);
+}
+div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\e53d' !important;
+  background-image: none;
+}
+div.callout-exercise.callout {
+  border-left-color: #1C5F2E;
+}
+div.callout-exercise.callout-style-default .callout-header {
+  background-color: rgba(28, 95, 46, 0.13);
+}
+div.callout-exercise .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-exercise.callout-style-default .callout-icon::before, div.callout-exercise.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f44b' !important;
+  background-image: none;
+}
+div.callout-definition.callout {
+  border-left-color: #8A6D2B;
+}
+div.callout-definition.callout-style-default .callout-header {
+  background-color: rgba(138, 109, 43, 0.13);
+}
+div.callout-definition .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-definition.callout-style-default .callout-icon::before, div.callout-definition.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f518' !important;
+  background-image: none;
+}
+div.callout-relevance-project.callout {
+  border-left-color: #0077C8;
+}
+div.callout-relevance-project.callout-style-default .callout-header {
+  background-color: rgba(0, 119, 200, 0.13);
+}
+div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f542' !important;
+  background-image: none;
+}
+</style>
 
 
 </head>
@@ -296,6 +355,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
+    <a class="nav-link" href="../homework-instructions.html"> 
+<span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../setup-local.html"> 
 <span class="menu-text">Local setup</span></a>
   </li>  
@@ -437,41 +500,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Extra practice</span></a>
+ <span class="menu-text">Lecture 2 solutions</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Extra practice: cleaning and tidying</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extra practice: linear regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extra practice: logistic regression</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Lecture 2 solutions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02-solutions/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
@@ -510,12 +544,105 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../class-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Class notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lecture 1 (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../homework-instructions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Homework</span></a>
+  <a href="../sessions/2026-11-02/notes-class-main--claude-opus-5-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Claude Opus notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/notes-class-main--qwen3.6-35b-a3b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.6 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.8 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/notes-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plaud notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/transcript-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transcript</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slides used</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../README-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How the notes are made</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prompt-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The prompt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -562,8 +689,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="exercise-1-tumour-growth-over-time" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1-tumour-growth-over-time">Exercise 1: Tumour growth over time</h2>
-<p>This exercise follows the <a href="https://ds4biomed.tech/clean-data-tidy.html">tidy data chapter</a> of <em>Data Science for the Biomedical Sciences</em>. Mice with a human glioma xenograft were assigned to one of 4 groups: control (<code>1.CTR</code>), drug (<code>2.D</code>), radiation (<code>3.R</code>), or drug and radiation (<code>4.D+R</code>). Tumour size (mm³) was measured over 28 days.</p>
-<p><code>data/tumorgrowth_wide.csv</code> is ds4biomed’s <code>data/tumorgrowth_long.csv</code> (<a href="https://github.com/chendaniely/ds4biomed/tree/learner/data"><code>chendaniely/ds4biomed</code></a>, <code>learner</code> branch), renamed because it’s in wide format: a version of the <code>tumorgrowth</code> data from the <a href="https://github.com/higgi13425/medicaldata"><code>medicaldata</code></a> GitHub repository.</p>
+<p>This exercise follows the <a href="https://ds4biomed.tech/clean-data-tidy.html">tidy data chapter</a> of <em>Data Science for the Biomedical Sciences</em>. Mice with a human glioma xenograft were assigned to one of 4 groups:</p>
+<ul>
+<li>control (<code>1.CTR</code>)</li>
+<li>drug (<code>2.D</code>)</li>
+<li>radiation (<code>3.R</code>)</li>
+<li>drug and radiation (<code>4.D+R</code>)</li>
+</ul>
+<p>Tumour size (mm³) was measured over 28 days.</p>
+<p><code>data/tumorgrowth_wide.csv</code> is a version of the <code>tumorgrowth</code> data from the <a href="https://github.com/higgi13425/medicaldata"><code>medicaldata</code></a> GitHub repository. It’s ds4biomed’s <code>data/tumorgrowth_long.csv</code> (<a href="https://github.com/chendaniely/ds4biomed/tree/learner/data"><code>chendaniely/ds4biomed</code></a>, <code>learner</code> branch), which we renamed because it’s in wide format.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumor <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tumorgrowth_wide.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -663,10 +797,16 @@ $ Birthweight   &lt;int&gt; 3490, 2350, 2525, 3650, 3865, 3120, 3380, 3100, 3145
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Count the values of <code>Birth.outcome</code>. What’s odd about the labels?</li>
-<li>How many rows does <code>filter(opt, Birth.outcome == "Live birth")</code> return? Why?</li>
-<li>Make <code>opt_clean</code>: trim the spaces from <code>Birth.outcome</code> with <code>str_trim()</code>, keep live births only, relabel <code>Group</code> as <code>control</code> and <code>treatment</code>, and keep <code>PID</code>, <code>Clinic</code>, <code>Group</code>, <code>Age</code>, <code>BMI</code>, <code>Birthweight</code> and <code>GA.at.outcome</code>.</li>
-<li>How many values are missing in each column of <code>opt_clean</code>?</li>
+<li><p>Count the values of <code>Birth.outcome</code>. What’s odd about the labels?</p></li>
+<li><p>How many rows does <code>filter(opt, Birth.outcome == "Live birth")</code> return? Why?</p></li>
+<li><p>Make <code>opt_clean</code>:</p>
+<ul>
+<li>trim the spaces from <code>Birth.outcome</code> with <code>str_trim()</code></li>
+<li>keep live births only</li>
+<li>relabel <code>Group</code> as <code>control</code> and <code>treatment</code></li>
+<li>keep <code>PID</code>, <code>Clinic</code>, <code>Group</code>, <code>Age</code>, <code>BMI</code>, <code>Birthweight</code>, and <code>GA.at.outcome</code></li>
+</ul></li>
+<li><p>How many values are missing in each column of <code>opt_clean</code>?</p></li>
 </ol>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>opt_clean <span class="ot">&lt;-</span> opt <span class="sc">|&gt;</span></span>
@@ -687,7 +827,12 @@ $ Birthweight   &lt;int&gt; 3490, 2350, 2525, 3650, 3865, 3120, 3380, 3100, 3145
 </section>
 <section id="exercise-3-cytomegalovirus" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-cytomegalovirus">Exercise 3: Cytomegalovirus</h2>
-<p><code>cytomegalovirus</code> (from <code>medicaldata</code>) follows 64 patients after a stem cell transplant (<a href="https://higgi13425.github.io/medicaldata/reference/cytomegalovirus.html">Sobecks et al., 2011</a>). <code>cmv</code> is whether CMV reactivated (0 = no, 1 = yes), and <code>recipient.cmv</code> and <code>donor.cmv</code> are the CMV serostatus of the patient and the donor (0 = negative, 1 = positive).</p>
+<p><code>cytomegalovirus</code> (from <code>medicaldata</code>) follows 64 patients after a stem cell transplant (<a href="https://higgi13425.github.io/medicaldata/reference/cytomegalovirus.html">Sobecks et al., 2011</a>). Here are the columns we’ll recode.</p>
+<ul>
+<li><code>cmv</code>: whether CMV reactivated (0 = no, 1 = yes)</li>
+<li><code>recipient.cmv</code>: the patient’s CMV serostatus (0 = negative, 1 = positive)</li>
+<li><code>donor.cmv</code>: the donor’s CMV serostatus (0 = negative, 1 = positive)</li>
+</ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -699,7 +844,7 @@ $ Birthweight   &lt;int&gt; 3490, 2350, 2525, 3650, 3865, 3120, 3380, 3100, 3145
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Make <code>cmv</code>: recode <code>cmv</code> as a factor with labels <code>no</code> and <code>yes</code>, and <code>recipient.cmv</code> and <code>donor.cmv</code> as factors with labels <code>negative</code> and <code>positive</code>.</li>
+<li>Make a data frame called <code>cmv</code>. Recode the <code>cmv</code> column as a factor with labels <code>no</code> and <code>yes</code>, and <code>recipient.cmv</code> and <code>donor.cmv</code> as factors with labels <code>negative</code> and <code>positive</code>.</li>
 <li>How many values are missing in <code>time.to.transplant</code>?</li>
 </ol>
 <div class="cell">

@@ -40,6 +40,8 @@
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -176,20 +178,21 @@ Daniel Chen, PhD, MPH
 </tbody>
 </table>
 <ul>
-<li>Today we’ll go over tidy data, how to wrangle and visualize it, and fit a first model. I’ll be live coding, so feel free to follow along or just watch.</li>
-<li>On Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models.</li>
+<li>Today we’ll go over tidy data, how to wrangle and visualize it, and fit a first model</li>
+<li>I’ll be live coding, so follow along or just watch</li>
+<li>On Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models</li>
 </ul>
 </section>
 <section id="how-these-pages-work" class="slide level2">
 <h2>How these pages work</h2>
 <ul>
-<li>Each section of the course website has the slides at the top and the slide contents written out below, so you can scroll and copy code without clicking through the slides.</li>
+<li>Each section of the course website has the slides at the top and their contents written out below, so you can scroll and copy code without clicking through slides</li>
 <li>Course website: <a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/" class="uri">https://chendaniely.github.io/MEDI-504A-2026W1-biostats/</a></li>
 </ul>
 </section>
 <section id="get-your-codespace-running" class="slide level2 scrollable">
 <h2>Get your Codespace running</h2>
-<p>Start your Codespace now, since it takes about 4 minutes to start up the first time.</p>
+<p>Start your Codespace now, since the first start takes about 4 minutes.</p>
 <ol type="1">
 <li>Go to the <a href="../../setup-codespaces.html">Codespaces</a> page and click <strong>Open in GitHub Codespaces</strong></li>
 <li>When VS Code opens, trust the folder</li>
@@ -203,7 +206,7 @@ Daniel Chen, PhD, MPH
 <p>This is the data science workflow from <em>R for Data Science</em>. Today we’ll mostly be in the “tidy” and “transform” steps, and get a first look at “visualize” and “model”.</p>
 
 <aside><div>
-<p>Diagram from <em>R for Data Science</em> (2e), Wickham, Çetinkaya-Rundel and Grolemund.</p>
+<p>Diagram from <em>R for Data Science</em> (2e), Wickham, Çetinkaya-Rundel, and Grolemund.</p>
 </div></aside></section>
 <section id="references" class="slide level2">
 <h2>References</h2>
@@ -231,6 +234,8 @@ Daniel Chen, PhD, MPH
   <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
   <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -253,6 +258,8 @@ Daniel Chen, PhD, MPH
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'revealjs-a11y': true,
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
 'smaller': true,
  
         // Display controls in the bottom right corner
@@ -423,7 +430,7 @@ Daniel Chen, PhD, MPH
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealjsA11y, RevealPointer, QuartoSupport,
 
           RevealMath,
           RevealNotes,

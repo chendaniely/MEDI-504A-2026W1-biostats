@@ -105,6 +105,8 @@
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -226,13 +228,13 @@
 </div></aside></section>
 <section id="the-original-definition-2014" class="slide level2 scrollable">
 <h2>The original definition (2014)</h2>
-<p>The original <em>Tidy Data</em> paper from 2014 defines it a little differently:</p>
+<p>The <a href="https://vita.had.co.nz/papers/tidy-data.pdf"><em>Tidy Data</em> paper</a> defines it a little differently:</p>
 <ol type="1">
 <li>Each variable forms a column</li>
 <li>Each observation forms a row</li>
 <li>Each <strong>type of observational unit</strong> forms a table</li>
 </ol>
-<p>The third rule is really about databases, where data is split into separate tables and joined back together. The newer definition replaces it with “each value is a cell”. We’ll come back to observational units in Lecture 2, in the <a href="../../lecture-02/03-observational-units.html">Observational units</a> section.</p>
+<p>The third rule is really about databases, where data is split into separate tables and joined back together. The newer definition replaces it with “each value is a cell”. We’ll come back to observational units in Lecture 2’s <a href="../../lecture-02/03-observational-units.html">Observational units</a> section.</p>
 </section>
 <section id="tidy-or-not-1-of-4" class="slide level2">
 <h2>Tidy or not? (1 of 4)</h2>
@@ -397,7 +399,7 @@
 </div></aside></section>
 <section id="five-ways-data-gets-messy" class="slide level2 scrollable">
 <h2>Five ways data gets messy</h2>
-<p>The <em>Tidy Data</em> paper lists five common ways data gets messy:</p>
+<p>From the <a href="https://vita.had.co.nz/papers/tidy-data.pdf"><em>Tidy Data</em> paper</a>:</p>
 <ol type="1">
 <li>Column headers are values, not variable names</li>
 <li>Multiple variables are stored in one column</li>
@@ -720,10 +722,10 @@
 <section id="data-and-credits" class="slide level2">
 <h2>Data and credits</h2>
 <ul>
-<li><code>pew.csv</code>, <code>billboard.csv</code>, <code>weather.csv</code>: the tidy data paper’s examples, via <a href="https://github.com/chendaniely/pandas_for_everyone"><code>chendaniely/pandas_for_everyone</code></a> and <a href="https://github.com/hadley/tidy-data"><code>hadley/tidy-data</code></a>.</li>
-<li><code>who2</code>: from tidyr, loaded with the tidyverse.</li>
-<li>Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, 59(10). <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a></li>
-<li>The tidy-or-not quiz is adapted from <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).</li>
+<li><code>pew.csv</code>, <code>billboard.csv</code>, <code>weather.csv</code>: the tidy data paper’s examples, via <a href="https://github.com/chendaniely/pandas_for_everyone"><code>chendaniely/pandas_for_everyone</code></a> and <a href="https://github.com/hadley/tidy-data"><code>hadley/tidy-data</code></a></li>
+<li><code>who2</code>: from tidyr, loaded with the tidyverse</li>
+<li>Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, 59(10). <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a> (PDF: <a href="https://vita.had.co.nz/papers/tidy-data.pdf" class="uri">https://vita.had.co.nz/papers/tidy-data.pdf</a>)</li>
+<li>The tidy-or-not quiz is adapted from <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell, and Lee; CC BY-NC-SA 4.0)</li>
 </ul>
 
 
@@ -742,6 +744,8 @@
   <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
   <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -764,6 +768,8 @@
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'revealjs-a11y': true,
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
 'smaller': true,
  
         // Display controls in the bottom right corner
@@ -934,7 +940,7 @@
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealjsA11y, RevealPointer, QuartoSupport,
 
           RevealMath,
           RevealNotes,

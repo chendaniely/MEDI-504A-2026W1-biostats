@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>notes-class-main--qwen3.8-27b-sglang – MEDI 504A: Biostatistics with Tidyverse</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b7768052ea28175cafb50d37197cef29.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-415ea5fd9bc44906cd393fcacb61f9bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b7768052ea28175cafb50d37197cef29.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-23cb96394853766321799e15746e136a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome-7-free-7.2.0/fontawesome.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+div.callout-definition.callout {
+  border-left-color: #8A6D2B;
+}
+div.callout-definition.callout-style-default .callout-header {
+  background-color: rgba(138, 109, 43, 0.13);
+}
+div.callout-definition .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-definition.callout-style-default .callout-icon::before, div.callout-definition.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f518' !important;
+  background-image: none;
+}
+div.callout-exercise.callout {
+  border-left-color: #1C5F2E;
+}
+div.callout-exercise.callout-style-default .callout-header {
+  background-color: rgba(28, 95, 46, 0.13);
+}
+div.callout-exercise .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-exercise.callout-style-default .callout-icon::before, div.callout-exercise.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f44b' !important;
+  background-image: none;
+}
+div.callout-relevance-project.callout {
+  border-left-color: #0077C8;
+}
+div.callout-relevance-project.callout-style-default .callout-header {
+  background-color: rgba(0, 119, 200, 0.13);
+}
+div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f542' !important;
+  background-image: none;
+}
+div.callout-activity.callout {
+  border-left-color: #0055B7;
+}
+div.callout-activity.callout-style-default .callout-header {
+  background-color: rgba(0, 85, 183, 0.13);
+}
+div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\e53d' !important;
+  background-image: none;
+}
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">MEDI 504A: Biostatistics with Tidyverse</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../homework-instructions.html"> 
+<span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../setup-local.html"> 
+<span class="menu-text">Local setup</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../setup-codespaces.html"> 
+<span class="menu-text">Codespaces</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../example.html"> 
+<span class="menu-text">Example</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/chendaniely/MEDI-504A-2026W1-biostats"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../class-notes.html">Class notes</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-02/notes-class-main--claude-opus-5-5.html">Lecture 1 (Mon, Nov 2)</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.html">Qwen 3.8 notes</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 1: Tidy data (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/01-welcome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/02-tidy-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/03-wrangle-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wrangling and visualizing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/04-tidy-to-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From tidy data to models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2: Modelling lab (Wed, Nov 4)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/01-clone-the-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clone the repository</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/03-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/06-extra-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra functions for the homework</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2 solutions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../class-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Class notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 1 (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-class-main--claude-opus-5-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Claude Opus notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-class-main--qwen3.6-35b-a3b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.6 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Qwen 3.8 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plaud notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/transcript-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transcript</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slides used</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../README-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How the notes are made</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../prompt-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The prompt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tidy-data-tidyr-dplyr-ggplot2-and-a-first-linear-regression" id="toc-tidy-data-tidyr-dplyr-ggplot2-and-a-first-linear-regression" class="nav-link active" data-scroll-target="#tidy-data-tidyr-dplyr-ggplot2-and-a-first-linear-regression">Tidy data, <code>tidyr</code>, <code>dplyr</code>, <code>ggplot2</code>, and a first linear regression</a>
+  <ul class="collapse">
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#knowledge-points" id="toc-knowledge-points" class="nav-link" data-scroll-target="#knowledge-points">Knowledge Points</a>
+  <ul class="collapse">
+  <li><a href="#course-setup-and-workflow" id="toc-course-setup-and-workflow" class="nav-link" data-scroll-target="#course-setup-and-workflow">1. Course setup and workflow</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data">2. Tidy data</a></li>
+  <li><a href="#reshaping-data-with-tidyr" id="toc-reshaping-data-with-tidyr" class="nav-link" data-scroll-target="#reshaping-data-with-tidyr">3. Reshaping data with <code>tidyr</code></a></li>
+  <li><a href="#wrangling-with-dplyr" id="toc-wrangling-with-dplyr" class="nav-link" data-scroll-target="#wrangling-with-dplyr">4. Wrangling with <code>dplyr</code></a></li>
+  <li><a href="#visualization-with-ggplot2" id="toc-visualization-with-ggplot2" class="nav-link" data-scroll-target="#visualization-with-ggplot2">5. Visualization with <code>ggplot2</code></a></li>
+  <li><a href="#first-look-at-modelling" id="toc-first-look-at-modelling" class="nav-link" data-scroll-target="#first-look-at-modelling">6. First look at modelling</a></li>
+  </ul></li>
+  <li><a href="#code-from-class" id="toc-code-from-class" class="nav-link" data-scroll-target="#code-from-class">Code from class</a>
+  <ul class="collapse">
+  <li><a href="#tidy-pew-income-data-with-pivot_longer" id="toc-tidy-pew-income-data-with-pivot_longer" class="nav-link" data-scroll-target="#tidy-pew-income-data-with-pivot_longer">Tidy Pew income data with <code>pivot_longer()</code></a></li>
+  <li><a href="#tidy-the-billboard-weekly-rankings" id="toc-tidy-the-billboard-weekly-rankings" class="nav-link" data-scroll-target="#tidy-the-billboard-weekly-rankings">Tidy the Billboard weekly rankings</a></li>
+  <li><a href="#tidy-who-tuberculosis-counts" id="toc-tidy-who-tuberculosis-counts" class="nav-link" data-scroll-target="#tidy-who-tuberculosis-counts">Tidy WHO tuberculosis counts</a></li>
+  <li><a href="#tidy-weather-data-pivot_longer-then-pivot_wider" id="toc-tidy-weather-data-pivot_longer-then-pivot_wider" class="nav-link" data-scroll-target="#tidy-weather-data-pivot_longer-then-pivot_wider">Tidy weather data: <code>pivot_longer()</code> then <code>pivot_wider()</code></a></li>
+  <li><a href="#select-penguin-columns" id="toc-select-penguin-columns" class="nav-link" data-scroll-target="#select-penguin-columns">Select penguin columns</a></li>
+  <li><a href="#filter-penguin-rows" id="toc-filter-penguin-rows" class="nav-link" data-scroll-target="#filter-penguin-rows">Filter penguin rows</a></li>
+  <li><a href="#add-a-derived-column-and-chain-steps" id="toc-add-a-derived-column-and-chain-steps" class="nav-link" data-scroll-target="#add-a-derived-column-and-chain-steps">Add a derived column and chain steps</a></li>
+  <li><a href="#summarize-penguins-and-count-missing-values" id="toc-summarize-penguins-and-count-missing-values" class="nav-link" data-scroll-target="#summarize-penguins-and-count-missing-values">Summarize penguins and count missing values</a></li>
+  <li><a href="#plot-penguins-with-ggplot2" id="toc-plot-penguins-with-ggplot2" class="nav-link" data-scroll-target="#plot-penguins-with-ggplot2">Plot penguins with <code>ggplot2</code></a></li>
+  <li><a href="#load-model-data-and-check-sacramento" id="toc-load-model-data-and-check-sacramento" class="nav-link" data-scroll-target="#load-model-data-and-check-sacramento">Load model data and check <code>Sacramento</code></a></li>
+  <li><a href="#fit-and-read-the-first-linear-regression" id="toc-fit-and-read-the-first-linear-regression" class="nav-link" data-scroll-target="#fit-and-read-the-first-linear-regression">Fit and read the first linear regression</a></li>
+  <li><a href="#what-went-wrong-live" id="toc-what-went-wrong-live" class="nav-link" data-scroll-target="#what-went-wrong-live">What went wrong live</a></li>
+  </ul></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  <li><a href="#also-on-the-slides" id="toc-also-on-the-slides" class="nav-link" data-scroll-target="#also-on-the-slides">Also on the slides</a></li>
+  <li><a href="#assignments" id="toc-assignments" class="nav-link" data-scroll-target="#assignments">Assignments</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../class-notes.html">Class notes</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-02/notes-class-main--claude-opus-5-5.html">Lecture 1 (Mon, Nov 2)</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.html">Qwen 3.8 notes</a></li></ol></nav></header>
+
+
+
+
+
+<section id="tidy-data-tidyr-dplyr-ggplot2-and-a-first-linear-regression" class="level1">
+<h1>Tidy data, <code>tidyr</code>, <code>dplyr</code>, <code>ggplot2</code>, and a first linear regression</h1>
+<p>Date Time: 2026-11-02 13:00:00</p>
+<p>Location: ECC 100 LT</p>
+<p>Instructor: Daniel Chen</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This was Lecture 1 of Daniel Chen’s two-session biostatistics module in MEDI 504A. The session assumed that students had not coded before and introduced the tidyverse workflow for getting data into a usable form. Daniel live-coded from the course slides, starting with the formal idea of tidy data and then working through the examples from Hadley Wickham’s 2014 <em>Tidy Data</em> paper: Pew religion/income counts, Billboard weekly song rankings, WHO tuberculosis counts, and daily weather temperatures. The main goal was to learn how to recognize messy data, reshape it so that variables, observations, and values are aligned, and then point to real columns for later analysis.</p>
+<p>After the tidying portion, the session moved to basic <code>dplyr</code> wrangling on the Palmer penguins dataset: selecting columns with <code>select()</code>, filtering rows with <code>filter()</code>, adding or changing columns with <code>mutate()</code>, chaining steps with the pipe <code>|&gt;</code>, and summarizing groups with <code>group_by()</code> and <code>summarize()</code>. Daniel then showed how tidy data supports <code>ggplot2</code> visualization, including scatter plots, histograms, and bar plots, and how variable type drives the choice of plot. The session ended with a first look at modelling using the <code>Sacramento</code> house-sales dataset and a linear regression fit with <code>tidymodels</code>.</p>
+<p>By the end, a student should be able to explain the tidy data rules, choose between <code>pivot_longer()</code> and <code>pivot_wider()</code>, write simple tidyverse pipelines, produce basic plots, and interpret a fitted linear model’s coefficients. The session also set up the practical environment: students were told to start the course GitHub Codespace, render <code>example.qmd</code>, and understand that Lecture 2 on Wednesday, 2026-11-04, will be a hands-on lab with medical data, linear regression, logistic regression, and a homework assignment.</p>
+</section>
+<section id="knowledge-points" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-points">Knowledge Points</h2>
+<section id="course-setup-and-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="course-setup-and-workflow">1. Course setup and workflow</h3>
+<ul>
+<li><strong>MEDI 504A biostatistics sessions</strong>:
+<ul>
+<li>Lecture 1: Tidy data, Monday, 2026-11-02, 1:00–3:00 PM, ECC 100 LT.</li>
+<li>Lecture 2: Modelling lab, Wednesday, 2026-11-04, 1:00–3:00 PM, DHCC 4223.</li>
+</ul></li>
+<li><strong>GitHub Codespace</strong>:
+<ul>
+<li>The course repository has a Codespace configured so students do not need to install everything locally.</li>
+<li>The published slide says starting it takes about 4 minutes the first time; the live demo described it as taking about 10 minutes.</li>
+<li>On Monday the task was only to test the Codespace. On Wednesday, students will fork the repository and work in their own copy.</li>
+</ul></li>
+<li><strong>GitHub Copilot / LLM use in the Codespace</strong>:
+<ul>
+<li>The Codespace has Copilot available on the right-hand side and can act as a coding agent: it can read files, propose edits, and modify code.</li>
+<li>A specific LLM course will be taught later by another instructor; this session only gave a preview.</li>
+<li><strong>Warning</strong>: because the agent can read and edit files, do <strong>not</strong> put passwords or identifiable patient data into code files or prompts. Be cautious even with column names if they could reveal sensitive information.</li>
+</ul></li>
+<li><strong>Data science workflow</strong>:
+<ul>
+<li>The course follows the <em>R for Data Science</em> workflow: import, tidy, transform, visualize, model, and communicate.</li>
+<li>Lecture 1 focused mostly on tidy and transform, with first looks at visualize and model.</li>
+</ul></li>
+</ul>
+</section>
+<section id="tidy-data" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-data">2. Tidy data</h3>
+<ul>
+<li><strong>Tidy data</strong>:
+<ul>
+<li>Each <strong>variable</strong> is a column; each column is a variable.</li>
+<li>Each <strong>observation</strong> is a row; each row is an observation.</li>
+<li>Each <strong>value</strong> is a cell; each cell is a single value.</li>
+</ul></li>
+<li><strong>Original 2014 definition</strong>:
+<ul>
+<li>Wickham’s original <em>Tidy Data</em> paper defined:
+<ol type="1">
+<li>Each variable forms a column.</li>
+<li>Each observation forms a row.</li>
+<li>Each type of observational unit forms a table.</li>
+</ol></li>
+<li>The third rule is mainly about databases, where different observational units are stored in separate tables and joined later.</li>
+<li>The newer tidyverse definition replaces that third rule with “each value is a cell.”</li>
+</ul></li>
+<li><strong>Sniff test for messiness</strong>:
+<ul>
+<li>If multiple column headers look like values of the same variable, the data is probably not tidy.
+<ul>
+<li>Examples: <code>1999</code>, <code>2000</code>, <code>$10-20k</code>, <code>wk1</code>, <code>wk2</code>, <code>d1</code>, <code>d2</code>.</li>
+</ul></li>
+<li>If a summary statistic on a column would be meaningless, the column may be mixing different variables.
+<ul>
+<li>Example: averaging a column that contains both case counts and population totals.</li>
+</ul></li>
+</ul></li>
+<li><strong>Five common ways data gets messy</strong>:
+<ol type="1">
+<li>Column headers are values, not variable names.</li>
+<li>Multiple variables are stored in one column.</li>
+<li>Variables are stored in both rows and columns.</li>
+<li>Multiple types of observational units are stored in the same table.</li>
+<li>A single observational unit is stored in multiple tables.</li>
+</ol></li>
+<li><strong>Human-friendly vs computer-friendly storage</strong>:
+<ul>
+<li>Spreadsheets can store extra information in cells, such as colors or manual totals, but R does not read those as data.</li>
+<li>If you need to flag rows as good/bad, create an explicit column instead of relying on cell color.</li>
+<li>Adding a total row to a spreadsheet can contaminate later calculations; in R, compute summaries in code instead of writing totals into the raw data.</li>
+</ul></li>
+</ul>
+</section>
+<section id="reshaping-data-with-tidyr" class="level3">
+<h3 class="anchored" data-anchor-id="reshaping-data-with-tidyr">3. Reshaping data with <code>tidyr</code></h3>
+<ul>
+<li><strong><code>pivot_longer()</code></strong>:
+<ul>
+<li>Used when values are spread across many column headers.</li>
+<li>Converts wide data into long data.</li>
+<li>Important arguments:
+<ul>
+<li><code>cols</code>: which columns to pivot.</li>
+<li><code>names_to</code>: name of the new column that will hold the old column headers.</li>
+<li><code>values_to</code>: name of the new column that will hold the old cell values.</li>
+<li><code>names_prefix</code>: text to remove from the old column names.</li>
+<li><code>names_transform</code>: functions to apply to the new name column, e.g.&nbsp;<code>list(week = as.integer)</code>.</li>
+<li><code>values_drop_na</code>: set <code>TRUE</code> to drop rows whose values were <code>NA</code>.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>pivot_wider()</code></strong>:
+<ul>
+<li>Used when variable names are stuck in rows and should become columns.</li>
+<li>Important arguments:
+<ul>
+<li><code>names_from</code>: column whose unique values become new column names.</li>
+<li><code>values_from</code>: column whose values fill the new columns.</li>
+</ul></li>
+</ul></li>
+<li><strong>Splitting multiple variables in one name or column</strong>:
+<ul>
+<li><code>pivot_longer()</code> can split old column names with <code>names_to = c("diagnosis", "gender", "age")</code> and <code>names_sep = "_"</code>.</li>
+<li>For splitting an already-existing column, the instructor mentioned <code>separate()</code> as a two-step alternative; the slides’ toolkit also mentions <code>separate_wider_delim()</code>.</li>
+</ul></li>
+<li><strong>Selecting columns</strong>:
+<ul>
+<li>You can select by position/range, by pattern, or by exclusion.</li>
+<li>Examples:
+<ul>
+<li><code>cols = -religion</code> pivots every column except <code>religion</code>.</li>
+<li><code>cols = starts_with("wk")</code> selects columns beginning with <code>wk</code>.</li>
+<li><code>cols = !(country:year)</code> pivots all columns from after <code>country</code> through after <code>year</code>, i.e.&nbsp;all variables except <code>country</code> and <code>year</code>.</li>
+</ul></li>
+</ul></li>
+<li><strong>Leave yourself breadcrumbs</strong>:
+<ul>
+<li>Use prefixes, delimiters, and consistent naming so you can later select or split columns.</li>
+<li>Many programming languages dislike names that begin with a number, so prefixes such as <code>wk</code>, <code>d</code>, <code>q</code>, or <code>_text</code> are useful.</li>
+</ul></li>
+<li><strong>Converting names to numbers</strong>:
+<ul>
+<li>If week labels remain strings, sorting may produce <code>1</code>, <code>10</code>, <code>11</code>, <code>2</code>.</li>
+<li>Use <code>names_transform = list(week = as.integer)</code> to convert the new <code>week</code> column to integers.</li>
+</ul></li>
+<li><strong>Dates and date arithmetic</strong>:
+<ul>
+<li>R can perform date arithmetic only when values are proper dates or date-time objects.</li>
+<li>The weather example used <code>make_date(year, month, day)</code> to combine <code>year</code>, <code>month</code>, and <code>day</code> into a <code>date</code> column.</li>
+<li>Computers ultimately perform date arithmetic by converting to seconds and then converting back to human-readable dates.</li>
+</ul></li>
+<li><strong>Warning: do not store time series as new columns</strong>:
+<ul>
+<li>Daniel told a story about NHS pandemic tracking where each new day became a new column.</li>
+<li>Spreadsheets have column limits; once the limit was reached, new data overwrote or disturbed existing columns and created gaps that broke models.</li>
+<li>Tidy long-form data with a date column is more sustainable for repeated data entry and modelling.</li>
+</ul></li>
+</ul>
+</section>
+<section id="wrangling-with-dplyr" class="level3">
+<h3 class="anchored" data-anchor-id="wrangling-with-dplyr">4. Wrangling with <code>dplyr</code></h3>
+<ul>
+<li><strong><code>select()</code></strong>:
+<ul>
+<li>Chooses columns.</li>
+<li>You can select named columns or use patterns such as <code>starts_with("bill")</code>.</li>
+</ul></li>
+<li><strong><code>filter()</code></strong>:
+<ul>
+<li>Chooses rows.</li>
+<li>Keep rows where the condition is <code>TRUE</code>.</li>
+<li>Operators:
+<ul>
+<li><code>&amp;</code> means “and”.</li>
+<li><code>|</code> means “or”.</li>
+<li><code>!</code> means “not”.</li>
+<li><code>==</code> compares equality.</li>
+<li>A single <code>=</code> is for assignment, not comparison.</li>
+</ul></li>
+</ul></li>
+<li><strong><code>mutate()</code></strong>:
+<ul>
+<li>Adds or changes columns.</li>
+<li>It returns a new data frame; the original data are not changed unless you assign the result.</li>
+</ul></li>
+<li><strong>Pipe <code>|&gt;</code></strong>:
+<ul>
+<li>The pipe passes the object on the left into the first argument of the function on the right.</li>
+<li>A piped pipeline can be read top-down as “and then”.</li>
+<li><code>|&gt;</code> has been part of base R since R 4.0.</li>
+<li><code>%&gt;%</code> is the older tidyverse pipe; many people still use it out of habit, especially when working with older R environments.</li>
+<li>Type <code>|&gt;</code> as one token; do not put a space between <code>|</code> and <code>&gt;</code>.</li>
+</ul></li>
+<li><strong><code>group_by()</code> and <code>summarize()</code></strong>:
+<ul>
+<li><code>group_by()</code> splits the data into groups.</li>
+<li><code>summarize()</code> collapses each group to one row.</li>
+<li>Summary functions take many numbers and return one number, such as <code>mean()</code>, <code>min()</code>, <code>max()</code>, or <code>n()</code>.</li>
+<li>Use <code>na.rm = TRUE</code> in <code>mean()</code> when missing values are present; otherwise one <code>NA</code> can make the whole mean <code>NA</code>.</li>
+</ul></li>
+<li><strong>Missing values</strong>:
+<ul>
+<li>R uses <code>NA</code> to represent missingness.</li>
+<li>An empty string is not the same as <code>NA</code>; empty strings can mean “not applicable,” “unknown,” “did not answer,” or a data-entry code.</li>
+<li>Health datasets sometimes use sentinel codes such as <code>99</code> to mean “no” or “not applicable.”</li>
+<li><code>is.na(x)</code> returns <code>TRUE</code>/<code>FALSE</code>.</li>
+<li><code>sum(is.na(x))</code> counts missing values because <code>TRUE</code> is treated as 1 and <code>FALSE</code> as 0 in sums.</li>
+<li><code>sum(!is.na(x))</code> counts non-missing values.</li>
+</ul></li>
+</ul>
+</section>
+<section id="visualization-with-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-with-ggplot2">5. Visualization with <code>ggplot2</code></h3>
+<ul>
+<li><strong>Why tidy data matters for plots</strong>:
+<ul>
+<li><code>ggplot2</code> maps columns to visual properties.</li>
+<li>If the data are not tidy, you cannot point to the right columns for <code>x</code>, <code>y</code>, colour, fill, etc.</li>
+</ul></li>
+<li><strong>Three parts of a <code>ggplot2</code> plot</strong>:
+<ol type="1">
+<li>Aesthetic mappings: <code>aes(x = ..., y = ..., colour = ..., fill = ...)</code>.</li>
+<li>Geometric objects: <code>geom_point()</code>, <code>geom_histogram()</code>, <code>geom_bar()</code>, etc.</li>
+<li>Scales and labels: axis titles, colour legends, plot labels.</li>
+</ol>
+<ul>
+<li>Layers are added with <code>+</code>, not with the pipe.</li>
+</ul></li>
+<li><strong>Variable type determines the plot type</strong>:
+<ul>
+<li>Two continuous variables: scatter plot with <code>geom_point()</code>.</li>
+<li>One continuous variable: histogram with <code>geom_histogram()</code>.</li>
+<li>One categorical variable: bar chart of counts with <code>geom_bar()</code>.</li>
+</ul></li>
+<li><strong><code>geom_point()</code></strong>:
+<ul>
+<li>The scatter-plot geom is <code>geom_point()</code>, not a function called <code>geom_scatter()</code>.</li>
+</ul></li>
+<li><strong><code>geom_bar()</code> vs <code>geom_col()</code></strong>:
+<ul>
+<li>Both can produce bar charts.</li>
+<li><code>geom_bar()</code> defaults to counting rows, effectively <code>stat = "count"</code>.</li>
+<li><code>geom_col()</code> defaults to <code>stat = "identity"</code>, so it expects the height to already be calculated.</li>
+<li>Do not use <code>geom_bar()</code> on a table that has already been summarized into counts, or it will recount the rows and produce the wrong bar heights.</li>
+</ul></li>
+<li><strong>Stacked vs dodged bar charts</strong>:
+<ul>
+<li><code>fill = species</code> creates stacked bars by default.</li>
+<li>A one-word position change can create a dodged bar chart, where category bars sit next to each other instead of stacked.</li>
+</ul></li>
+<li><strong>Polish and privacy</strong>:
+<ul>
+<li>Use <code>labs()</code> for axis titles and legend labels.</li>
+<li>Themes can remove backgrounds and adjust aesthetics.</li>
+<li>If you are only pasting code into an LLM to polish a plot, usually the main privacy concern is whether column names or data values are sensitive.</li>
+<li><strong>Warning</strong>: never put passwords or identifiable patient data into code or prompts.</li>
+</ul></li>
+</ul>
+</section>
+<section id="first-look-at-modelling" class="level3">
+<h3 class="anchored" data-anchor-id="first-look-at-modelling">6. First look at modelling</h3>
+<ul>
+<li><strong>Two main kinds of modelling questions</strong>:
+<ul>
+<li>Regression: outcome is quantitative, e.g.&nbsp;house price or birth weight.</li>
+<li>Classification: outcome is categorical, e.g.&nbsp;yes/no disease recurrence.</li>
+</ul></li>
+<li><strong>Model formulas</strong>:
+<ul>
+<li>A formula such as <code>price ~ sqft</code> reads as “predict <code>price</code> using <code>sqft</code>.”</li>
+<li>The left side is the outcome/response variable.</li>
+<li>The right side contains predictors/independent variables.</li>
+<li>Only the outcome’s type primarily determines whether the model is regression or classification.</li>
+</ul></li>
+<li><strong>Linear regression concept</strong>:
+<ul>
+<li>The model is a straight-line relationship: <code>price = beta_0 + beta_1 * sqft</code>.</li>
+<li><code>beta_0</code> is the intercept.</li>
+<li><code>beta_1</code> is the slope: the change in predicted price for one extra square foot.</li>
+</ul></li>
+<li><strong><code>tidymodels</code> workflow used in class</strong>:
+<ul>
+<li><code>recipe(price ~ sqft, data = Sacramento)</code>: prepares the formula and data.</li>
+<li><code>linear_reg()</code> creates a model specification.</li>
+<li><code>set_engine("lm")</code> uses base R linear models.</li>
+<li><code>set_mode("regression")</code> sets the task type.</li>
+<li><code>workflow()</code> combines the recipe and model specification.</li>
+<li><code>add_recipe()</code>, <code>add_model()</code>, and <code>fit(data = Sacramento)</code> build and fit the workflow.</li>
+</ul></li>
+<li><strong>Interpreting output</strong>:
+<ul>
+<li><code>tidy(house_fit)</code> returns a table of coefficients.</li>
+<li>The <code>sqft</code> coefficient was about 138.5–139: for every extra square foot, predicted price increases by about that amount.</li>
+</ul></li>
+<li><strong>Multiple predictors</strong>:
+<ul>
+<li>Add more predictors to the formula, e.g.&nbsp;<code>price ~ sqft + beds + baths</code>.</li>
+<li>With multiple predictors, each slope is interpreted while the other predictors are held constant.</li>
+</ul></li>
+<li><strong>Modeling needs tidy data</strong>:
+<ul>
+<li>You must be able to point to columns as the outcome and predictors.</li>
+<li>Data cleaning can be revisited before modelling; the process is iterative.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="code-from-class" class="level2">
+<h2 class="anchored" data-anchor-id="code-from-class">Code from class</h2>
+<section id="tidy-pew-income-data-with-pivot_longer" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-pew-income-data-with-pivot_longer"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#problem-1-column-headers-are-values">Tidy Pew income data with <code>pivot_longer()</code></a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># load tidyverse, including tidyr, dplyr, ggplot2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pew <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/pew.csv"</span>) <span class="co"># Pew religion counts by income group</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pew</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pew_tidy <span class="ot">&lt;-</span> pew <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>religion, <span class="co"># pivot every column except religion</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"income"</span>, <span class="co"># old income-group headers become values</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"frequency"</span> <span class="co"># old counts become one column</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pew_tidy</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pew_tidy <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(religion) <span class="sc">|&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">sum</span>(frequency)) <span class="co"># total people per religion</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The important change is the shape: the original table had income groups as separate columns, while <code>pew_tidy</code> has one <code>income</code> column and one <code>frequency</code> column.</p>
+<p>Key output:</p>
+<pre class="text"><code>Rows: 18 Columns: 11
+chr  (1): religion
+dbl (10): &lt;$10k, $10-20k, $20-30k, $30-40k, $40-50k, $50-75k, $75-100k, $100...</code></pre>
+<pre class="text"><code># A tibble: 180 × 3
+   religion income             frequency
+   &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;
+ 1 Agnostic &lt;$10k                     27
+ 2 Agnostic $10-20k                   34</code></pre>
+</section>
+<section id="tidy-the-billboard-weekly-rankings" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-the-billboard-weekly-rankings"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#problem-1-again-the-billboard-chart">Tidy the Billboard weekly rankings</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>billboard <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/billboard.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>billboard</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>billboard_tidy <span class="ot">&lt;-</span> billboard <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>), <span class="co"># select week columns by pattern</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"wk"</span>, <span class="co"># remove the "wk" prefix</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">week =</span> as.integer), <span class="co"># make week a number</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span> <span class="co"># drop weeks the song was not on the chart</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the date at a rank = the date it entered + (week - 1) weeks</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> date.entered <span class="sc">+</span> (week <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(artist, track, week) <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, artist, track, time, week, rank, date)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>billboard_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The original data stored week numbers in column names, <code>wk1</code> through <code>wk76</code>. After pivoting, each row is one song-week observation with a numeric <code>week</code> and a <code>rank</code>.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 5,307 × 7
+   year artist  track                   time    week  rank date
+  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;time&gt; &lt;int&gt; &lt;dbl&gt; &lt;date&gt;
+1  2000 2 Pac   Baby Don't Cry (Keep... 04:22      1    87 2000-02-26
+2  2000 2 Pac   Baby Don't Cry (Keep... 04:22      2    82 2000-03-04</code></pre>
+</section>
+<section id="tidy-who-tuberculosis-counts" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-who-tuberculosis-counts"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#problem-2-multiple-variables-in-one-column">Tidy WHO tuberculosis counts</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>who2</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>who2 <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">!</span>(country<span class="sc">:</span>year), <span class="co"># keep country and year, pivot everything else</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span>), <span class="co"># split each old column name</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>, <span class="co"># split on underscores, e.g. sp_m_014</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"count"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Old column names such as <code>sp_m_014</code> contained three variables: diagnosis method, gender, and age group. Splitting the header creates three separate columns.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 76,046 × 6
+   country      year diagnosis gender age   count
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+ 1 Afghanistan  1997 sp        m      014       0
+ 2 Afghanistan  1997 sp        m      1524     10</code></pre>
+</section>
+<section id="tidy-weather-data-pivot_longer-then-pivot_wider" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-weather-data-pivot_longer-then-pivot_wider"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#problem-3-variables-in-rows-and-columns">Tidy weather data: <code>pivot_longer()</code> then <code>pivot_wider()</code></a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>weather <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/weather.csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>weather</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>weather_tidy <span class="ot">&lt;-</span> weather <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"d"</span>), <span class="co"># day columns d1, d2, ...</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"day"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"d"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">day =</span> as.integer),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"temp"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day)) <span class="sc">|&gt;</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> element, <span class="co"># tmax and tmin become their own columns</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> temp</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, date, tmax, tmin) <span class="sc">|&gt;</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(id, date)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>weather_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This dataset had two problems: days were spread across columns, and the two variables <code>tmax</code> and <code>tmin</code> were stored in the <code>element</code> column. The pipeline first makes the data longer by day, then makes it wider so that <code>tmax</code> and <code>tmin</code> are separate columns.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 33 × 4
+   id      date        tmax  tmin
+   &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 MX17004 2010-01-30  27.8  14.5
+ 2 MX17004 2010-02-02  27.3  14.4</code></pre>
+</section>
+<section id="select-penguin-columns" class="level3">
+<h3 class="anchored" data-anchor-id="select-penguin-columns"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#select-choose-columns">Select penguin columns</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins) <span class="co"># print the built-in penguins dataset cleanly</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>penguins</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(penguins, species, bill_len, body_mass) <span class="co"># keep named columns</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(penguins, <span class="fu">starts_with</span>(<span class="st">"bill"</span>)) <span class="co"># keep columns matching a pattern</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The penguins dataset has 344 rows and 8 columns. <code>select()</code> changes only the columns.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 344 × 8
+   species island    bill_len bill_dep flipper_len body_mass sex     year
+   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Adelie  Torgersen     39.1     18.7         181      3750 male    2007</code></pre>
+</section>
+<section id="filter-penguin-rows" class="level3">
+<h3 class="anchored" data-anchor-id="filter-penguin-rows"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#filter-choose-rows">Filter penguin rows</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(penguins, flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(penguins, flipper_len <span class="sc">&gt;</span> <span class="dv">190</span> <span class="sc">&amp;</span> species <span class="sc">==</span> <span class="st">"Chinstrap"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>filter()</code> changes the rows, not the columns. The second example combines two conditions with <code>&amp;</code>.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 243 × 8</code></pre>
+<pre class="text"><code># A tibble: 53 × 8</code></pre>
+</section>
+<section id="add-a-derived-column-and-chain-steps" class="level3">
+<h3 class="anchored" data-anchor-id="add-a-derived-column-and-chain-steps"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#doing-many-steps-at-once">Add a derived column and chain steps</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(penguins, <span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>) <span class="co"># body_mass is in grams</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Intermediate-object version:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>penguins_1 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(penguins, <span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>penguins_2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(penguins_1, flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>penguins_3 <span class="ot">&lt;-</span> <span class="fu">select</span>(penguins_2, species, flipper_len, body_mass_kg)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Nested version, read from the inside out:</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>penguins_nested <span class="ot">&lt;-</span> <span class="fu">select</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">mutate</span>(penguins, <span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>), flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  species, flipper_len, body_mass_kg</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Piped version, read top to bottom:</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(flipper_len <span class="sc">&gt;</span> <span class="dv">190</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, flipper_len, body_mass_kg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The pipe avoids creating many intermediate objects and makes the sequence easier to scan: <code>mutate</code>, then <code>filter</code>, then <code>select</code>.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 243 × 3
+   species flipper_len body_mass_kg
+   &lt;fct&gt;         &lt;int&gt;        &lt;dbl&gt;
+ 1 Adelie          195         3.25
+ 2 Adelie          193         3.45</code></pre>
+</section>
+<section id="summarize-penguins-and-count-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="summarize-penguins-and-count-missing-values"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#group_by-and-summarize">Summarize penguins and count missing values</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_body_mass =</span> <span class="fu">mean</span>(body_mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">missing_body_mass =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(body_mass)))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(species, island)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>group_by()</code> + <code>summarize()</code> gives one row per group. <code>n()</code> counts rows, and <code>sum(is.na(body_mass))</code> counts missing values.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 3 × 2
+  species   avg_body_mass
+  &lt;fct&gt;             &lt;dbl&gt;
+1 Adelie            3701.
+2 Chinstrap         3733.
+3 Gentoo            5076.</code></pre>
+<pre class="text"><code># A tibble: 1 × 2
+      n missing_body_mass
+  &lt;int&gt;             &lt;int&gt;
+1   344                 2</code></pre>
+</section>
+<section id="plot-penguins-with-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="plot-penguins-with-ggplot2"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#scatter-plot-two-quantitative-variables">Plot penguins with <code>ggplot2</code></a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two quantitative variables: scatter plot</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_len, <span class="at">y =</span> body_mass)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add colour and labels</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> flipper_len, <span class="at">y =</span> body_mass, <span class="at">colour =</span> species)) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Species"</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># One quantitative variable: histogram</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">250</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (g)"</span>, <span class="at">y =</span> <span class="st">"Number of penguins"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># One categorical variable: bar plot of counts</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> island, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Island"</span>, <span class="at">y =</span> <span class="st">"Number of penguins"</span>, <span class="at">fill =</span> <span class="st">"Species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The choice of <code>geom</code> depends on the variable types: continuous/continuous uses <code>geom_point()</code>, continuous counts use <code>geom_histogram()</code>, and categorical counts use <code>geom_bar()</code>.</p>
+</section>
+<section id="load-model-data-and-check-sacramento" class="level3">
+<h3 class="anchored" data-anchor-id="load-model-data-and-check-sacramento"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/04-tidy-to-models.html#sacramento-house-sales">Load model data and check <code>Sacramento</code></a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>Sacramento</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>Sacramento</code> dataset comes with <code>tidymodels</code>/<code>modeldata</code>. It contains house-sale rows with predictors such as <code>sqft</code>, <code>beds</code>, <code>baths</code>, and an outcome <code>price</code>.</p>
+<p>Key output:</p>
+<pre class="text"><code># A tibble: 932 × 9
+   city           zip     beds baths  sqft type        price
+   &lt;fct&gt;          &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;int&gt;
+ 1 SACRAMENTO     z95838     2     1   836 Residential 59222</code></pre>
+</section>
+<section id="fit-and-read-the-first-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="fit-and-read-the-first-linear-regression"><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/04-tidy-to-models.html#fit-it-with-tidymodels">Fit and read the first linear regression</a></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Sacramento, <span class="fu">aes</span>(<span class="at">x =</span> sqft, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"House size (square feet)"</span>, <span class="at">y =</span> <span class="st">"Sale price (USD)"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>house_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(price <span class="sc">~</span> sqft, <span class="at">data =</span> Sacramento)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>house_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"lm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>house_fit <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(house_recipe) <span class="sc">|&gt;</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(house_spec) <span class="sc">|&gt;</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> Sacramento)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>house_fit</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(house_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The model is a linear regression because the outcome, <code>price</code>, is numeric. The <code>sqft</code> coefficient tells you how much the predicted price changes for one extra square foot.</p>
+<p>Key output:</p>
+<pre class="text"><code>Coefficients:
+(Intercept)         sqft  
+    13859.4        138.5</code></pre>
+<pre class="text"><code># A tibble: 2 × 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)   13859.   6949.        1.99 4.64e-  2
+2 sqft            139.      3.80     36.5  1.11e-181</code></pre>
+</section>
+<section id="what-went-wrong-live" class="level3">
+<h3 class="anchored" data-anchor-id="what-went-wrong-live">What went wrong live</h3>
+<ul>
+<li><strong>Codespace timed out during the Copilot demo</strong>: Daniel’s Codespace timed out while he was showing the agent interface. It had to be restarted, which took time. He noted the tradeoff: waiting is annoying, but the free AI tokens can be useful for learning.</li>
+<li><strong>Display/Zoom mirroring question</strong>: A student asked how to make the external display look like a particular two-screen layout. Daniel identified that the visible controls were Zoom window controls, not display-mirroring controls. He explained that the setup involved a separate computer/HDMI path and that it may not have been possible in that room; the issue was not a data or R problem.</li>
+<li><strong>Student confusion about <code>geom_col()</code> vs <code>geom_bar()</code></strong>: A student said they had used <code>geom_col()</code> and had not used <code>geom_bar()</code>. Daniel explained that both can make bar charts: <code>geom_bar()</code> counts rows by default, while <code>geom_col()</code> expects already-counted values. He warned against applying <code>geom_bar()</code> to an already summarized count table because it would recount the rows.</li>
+</ul>
+</section>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<ul>
+<li><p><strong>Q:</strong> A student asked why there was a <code>diagnosis</code> variable in the WHO tuberculosis example. <strong>A:</strong> The WHO <code>who2</code> column names encode three pieces of information: diagnosis method, gender, and age group, such as <code>sp_m_014</code>. The strategically placed underscores allow <code>pivot_longer()</code> to split the old column names into <code>diagnosis</code>, <code>gender</code>, and <code>age</code> using <code>names_to = c("diagnosis", "gender", "age")</code> and <code>names_sep = "_"</code>.</p></li>
+<li><p><strong>Q:</strong> A student asked whether there is a difference between <code>|&gt;</code> and <code>%&gt;%</code>, and why one version would be used. <strong>A:</strong> <code>|&gt;</code> is the newer base R pipe, available since R 4.0. <code>%&gt;%</code> is the older tidyverse pipe. For basic <code>filter()</code>, <code>mutate()</code>, and <code>select()</code> code, they usually behave similarly, and old code can often be updated by find-and-replace. <code>%&gt;%</code> may still appear in older R environments or in clinical-trial work where the R version is fixed.</p></li>
+<li><p><strong>Q:</strong> A student asked how to make the display look like a particular two-panel layout. <strong>A:</strong> Daniel explained that the issue was a display/Zoom/HDMI mirroring problem, not a window-zoom problem. The separate computer setup may have made the desired mirroring impossible, but he was able to continue the class and noted that the session was being recorded.</p></li>
+<li><p><strong>Q:</strong> A student said they had never used <code>geom_col()</code> and asked whether it was the same as <code>geom_bar()</code>. <strong>A:</strong> Yes, both can produce bar charts, but their defaults differ. <code>geom_bar()</code> counts the rows for each category. <code>geom_col()</code> expects the y-values to already be calculated. If the data are already summarized into counts, use <code>geom_col()</code> or explicitly set the stat to identity; otherwise <code>geom_bar()</code> may recount and give incorrect bar heights.</p></li>
+</ul>
+</section>
+<section id="also-on-the-slides" class="level2">
+<h2 class="anchored" data-anchor-id="also-on-the-slides">Also on the slides</h2>
+<ul>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#the-tidyr-toolkit">The tidyr toolkit</a>: One-row table for when to use <code>pivot_longer()</code>, <code>pivot_wider()</code>, and delimiter-based splitting.</li>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#rules-of-thumb">Rules of thumb</a>: Plotting checklist: answer one question per plot, label axes with units, use colorblind-friendly palettes, and avoid pie charts, 3D plots, and tables of numbers when a plot will do.</li>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/04-tidy-to-models.html#see-the-line">See the line</a>: Adds <code>geom_smooth(method = "lm")</code> to the Sacramento scatter plot to draw the fitted regression line.</li>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/04-tidy-to-models.html#coming-up-on-wednesday">Coming up on Wednesday</a>: Previews Lecture 2: a linear regression on periodontal treatment during pregnancy and birth weight, and a logistic regression on storage age of transfused blood and prostate cancer recurrence, with odds ratios.</li>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/02-tidy-data.html#data-and-credits">Data and credits</a>: Sources for <code>pew.csv</code>, <code>billboard.csv</code>, <code>weather.csv</code>, and <code>who2</code>.</li>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/03-wrangle-visualize.html#data-and-credits">Data and credits</a>: Source for the Palmer penguins dataset and adapted <em>Data Science: A First Introduction</em> material.</li>
+<li><a href="https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-01/04-tidy-to-models.html#data-and-credits">Data and credits</a>: Source for the <code>Sacramento</code> dataset and adapted <em>Data Science: A First Introduction</em> chapter 8 material.</li>
+</ul>
+</section>
+<section id="assignments" class="level2">
+<h2 class="anchored" data-anchor-id="assignments">Assignments</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Before Wednesday, 2026-11-04: start the course GitHub Codespace, trust the folder, open <code>example.qmd</code>, and render it.</label></li>
+<li><label><input type="checkbox">Wednesday, 2026-11-04: fork the repository and work in your own copy for the modelling lab.</label></li>
+<li><label><input type="checkbox">Optional, no stated due date: read Wickham (2014) <em>Tidy Data</em> through Section 4 as a reference for the examples used in class.</label></li>
+</ul>
+<hr>
+<ul>
+<li>prompt: prompt-notes.md @ uncommitted</li>
+<li>prompt-hash: ce286dee74ee</li>
+<li>model: qwen3.8-27b-sglang (requested: qwen3.8-27b-sglang)</li>
+<li>backend: local (SGLang)</li>
+<li>inputs: transcript-plaud.md, materials.md</li>
+<li>generated: 2026-11-04</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!--
+  Theme the quizdown quizzes.
+
+  `_extensions/quizdown` renders every quiz into a shadow root
+  (`attachShadow({mode: "open"})`), so nothing in `styles.scss` reaches inside
+  one -- a quiz arrives on the page wearing quizdown's own defaults, which are
+  `steelblue` on `#f2f2f2` with black text. In dark mode that is not merely
+  off-brand, it is unreadable: the parts that take a *background* from
+  quizdown's palette but *inherit* their text colour -- the left column of a
+  matching question, an evaluated slot, the per-pair feedback -- end up
+  painting the page's near-white body text onto a near-white fill, 1.03:1.
+
+  Two facts make that fixable from outside the shadow root:
+
+    * custom properties inherit *through* the shadow boundary, so the
+      `--mds-quiz-*` values set on `:root` in `styles.scss` are readable from
+      inside a quiz;
+    * quizdown writes its three colours as inline styles on
+      `.quizdown-content`, and `!important` in a stylesheet beats an inline
+      declaration.
+
+  So this file injects one stylesheet into each quiz's shadow root, written
+  entirely against `--mds-quiz-*`. The light and dark values of those live in
+  `styles.scss` and `styles-dark.scss`, and Quarto swaps those two bundles on
+  the colour-mode toggle -- so a quiz follows the toggle with no JavaScript of
+  its own.
+
+  Wired in from `format.html.include-after-body` in `_quarto.yml`, which is
+  what keeps the vendored extension under `_extensions/quizdown/` untouched: a
+  re-add or an update of that extension cannot clobber any of this.
+
+  Two things are deliberately left alone:
+
+    * `.hljs`, the highlight.js "github" theme quizdown bundles for a *fenced*
+      code block inside a question. Its plate is light in both colour modes,
+      but so are the token colours painted on it, so it stays self-consistent
+      and readable; re-tinting the plate alone would break it, and re-tinting
+      the tokens means shipping a second syntax theme. No question in the book
+      uses a fenced block -- inline code is themed below, and inline code is
+      what the questions actually use.
+    * `.print-review`, the plain questions-and-answers block quizdown reveals
+      under `@media print`. Paper is white in both colour modes, so the light
+      colours there are already the right ones.
+-->
+<script>
+  (() => {
+    // Note for editing: this is a template literal, so nothing inside it may
+    // be quoted in backticks the way the prose around it is -- a stray one
+    // ends the string, and the page fails with a JavaScript syntax error
+    // rather than with anything you would notice in the CSS.
+    //
+    // Every declaration below is `!important`, for two reasons that are not
+    // about winning an argument with the extension. Svelte scopes its own
+    // rules with a build hash (`.prompt.svelte-1ge161l`), which out-specifies
+    // anything we can write without hard-coding a hash that changes on every
+    // quizdown release; and the order our <style> ends up in relative to
+    // Svelte's, inside a shadow root neither of us owns, is not ours to pick.
+    const CSS = `
+      /* ---- the three knobs quizdown itself exposes ------------------------
+         Set as inline styles on .quizdown-content from the quiz config, so
+         !important is the only thing that can move them. Remapping these three
+         alone fixes most of dark mode: everything that reads its background
+         from --quizdown-color-secondary and inherits its text colour then
+         lands on a surface that belongs to the current mode. */
+      .quizdown-content {
+        --quizdown-color-primary: var(--mds-quiz-accent) !important;
+        --quizdown-color-secondary: var(--mds-quiz-surface) !important;
+        --quizdown-color-text: var(--mds-quiz-fg) !important;
+      }
+
+      /* ---- inline code in a question -------------------------------------
+         quizdown paints this #333 on #f8f8f8 in both modes. The book has its
+         own inline-code pair, one per mode, under typography.monospace-inline
+         in _brand.yml. */
+      code {
+        color: var(--mds-quiz-code-fg) !important;
+        background-color: var(--mds-quiz-code-bg) !important;
+      }
+
+      /* ---- buttons -------------------------------------------------------
+         Hard-coded to a white fill, which is a glaring plate on the dark page.
+         The hover is brightness(0.9): darkening is only a change you can see
+         when the surface starts light, so its direction is per-mode too. */
+      button {
+        background-color: var(--mds-quiz-surface) !important;
+        color: var(--mds-quiz-fg) !important;
+      }
+      button:disabled {
+        background-color: var(--mds-quiz-surface) !important;
+        color: var(--mds-quiz-muted) !important;
+      }
+      button:hover:not(:checked):not(:active):not(:disabled) {
+        filter: var(--mds-quiz-press) !important;
+      }
+
+      /* ---- multiple choice and single choice ------------------------------
+         The option rows are already painted from the two variables remapped
+         above; only the hover is hard-coded. */
+      [type='checkbox']:hover + span,
+      [type='checkbox']:focus + span,
+      [type='radio']:hover + span,
+      [type='radio']:focus + span {
+        filter: var(--mds-quiz-press) !important;
+      }
+
+      /* ---- sequence (drag to order) --------------------------------------
+         The rows come from the variables; the reorder buttons take a black
+         focus ring, which is invisible on the dark page. */
+      .buttons button:focus {
+        border-color: var(--mds-quiz-accent) !important;
+      }
+
+      /* ---- matching (drag a chip into a slot) -----------------------------
+         The type with the most hard-coded colour in it, and the one where the
+         dark-mode failure was actually visible: .prompt takes its fill from
+         quizdown's palette and its text colour from the page, so it painted
+         near-white body text onto near-white #f2f2f2. */
+      .arrow,
+      .placeholder {
+        color: var(--mds-quiz-muted) !important;
+      }
+      .slot,
+      .pool {
+        border-color: var(--mds-quiz-border) !important;
+      }
+      .slot-selected,
+      .slot-dragover,
+      .pool-dragover {
+        background-color: var(--mds-quiz-surface) !important;
+      }
+      .chip:hover {
+        filter: var(--mds-quiz-press) !important;
+      }
+      .chip-used {
+        background-color: var(--mds-quiz-surface) !important;
+        border-color: var(--mds-quiz-muted) !important;
+      }
+
+      /* ---- the evaluated state -------------------------------------------
+         Green and red, which the book already has: the success and danger
+         roles in _brand.yml each carry a value per mode. */
+      .slot.correct {
+        border-color: var(--mds-quiz-correct) !important;
+        background-color: var(--mds-quiz-correct-bg) !important;
+      }
+      .slot.wrong,
+      .slot.empty-eval {
+        border-color: var(--mds-quiz-wrong) !important;
+        background-color: var(--mds-quiz-wrong-bg) !important;
+      }
+      .badge-correct,
+      .correct-hint {
+        color: var(--mds-quiz-correct) !important;
+      }
+      .badge-wrong {
+        color: var(--mds-quiz-wrong) !important;
+      }
+      .pair-feedback {
+        border-left-color: var(--mds-quiz-correct) !important;
+        background-color: var(--mds-quiz-correct-bg) !important;
+      }
+      .pair-feedback-wrong {
+        border-left-color: var(--mds-quiz-wrong) !important;
+        background-color: var(--mds-quiz-wrong-bg) !important;
+      }
+
+      /* ---- the credit line under every quiz ------------------------------- */
+      .credits,
+      .credits a {
+        color: var(--mds-quiz-muted) !important;
+      }
+    `;
+
+    // Returns the number of quizzes that do not have a shadow root yet.
+    const paint = () => {
+      let waiting = 0;
+      for (const host of document.querySelectorAll(".quizdown")) {
+        const root = host.shadowRoot;
+        if (!root) {
+          waiting += 1;
+          continue;
+        }
+        if (root.querySelector("style[data-mds-quiz-theme]")) continue;
+        const style = document.createElement("style");
+        style.setAttribute("data-mds-quiz-theme", "");
+        style.textContent = CSS;
+        root.appendChild(style);
+      }
+      return waiting;
+    };
+
+    // quizdown creates the shadow roots from a `load` listener that it only
+    // registers once `DOMContentLoaded` has fired -- later than this script,
+    // which is inline at the end of <body>. A `load` listener added here would
+    // therefore run *before* the one that creates the thing we want to style,
+    // so the first attempt is deferred by a task, and then retried for a few
+    // frames in case a future version of the extension moves that work again.
+    // Bounded, so a quiz that never renders cannot leave a frame loop running.
+    const GIVE_UP_AFTER_MS = 5000;
+    addEventListener("load", () => {
+      const started = performance.now();
+      const tick = () => {
+        if (paint() > 0 && performance.now() - started < GIVE_UP_AFTER_MS) {
+          requestAnimationFrame(tick);
+        }
+      };
+      setTimeout(tick, 0);
+    });
+  })();
+</script>
+<!--
+  The extension's own addition to `quizdown-theme.html`, which stays as
+  fetched from DSCI 521 (Q&A 22, 26).
+
+  quizdown paints a matching question's answer chips a fixed light green
+  (`#e8f5e9`) and lets them inherit the page's text colour: in dark mode,
+  near-white text on near-white. `quizdown-theme.html` themes every other part
+  of a matching question but not the chip itself, so this injects one more
+  rule into each quiz's shadow root, the same way, written against
+  `--mds-quiz-chip-*` from `ubc.scss`. Used and placed chips keep the looks
+  quizdown and `quizdown-theme.html` give them.
+-->
+<script>
+  (() => {
+    const CSS = `
+      .chip:not(.chip-used):not(.chip-placed) {
+        background-color: var(--mds-quiz-chip-bg) !important;
+        border-color: var(--mds-quiz-chip-border) !important;
+        color: var(--mds-quiz-fg) !important;
+      }
+    `;
+
+    // Returns the number of quizzes that do not have a shadow root yet.
+    const paint = () => {
+      let waiting = 0;
+      for (const host of document.querySelectorAll(".quizdown")) {
+        const root = host.shadowRoot;
+        if (!root) {
+          waiting += 1;
+          continue;
+        }
+        if (root.querySelector("style[data-ubc-quiz-chips]")) continue;
+        const style = document.createElement("style");
+        style.setAttribute("data-ubc-quiz-chips", "");
+        style.textContent = CSS;
+        root.appendChild(style);
+      }
+      return waiting;
+    };
+
+    // As in `quizdown-theme.html`: quizdown makes the shadow roots after
+    // `load`, so the first try waits a task, then retries for a few frames,
+    // and gives up after five seconds.
+    addEventListener("load", () => {
+      const started = performance.now();
+      const tick = () => {
+        if (paint() > 0 && performance.now() - started < 5000) {
+          requestAnimationFrame(tick);
+        }
+      };
+      setTimeout(tick, 0);
+    });
+  })();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chendaniely\.github\.io\/MEDI-504A-2026W1-biostats\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

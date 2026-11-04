@@ -105,6 +105,8 @@
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -224,11 +226,11 @@
 </section>
 <section id="models-need-tidy-data" class="slide level2">
 <h2>Models need tidy data</h2>
-<p>A model formula like <code>price ~ sqft</code> expects the data to have one row per observation (each house sale) and one column per variable (the price and the size), which is exactly what tidy data gives us.</p>
+<p>A model formula like <code>price ~ sqft</code> expects the data to have one row per observation (each house sale) and one column per variable (the price and the size), which is what tidy data gives us.</p>
 </section>
 <section id="sacramento-house-sales" class="slide level2">
 <h2>Sacramento house sales</h2>
-<p>This is a dataset of house sales in Sacramento, California. It comes with tidymodels, in the modeldata package.</p>
+<p>These are house sales in Sacramento, California, from the modeldata package that comes with tidymodels.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a>Sacramento</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -348,8 +350,8 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_m X_m
 <section id="data-and-credits" class="slide level2">
 <h2>Data and credits</h2>
 <ul>
-<li><code>Sacramento</code>: from modeldata, loaded with tidymodels.</li>
-<li>Adapted from chapter 8 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).</li>
+<li><code>Sacramento</code>: from modeldata, loaded with tidymodels</li>
+<li>Adapted from chapter 8 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell, and Lee; CC BY-NC-SA 4.0)</li>
 </ul>
 
 
@@ -368,6 +370,8 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_m X_m
   <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
   <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -390,6 +394,8 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_m X_m
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'revealjs-a11y': true,
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
 'smaller': true,
  
         // Display controls in the bottom right corner
@@ -560,7 +566,7 @@ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_m X_m
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealjsA11y, RevealPointer, QuartoSupport,
 
           RevealMath,
           RevealNotes,

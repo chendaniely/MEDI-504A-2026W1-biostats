@@ -105,6 +105,8 @@
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -215,14 +217,14 @@
 <section id="data-wrangling" class="slide level2">
 <h2>Data wrangling</h2>
 <p><img data-src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_wrangling.png" style="width:55.0%" alt="Cartoon of fuzzy monsters wrangling data with dplyr."></p>
-<p>Data we get in the real world is usually messy. Once we have it in a tidy shape, there are only a few dplyr functions we need for most of our work.</p>
+<p>Real-world data is usually messy. Once it’s in a tidy “shape”, we only need a few dplyr functions for most of our work.</p>
 
 <aside><div>
 <p>Artwork by Allison Horst (CC BY 4.0).</p>
 </div></aside></section>
 <section id="the-palmer-penguins" class="slide level2">
 <h2>The Palmer penguins</h2>
-<p>This dataset has 344 penguins of 3 different species, collected from 3 islands near Palmer Station, Antarctica. It’s been built into R since version 4.5. We’ll convert it into a tibble so it prints nicely.</p>
+<p>This dataset has 344 penguins of 3 species, collected from 3 islands near Palmer Station, Antarctica. It’s been built into R since version 4.5. We’ll convert it into a tibble so it prints nicely.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a>penguins <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(penguins)</span>
 <span id="cb2-2"><a aria-label="2"></a>penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -369,7 +371,7 @@
 </section>
 <section id="the-pipe" class="slide level2">
 <h2>The pipe, <code>|&gt;</code></h2>
-<p>The pipe takes whatever is on its left and passes it in as the first argument of the function on its right. When you read code with pipes, you can say “and then” for each <code>|&gt;</code>.</p>
+<p>The pipe takes whatever is on its left and passes it in as the first argument of the function on its right. We can read each <code>|&gt;</code> as “and then”.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">body_mass_kg =</span> body_mass <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
@@ -409,7 +411,7 @@
 3 Gentoo            5076.</code></pre>
 </div>
 </div>
-<p>We need <code>na.rm = TRUE</code> to skip over the missing values, otherwise a single <code>NA</code> makes the whole mean <code>NA</code>.</p>
+<p>We need <code>na.rm = TRUE</code> to skip the missing values. Otherwise, a single <code>NA</code> makes the whole mean <code>NA</code>.</p>
 </section>
 <section id="how-many-values-are-missing" class="slide level2">
 <h2>How many values are missing?</h2>
@@ -441,7 +443,7 @@
 <section id="visualization-ask-a-question-then-answer-it" class="slide level2">
 <h2>Visualization: ask a question, then answer it</h2>
 <p><img data-src="https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/ggplot2_exploratory.png" style="width:45.0%" alt="Cartoon of fuzzy monsters exploring data with ggplot2."></p>
-<p>When we make a plot, we’re trying to answer a question about our data. A good plot answers that question clearly.</p>
+<p>When we make a plot, we’re trying to answer a question about our data, and a good plot answers it clearly.</p>
 
 <aside><div>
 <p>Artwork by Allison Horst (CC BY 4.0).</p>
@@ -454,7 +456,7 @@
 <li>Geometric objects (geoms), which say how to draw them (<code>geom_point()</code>, <code>geom_histogram()</code>, <code>geom_bar()</code>)</li>
 <li>Scales and labels for the axes, colours, and titles</li>
 </ol>
-<p>We add each layer, one at a time, with <code>+</code>.</p>
+<p>We add each layer with <code>+</code>.</p>
 </section>
 <section id="scatter-plot-two-quantitative-variables" class="slide level2">
 <h2>Scatter plot: two quantitative variables</h2>
@@ -508,8 +510,8 @@
 <section id="data-and-credits" class="slide level2">
 <h2>Data and credits</h2>
 <ul>
-<li><code>penguins</code>: R’s <code>datasets::penguins</code> (R 4.5 or newer), Horst, Hill and Gorman’s Palmer penguins.</li>
-<li>Adapted from chapters 3 and 4 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).</li>
+<li><code>penguins</code>: R’s <code>datasets::penguins</code> (R 4.5 or newer), Horst, Hill, and Gorman’s Palmer penguins</li>
+<li>Adapted from chapters 3 and 4 of <a href="https://datasciencebook.ca/"><em>Data Science: A First Introduction</em></a> (Timbers, Campbell, and Lee; CC BY-NC-SA 4.0)</li>
 </ul>
 
 
@@ -528,6 +530,8 @@
   <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/revealjs-a11y/a11y.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
   <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -550,6 +554,8 @@
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'revealjs-a11y': true,
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
 'smaller': true,
  
         // Display controls in the bottom right corner
@@ -720,7 +726,7 @@
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealjsA11y, RevealPointer, QuartoSupport,
 
           RevealMath,
           RevealNotes,

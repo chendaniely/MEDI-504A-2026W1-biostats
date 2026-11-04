@@ -85,6 +85,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-23cb96394853766321799e15746e136a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome-7-free-7.2.0/fontawesome.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,6 +113,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>
+div.callout-definition.callout {
+  border-left-color: #8A6D2B;
+}
+div.callout-definition.callout-style-default .callout-header {
+  background-color: rgba(138, 109, 43, 0.13);
+}
+div.callout-definition .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-definition.callout-style-default .callout-icon::before, div.callout-definition.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f518' !important;
+  background-image: none;
+}
+div.callout-relevance-project.callout {
+  border-left-color: #0077C8;
+}
+div.callout-relevance-project.callout-style-default .callout-header {
+  background-color: rgba(0, 119, 200, 0.13);
+}
+div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f542' !important;
+  background-image: none;
+}
+div.callout-activity.callout {
+  border-left-color: #0055B7;
+}
+div.callout-activity.callout-style-default .callout-header {
+  background-color: rgba(0, 85, 183, 0.13);
+}
+div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\e53d' !important;
+  background-image: none;
+}
+div.callout-exercise.callout {
+  border-left-color: #1C5F2E;
+}
+div.callout-exercise.callout-style-default .callout-header {
+  background-color: rgba(28, 95, 46, 0.13);
+}
+div.callout-exercise .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-exercise.callout-style-default .callout-icon::before, div.callout-exercise.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f44b' !important;
+  background-image: none;
+}
+</style>
  
   <style>
   .slide-deck {
@@ -303,6 +362,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
+    <a class="nav-link" href="../homework-instructions.html"> 
+<span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../setup-local.html"> 
 <span class="menu-text">Local setup</span></a>
   </li>  
@@ -444,41 +507,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Extra practice</span></a>
+ <span class="menu-text">Lecture 2 solutions</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extra practice: cleaning and tidying</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extra practice: linear regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extra practice: logistic regression</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Lecture 2 solutions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02-solutions/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
@@ -517,12 +551,105 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../class-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Class notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lecture 1 (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../homework-instructions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Homework</span></a>
+  <a href="../sessions/2026-11-02/notes-class-main--claude-opus-5-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Claude Opus notes</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/notes-class-main--qwen3.6-35b-a3b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.6 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.8 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/notes-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plaud notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/transcript-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transcript</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sessions/2026-11-02/materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slides used</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../README-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How the notes are made</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prompt-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The prompt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -588,7 +715,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-original-third-rule" class="level2">
 <h2 class="anchored" data-anchor-id="the-original-third-rule">The original third rule</h2>
-<p>The original definition from the 2014 <em>Tidy Data</em> paper is:</p>
+<p>The original definition from the 2014 <a href="https://vita.had.co.nz/papers/tidy-data.pdf"><em>Tidy Data</em> paper</a> is:</p>
 <ol type="1">
 <li>Each variable forms a column</li>
 <li>Each observation forms a row</li>
@@ -598,7 +725,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-tidy-billboard-data-again" class="level2">
 <h2 class="anchored" data-anchor-id="the-tidy-billboard-data-again">The tidy Billboard data, again</h2>
-<p>Here’s the tidy Billboard data from Lecture 1’s <a href="../lecture-01/02-tidy-data.html">Tidy data</a> section again.</p>
+<p>Here’s the tidy Billboard data from Lecture 1’s <a href="../lecture-01/02-tidy-data.html">Tidy data</a> section.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>billboard_tidy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/billboard.csv"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -692,7 +819,7 @@ time  (1): time
 </section>
 <section id="join-them-back-together" class="level2">
 <h2 class="anchored" data-anchor-id="join-them-back-together">Join them back together</h2>
-<p>The <code>id</code> column links the two tables, so we can always join them back together when an analysis needs both.</p>
+<p>The <code>id</code> column links the two tables, so we can join them back together when an analysis needs both.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rank <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(song, <span class="at">by =</span> <span class="st">"id"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -716,34 +843,34 @@ time  (1): time
 </section>
 <section id="problem-5-one-unit-in-many-tables" class="level2">
 <h2 class="anchored" data-anchor-id="problem-5-one-unit-in-many-tables">Problem 5: one unit in many tables</h2>
-<p>This is the opposite problem, where the same kind of observation is split across many files, for example one file per year or one file per hospital site. If the files have the same columns, we can stack them together with <code>bind_rows()</code>, or give <code>read_csv()</code> all the file names at once.</p>
+<p>The opposite problem is one kind of observation split across many files, such as one file per year or one per hospital site. If the files have the same columns, we can stack them with <code>bind_rows()</code> or give <code>read_csv()</code> all the file names at once.</p>
 </section>
 <section id="how-hospitals-store-data" class="level2">
 <h2 class="anchored" data-anchor-id="how-hospitals-store-data">How hospitals store data</h2>
-<p>Hospital databases follow the paper’s third rule. Each kind of observational unit gets its own table, and the tables are linked together by ID columns.</p>
+<p>Hospital databases follow the paper’s third rule, with one table per kind of observational unit, linked by ID columns.</p>
 <ul>
 <li><code>patients</code> has one row per patient</li>
 <li><code>encounters</code> has one row per visit, with the patient’s ID</li>
 <li><code>conditions</code>, <code>medications</code>, and <code>observations</code> have one row per record, with the patient and encounter IDs</li>
 </ul>
 <p>To analyze the data, we join the tables we need into one tidy table.</p>
-<p><a href="https://synthetichealth.github.io/synthea/">Synthea</a> creates fake, but realistic, patient records that are stored this way. Its <a href="https://synthetichealth.github.io/downloads.html">downloads page</a> has samples of 100 patients as CSV files, and in the HL7 FHIR and C-CDA formats.</p>
+<p><a href="https://synthetichealth.github.io/synthea/">Synthea</a> creates fake but realistic patient records stored this way. Its <a href="https://synthetichealth.github.io/downloads.html">downloads page</a> has samples of 100 patients in CSV, HL7 FHIR, and C-CDA formats.</p>
 </section>
 <section id="beyond-csvs-health-data-standards" class="level2">
 <h2 class="anchored" data-anchor-id="beyond-csvs-health-data-standards">Beyond CSVs: health data standards</h2>
-<p>In practice, health data usually doesn’t come to us as a folder of CSV files. It’s stored and shared using data standards.</p>
+<p>In practice, health data is usually stored and shared using data standards, not as a folder of CSV files.</p>
 <ul>
 <li><a href="https://www.hl7.org/">HL7</a> is the family of standards hospital systems use to exchange clinical data</li>
-<li><a href="https://hl7.org/fhir/">FHIR</a> (Fast Healthcare Interoperability Resources) is HL7’s newer standard, where data like a patient, an encounter, or an observation is sent as a “resource” through web APIs</li>
-<li>The <a href="https://ohdsi.github.io/CommonDataModel/">OMOP Common Data Model</a>, from the <a href="https://www.ohdsi.org/">OHDSI</a> community, is a shared database layout for observational health data, so the same analysis code can run on databases from many hospitals</li>
+<li><a href="https://hl7.org/fhir/">FHIR</a> (Fast Healthcare Interoperability Resources) is HL7’s newer standard, which sends a patient, an encounter, or an observation as a “resource” through web APIs</li>
+<li>The <a href="https://ohdsi.github.io/CommonDataModel/">OMOP Common Data Model</a>, from the <a href="https://www.ohdsi.org/">OHDSI</a> community, is a shared database layout for observational health data, so the same analysis code can run on many hospitals’ databases</li>
 </ul>
-<p>All of these follow the same idea as the paper’s third rule, with one table (or resource) for each kind of observational unit, linked together by IDs.</p>
+<p>All of these follow the third rule, with one table (or resource) per kind of observational unit, linked by IDs.</p>
 </section>
 <section id="data-and-credits" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
 <ul>
-<li><code>billboard.csv</code>: the tidy data paper’s Billboard example, via <a href="https://github.com/chendaniely/pandas_for_everyone"><code>chendaniely/pandas_for_everyone</code></a> and <a href="https://github.com/hadley/tidy-data"><code>hadley/tidy-data</code></a>.</li>
-<li>Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, 59(10). <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a></li>
+<li><code>billboard.csv</code>: the tidy data paper’s Billboard example, via <a href="https://github.com/chendaniely/pandas_for_everyone"><code>chendaniely/pandas_for_everyone</code></a> and <a href="https://github.com/hadley/tidy-data"><code>hadley/tidy-data</code></a></li>
+<li>Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, 59(10). <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a> (PDF: <a href="https://vita.had.co.nz/papers/tidy-data.pdf" class="uri">https://vita.had.co.nz/papers/tidy-data.pdf</a>)</li>
 <li>Synthea synthetic patient records: <a href="https://synthetichealth.github.io/synthea/" class="uri">https://synthetichealth.github.io/synthea/</a></li>
 <li>Standards: <a href="https://www.hl7.org/">HL7</a>, <a href="https://hl7.org/fhir/">FHIR</a>, <a href="https://www.ohdsi.org/">OHDSI</a> and its <a href="https://ohdsi.github.io/CommonDataModel/">OMOP Common Data Model</a>.</li>
 </ul>
