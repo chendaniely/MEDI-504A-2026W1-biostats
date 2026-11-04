@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Observational units – MEDI 504A: Biostatistics with Tidyverse</title>
+<title>Solutions: Logistic regression – MEDI 504A: Biostatistics with Tidyverse</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -112,13 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
- 
-  <style>
-  .slide-deck {
-      border: 3px solid #dee2e6;
-  }
-  </style>
-  
 
 
 </head>
@@ -333,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-01/01-welcome.html">Lecture 1: Tidy data (Mon, Nov 2)</a></li><li class="breadcrumb-item"><a href="../lecture-01/05-observational-units.html">Observational units (optional)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02-solutions/02-clean-and-tidy.html">Lecture 2 solutions</a></li><li class="breadcrumb-item"><a href="../lecture-02-solutions/05-logistic-regression.html">Solutions: Logistic regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -392,12 +385,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">From tidy data to models</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../lecture-01/05-observational-units.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Observational units (optional)</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -418,23 +405,117 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../lecture-02/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning and tidying a medical dataset</span></a>
+ <span class="menu-text">Cleaning and tidying medical data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lecture-02/03-linear-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../lecture-02/03-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Linear regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lecture-02/04-logistic-regression.html" class="sidebar-item-text sidebar-link">
+  <a href="../lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/06-extra-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra functions for the homework</span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2 solutions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/05-logistic-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Solutions: Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework-instructions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -445,29 +526,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#slide-contents" id="toc-slide-contents" class="nav-link active" data-scroll-target="#slide-contents">Slide contents</a>
-  <ul class="collapse">
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#the-original-third-rule" id="toc-the-original-third-rule" class="nav-link" data-scroll-target="#the-original-third-rule">The original third rule</a></li>
-  <li><a href="#the-tidy-billboard-data-again" id="toc-the-tidy-billboard-data-again" class="nav-link" data-scroll-target="#the-tidy-billboard-data-again">The tidy Billboard data, again</a></li>
-  <li><a href="#problem-4-multiple-observational-units" id="toc-problem-4-multiple-observational-units" class="nav-link" data-scroll-target="#problem-4-multiple-observational-units">Problem 4: multiple observational units</a></li>
-  <li><a href="#join-them-back-together" id="toc-join-them-back-together" class="nav-link" data-scroll-target="#join-them-back-together">Join them back together</a></li>
-  <li><a href="#problem-5-one-unit-in-many-tables" id="toc-problem-5-one-unit-in-many-tables" class="nav-link" data-scroll-target="#problem-5-one-unit-in-many-tables">Problem 5: one unit in many tables</a></li>
-  <li><a href="#how-hospitals-store-data" id="toc-how-hospitals-store-data" class="nav-link" data-scroll-target="#how-hospitals-store-data">How hospitals store data</a></li>
-  <li><a href="#beyond-csvs-health-data-standards" id="toc-beyond-csvs-health-data-standards" class="nav-link" data-scroll-target="#beyond-csvs-health-data-standards">Beyond CSVs: health data standards</a></li>
-  <li><a href="#data-and-credits" id="toc-data-and-credits" class="nav-link" data-scroll-target="#data-and-credits">Data and credits</a></li>
-  </ul></li>
+  <li><a href="#exercise-1-fit-a-logistic-regression" id="toc-exercise-1-fit-a-logistic-regression" class="nav-link active" data-scroll-target="#exercise-1-fit-a-logistic-regression">Exercise 1: Fit a logistic regression</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-01/01-welcome.html">Lecture 1: Tidy data (Mon, Nov 2)</a></li><li class="breadcrumb-item"><a href="../lecture-01/05-observational-units.html">Observational units (optional)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02-solutions/02-clean-and-tidy.html">Lecture 2 solutions</a></li><li class="breadcrumb-item"><a href="../lecture-02-solutions/05-logistic-regression.html">Solutions: Logistic regression</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Observational units</h1>
-<p class="subtitle lead">Optional, if time</p>
+<h1 class="title">Solutions: Logistic regression</h1>
 </div>
 
 
@@ -484,185 +553,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="column-page-inset-right">
-    <p><a href="../lecture-01/slides/05-observational-units.html" target="_blank">View slides in full screen</a></p>
-       <div class="ratio ratio-16x9">
-      <iframe class="slide-deck" src="../lecture-01/slides/05-observational-units.html" height="500px" width="100%"></iframe>
-    </div>
-  
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<section id="slide-contents" class="level1">
-<h1>Slide contents</h1>
-<section id="packages" class="level2">
-<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These are the solutions to the <a href="../lecture-02/05-logistic-regression.html">Logistic regression</a> exercises. Try each exercise yourself before you look.</p>
+</div>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="the-original-third-rule" class="level2">
-<h2 class="anchored" data-anchor-id="the-original-third-rule">The original third rule</h2>
-<p>The original definition from the 2014 <em>Tidy Data</em> paper is:</p>
-<ol type="1">
-<li>Each variable forms a column</li>
-<li>Each observation forms a row</li>
-<li>Each <strong>type of observational unit</strong> forms a table</li>
-</ol>
-<p>An observational unit is the kind of thing you’re observing, for example a song, a patient, or a hospital visit. The third rule says different kinds of things belong in different tables.</p>
-</section>
-<section id="the-tidy-billboard-data-again" class="level2">
-<h2 class="anchored" data-anchor-id="the-tidy-billboard-data-again">The tidy Billboard data, again</h2>
-<p>Here’s the tidy Billboard data from the <a href="../lecture-01/02-tidy-data.html">Tidy data</a> section again.</p>
+<p><code>blood</code>, made at the top of the Logistic regression page:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>billboard_tidy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/billboard.csv"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"wk"</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"week"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"wk"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">week =</span> as.integer),</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"rank"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> date.entered <span class="sc">+</span> (week <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(artist, track, week) <span class="sc">|&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, artist, track, time, week, rank, date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 317 Columns: 81
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr   (2): artist, track
-dbl  (66): year, wk1, wk2, wk3, wk4, wk5, wk6, wk7, wk8, wk9, wk10, wk11, wk...
-lgl  (11): wk66, wk67, wk68, wk69, wk70, wk71, wk72, wk73, wk74, wk75, wk76
-date  (1): date.entered
-time  (1): time
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>blood <span class="ot">&lt;-</span> blood_storage <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">recurrence =</span> <span class="fu">factor</span>(Recurrence, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>)),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rbc_age_group =</span> <span class="fu">factor</span>(RBC.Age.Group, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"younger"</span>, <span class="st">"middle"</span>, <span class="st">"older"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>billboard_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,307 × 7
-    year artist  track                   time    week  rank date      
-   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;time&gt; &lt;int&gt; &lt;dbl&gt; &lt;date&gt;    
- 1  2000 2 Pac   Baby Don't Cry (Keep... 04:22      1    87 2000-02-26
- 2  2000 2 Pac   Baby Don't Cry (Keep... 04:22      2    82 2000-03-04
- 3  2000 2 Pac   Baby Don't Cry (Keep... 04:22      3    72 2000-03-11
- 4  2000 2 Pac   Baby Don't Cry (Keep... 04:22      4    77 2000-03-18
- 5  2000 2 Pac   Baby Don't Cry (Keep... 04:22      5    87 2000-03-25
- 6  2000 2 Pac   Baby Don't Cry (Keep... 04:22      6    94 2000-04-01
- 7  2000 2 Pac   Baby Don't Cry (Keep... 04:22      7    99 2000-04-08
- 8  2000 2Ge+her The Hardest Part Of ... 03:15      1    91 2000-09-02
- 9  2000 2Ge+her The Hardest Part Of ... 03:15      2    87 2000-09-09
-10  2000 2Ge+her The Hardest Part Of ... 03:15      3    92 2000-09-16
-# ℹ 5,297 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="problem-4-multiple-observational-units" class="level2">
-<h2 class="anchored" data-anchor-id="problem-4-multiple-observational-units">Problem 4: multiple observational units</h2>
-<p>Our tidy Billboard table still mixes two kinds of things. The song information (year, artist, track, time) is repeated on every row, for every week the song was on the chart. We can split it into two tables that share an <code>id</code> column.</p>
+<section id="exercise-1-fit-a-logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-fit-a-logistic-regression">Exercise 1: Fit a logistic regression</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>song <span class="ot">&lt;-</span> billboard_tidy <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(artist, track, year, time) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>(), <span class="at">.before =</span> <span class="dv">1</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>song</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 317 × 5
-      id artist         track                    year time  
-   &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                   &lt;dbl&gt; &lt;time&gt;
- 1     1 2 Pac          Baby Don't Cry (Keep...  2000 04:22 
- 2     2 2Ge+her        The Hardest Part Of ...  2000 03:15 
- 3     3 3 Doors Down   Kryptonite               2000 03:53 
- 4     4 3 Doors Down   Loser                    2000 04:24 
- 5     5 504 Boyz       Wobble Wobble            2000 03:35 
- 6     6 98^0           Give Me Just One Nig...  2000 03:24 
- 7     7 A*Teens        Dancing Queen            2000 03:44 
- 8     8 Aaliyah        I Don't Wanna            2000 04:15 
- 9     9 Aaliyah        Try Again                2000 04:03 
-10    10 Adams, Yolanda Open My Heart            2000 05:30 
-# ℹ 307 more rows</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rank <span class="ot">&lt;-</span> billboard_tidy <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(song, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"artist"</span>, <span class="st">"track"</span>, <span class="st">"year"</span>, <span class="st">"time"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, week, date, rank)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>rank</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,307 × 4
-      id  week date        rank
-   &lt;int&gt; &lt;int&gt; &lt;date&gt;     &lt;dbl&gt;
- 1     1     1 2000-02-26    87
- 2     1     2 2000-03-04    82
- 3     1     3 2000-03-11    72
- 4     1     4 2000-03-18    77
- 5     1     5 2000-03-25    87
- 6     1     6 2000-04-01    94
- 7     1     7 2000-04-08    99
- 8     2     1 2000-09-02    91
- 9     2     2 2000-09-09    87
-10     2     3 2000-09-16    92
-# ℹ 5,297 more rows</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blood, <span class="fu">aes</span>(<span class="at">x =</span> rbc_age_group, <span class="at">fill =</span> recurrence)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Storage age of transfused blood"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Recurrence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-logistic-regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-</section>
-<section id="join-them-back-together" class="level2">
-<h2 class="anchored" data-anchor-id="join-them-back-together">Join them back together</h2>
-<p>The <code>id</code> column links the two tables, so we can always join them back together when an analysis needs both.</p>
+</div>
+<p><strong>(1)</strong> About 17–18% of men had a recurrence in every group.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rank <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(song, <span class="at">by =</span> <span class="st">"id"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rec_fit <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(recurrence <span class="sc">~</span> rbc_age_group, <span class="at">data =</span> blood)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>rec_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(rec_fit, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>rec_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,307 × 8
-      id  week date        rank artist  track                    year time  
-   &lt;int&gt; &lt;int&gt; &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                   &lt;dbl&gt; &lt;time&gt;
- 1     1     1 2000-02-26    87 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 2     1     2 2000-03-04    82 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 3     1     3 2000-03-11    72 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 4     1     4 2000-03-18    77 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 5     1     5 2000-03-25    87 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 6     1     6 2000-04-01    94 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 7     1     7 2000-04-08    99 2 Pac   Baby Don't Cry (Keep...  2000 04:22 
- 8     2     1 2000-09-02    91 2Ge+her The Hardest Part Of ...  2000 03:15 
- 9     2     2 2000-09-09    87 2Ge+her The Hardest Part Of ...  2000 03:15 
-10     2     3 2000-09-16    92 2Ge+her The Hardest Part Of ...  2000 03:15 
-# ℹ 5,297 more rows</code></pre>
+<pre><code># A tibble: 3 × 7
+  term                estimate std.error statistic    p.value conf.low conf.high
+  &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)            0.218     0.253    -6.01     1.88e-9    0.129     0.350
+2 rbc_age_groupmiddle    0.905     0.367    -0.272    7.86e-1    0.438     1.86 
+3 rbc_age_groupolder     0.926     0.362    -0.212    8.32e-1    0.453     1.89 </code></pre>
 </div>
 </div>
-</section>
-<section id="problem-5-one-unit-in-many-tables" class="level2">
-<h2 class="anchored" data-anchor-id="problem-5-one-unit-in-many-tables">Problem 5: one unit in many tables</h2>
-<p>This is the opposite problem, where the same kind of observation is split across many files, for example one file per year or one file per hospital site. If the files have the same columns, we can stack them together with <code>bind_rows()</code>, or give <code>read_csv()</code> all the file names at once.</p>
-</section>
-<section id="how-hospitals-store-data" class="level2">
-<h2 class="anchored" data-anchor-id="how-hospitals-store-data">How hospitals store data</h2>
-<p>Hospital databases follow the paper’s third rule. Each kind of observational unit gets its own table, and the tables are linked together by ID columns.</p>
-<ul>
-<li><code>patients</code> has one row per patient</li>
-<li><code>encounters</code> has one row per visit, with the patient’s ID</li>
-<li><code>conditions</code>, <code>medications</code>, and <code>observations</code> have one row per record, with the patient and encounter IDs</li>
-</ul>
-<p>To analyze the data, we join the tables we need into one tidy table.</p>
-<p><a href="https://synthetichealth.github.io/synthea/">Synthea</a> creates fake, but realistic, patient records that are stored this way. Its <a href="https://synthetichealth.github.io/downloads.html">downloads page</a> has samples of 100 patients as CSV files, and in the HL7 FHIR and C-CDA formats.</p>
-</section>
-<section id="beyond-csvs-health-data-standards" class="level2">
-<h2 class="anchored" data-anchor-id="beyond-csvs-health-data-standards">Beyond CSVs: health data standards</h2>
-<p>In practice, health data usually doesn’t come to us as a folder of CSV files. It’s stored and shared using data standards.</p>
-<ul>
-<li><a href="https://www.hl7.org/">HL7</a> is the family of standards hospital systems use to exchange clinical data</li>
-<li><a href="https://hl7.org/fhir/">FHIR</a> (Fast Healthcare Interoperability Resources) is HL7’s newer standard, where data like a patient, an encounter, or an observation is sent as a “resource” through web APIs</li>
-<li>The <a href="https://ohdsi.github.io/CommonDataModel/">OMOP Common Data Model</a>, from the <a href="https://www.ohdsi.org/">OHDSI</a> community, is a shared database layout for observational health data, so the same analysis code can run on databases from many hospitals</li>
-</ul>
-<p>All of these follow the same idea as the paper’s third rule, with one table (or resource) for each kind of observational unit, linked together by IDs.</p>
-</section>
-<section id="data-and-credits" class="level2">
-<h2 class="anchored" data-anchor-id="data-and-credits">Data and credits</h2>
-<ul>
-<li><code>billboard.csv</code>: the tidy data paper’s Billboard example, via <a href="https://github.com/chendaniely/pandas_for_everyone"><code>chendaniely/pandas_for_everyone</code></a> and <a href="https://github.com/hadley/tidy-data"><code>hadley/tidy-data</code></a>.</li>
-<li>Wickham, H. (2014). Tidy Data. <em>Journal of Statistical Software</em>, 59(10). <a href="https://doi.org/10.18637/jss.v059.i10" class="uri">https://doi.org/10.18637/jss.v059.i10</a></li>
-<li>Synthea synthetic patient records: <a href="https://synthetichealth.github.io/synthea/" class="uri">https://synthetichealth.github.io/synthea/</a></li>
-<li>Standards: <a href="https://www.hl7.org/">HL7</a>, <a href="https://hl7.org/fhir/">FHIR</a>, <a href="https://www.ohdsi.org/">OHDSI</a> and its <a href="https://ohdsi.github.io/CommonDataModel/">OMOP Common Data Model</a>.</li>
-</ul>
+<p>Compared with <code>younger</code> blood, the odds of recurrence are 0.91 times as high with <code>middle</code> blood (95% CI 0.44 to 1.86) and 0.93 times as high with <code>older</code> blood (95% CI 0.45 to 1.89). Both intervals include 1: no evidence that older stored blood is associated with recurrence.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

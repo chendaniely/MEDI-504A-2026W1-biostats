@@ -101,6 +101,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-47832bdbeb78cc9cdc89270c2a65d45d.css">
+  <link rel="stylesheet" href="../../slides.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -200,7 +201,6 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Observational units</h1>
-  <p class="subtitle">Optional, if time</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -224,7 +224,7 @@
 </section>
 <section id="the-tidy-billboard-data-again" class="slide level2">
 <h2>The tidy Billboard data, again</h2>
-<p>Here’s the tidy Billboard data from the <a href="../../lecture-01/02-tidy-data.html">Tidy data</a> section again.</p>
+<p>Here’s the tidy Billboard data from Lecture 1’s <a href="../../lecture-01/02-tidy-data.html">Tidy data</a> section again.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-label="1"></a>billboard_tidy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/billboard.csv"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a aria-label="2"></a>  <span class="fu">pivot_longer</span>(</span>

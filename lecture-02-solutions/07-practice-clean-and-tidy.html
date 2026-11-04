@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Solutions: Extra practice: cleaning and tidying – MEDI 504A: Biostatistics with Tidyverse</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b7768052ea28175cafb50d37197cef29.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-415ea5fd9bc44906cd393fcacb61f9bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-b7768052ea28175cafb50d37197cef29.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-23cb96394853766321799e15746e136a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">MEDI 504A: Biostatistics with Tidyverse</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../setup-local.html"> 
+<span class="menu-text">Local setup</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup-codespaces.html"> 
+<span class="menu-text">Codespaces</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../example.html"> 
+<span class="menu-text">Example</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/chendaniely/MEDI-504A-2026W1-biostats"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02-solutions/02-clean-and-tidy.html">Lecture 2 solutions</a></li><li class="breadcrumb-item"><a href="../lecture-02-solutions/07-practice-clean-and-tidy.html">Solutions: Extra practice: cleaning and tidying</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 1: Tidy data (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/01-welcome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/02-tidy-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/03-wrangle-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wrangling and visualizing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-01/04-tidy-to-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From tidy data to models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2: Modelling lab (Wed, Nov 4)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/01-clone-the-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clone the repository</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/03-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/06-extra-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra functions for the homework</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2 solutions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Solutions: Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lecture-02-solutions/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../homework-instructions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homework</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exercise-1-tumour-growth-over-time" id="toc-exercise-1-tumour-growth-over-time" class="nav-link active" data-scroll-target="#exercise-1-tumour-growth-over-time">Exercise 1: Tumour growth over time</a></li>
+  <li><a href="#exercise-2-cleaning-a-clinical-trial-dataset" id="toc-exercise-2-cleaning-a-clinical-trial-dataset" class="nav-link" data-scroll-target="#exercise-2-cleaning-a-clinical-trial-dataset">Exercise 2: Cleaning a clinical trial dataset</a></li>
+  <li><a href="#exercise-3-cytomegalovirus" id="toc-exercise-3-cytomegalovirus" class="nav-link" data-scroll-target="#exercise-3-cytomegalovirus">Exercise 3: Cytomegalovirus</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../lecture-02-solutions/02-clean-and-tidy.html">Lecture 2 solutions</a></li><li class="breadcrumb-item"><a href="../lecture-02-solutions/07-practice-clean-and-tidy.html">Solutions: Extra practice: cleaning and tidying</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Solutions: Extra practice: cleaning and tidying</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These are the solutions to the <a href="../lecture-02/07-practice-clean-and-tidy.html">Extra practice: cleaning and tidying</a> exercises. Try each exercise yourself before you look.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="exercise-1-tumour-growth-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-tumour-growth-over-time">Exercise 1: Tumour growth over time</h2>
+<p><strong>(1)</strong> Column headers are values, not variable names: the headers <code>0</code> to <code>28</code> are values of a <code>day</code> variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumor <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/tumorgrowth_wide.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 37 Columns: 32
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (1): Grp
+dbl (31): Group, ID, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tumor_tidy <span class="ot">&lt;-</span> tumor <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">0</span><span class="st">`</span><span class="sc">:</span><span class="fu">last_col</span>(),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"day"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_transform =</span> <span class="fu">list</span>(<span class="at">day =</span> as.integer),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"size"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tumor_tidy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 574 × 5
+   Group Grp      ID   day   size
+   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
+ 1     1 1.CTR   101     0   41.8
+ 2     1 1.CTR   101     3   85  
+ 3     1 1.CTR   101     4  114  
+ 4     1 1.CTR   101     5  162. 
+ 5     1 1.CTR   101     6  178. 
+ 6     1 1.CTR   101     7  325  
+ 7     1 1.CTR   101    10  624. 
+ 8     1 1.CTR   101    11  648. 
+ 9     1 1.CTR   101    12  836. 
+10     1 1.CTR   101    13 1030. 
+# ℹ 564 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tumor_tidy <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Grp, day) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_size =</span> <span class="fu">mean</span>(size), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 109 × 3
+   Grp     day avg_size
+   &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;
+ 1 1.CTR     0     55.6
+ 2 1.CTR     1     86.1
+ 3 1.CTR     2     77.5
+ 4 1.CTR     3     87.9
+ 5 1.CTR     4    130. 
+ 6 1.CTR     5    216. 
+ 7 1.CTR     6    277. 
+ 8 1.CTR     7    319. 
+ 9 1.CTR     8    395. 
+10 1.CTR     9    525. 
+# ℹ 99 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tumor_tidy, <span class="fu">aes</span>(<span class="at">x =</span> day, <span class="at">y =</span> size, <span class="at">group =</span> ID, <span class="at">colour =</span> Grp)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Day"</span>, <span class="at">y =</span> <span class="st">"Tumour size (mm³)"</span>, <span class="at">colour =</span> <span class="st">"Group"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-practice-clean-and-tidy_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-cleaning-a-clinical-trial-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-cleaning-a-clinical-trial-dataset">Exercise 2: Cleaning a clinical trial dataset</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>opt <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Birth.outcome)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Birth.outcome   n
+1 Elective abortion      2
+2 Live birth           793
+3 Lost to FU             9
+4 Non-live birth        19</code></pre>
+</div>
+</div>
+<p><strong>(1)</strong> The labels end in trailing spaces (<code>"Live birth          "</code>).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>opt <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Birth.outcome <span class="sc">==</span> <span class="st">"Live birth"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p><strong>(2)</strong> 0 rows: <code>"Live birth"</code> doesn’t match <code>"Live birth          "</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>opt_clean <span class="ot">&lt;-</span> opt <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Birth.outcome =</span> <span class="fu">str_trim</span>(Birth.outcome),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">factor</span>(Group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"T"</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"treatment"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Birth.outcome <span class="sc">==</span> <span class="st">"Live birth"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>opt_clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       PID Clinic     Group Age BMI Birthweight GA.at.outcome
+1   100034     NY   control  25  NA        3490           265
+2   100042     NY   control  21  21        2350           253
+3   100067     NY treatment  25  24        2525           266
+4   100083     NY   control  36  36        3650           271
+5   100091     NY   control  21  27        3865           280
+6   100109     NY treatment  40  24        3120           275
+7   100117     NY treatment  23  32        3380           284
+8   100133     NY   control  28  NA        3100           280
+9   100141     NY treatment  25  26        3145           283
+10  100174     NY   control  34  32        4645           274
+11  100216     NY   control  37  28        3675           272
+12  100224     NY   control  30  26        3107           278
+13  100257     NY treatment  29  27        1860           229
+14  100273     NY treatment  30  21        3375           282
+15  100281     NY treatment  27  26        3062           260
+16  100299     NY   control  33  27        3705           291
+17  100315     NY treatment  24  NA        4261           272
+18  100356     NY   control  28  27        2040           244
+19  100364     NY treatment  30  NA        3105           276
+20  100372     NY treatment  24  34        3610           267
+21  100380     NY   control  25  27        2880           269
+22  100398     NY   control  24  26        3060           275
+23  100414     NY treatment  35  25        2340           252
+24  100422     NY treatment  35  NA        2845           290
+25  100430     NY   control  18  22        3190           283
+26  100448     NY   control  19  NA        2250           274
+27  100455     NY treatment  23  NA        3150           254
+28  100463     NY   control  27  NA        3190           281
+29  100471     NY treatment  23  42        3425           275
+30  100489     NY treatment  19  30        3465           293
+31  100497     NY   control  35  NA        2730           269
+32  100505     NY   control  33  NA        3050           288
+33  100513     NY   control  24  30        3285           273
+34  100521     NY treatment  30  32        3415           286
+35  100539     NY treatment  19  NA        3585           279
+36  100547     NY treatment  31  NA         865           183
+37  100554     NY   control  24  NA        3445           275
+38  100570     NY treatment  30  NA        3565           283
+39  100588     NY treatment  22  21        2820           258
+40  100596     NY   control  44  NA        3220           256
+41  100604     NY treatment  29  NA        3220           281
+42  100612     NY   control  21  24        3260           288
+43  100620     NY treatment  41  20        3655           284
+44  100638     NY   control  33  20        3535           292
+45  100646     NY treatment  23  22        3120           280
+46  100653     NY   control  28  21        3235           266
+47  100661     NY treatment  22  29        3728           285
+48  100687     NY   control  35  35        4139           267
+49  100695     NY   control  30  NA        4026           264
+50  100703     NY   control  27  NA        3155           284
+51  100711     NY treatment  31  26        3460           270
+52  100729     NY   control  23  NA        3210           270
+53  100737     NY treatment  33  NA        3325           287
+54  100745     NY   control  22  27        3235           281
+55  100752     NY treatment  26  NA        2025           257
+56  100760     NY   control  24  25        3425           269
+57  100778     NY treatment  34  NA        3220           281
+58  100786     NY treatment  22  23        3410           273
+59  100794     NY   control  21  24        2180           253
+60  100802     NY   control  25  32        4070           286
+61  100810     NY treatment  21  22        3325           285
+62  100828     NY   control  22  22        3165           274
+63  100836     NY treatment  27  34        3555           284
+64  100844     NY treatment  29  24        2405           257
+65  100851     NY treatment  23  NA        4510           275
+66  100869     NY   control  33  NA        3535           295
+67  100877     NY   control  26  33        2525           260
+68  100885     NY treatment  33  26        2940           288
+69  100893     NY   control  36  NA        3435           276
+70  100901     NY treatment  26  21        2810           270
+71  100919     NY   control  30  30        3255           265
+72  100927     NY   control  26  NA        3670           280
+73  100943     NY   control  30  38        3495           280
+74  100950     NY   control  21  24        3080           274
+75  100968     NY treatment  35  20        3095           281
+76  100976     NY treatment  35  NA        3130           255
+77  100984     NY treatment  31  28        3135           288
+78  100992     NY   control  33  39        3860           270
+79  101008     NY treatment  20  26        2930           282
+80  101016     NY   control  33  25        3585           293
+81  101024     NY   control  19  NA        3550           275
+82  101032     NY treatment  23  24        2335           247
+83  101040     NY treatment  19  28        2615           272
+84  101057     NY treatment  32  32        2985           273
+85  101073     NY   control  31  28        4075           282
+86  101081     NY treatment  29  20        3680           287
+87  101099     NY   control  34  NA        4145           272
+88  101107     NY treatment  22  23        2930           273
+89  101115     NY   control  26  26        3559           260
+90  101123     NY   control  21  26        3910           273
+91  101131     NY   control  22  26        3365           285
+92  101149     NY treatment  36  NA        3475           281
+93  101156     NY treatment  21  26        2960           290
+94  101164     NY treatment  18  NA        3030           275
+95  101180     NY   control  33  20        3520           275
+96  101198     NY treatment  21  26        3590           277
+97  101206     NY treatment  27  45        3845           282
+98  101214     NY   control  19  23        3000           269
+99  101222     NY treatment  21  NA        2830           279
+100 101230     NY   control  26  38        3575           266
+101 101248     NY   control  35  26        3730           278
+102 101255     NY treatment  26  30        3925           281
+103 101263     NY   control  37  27        3290           272
+104 101271     NY treatment  24  NA        3860           279
+105 101289     NY treatment  35  31        3544           282
+106 101297     NY   control  17  25        3455           278
+107 101305     NY treatment  28  NA        3270           277
+108 101313     NY   control  28  NA        4160           278
+109 101321     NY treatment  38  32        3495           280
+110 101339     NY   control  23  24        4000           282
+111 101354     NY treatment  18  21        2965           247
+112 101362     NY   control  21  NA        3705           284
+113 101388     NY treatment  17  32        3020           281
+114 101396     NY treatment  19  24        3430           266
+115 101404     NY   control  24  22        3690           257
+116 101412     NY   control  38  32        4300           279
+117 101420     NY treatment  26  NA        3455           284
+118 101438     NY treatment  21  17         520           160
+119 101446     NY   control  34  29        2680           266
+120 101453     NY treatment  26  29        4360           279
+121 101461     NY   control  27  NA        3458           281
+122 101479     NY   control  21  25        3460           283
+123 101487     NY treatment  22  24        3180           290
+124 101495     NY treatment  25  22        2800           277
+125 101503     NY   control  24  41        3200           286
+126 101529     NY treatment  33  NA        3160           276
+127 101537     NY   control  23  42        2835           281
+128 101545     NY   control  18  20        3260           272
+129 101552     NY treatment  32  25        3320           277
+130 101560     NY treatment  23  36        3030           280
+131 101578     NY   control  28  NA        3370           284
+132 101586     NY   control  34  NA        5160           284
+133 101594     NY treatment  20  NA        3455           269
+134 101602     NY   control  28  25        2760           271
+135 101610     NY treatment  30  NA        2860           274
+136 101628     NY treatment  25  37        3660           268
+137 101636     NY   control  37  NA        2680           281
+138 101644     NY   control  35  30        3215           274
+139 101669     NY   control  26  NA        4005           274
+140 101677     NY treatment  20  NA        2465           246
+141 101685     NY treatment  21  NA        2960           294
+142 101693     NY   control  23  NA        3120           284
+143 101701     NY treatment  30  34        4210           278
+144 101719     NY   control  27  NA        2670           277
+145 101727     NY   control  37  25        3670           283
+146 101735     NY treatment  18  24        3880           280
+147 101743     NY   control  26  NA        3360           277
+148 101750     NY treatment  26  NA        3040           276
+149 101768     NY treatment  25  19        2466           276
+150 101776     NY   control  23  NA        3445           270
+151 101784     NY treatment  29  NA        3255           293
+152 101792     NY   control  25  35        3232           273
+153 101800     NY treatment  18  NA        2630           276
+154 101818     NY treatment  28  NA        3105           291
+155 101826     NY   control  29  NA        2640           262
+156 101834     NY   control  23  27        3402           273
+157 101842     NY   control  20  18        3190           276
+158 101859     NY treatment  41  37        2990           274
+159 101867     NY treatment  27  49        1775           230
+160 101875     NY treatment  28  27        3150           261
+161 101883     NY   control  23  27        4167           263
+162 200034     MN   control  18  26        3300           282
+163 200067     MN treatment  19  28        3680           285
+164 200075     MN   control  23  31        3560           282
+165 200091     MN treatment  31  22        3880           287
+166 200109     MN   control  23  26        4020           275
+167 200117     MN   control  35  36        2730           275
+168 200133     MN treatment  23  25        1830           263
+169 200182     MN   control  22  23        4055           286
+170 200190     MN treatment  20  24        3920           277
+171 200208     MN treatment  32  37        3000           270
+172 200216     MN   control  20  32         585           201
+173 200224     MN treatment  38  32        4933           281
+174 200257     MN treatment  28  25        3210           271
+175 200265     MN   control  23  21        3900           280
+176 200273     MN   control  34  22        3120           278
+177 200281     MN treatment  23  24        3090           271
+178 200307     MN   control  23  19        4190           283
+179 200315     MN   control  39  27        3840           295
+180 200323     MN treatment  24  24        3550           293
+181 200331     MN   control  26  27        3240           281
+182 200349     MN treatment  33  22        3409           277
+183 200356     MN treatment  21  20        3490           279
+184 200372     MN   control  23  28        3220           263
+185 200398     MN treatment  25  26        3470           257
+186 200406     MN treatment  21  28        2900           277
+187 200414     MN   control  21  34        3980           291
+188 200422     MN treatment  37  27        3140           279
+189 200430     MN   control  38  25        3300           261
+190 200448     MN treatment  29  31        3200           289
+191 200455     MN   control  23  24        3455           280
+192 200463     MN   control  24  25        2940           295
+193 200489     MN treatment  21  24        3289           288
+194 200513     MN   control  22  28        2800           278
+195 200539     MN   control  32  27        3040           275
+196 200547     MN treatment  34  30        3680           285
+197 200554     MN treatment  34  39        4045           283
+198 200562     MN   control  30  28        3360           271
+199 200570     MN   control  35  24        3410           269
+200 200588     MN treatment  34  24        3040           282
+201 200604     MN   control  18  30        3440           274
+202 200612     MN treatment  26  27        4260           288
+203 200646     MN treatment  23  23        3480           280
+204 200653     MN treatment  28  28        3175           275
+205 200661     MN   control  24  25        3220           265
+206 200679     MN   control  38  29        3560           277
+207 200687     MN treatment  23  21        3400           288
+208 200695     MN   control  20  20        2480           257
+209 200711     MN   control  20  20        3040           286
+210 200729     MN treatment  22  23        3210           270
+211 200737     MN treatment  37  25        1450           254
+212 200745     MN treatment  29  21        2900           271
+213 200752     MN   control  25  22        3270           279
+214 200760     MN treatment  23  24        3360           277
+215 200778     MN   control  27  34        3600           286
+216 200786     MN   control  26  20        3020           281
+217 200794     MN treatment  26  29        3240           272
+218 200802     MN   control  18  NA        3620           280
+219 200828     MN   control  30  21        4095           292
+220 200836     MN treatment  24  31        3200           286
+221 200844     MN treatment  27  34        3200           296
+222 200851     MN treatment  28  30        3560           268
+223 200869     MN   control  31  25        3350           271
+224 200877     MN treatment  34  25        3090           272
+225 200893     MN   control  24  26        3420           286
+226 200901     MN treatment  21  37        3147           279
+227 200919     MN   control  29  26        2630           256
+228 200927     MN   control  22  20        3560           280
+229 200935     MN treatment  26  37        2770           268
+230 200943     MN   control  26  24        3030           280
+231 200950     MN   control  27  20        2381           276
+232 200968     MN treatment  26  25        4000           262
+233 200976     MN   control  30  36        3700           272
+234 200984     MN treatment  27  23        4252           295
+235 200992     MN treatment  25  18        2720           267
+236 201008     MN   control  26  19        3118           275
+237 201016     MN   control  26  26        3840           273
+238 201024     MN treatment  17  29        3540           281
+239 201032     MN treatment  27  22        3280           283
+240 201040     MN   control  31  28        2940           254
+241 201057     MN   control  30  47        3490           273
+242 201065     MN   control  25  18        2780           258
+243 201073     MN treatment  24  23        3220           280
+244 201081     MN   control  33  25        3500           286
+245 201099     MN treatment  28  28        3000           259
+246 201107     MN treatment  21  23        3330           286
+247 201115     MN treatment  34  32        2300           243
+248 201123     MN treatment  29  25        1550           229
+249 201131     MN   control  31  26        4000           282
+250 201149     MN treatment  18  32        1028           201
+251 201156     MN   control  23  23        4360           291
+252 201164     MN treatment  27  32        2890           258
+253 201172     MN treatment  28  22        2780           260
+254 201198     MN   control  21  25        2455           237
+255 201206     MN   control  24  27        3760           276
+256 201214     MN treatment  26  27        2950           271
+257 201222     MN   control  31  34        4170           272
+258 201230     MN   control  33  20        4060           298
+259 201248     MN treatment  25  26        4220           277
+260 201263     MN treatment  27  27        2900           271
+261 201271     MN   control  21  25        3160           282
+262 201289     MN treatment  29  34        2760           272
+263 201297     MN   control  18  22        3330           284
+264 201305     MN   control  31  28        3260           279
+265 201313     MN treatment  35  21        3000           276
+266 201321     MN treatment  33  22        4715           293
+267 201339     MN treatment  20  26        3430           282
+268 201347     MN   control  28  35        4280           286
+269 201354     MN   control  35  37        2950           284
+270 201362     MN treatment  28  27        3730           271
+271 201370     MN   control  24  19        3050           289
+272 201388     MN treatment  38  31        3940           289
+273 201396     MN   control  22  39        3750           291
+274 201404     MN treatment  36  35        2870           269
+275 201412     MN   control  22  25        3400           271
+276 201438     MN treatment  22  NA        3730           283
+277 201446     MN   control  34  25        1900           246
+278 201453     MN   control  27  27        3070           286
+279 201461     MN   control  22  26        3500           285
+280 201487     MN treatment  34  28        3941           289
+281 201495     MN treatment  28  40        3560           267
+282 201503     MN   control  35  27        4590           302
+283 201529     MN treatment  24  27        3360           284
+284 201537     MN treatment  19  19        3000           280
+285 201545     MN treatment  30  29        3960           278
+286 201552     MN   control  25  37        3480           279
+287 201560     MN   control  24  NA        3180           296
+288 201578     MN   control  33  25        3810           275
+289 201586     MN treatment  24  NA        3000           288
+290 201594     MN   control  25  34        3260           280
+291 201602     MN treatment  25  22        3535           293
+292 201610     MN treatment  25  NA        3340           272
+293 201628     MN   control  20  26         450           160
+294 201636     MN   control  23  24        3300           272
+295 201644     MN treatment  16  NA        3460           288
+296 201651     MN   control  42  27        4196           285
+297 201669     MN treatment  31  NA        4250           289
+298 201677     MN   control  22  26        3180           267
+299 201685     MN   control  28  26        3650           277
+300 201693     MN treatment  23  31        2880           280
+301 201701     MN treatment  24  25        2585           272
+302 201719     MN   control  32  28        3220           275
+303 201727     MN treatment  35  28        2290           271
+304 201735     MN   control  24  24        3120           280
+305 201743     MN treatment  20  25        3210           270
+306 201750     MN   control  24  27        3460           277
+307 201776     MN   control  24  24        3960           278
+308 201784     MN treatment  33  27        3680           277
+309 201792     MN treatment  23  30        3690           284
+310 201800     MN   control  33  27        3690           276
+311 201818     MN treatment  27  23        3195           271
+312 201826     MN treatment  31  28        3940           270
+313 201834     MN treatment  31  29        3050           266
+314 201842     MN   control  40  29        3050           279
+315 201859     MN   control  34  26        3480           282
+316 201867     MN   control  26  22        2160           258
+317 201875     MN treatment  16  27        3340           278
+318 201883     MN   control  20  NA        3300           282
+319 201891     MN treatment  26  22        3203           278
+320 201909     MN   control  22  17        2810           266
+321 201917     MN   control  21  23        3500           267
+322 201925     MN treatment  39  28        3580           282
+323 201933     MN treatment  23  24        3680           286
+324 201941     MN treatment  31  24        3160           267
+325 201958     MN   control  28  23        2940           272
+326 201966     MN treatment  32  24        3500           288
+327 201982     MN   control  35  30        2200           249
+328 201990     MN   control  33  24        3640           273
+329 202006     MN   control  28  24        1048           199
+330 202014     MN treatment  27  43        3636           281
+331 202022     MN treatment  24  20        2980           268
+332 202030     MN treatment  28  23        3620           281
+333 202048     MN   control  26  28        3120           286
+334 202055     MN treatment  30  29        3800           278
+335 202063     MN treatment  37  19        3660           280
+336 202071     MN   control  29  24        3315           284
+337 202089     MN treatment  22  32        3300           252
+338 202097     MN   control  38  35        3640           284
+339 202105     MN   control  20  30        2880           278
+340 202113     MN treatment  32  26        3930           279
+341 202121     MN   control  22  18        2580           274
+342 202139     MN treatment  28  22        2800           286
+343 202147     MN   control  27  33        2040           254
+344 202154     MN   control  26  32        3485           279
+345 202162     MN treatment  30  25        4255           283
+346 202170     MN treatment  29  26        3370           282
+347 202188     MN   control  27  24        4420           288
+348 202196     MN   control  30  22        3320           270
+349 202204     MN treatment  23  21        4140           263
+350 202212     MN   control  20  25        2950           282
+351 202220     MN treatment  21  19        3820           282
+352 202238     MN treatment  33  24        3320           278
+353 202246     MN treatment  23  29        3920           289
+354 202253     MN   control  30  34        3470           262
+355 202261     MN   control  36  25        3010           272
+356 202279     MN treatment  24  24        3440           284
+357 202287     MN treatment  31  NA        3580           274
+358 202295     MN treatment  22  26        3580           276
+359 202303     MN   control  23  NA        3190           287
+360 202311     MN   control  31  28        2870           283
+361 202329     MN   control  24  25        3370           285
+362 202337     MN   control  27  37        3300           290
+363 202345     MN treatment  30  26        3380           283
+364 202352     MN treatment  34  29        2950           286
+365 202378     MN   control  25  30        3680           278
+366 202386     MN treatment  22  22        2060           279
+367 202394     MN   control  24  27        3760           292
+368 202402     MN treatment  33  28        3730           276
+369 202410     MN   control  29  26        3390           271
+370 202428     MN   control  31  32        3520           278
+371 202436     MN treatment  22  20        2920           274
+372 202444     MN treatment  25  30        3240           289
+373 202451     MN   control  24  27        2720           246
+374 202469     MN treatment  22  24        2760           263
+375 202477     MN treatment  25  21        2600           274
+376 202485     MN   control  33  31        3890           287
+377 202493     MN   control  27  28        3000           266
+378 202527     MN treatment  33  29        3720           267
+379 202535     MN   control  23  24        2920           285
+380 202543     MN   control  29  35        3760           278
+381 202550     MN treatment  44  28        3725           285
+382 202568     MN treatment  30  39        4055           276
+383 202576     MN   control  25  26        3500           280
+384 202584     MN treatment  34  29        3750           275
+385 202592     MN   control  31  31        3260           271
+386 202600     MN   control  27  28        2140           241
+387 202618     MN treatment  35  26        2360           258
+388 202626     MN treatment  23  23        2725           275
+389 202634     MN   control  27  21        4500           276
+390 202642     MN   control  25  25        3940           290
+391 202659     MN treatment  26  39        2850           263
+392 202667     MN   control  25  31        3360           292
+393 202675     MN treatment  36  21        2920           280
+394 202683     MN   control  26  27        3350           272
+395 202691     MN   control  27  20        3430           279
+396 202709     MN treatment  23  24        3930           289
+397 202717     MN   control  25  26        3220           284
+398 202725     MN treatment  29  29        3280           282
+399 202733     MN   control  40  29        2970           269
+400 202741     MN treatment  25  20        3650           284
+401 202758     MN treatment  25  28        3630           285
+402 202766     MN   control  28  36        1880           269
+403 202774     MN treatment  26  24        3640           275
+404 202782     MN   control  21  21        3380           278
+405 202790     MN treatment  31  35        3177           277
+406 300018     KY treatment  16  23        3030           288
+407 300026     KY treatment  18  27        3150           280
+408 300059     KY   control  24  42        3960           287
+409 300067     KY treatment  18  22        3520           275
+410 300075     KY   control  20  24        2948           262
+411 300083     KY treatment  23  19        3390           276
+412 300091     KY   control  16  23        3220           279
+413 300109     KY   control  35  27        2775           274
+414 300117     KY treatment  23  53        3490           272
+415 300125     KY treatment  23  24        2720           267
+416 300133     KY   control  31  25        4140           284
+417 300141     KY treatment  17  27        3210           265
+418 300158     KY   control  25  30        1935           239
+419 300166     KY treatment  28  31        4260           273
+420 300174     KY   control  18  19        3130           285
+421 300182     KY   control  20  22        2990           277
+422 300190     KY treatment  36  24        5150           273
+423 300208     KY treatment  23  38        3760           268
+424 300216     KY   control  18  25        3180           275
+425 300224     KY treatment  22  29        2815           269
+426 300232     KY   control  24  24        4520           296
+427 300240     KY treatment  23  27        3050           263
+428 300257     KY   control  23  22        3230           269
+429 300265     KY treatment  23  28        3910           276
+430 300281     KY   control  31  41        3985           270
+431 300299     KY   control  21  22        4335           282
+432 300307     KY treatment  20  24        3680           282
+433 300315     KY treatment  32  26        3660           278
+434 300323     KY   control  19  25        2680           256
+435 300349     KY treatment  26  24        3190           271
+436 300356     KY treatment  39  24        1970           231
+437 300364     KY   control  23  30        3290           265
+438 300372     KY treatment  29  27        2970           259
+439 300380     KY   control  28  23        3340           278
+440 300398     KY   control  24  32        3020           270
+441 300406     KY treatment  35  24        3189           277
+442 300414     KY   control  26  28        3240           283
+443 300422     KY treatment  19  15        2732           260
+444 300430     KY   control  20  26        3120           277
+445 300448     KY   control  20  20        3025           277
+446 300455     KY treatment  26  22        3300           273
+447 300463     KY   control  20  38        3690           263
+448 300471     KY treatment  23  44        3473           264
+449 300489     KY treatment  24  30        3625           283
+450 300497     KY   control  20  20        3365           276
+451 300513     KY   control  22  23        3780           285
+452 300521     KY treatment  21  23        3630           262
+453 300547     KY treatment  23  32        3140           270
+454 300554     KY treatment  24  19        2860           238
+455 300562     KY treatment  20  21        3770           281
+456 300570     KY   control  20  19        3040           280
+457 300588     KY   control  33  30        2940           270
+458 300596     KY treatment  20  28        3110           267
+459 300620     KY treatment  18  21        2860           272
+460 300638     KY   control  21  26        3490           277
+461 300646     KY   control  21  23        3300           287
+462 300653     KY   control  18  19        3320           278
+463 300687     KY treatment  37  32        1800           239
+464 300695     KY   control  19  16        3552           276
+465 300711     KY treatment  26  18        3270           275
+466 300729     KY treatment  21  24        2145           250
+467 300737     KY   control  29  20        2863           268
+468 300745     KY   control  25  28        3090           285
+469 300752     KY   control  21  21        3720           280
+470 300778     KY treatment  27  NA        3540           268
+471 300786     KY treatment  42  22        2460           239
+472 300802     KY treatment  35  35        3355           275
+473 300810     KY   control  38  30        3220           275
+474 300828     KY   control  27  25        3675           288
+475 300836     KY treatment  22  19        3300           281
+476 300844     KY treatment  18  31        3500           273
+477 300869     KY   control  20  31        2520           265
+478 300877     KY treatment  23  24        3465           278
+479 300885     KY   control  28  28        3610           280
+480 300893     KY treatment  34  28         640           161
+481 300901     KY treatment  20  24        4000           277
+482 300919     KY treatment  21  22        3170           280
+483 300935     KY treatment  24  29        3400           280
+484 300943     KY   control  26  28        3935           267
+485 300950     KY   control  18  22        2615           267
+486 300968     KY   control  29  26        3340           278
+487 300976     KY treatment  18  31        3140           279
+488 300984     KY treatment  21  21        3405           285
+489 300992     KY treatment  21  25        3360           276
+490 301008     KY treatment  21  34        3190           279
+491 301016     KY   control  24  18        3080           276
+492 301024     KY   control  22  22        3075           279
+493 301032     KY   control  23  34        3433           281
+494 301057     KY   control  19  23        3245           271
+495 301065     KY   control  22  35        2625           258
+496 301073     KY treatment  34  20        2850           273
+497 301081     KY treatment  26  23        3020           278
+498 301099     KY   control  26  30        3440           272
+499 301107     KY   control  22  18        3610           278
+500 301115     KY treatment  28  27        2700           270
+501 301123     KY   control  23  42        3740           264
+502 301131     KY treatment  27  21        3390           275
+503 301149     KY treatment  38  30        3190           268
+504 301164     KY treatment  21  20        2940           273
+505 301172     KY   control  17  44        4300           280
+506 301180     KY treatment  20  28        3410           265
+507 301198     KY treatment  24  25        3190           265
+508 301206     KY   control  36  28        3040           253
+509 301222     KY   control  20  NA        3550           280
+510 301230     KY   control  26  20        2805           266
+511 301248     KY treatment  18  42        2800           262
+512 301263     KY   control  21  22        2860           281
+513 301271     KY treatment  17  35        3260           285
+514 301297     KY   control  22  22        3490           267
+515 301305     KY treatment  29  30        2610           273
+516 301313     KY   control  19  19        3440           271
+517 301321     KY treatment  24  22        3335           276
+518 301339     KY   control  25  27        2765           262
+519 301354     KY treatment  24  38        3100           280
+520 301370     KY   control  19  23        3150           277
+521 301388     KY treatment  26  22        3285           277
+522 301396     KY treatment  31  31        3640           266
+523 301404     KY   control  20  18        3290           287
+524 301412     KY treatment  29  21        3130           273
+525 301420     KY   control  22  21        3495           281
+526 301438     KY treatment  24  26        3650           284
+527 301446     KY treatment  32  26        3165           283
+528 301461     KY   control  19  24        3920           279
+529 301479     KY   control  30  23        3065           282
+530 301487     KY treatment  22  28        3440           289
+531 301495     KY   control  21  23        2310           260
+532 301503     KY treatment  28  29        2955           273
+533 301511     KY   control  24  34        2765           274
+534 301529     KY treatment  24  27        3340           283
+535 301537     KY   control  16  17        3340           275
+536 301545     KY   control  23  18        3640           280
+537 301552     KY treatment  27  17        3390           276
+538 301560     KY treatment  33  19        2460           246
+539 301578     KY treatment  29  21        3830           284
+540 301586     KY   control  25  19        2930           258
+541 301594     KY   control  35  24        3260           277
+542 301602     KY treatment  33  24        3715           268
+543 301628     KY   control  21  32        3000           279
+544 301644     KY   control  16  21        3062           283
+545 301651     KY treatment  21  37        3380           279
+546 301669     KY   control  25  22        2550           265
+547 301685     KY treatment  20  26        3215           270
+548 301693     KY treatment  25  20        3470           273
+549 301701     KY   control  31  26        2930           275
+550 301719     KY treatment  33  28        2625           256
+551 301727     KY treatment  25  21        3450           276
+552 301735     KY   control  30  34        3625           280
+553 301743     KY treatment  21  20        3340           283
+554 301768     KY   control  29  19        3260           266
+555 301776     KY treatment  19  19        3670           281
+556 301784     KY   control  20  25        4180           272
+557 301792     KY treatment  20  19        4205           273
+558 301818     KY treatment  33  28        2495           260
+559 301826     KY   control  24  26        3265           273
+560 301834     KY   control  37  18        3403           290
+561 301859     KY   control  28  30        3645           282
+562 301867     KY treatment  28  25        3190           267
+563 301875     KY treatment  19  29        2600           280
+564 301883     KY   control  29  18        3520           285
+565 301891     KY treatment  21  23        2750           269
+566 301909     KY treatment  18  24        3870           273
+567 301917     KY   control  20  21        2250           263
+568 301925     KY   control  17  27        3430           274
+569 301933     KY treatment  39  NA        2110           236
+570 301941     KY   control  23  20        3360           285
+571 301958     KY treatment  22  20        3140           272
+572 301966     KY treatment  21  30        3865           276
+573 301974     KY   control  29  34        3725           290
+574 301982     KY treatment  20  NA        3190           272
+575 301990     KY   control  24  23        3430           277
+576 302006     KY   control  22  23        3580           282
+577 302014     KY treatment  24  25        3300           255
+578 302022     KY   control  33  27        3040           271
+579 302030     KY treatment  30  30        3280           264
+580 302048     KY treatment  28  22        3250           276
+581 302055     KY   control  28  18        2910           262
+582 302063     KY treatment  35  35        3544           274
+583 302071     KY   control  26  30        2775           272
+584 302089     KY   control  27  21        3135           282
+585 302097     KY treatment  19  20        3335           280
+586 302105     KY   control  33  18        3285           275
+587 302113     KY treatment  28  40        2470           266
+588 302139     KY   control  22  21        2495           257
+589 302147     KY treatment  23  28        3600           273
+590 302154     KY treatment  23  25        3500           281
+591 302162     KY   control  33  35        3630           270
+592 302188     KY treatment  29  28        3360           279
+593 302196     KY   control  24  32        3285           287
+594 302204     KY   control  25  22        2975           276
+595 302212     KY treatment  26  NA        3485           273
+596 302220     KY treatment  17  30        4400           273
+597 302238     KY   control  18  28        2910           277
+598 302246     KY   control  36  30        2825           268
+599 302253     KY treatment  26  29        3325           278
+600 302279     KY treatment  24  21        3030           259
+601 302295     KY   control  34  26        3940           266
+602 302303     KY treatment  27  34        3975           288
+603 302311     KY   control  32  30        3300           270
+604 302337     KY treatment  22  24        3670           271
+605 302345     KY   control  20  32        3240           279
+606 302352     KY   control  22  25        3080           279
+607 302378     KY treatment  27  28        3250           278
+608 302410     KY treatment  22  38        3990           274
+609 400018     MS   control  30  17        3660           294
+610 400034     MS treatment  19  31        3405           267
+611 400059     MS treatment  24  47        3410           282
+612 400067     MS   control  32  32        3365           272
+613 400075     MS treatment  19  23        3525           283
+614 400091     MS treatment  33  30        3465           275
+615 400109     MS treatment  18  32        3040           281
+616 400117     MS   control  30  24        3570           274
+617 400133     MS treatment  25  24        2595           265
+618 400141     MS   control  20  19        2670           269
+619 400158     MS   control  23  35        3650           296
+620 400190     MS treatment  30  33        2300           240
+621 400208     MS treatment  22  37        3610           298
+622 400216     MS   control  20  22        2055           245
+623 400224     MS treatment  39  51        3660           257
+624 400232     MS   control  20  18        2750           261
+625 400281     MS   control  23  37        2385           259
+626 400299     MS treatment  30  25        3118           283
+627 400315     MS treatment  25  23        4200           286
+628 400331     MS   control  31  62        3770           265
+629 400349     MS treatment  20  32        3285           284
+630 400356     MS treatment  25  24        2002           232
+631 400364     MS   control  22  41        3660           271
+632 400372     MS   control  30  29        1685           240
+633 400380     MS treatment  21  26        2140           264
+634 400406     MS   control  19  29        3930           280
+635 400414     MS treatment  20  25        3475           291
+636 400455     MS   control  21  36        3425           264
+637 400471     MS treatment  36  28        3505           268
+638 400489     MS   control  23  28        2950           270
+639 400513     MS treatment  21  36        3285           296
+640 400539     MS   control  30  16        3055           278
+641 400547     MS   control  18  18        3039           270
+642 400562     MS treatment  35  28        2670           269
+643 400570     MS treatment  22  38        3855           285
+644 400588     MS treatment  24  20        3105           273
+645 400612     MS   control  21  23        2755           246
+646 400646     MS treatment  19  23        3250           293
+647 400653     MS   control  18  43        2881           276
+648 400661     MS   control  20  29        3629           275
+649 400695     MS   control  21  24        2985           283
+650 400703     MS treatment  22  24        2948           283
+651 400729     MS   control  28  50        2895           240
+652 400745     MS treatment  26  21        3715           280
+653 400752     MS   control  22  27        3062           272
+654 400778     MS treatment  29  21        3530           277
+655 400786     MS treatment  35  24        3995           279
+656 400794     MS   control  24  19        3985           289
+657 400802     MS treatment  25  27        3800           267
+658 400836     MS   control  38  42        3045           260
+659 400844     MS   control  19  25        3290           275
+660 400869     MS   control  21  48        3705           291
+661 400877     MS treatment  35  27        2958           265
+662 400885     MS treatment  27  31        3515           259
+663 400901     MS treatment  26  19        3410           278
+664 400919     MS treatment  23  38        3555           269
+665 400927     MS   control  26  38        3015           246
+666 400935     MS   control  32  32        3110           253
+667 400943     MS treatment  21  19        3430           278
+668 400950     MS   control  34  30         570           170
+669 400968     MS treatment  28  50        2365           216
+670 400976     MS treatment  23  27        3770           274
+671 400992     MS   control  27  20        2977           267
+672 401008     MS   control  17  30        4095           271
+673 401016     MS   control  21  20        2750           271
+674 401024     MS treatment  25  20        4100           290
+675 401032     MS   control  26  28        2480           248
+676 401057     MS treatment  16  36        3620           290
+677 401065     MS treatment  25  22        3315           270
+678 401073     MS treatment  30  41        2315           261
+679 401099     MS   control  25  35        3485           291
+680 401107     MS   control  31  19        3175           273
+681 401123     MS treatment  22  21        2260           248
+682 401149     MS   control  18  23        3920           284
+683 401156     MS treatment  23  34        2770           277
+684 401164     MS   control  23  22        3203           271
+685 401180     MS treatment  23  30        3118           260
+686 401198     MS   control  27  40        3370           252
+687 401206     MS   control  23  39        2030           197
+688 401214     MS   control  25  32        2565           283
+689 401222     MS treatment  23  33        3459           282
+690 401230     MS   control  36  34        3180           268
+691 401248     MS treatment  22  31        3695           285
+692 401255     MS treatment  31  37        4355           270
+693 401263     MS treatment  26  23        2095           228
+694 401271     MS treatment  21  46        3465           291
+695 401289     MS   control  20  39        2740           262
+696 401313     MS   control  28  21        2495           264
+697 401321     MS treatment  28  36        3000           270
+698 401347     MS treatment  27  19        3011           267
+699 401362     MS   control  18  26        3430           272
+700 401370     MS   control  27  27        3870           280
+701 401388     MS treatment  24  38        3390           277
+702 401396     MS treatment  22  23        3628           267
+703 401412     MS   control  36  56        2540           258
+704 401420     MS treatment  18  24        2723           276
+705 401446     MS   control  28  50        3960           277
+706 401453     MS treatment  29  33        2812           276
+707 401461     MS treatment  30  28        3445           281
+708 401479     MS   control  21  19        3430           281
+709 401487     MS treatment  20  33        3220           279
+710 401503     MS treatment  37  50        3025           256
+711 401511     MS   control  29  20        3350           281
+712 401537     MS   control  27  21        3492           269
+713 401545     MS   control  22  42        2750           276
+714 401552     MS treatment  26  32        3180           267
+715 401560     MS   control  28  40        4185           285
+716 401578     MS treatment  30  42        3075           260
+717 401586     MS   control  22  27        3220           270
+718 401594     MS treatment  26  22        2977           275
+719 401602     MS treatment  28  37        4025           251
+720 401610     MS   control  26  41        2345           260
+721 401636     MS   control  20  20        3084           270
+722 401651     MS treatment  21  26        2812           270
+723 401669     MS   control  24  25        2948           267
+724 401677     MS treatment  28  35        2993           273
+725 401685     MS   control  19  36        3682           276
+726 401693     MS   control  23  40        3125           272
+727 401701     MS   control  26  28        3190           277
+728 401719     MS   control  23  34        3250           271
+729 401727     MS   control  25  20        2340           260
+730 401735     MS treatment  19  30        2270           252
+731 401743     MS treatment  30  29        3070           268
+732 401750     MS treatment  21  27        3628           280
+733 401768     MS treatment  22  27        3180           278
+734 401776     MS treatment  33  68        3400           278
+735 401784     MS treatment  21  24        4451           278
+736 401792     MS   control  38  23        3225           278
+737 401800     MS   control  18  38        3266           265
+738 401818     MS   control  22  31        3425           259
+739 401834     MS treatment  28  20        3255           262
+740 401842     MS   control  20  33        3190           266
+741 401859     MS treatment  29  24        2785           270
+742 401867     MS treatment  25  26        3395           280
+743 401875     MS treatment  21  25        2771           277
+744 401883     MS   control  25  25        3195           288
+745 401909     MS treatment  33  28        3505           275
+746 401917     MS   control  31  27        3175           276
+747 401925     MS   control  28  24        3375           289
+748 401933     MS   control  23  37        2160           265
+749 401941     MS   control  29  24        2977           272
+750 401982     MS treatment  20  22        3465           260
+751 401990     MS treatment  23  28        1780           217
+752 402006     MS   control  23  32        3030           276
+753 402014     MS treatment  40  27        3705           289
+754 402030     MS treatment  21  24        2545           271
+755 402048     MS   control  35  23        3454           288
+756 402055     MS   control  24  39        2989           271
+757 402063     MS treatment  21  18        3630           280
+758 402071     MS treatment  27  26        3665           258
+759 402089     MS treatment  19  25        2551           266
+760 402097     MS   control  24  35        3289           261
+761 402105     MS   control  26  36        2845           256
+762 402113     MS treatment  22  30        2917           278
+763 402121     MS   control  28  33        4105           286
+764 402139     MS treatment  28  52        2995           258
+765 402147     MS   control  22  24        3375           281
+766 402162     MS treatment  40  37        3380           265
+767 402170     MS   control  30  26        3270           284
+768 402188     MS   control  26  29        3805           279
+769 402196     MS   control  21  32        3260           274
+770 402204     MS treatment  21  30        2915           261
+771 402212     MS treatment  24  21        3625           281
+772 402220     MS   control  25  36        3165           274
+773 402238     MS   control  27  32        1785           232
+774 402246     MS   control  23  25        3085           269
+775 402261     MS treatment  20  40        3530           274
+776 402279     MS treatment  25  32        3000           272
+777 402287     MS treatment  26  33        2810           271
+778 402303     MS treatment  26  65        3625           269
+779 402311     MS   control  28  34        3846           272
+780 402329     MS treatment  25  51        4015           274
+781 402337     MS   control  33  30        2990           268
+782 402345     MS   control  17  23        3685           275
+783 402352     MS treatment  19  25        4145           273
+784 402360     MS treatment  25  22        2240           255
+785 402378     MS   control  22  24        3062           282
+786 402386     MS treatment  19  35        3185           276
+787 402394     MS treatment  17  29        3005           267
+788 402410     MS   control  20  34        2715           268
+789 402428     MS treatment  22  31        3640           274
+790 402436     MS   control  23  28        3147           277
+791 402451     MS   control  29  36        3295           266
+792 402469     MS treatment  20  20        2565           274
+793 402477     MS   control  24  18        3230           263</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>opt_clean <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PID Clinic Group Age BMI Birthweight GA.at.outcome
+1   0      0     0   0  71           0             0</code></pre>
+</div>
+</div>
+<p><strong>(4)</strong> Only <code>BMI</code> has missing values: 71 of 793 live births.</p>
+</section>
+<section id="exercise-3-cytomegalovirus" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-cytomegalovirus">Exercise 3: Cytomegalovirus</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cmv <span class="ot">&lt;-</span> cytomegalovirus <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cmv =</span> <span class="fu">factor</span>(cmv, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>)),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">recipient.cmv =</span> <span class="fu">factor</span>(recipient.cmv, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"negative"</span>, <span class="st">"positive"</span>)),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">donor.cmv =</span> <span class="fu">factor</span>(donor.cmv, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"negative"</span>, <span class="st">"positive"</span>))</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>cmv <span class="sc">|&gt;</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(cmv, recipient.cmv, donor.cmv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  cmv recipient.cmv donor.cmv  n
+1  no      negative  negative 14
+2  no      negative  positive  6
+3  no      positive  negative  5
+4  no      positive  positive 13
+5 yes      negative  negative  1
+6 yes      negative  positive  3
+7 yes      positive  negative  6
+8 yes      positive  positive 16</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cmv <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">missing_time =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(time.to.transplant)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  missing_time
+1            1</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<!--
+  Theme the quizdown quizzes.
+
+  `_extensions/quizdown` renders every quiz into a shadow root
+  (`attachShadow({mode: "open"})`), so nothing in `styles.scss` reaches inside
+  one -- a quiz arrives on the page wearing quizdown's own defaults, which are
+  `steelblue` on `#f2f2f2` with black text. In dark mode that is not merely
+  off-brand, it is unreadable: the parts that take a *background* from
+  quizdown's palette but *inherit* their text colour -- the left column of a
+  matching question, an evaluated slot, the per-pair feedback -- end up
+  painting the page's near-white body text onto a near-white fill, 1.03:1.
+
+  Two facts make that fixable from outside the shadow root:
+
+    * custom properties inherit *through* the shadow boundary, so the
+      `--mds-quiz-*` values set on `:root` in `styles.scss` are readable from
+      inside a quiz;
+    * quizdown writes its three colours as inline styles on
+      `.quizdown-content`, and `!important` in a stylesheet beats an inline
+      declaration.
+
+  So this file injects one stylesheet into each quiz's shadow root, written
+  entirely against `--mds-quiz-*`. The light and dark values of those live in
+  `styles.scss` and `styles-dark.scss`, and Quarto swaps those two bundles on
+  the colour-mode toggle -- so a quiz follows the toggle with no JavaScript of
+  its own.
+
+  Wired in from `format.html.include-after-body` in `_quarto.yml`, which is
+  what keeps the vendored extension under `_extensions/quizdown/` untouched: a
+  re-add or an update of that extension cannot clobber any of this.
+
+  Two things are deliberately left alone:
+
+    * `.hljs`, the highlight.js "github" theme quizdown bundles for a *fenced*
+      code block inside a question. Its plate is light in both colour modes,
+      but so are the token colours painted on it, so it stays self-consistent
+      and readable; re-tinting the plate alone would break it, and re-tinting
+      the tokens means shipping a second syntax theme. No question in the book
+      uses a fenced block -- inline code is themed below, and inline code is
+      what the questions actually use.
+    * `.print-review`, the plain questions-and-answers block quizdown reveals
+      under `@media print`. Paper is white in both colour modes, so the light
+      colours there are already the right ones.
+-->
+<script>
+  (() => {
+    // Note for editing: this is a template literal, so nothing inside it may
+    // be quoted in backticks the way the prose around it is -- a stray one
+    // ends the string, and the page fails with a JavaScript syntax error
+    // rather than with anything you would notice in the CSS.
+    //
+    // Every declaration below is `!important`, for two reasons that are not
+    // about winning an argument with the extension. Svelte scopes its own
+    // rules with a build hash (`.prompt.svelte-1ge161l`), which out-specifies
+    // anything we can write without hard-coding a hash that changes on every
+    // quizdown release; and the order our <style> ends up in relative to
+    // Svelte's, inside a shadow root neither of us owns, is not ours to pick.
+    const CSS = `
+      /* ---- the three knobs quizdown itself exposes ------------------------
+         Set as inline styles on .quizdown-content from the quiz config, so
+         !important is the only thing that can move them. Remapping these three
+         alone fixes most of dark mode: everything that reads its background
+         from --quizdown-color-secondary and inherits its text colour then
+         lands on a surface that belongs to the current mode. */
+      .quizdown-content {
+        --quizdown-color-primary: var(--mds-quiz-accent) !important;
+        --quizdown-color-secondary: var(--mds-quiz-surface) !important;
+        --quizdown-color-text: var(--mds-quiz-fg) !important;
+      }
+
+      /* ---- inline code in a question -------------------------------------
+         quizdown paints this #333 on #f8f8f8 in both modes. The book has its
+         own inline-code pair, one per mode, under typography.monospace-inline
+         in _brand.yml. */
+      code {
+        color: var(--mds-quiz-code-fg) !important;
+        background-color: var(--mds-quiz-code-bg) !important;
+      }
+
+      /* ---- buttons -------------------------------------------------------
+         Hard-coded to a white fill, which is a glaring plate on the dark page.
+         The hover is brightness(0.9): darkening is only a change you can see
+         when the surface starts light, so its direction is per-mode too. */
+      button {
+        background-color: var(--mds-quiz-surface) !important;
+        color: var(--mds-quiz-fg) !important;
+      }
+      button:disabled {
+        background-color: var(--mds-quiz-surface) !important;
+        color: var(--mds-quiz-muted) !important;
+      }
+      button:hover:not(:checked):not(:active):not(:disabled) {
+        filter: var(--mds-quiz-press) !important;
+      }
+
+      /* ---- multiple choice and single choice ------------------------------
+         The option rows are already painted from the two variables remapped
+         above; only the hover is hard-coded. */
+      [type='checkbox']:hover + span,
+      [type='checkbox']:focus + span,
+      [type='radio']:hover + span,
+      [type='radio']:focus + span {
+        filter: var(--mds-quiz-press) !important;
+      }
+
+      /* ---- sequence (drag to order) --------------------------------------
+         The rows come from the variables; the reorder buttons take a black
+         focus ring, which is invisible on the dark page. */
+      .buttons button:focus {
+        border-color: var(--mds-quiz-accent) !important;
+      }
+
+      /* ---- matching (drag a chip into a slot) -----------------------------
+         The type with the most hard-coded colour in it, and the one where the
+         dark-mode failure was actually visible: .prompt takes its fill from
+         quizdown's palette and its text colour from the page, so it painted
+         near-white body text onto near-white #f2f2f2. */
+      .arrow,
+      .placeholder {
+        color: var(--mds-quiz-muted) !important;
+      }
+      .slot,
+      .pool {
+        border-color: var(--mds-quiz-border) !important;
+      }
+      .slot-selected,
+      .slot-dragover,
+      .pool-dragover {
+        background-color: var(--mds-quiz-surface) !important;
+      }
+      .chip:hover {
+        filter: var(--mds-quiz-press) !important;
+      }
+      .chip-used {
+        background-color: var(--mds-quiz-surface) !important;
+        border-color: var(--mds-quiz-muted) !important;
+      }
+
+      /* ---- the evaluated state -------------------------------------------
+         Green and red, which the book already has: the success and danger
+         roles in _brand.yml each carry a value per mode. */
+      .slot.correct {
+        border-color: var(--mds-quiz-correct) !important;
+        background-color: var(--mds-quiz-correct-bg) !important;
+      }
+      .slot.wrong,
+      .slot.empty-eval {
+        border-color: var(--mds-quiz-wrong) !important;
+        background-color: var(--mds-quiz-wrong-bg) !important;
+      }
+      .badge-correct,
+      .correct-hint {
+        color: var(--mds-quiz-correct) !important;
+      }
+      .badge-wrong {
+        color: var(--mds-quiz-wrong) !important;
+      }
+      .pair-feedback {
+        border-left-color: var(--mds-quiz-correct) !important;
+        background-color: var(--mds-quiz-correct-bg) !important;
+      }
+      .pair-feedback-wrong {
+        border-left-color: var(--mds-quiz-wrong) !important;
+        background-color: var(--mds-quiz-wrong-bg) !important;
+      }
+
+      /* ---- the credit line under every quiz ------------------------------- */
+      .credits,
+      .credits a {
+        color: var(--mds-quiz-muted) !important;
+      }
+    `;
+
+    // Returns the number of quizzes that do not have a shadow root yet.
+    const paint = () => {
+      let waiting = 0;
+      for (const host of document.querySelectorAll(".quizdown")) {
+        const root = host.shadowRoot;
+        if (!root) {
+          waiting += 1;
+          continue;
+        }
+        if (root.querySelector("style[data-mds-quiz-theme]")) continue;
+        const style = document.createElement("style");
+        style.setAttribute("data-mds-quiz-theme", "");
+        style.textContent = CSS;
+        root.appendChild(style);
+      }
+      return waiting;
+    };
+
+    // quizdown creates the shadow roots from a `load` listener that it only
+    // registers once `DOMContentLoaded` has fired -- later than this script,
+    // which is inline at the end of <body>. A `load` listener added here would
+    // therefore run *before* the one that creates the thing we want to style,
+    // so the first attempt is deferred by a task, and then retried for a few
+    // frames in case a future version of the extension moves that work again.
+    // Bounded, so a quiz that never renders cannot leave a frame loop running.
+    const GIVE_UP_AFTER_MS = 5000;
+    addEventListener("load", () => {
+      const started = performance.now();
+      const tick = () => {
+        if (paint() > 0 && performance.now() - started < GIVE_UP_AFTER_MS) {
+          requestAnimationFrame(tick);
+        }
+      };
+      setTimeout(tick, 0);
+    });
+  })();
+</script>
+<!--
+  The extension's own addition to `quizdown-theme.html`, which stays as
+  fetched from DSCI 521 (Q&A 22, 26).
+
+  quizdown paints a matching question's answer chips a fixed light green
+  (`#e8f5e9`) and lets them inherit the page's text colour: in dark mode,
+  near-white text on near-white. `quizdown-theme.html` themes every other part
+  of a matching question but not the chip itself, so this injects one more
+  rule into each quiz's shadow root, the same way, written against
+  `--mds-quiz-chip-*` from `ubc.scss`. Used and placed chips keep the looks
+  quizdown and `quizdown-theme.html` give them.
+-->
+<script>
+  (() => {
+    const CSS = `
+      .chip:not(.chip-used):not(.chip-placed) {
+        background-color: var(--mds-quiz-chip-bg) !important;
+        border-color: var(--mds-quiz-chip-border) !important;
+        color: var(--mds-quiz-fg) !important;
+      }
+    `;
+
+    // Returns the number of quizzes that do not have a shadow root yet.
+    const paint = () => {
+      let waiting = 0;
+      for (const host of document.querySelectorAll(".quizdown")) {
+        const root = host.shadowRoot;
+        if (!root) {
+          waiting += 1;
+          continue;
+        }
+        if (root.querySelector("style[data-ubc-quiz-chips]")) continue;
+        const style = document.createElement("style");
+        style.setAttribute("data-ubc-quiz-chips", "");
+        style.textContent = CSS;
+        root.appendChild(style);
+      }
+      return waiting;
+    };
+
+    // As in `quizdown-theme.html`: quizdown makes the shadow roots after
+    // `load`, so the first try waits a task, then retries for a few frames,
+    // and gives up after five seconds.
+    addEventListener("load", () => {
+      const started = performance.now();
+      const tick = () => {
+        if (paint() > 0 && performance.now() - started < 5000) {
+          requestAnimationFrame(tick);
+        }
+      };
+      setTimeout(tick, 0);
+    });
+  })();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chendaniely\.github\.io\/MEDI-504A-2026W1-biostats\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
