@@ -1,7 +1,9 @@
 # MEDI 504A — Biostatistics with Tidyverse
 
-UBC MEDI 504A (Emerging Topics in Experimental Medicine), Winter 2026 term.
-Over two sessions, we start with tidy data,
+UBC MEDI 504A (Emerging Topics in Experimental Medicine), 2026 Winter 1 term.
+These are the two lectures for week 2 of the course,
+on basic biostatistics.
+We start with tidy data,
 then fit linear and logistic regression models on medical data.
 
 Course website: <https://chendaniely.github.io/MEDI-504A-2026W1-biostats/>
