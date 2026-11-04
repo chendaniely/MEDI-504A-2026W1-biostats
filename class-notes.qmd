@@ -1,0 +1,31 @@
+---
+title: "Class notes"
+---
+
+We record each class
+and post its transcript and notes on this site.
+In the course repository,
+they're in the `sessions/` folder,
+with one folder per class named by its date.
+
+AI models write the notes from the transcript and the slides,
+so they can get things wrong.
+Check anything important against the slides.
+We ran the same prompt through more than one model,
+so you can compare their notes with each other
+and with the notes Plaud, the recording app, makes on its own.
+To see how the notes are made,
+or to suggest a change to the prompt,
+read [How the notes are made](README-prompt.md).
+
+## Lecture 1: Tidy data (Mon, Nov 2)
+
+- [The recording](https://web.plaud.ai/s/pub_52fe8af9-a6cf-4d09-a3c2-937314a69f8d::pAbVzxGgavANg8D7FV50_Xsi9-Du562nX6ftzwcyeYlRHPGoSqDqZvVEpi-H3C70TfebbD2-x3_BRKgC), on Plaud
+- Class notes from
+  [Claude Opus](sessions/2026-11-02/notes-class-main--claude-opus-5-5.md),
+  [Qwen 3.6](sessions/2026-11-02/notes-class-main--qwen3.6-35b-a3b.md),
+  and [Qwen 3.8](sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.md)
+- [Plaud's own notes](sessions/2026-11-02/notes-plaud.md)
+- [The transcript](sessions/2026-11-02/transcript-plaud.md)
+- [The slides the notes were written from](sessions/2026-11-02/materials.md),
+  with their code and output

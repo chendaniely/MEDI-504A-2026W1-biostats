@@ -1,0 +1,123 @@
+# The class notes prompt
+
+> This is all AI/Claude generated
+
+We are building one prompt together that turns a class transcript into notes.
+You propose changes, we merge them, and **all** of the course's notes get regenerated from
+the result — so an improvement you make after the lab also improves the notes for the lecture.
+
+| File | What it is |
+|---|---|
+| [`prompt-notes.md`](prompt-notes.md) | **The prompt.** Every word of it is sent to the model, followed by a session's transcript and slides. This is the file we edit together. |
+| `prompt-notes-<name>.md` | Optional variants, for trying an idea next to the main prompt (see below). |
+| `README-prompt.md` | This file: how it all works, and how to change it. |
+| [`Makefile`](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/Makefile) | Shortcuts for running the generator (`make notes` and the others below). |
+
+## What it produces
+
+Each class session has a folder under `sessions/`, named by date — with a suffix such
+as `-lecture` or `-lab` when there were two classes that day:
+
+| File | What it is |
+|---|---|
+| `plaud.md` | share link to the recording |
+| `transcript-plaud.md` | the transcript: machine-generated, lightly cleaned up by Plaud ← input |
+| `materials.md` | the session's slides from the course website: their text, the R code, and the output it printed, each heading linked to its slide ← input |
+| `notes-plaud.md` | Plaud's own AI notes — the baseline to beat |
+| `notes-class-main--<model>.md` | what `prompt-notes.md` produced, and which model wrote it ← output |
+
+Reading `notes-plaud.md` and `notes-class-main--<model>.md` side by side is the point.
+Plaud's notes come from a generic summariser that has never heard of this course. Ours
+know what the course is about, turn "see you Wednesday" into a real date, and keep the
+questions people asked.
+
+The slides make a big difference. Speech is a bad way to record code: a microphone hears
+"percent greater percent" where the slide says `%>%`, and the arguments disappear. The
+instructor live-codes from the slides, so the prompt treats them as the authority on what
+was typed and what it printed, and links each piece of code back to its slide.
+
+Notes come from more than one model: Claude (`--claude-opus-…`) and open-weights Qwen
+models run on the instructor's own hardware (`--qwen…`), so you can compare them too.
+
+## How to propose a change
+
+Ordinary Git and GitHub practice. From a terminal:
+
+```bash
+git switch -c prompt/your-change-here      # new branch
+$EDITOR prompt-notes.md                    # make your edit
+git add prompt-notes.md
+git commit -m "Ask for a glossary of new functions"
+git push -u origin prompt/your-change-here
+```
+
+Or on GitHub itself: open `prompt-notes.md`, click the pencil icon, make your edit, and
+choose **Create a new branch for this commit and start a pull request**.
+
+In the pull request, say **what problem the change fixes**. The convincing version is a
+before/after on one session (see below), quoting the part that got better. A good change
+fixes something you can point at — a section that comes out thin, a date the notes got
+wrong, a kind of content the notes keep dropping. "Make it better" is not something we
+can evaluate.
+
+To try a bigger idea next to the main prompt instead of in place of it, copy it to
+`prompt-notes-<name>.md` (say `prompt-notes-glossary.md`). Its notes come out as
+`notes-class-glossary--<model>.md`, beside the main ones, so the two can be compared.
+
+## Running it yourself
+
+The generator is `class_notes.py`, in the `class-notes/scripts/` folder of the public
+[`chendaniely/skills`](https://github.com/chendaniely/skills) repository. It needs Python 3
+and, for Claude models, the [Claude Code](https://claude.com/claude-code) CLI, logged in
+once (`claude`, then `/login`). It runs on your Claude subscription: no API key is needed.
+
+```bash
+git clone https://github.com/chendaniely/skills ~/git/skills      # once
+cn=~/git/skills/class-notes/scripts/class_notes.py
+
+python3 $cn generate --dry-run                                     # what would run
+python3 $cn generate --only sessions/2026-11-02 --prompt glossary
+python3 $cn generate --only sessions/2026-11-02 --force --model sonnet
+python3 $cn payload --only sessions/2026-11-02 > message.txt
+```
+
+`payload` prints the exact message the model receives — the prompt, the transcript and the
+slides — so you can take a session to any other tool or model and do your own thing with it.
+No Claude subscription? Paste that message into GitHub Copilot Chat in your Codespace, or
+another assistant.
+The `Makefile` wraps the common runs (`make notes`, `make notes-force`); point it at your
+copy with `CLASS_NOTES=~/git/skills/class-notes/scripts/class_notes.py`.
+
+## The version history is the Git history
+
+There is one prompt file, not `v1.md`, `v2.md`, `v3.md`: `git log -p prompt-notes.md`
+shows every revision with its diff. Every generated notes file ends with a footer that
+records where it came from:
+
+```
+---
+
+- prompt: prompt-notes.md @ a1b2c3d
+- prompt-hash: 3f9c0e2b7a41
+- model: claude-opus-5-5 (requested: opus)
+- backend: claude
+- inputs: transcript-plaud.md, materials.md
+- generated: 2026-11-04
+```
+
+`opus` is an **alias** meaning "the latest Opus", and what it points at changes over time;
+`claude-opus-5-5` is the model that actually ran, which is why it is also in the filename.
+When the alias moves to a newer model, regenerated notes land in a new file next to the
+old one, so models can be compared too. `inputs` says whether the notes had the slides or
+only the transcript. `prompt-hash` is a fingerprint of the prompt's words, so a commit
+that doesn't change them (a rename, a revert) never makes old notes look out of date.
+A prompt shown as `@ uncommitted` was run before that version of it was committed;
+the `prompt-hash` still pins down its exact words.
+
+## A note on privacy
+
+These transcripts include your voices, and this repository is public on GitHub, so anyone
+can read them, and anyone with a session's `plaud.md` link can play its recording.
+Students appear in the transcript as `Speaker 1`, `Speaker 2`, and so on. The prompt
+instructs the model to keep it that way and never to attach a name to a question. If you
+change the prompt, keep that rule.

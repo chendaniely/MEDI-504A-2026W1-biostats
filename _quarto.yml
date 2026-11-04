@@ -14,6 +14,14 @@ project:
     # homework.qmd and homework_solution.qmd are left out on purpose:
     # they render as individual documents, not website pages
     - homework-instructions.qmd
+    # Class notes: each session's transcript, notes, and slides, and the prompt.
+    # plaud.md (just the recording's link) is left out.
+    - class-notes.qmd
+    - README-prompt.md
+    - prompt-notes.md
+    - sessions/*/transcript-plaud.md
+    - sessions/*/notes-*.md
+    - sessions/*/materials.md
 
 website:
   title: "MEDI 504A: Biostatistics with Tidyverse"
@@ -66,6 +74,27 @@ website:
           - lecture-02-solutions/09-practice-logistic-regression.qmd
       # Homework is in the navbar, not here: a navbar link that is also in the
       # sidebar is marked as the current page on every page.
+      - section: "Class notes"
+        href: class-notes.qmd
+        contents:
+          - section: "Lecture 1 (Mon, Nov 2)"
+            contents:
+              - href: sessions/2026-11-02/notes-class-main--claude-opus-5-5.md
+                text: Claude Opus notes
+              - href: sessions/2026-11-02/notes-class-main--qwen3.6-35b-a3b.md
+                text: Qwen 3.6 notes
+              - href: sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.md
+                text: Qwen 3.8 notes
+              - href: sessions/2026-11-02/notes-plaud.md
+                text: Plaud notes
+              - href: sessions/2026-11-02/transcript-plaud.md
+                text: Transcript
+              - href: sessions/2026-11-02/materials.md
+                text: Slides used
+          - href: README-prompt.md
+            text: How the notes are made
+          - href: prompt-notes.md
+            text: The prompt
       - section: "Extra practice"
         contents:
           - lecture-02/07-practice-clean-and-tidy.qmd
