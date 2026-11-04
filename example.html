@@ -4555,7 +4555,7 @@ vertical-align: -.125em;
 </section>
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">Packages</h2>
-<p>We load every package the report uses once, at the top: the tidyverse for data and charts, <code>tidymodels</code> for modelling, and <code>medicaldata</code> for example datasets.</p>
+<p>Load every package the report uses once, at the top: the tidyverse for data and charts, <code>tidymodels</code> for modelling, and <code>medicaldata</code> for example datasets.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
@@ -4564,7 +4564,7 @@ vertical-align: -.125em;
 </section>
 <section id="a-first-look-at-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="a-first-look-at-the-data">A first look at the data</h2>
-<p><code>data/patients.csv</code> is a small practice dataset of 12 made-up patients, from <a href="https://github.com/ehsanx/HDSx-workspace/blob/7e3d2f65348f3ac689be41dfaefb7eaf1c04fb2a/data/patients.csv"><code>ehsanx/HDSx-workspace</code></a>. The code chunk below reads it and shows the first few rows.</p>
+<p><code>data/patients.csv</code> is a small practice dataset of 12 synthetic patients, from <a href="https://github.com/ehsanx/HDSx-workspace/blob/7e3d2f65348f3ac689be41dfaefb7eaf1c04fb2a/data/patients.csv"><code>ehsanx/HDSx-workspace</code></a>. The code chunk below reads it and shows the first few rows.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>patients <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/patients.csv&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(patients)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

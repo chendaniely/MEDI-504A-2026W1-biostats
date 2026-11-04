@@ -1247,7 +1247,7 @@
     "href": "lecture-01/slides/01-welcome.html#these-two-sessions",
     "title": "Welcome",
     "section": "These two sessions",
-    "text": "These two sessions\n\n\n\n\n\n\n\n\nSession\nWhen\nWhere\n\n\n\n\nLecture 1: Tidy data\nMonday, Nov 2, 1:00–3:00 PM\nECC 100 LT\n\n\nLecture 2: Modelling lab\nWednesday, Nov 4, 1:00–3:00 PM\nDHCC 4223\n\n\n\n\nToday we’ll go over tidy data, how to wrangle and visualize it, and fit a first model\nI’ll be live coding, so follow along or just watch\nOn Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models"
+    "text": "These two sessions\n\n\n\n\n\n\n\n\nSession\nWhen\nWhere\n\n\n\n\nLecture 1: Tidy data\nMonday, Nov 2, 1:00–3:00 PM\nECC 100 LT\n\n\nLecture 2: Modelling lab\nWednesday, Nov 4, 1:00–3:00 PM\nDHCC 4223\n\n\n\n\nToday we’ll go over tidy data, how to wrangle and visualize it, and fit a first model.\nOn Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models"
   },
   {
     "objectID": "lecture-01/slides/01-welcome.html#how-these-pages-work",
@@ -1261,7 +1261,7 @@
     "href": "lecture-01/slides/01-welcome.html#get-your-codespace-running",
     "title": "Welcome",
     "section": "Get your Codespace running",
-    "text": "Get your Codespace running\nStart your Codespace now, since the first start takes about 4 minutes.\n\nGo to the Codespaces page and click Open in GitHub Codespaces\nWhen VS Code opens, trust the folder\nOpen example.qmd and render it\n\nToday we’re only testing the Codespace. On Wednesday you’ll fork the repository and work in your own copy."
+    "text": "Get your Codespace running\nStart your Codespace now, since the first start takes about 10 minutes.\n\nGo to the Codespaces page and click Open in GitHub Codespaces\nWhen VS Code opens, trust the folder\nOpen example.qmd and render it\n\nToday we’re only testing the Codespace. On Wednesday you’ll fork the repository and work in your own copy."
   },
   {
     "objectID": "lecture-01/slides/01-welcome.html#where-we-are",
@@ -1522,7 +1522,7 @@
     "href": "lecture-01/01-welcome.html#these-two-sessions",
     "title": "Welcome",
     "section": "These two sessions",
-    "text": "These two sessions\n\n\n\n\n\n\n\n\nSession\nWhen\nWhere\n\n\n\n\nLecture 1: Tidy data\nMonday, Nov 2, 1:00–3:00 PM\nECC 100 LT\n\n\nLecture 2: Modelling lab\nWednesday, Nov 4, 1:00–3:00 PM\nDHCC 4223\n\n\n\n\nToday we’ll go over tidy data, how to wrangle and visualize it, and fit a first model\nI’ll be live coding, so follow along or just watch\nOn Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models",
+    "text": "These two sessions\n\n\n\n\n\n\n\n\nSession\nWhen\nWhere\n\n\n\n\nLecture 1: Tidy data\nMonday, Nov 2, 1:00–3:00 PM\nECC 100 LT\n\n\nLecture 2: Modelling lab\nWednesday, Nov 4, 1:00–3:00 PM\nDHCC 4223\n\n\n\n\nToday we’ll go over tidy data, how to wrangle and visualize it, and fit a first model.\nOn Wednesday we’ll have a hands-on lab with medical data, where you’ll clean data and fit linear and logistic regression models",
     "crumbs": [
       "Homework",
       "Lecture 1: Tidy data (Mon, Nov 2)",
@@ -1546,7 +1546,7 @@
     "href": "lecture-01/01-welcome.html#get-your-codespace-running",
     "title": "Welcome",
     "section": "Get your Codespace running",
-    "text": "Get your Codespace running\nStart your Codespace now, since the first start takes about 4 minutes.\n\nGo to the Codespaces page and click Open in GitHub Codespaces\nWhen VS Code opens, trust the folder\nOpen example.qmd and render it\n\nToday we’re only testing the Codespace. On Wednesday you’ll fork the repository and work in your own copy.",
+    "text": "Get your Codespace running\nStart your Codespace now, since the first start takes about 10 minutes.\n\nGo to the Codespaces page and click Open in GitHub Codespaces\nWhen VS Code opens, trust the folder\nOpen example.qmd and render it\n\nToday we’re only testing the Codespace. On Wednesday you’ll fork the repository and work in your own copy.",
     "crumbs": [
       "Homework",
       "Lecture 1: Tidy data (Mon, Nov 2)",
@@ -1707,14 +1707,14 @@
     "href": "example.html#packages",
     "title": "My First Report",
     "section": "Packages",
-    "text": "Packages\nWe load every package the report uses once, at the top: the tidyverse for data and charts, tidymodels for modelling, and medicaldata for example datasets.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)"
+    "text": "Packages\nLoad every package the report uses once, at the top: the tidyverse for data and charts, tidymodels for modelling, and medicaldata for example datasets.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\nlibrary(medicaldata)"
   },
   {
     "objectID": "example.html#a-first-look-at-the-data",
     "href": "example.html#a-first-look-at-the-data",
     "title": "My First Report",
     "section": "A first look at the data",
-    "text": "A first look at the data\ndata/patients.csv is a small practice dataset of 12 made-up patients, from ehsanx/HDSx-workspace. The code chunk below reads it and shows the first few rows.\n\npatients &lt;- read.csv(\"data/patients.csv\")\nhead(patients)\n\n  id age sex region systolic_bp diabetes\n1  1  54   F  North         128       no\n2  2  61   M  North         141      yes\n3  3  47   F  South         119       no\n4  4  72   M   East         150      yes\n5  5  38   F   West         112       no\n6  6  59   M  South         134       no"
+    "text": "A first look at the data\ndata/patients.csv is a small practice dataset of 12 synthetic patients, from ehsanx/HDSx-workspace. The code chunk below reads it and shows the first few rows.\n\npatients &lt;- read.csv(\"data/patients.csv\")\nhead(patients)\n\n  id age sex region systolic_bp diabetes\n1  1  54   F  North         128       no\n2  2  61   M  North         141      yes\n3  3  47   F  South         119       no\n4  4  72   M   East         150      yes\n5  5  38   F   West         112       no\n6  6  59   M  South         134       no"
   },
   {
     "objectID": "example.html#a-first-chart",
@@ -3065,7 +3065,7 @@
     "href": "homework-instructions.html",
     "title": "Homework",
     "section": "",
-    "text": "The homework is a Quarto document, homework.qmd, in the top folder of the course repository. You’ll write your code and your answers in that file, render it, and hand it in on Canvas. The due date is on Canvas.\nTo read through the homework before you start, view homework.qmd on GitHub."
+    "text": "The homework is a Quarto document, homework.qmd, in the top folder of the course repository. You’ll write your code and your answers in that file, then render it, which makes homework.html and homework.pdf next to it. Hand in all three files on Canvas: homework.qmd, homework.html, and homework.pdf. The due date is on Canvas.\nTo read through the homework before you start, view homework.qmd on GitHub."
   },
   {
     "objectID": "homework-instructions.html#open-your-fork",
