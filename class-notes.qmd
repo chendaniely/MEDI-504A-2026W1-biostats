@@ -1,5 +1,5 @@
 ---
-title: "Class notes"
+title: "AI Class Notes"
 ---
 
 We record each class
