@@ -5,8 +5,10 @@ title: "Homework"
 The homework is a Quarto document, `homework.qmd`,
 in the top folder of the course repository.
 You'll write your code and your answers in that file,
-render it,
-and hand it in on Canvas.
+then render it,
+which makes `homework.html` and `homework.pdf` next to it.
+Hand in all three files on Canvas:
+`homework.qmd`, `homework.html`, and `homework.pdf`.
 The due date is on Canvas.
 
 To read through the homework before you start,

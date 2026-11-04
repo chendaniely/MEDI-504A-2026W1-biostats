@@ -1,0 +1,457 @@
+---
+title: "Homework: from tidy data to a model"
+author: "Your Name"
+format:
+  html:
+    embed-resources: true
+  typst: default
+---
+
+This homework puts the two lectures together.
+In Part 1 we "tidy" and summarize a dataset,
+and in Part 2 we answer a question about a clinical trial with a model.
+Write your code in the empty chunks,
+and answer the questions in full sentences below them.
+
+## Handing it in
+
+The due date is on Canvas.
+
+1. Change `author: "Your Name"` in the header to your own name.
+2. Render this file.
+   It makes `_site/homework/homework.html` and `_site/homework/homework.pdf`.
+   In a Codespace,
+   right-click each one in the Explorer and choose **Download**.
+3. Upload `homework/homework.qmd`, `homework.html`, and `homework.pdf` to Canvas.
+
+## Using the hints
+
+Every question has a hint under it.
+Click a hint to open it.
+Each hint says what the code needs to do, step by step,
+so you can use it as your prompt for Copilot:
+
+1. Open Copilot Chat.
+2. Paste in the hint,
+   and add "Write R code for this using the tidyverse and tidymodels."
+3. Copy the code it gives you into the empty chunk, and run it.
+4. Compare your result with the "Check" at the end of the hint.
+   If it doesn't match,
+   paste the error message or your result back into Copilot Chat
+   and ask what went wrong.
+
+Ask Copilot to explain any line of code you don't understand.
+You'll need to explain your results in your own words,
+so make sure you know what your code did.
+
+The packages are already loaded in the chunk below.
+If Copilot adds `library()` lines to its code,
+you can delete them.
+
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+## Part 1: Ebola case counts
+
+`data/ebola.csv` holds Ebola cases and deaths by country
+from the 2014–2015 West Africa outbreak,
+compiled from WHO situation reports by Caitlin Rivers
+([`cmrivers/ebola`](https://github.com/cmrivers/ebola),
+`country_timeseries.csv`).
+
+```{r}
+# you may need to use "../data/ebola.csv"
+# if you get a file not found error
+ebola <- read_csv("data/ebola.csv")
+ebola
+```
+
+### 1.1 Tidy the data
+
+A header like `Cases_Guinea` packs two variables into one name:
+the count type (cases or deaths) and the country.
+Make `ebola_tidy`,
+with one row for each country in each report,
+and columns for the date, the country, the cases, and the deaths.
+You'll need `pivot_longer()`,
+a way to split the names,
+and `pivot_wider()`.
+Turn `Date` into a real date with `mdy()`.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Start from the `ebola` data frame,
+which has the columns `Date`, `Day`, and one column for each count type and country,
+such as `Cases_Guinea` and `Deaths_Liberia`.
+
+1. Use `pivot_longer()` on every column except `Date` and `Day`,
+   so each count gets its own row.
+   Put the old column names in a column called `name`
+   and the numbers in a column called `count`.
+   Use `values_drop_na = TRUE` to drop the rows where the count is missing.
+2. Use `separate_wider_delim()` to split `name` at the underscore (`"_"`)
+   into two columns, `type` and `country`.
+3. Use `pivot_wider()` to turn the `type` column back into two columns,
+   `Cases` and `Deaths`, with their values from `count`.
+4. Use `mutate()` and `mdy()` to change `Date` from text into a date.
+   The dates are written month/day/year.
+5. Save the result as `ebola_tidy` and print it.
+
+Check: `ebola_tidy` has 375 rows
+and the columns `Date`, `Day`, `country`, `Cases`, and `Deaths`,
+and `Date` shows as `<date>` under its name.
+:::
+
+```{r}
+# your code here
+```
+
+### 1.2 Summarize by country
+
+The counts are cumulative:
+each report gives the total so far,
+not the new cases since the last report.
+
+Make a table with one row per country.
+Include the date of its first and last report,
+its cases and deaths,
+and its case fatality ratio (deaths divided by cases).
+Sort the table from the most cases to the fewest.
+
+A few counts go down from one report to the next,
+where a later report corrected an earlier one.
+Using either the last report or the largest count is fine,
+as long as you say which one you used.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Start from `ebola_tidy`.
+
+1. Use `group_by(country)` so the summary is calculated for each country.
+2. Use `summarize()` to make these columns:
+   - `first_report`, the earliest `Date`, with `min()`
+   - `last_report`, the latest `Date`, with `max()`
+   - `cases`, the largest value of `Cases`, with `max(Cases, na.rm = TRUE)`
+   - `deaths`, the largest value of `Deaths`, with `max(Deaths, na.rm = TRUE)`
+
+   `na.rm = TRUE` tells `max()` to skip missing values.
+3. Use `mutate()` to add `cfr`, the case fatality ratio, as `deaths / cases`.
+4. Use `arrange(desc(cases))` to sort from the most cases to the fewest.
+5. Save the result as `ebola_summary` and print it.
+
+This uses the largest count,
+so write "I used the largest count" in your answer below.
+
+Check: the table has 8 rows, one per country,
+and the first row is Sierra Leone, with 10,030 cases.
+:::
+
+```{r}
+# your code here
+```
+
+What would `sum(Cases)` give you for each country,
+and why is it the wrong number?
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Try it.
+Copy your summary code,
+change `max(Cases, na.rm = TRUE)` to `sum(Cases, na.rm = TRUE)`,
+and compare Sierra Leone's number with the one in your table.
+
+Then look at a few rows of `ebola_tidy` for one country, in date order.
+Does each row count the new cases since the last report,
+or everyone who has had Ebola so far?
+What happens to a person who got sick in March
+when you add up every report from March to January?
+:::
+
+*Your answer here.*
+
+### 1.3 A figure
+
+Make one figure from `ebola_tidy` or from your summary table.
+Give it axis labels with units.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Pick one of these, or make your own:
+
+- A line chart of the cases over time, one line per country.
+  Use `ggplot()` with `ebola_tidy`,
+  put `Date` on the x-axis, `Cases` on the y-axis,
+  colour the lines by `country`,
+  and add `geom_line()`.
+- A bar chart of the cases in each country.
+  Use `ggplot()` with `ebola_summary`,
+  put `cases` on the x-axis and `country` on the y-axis,
+  and add `geom_col()`.
+
+Add `labs()` to give each axis a title.
+Cases and deaths are counts of people,
+so a title like "Cumulative cases (people)" gives the units.
+
+A warning that says "Removed rows containing missing values"
+is fine: those are the reports with no number for that country.
+
+Check: the figure has a title on each axis
+that says what's plotted and in what units.
+:::
+
+```{r}
+# your code here
+```
+
+### 1.4 What do you see?
+
+In a few sentences,
+describe what your table and figure show.
+Compare the case fatality ratios across countries:
+which countries' ratios would you trust the least, and why?
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Use your table from 1.2 to answer these:
+
+- Which three countries had the most cases?
+  Roughly how many cases did the other countries have?
+- What are the case fatality ratios of the three biggest countries?
+  Is the ratio higher in some countries than in others?
+- Pick a country with only a few cases.
+  If one more person there had died,
+  what would its case fatality ratio be?
+  What if the same thing happened in Sierra Leone?
+
+Copilot can help you read the table,
+but write the answer in your own words.
+:::
+
+*Your answer here.*
+
+## Part 2: A model
+
+Pick one of these three trials.
+Each comes with a question for you to answer.
+Read its help page first (for example, `?laryngoscope`),
+to see what each variable means and how it's coded.
+
+- `laryngoscope`:
+  99 adults with obesity who needed a breathing tube for elective surgery
+  were randomized to a standard Macintosh laryngoscope
+  or a Pentax AWS video laryngoscope.
+  Does the video laryngoscope change how long intubation takes?
+- `indo_rct`:
+  602 patients at high risk of pancreatitis after ERCP
+  were randomized to rectal indomethacin or a placebo.
+  Does indomethacin prevent pancreatitis after ERCP?
+- `strep_tb`:
+  in the 1948 Medical Research Council trial,
+  107 patients with pulmonary tuberculosis
+  were randomized to streptomycin with bed rest or to bed rest alone.
+  Did streptomycin make patients more likely to improve
+  on their chest X-ray at 6 months?
+
+Which dataset did you pick?
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Run `?laryngoscope`, `?indo_rct`, or `?strep_tb` in the R console
+to open a help page,
+and `glimpse()` the data to see its columns.
+Pick the trial whose question you find most interesting.
+Any of the three is fine.
+:::
+
+*Your answer here.*
+
+### 2.1 Clean the variables you need
+
+Recode the outcome, the treatment,
+and the other variables you plan to use.
+Numbers that stand for categories should become factors with readable labels,
+and labels like `1_yes` or `2_male` should become `yes` and `male`.
+Check the reference level of each factor:
+the treatment's should be the control group.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Use `mutate()` with `factor(column, levels = ..., labels = ...)`
+to turn coded values into categories with readable names.
+The first level you list becomes the reference level,
+so list the control group first.
+Then use `select()` to keep only the columns you need,
+and `drop_na()` to drop rows with missing values in them.
+Save the result as `trial`.
+
+What to recode in each dataset (the help page has the details):
+
+- `laryngoscope`:
+  `Randomization` is 0 = Macintosh, 1 = video laryngoscope,
+  and `gender` is 0 = female, 1 = male.
+  The intubation time is `total_intubation_time`, in seconds.
+  `age` and `BMI` are already numbers.
+- `indo_rct`:
+  `outcome` is `0_no` or `1_yes` (pancreatitis after ERCP),
+  `rx` is `0_placebo` or `1_indomethacin`,
+  and `gender` is `1_female` or `2_male`.
+  `age` and `risk` (a risk score) are already numbers.
+- `strep_tb`:
+  `improved` is `TRUE` or `FALSE`;
+  make it a factor with `FALSE` as `no` and `TRUE` as `yes`.
+  `arm` lists `Streptomycin` first,
+  so use `fct_relevel(arm, "Control")` to make `Control` the reference level.
+  `baseline_condition` is `1_Good`, `2_Fair`, or `3_Poor`.
+  `gender` and `baseline_cavitation` are already readable.
+
+Check: run `count(trial, column)` for each column you recoded.
+You should see readable labels, not numbers or codes,
+and the control group should be listed first.
+:::
+
+```{r}
+# your code here
+```
+
+### 2.2 Look at the outcome
+
+Which variable answers your question?
+Plot its distribution,
+with a histogram if it's a number on a continuous scale,
+or a bar chart of counts if it's a category.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Run `glimpse(trial)` and find your outcome.
+Under its name you'll see its type:
+`<dbl>` is a number, and `<fct>` is a factor (a category).
+
+- For a number, use `ggplot()` with `trial`,
+  put the outcome on the x-axis, and add `geom_histogram()`.
+  Try a few values of `binwidth` to see the shape clearly.
+- For a category, use `ggplot()` with `trial`,
+  put the outcome on the x-axis, and add `geom_bar()`
+  to count the patients in each category.
+
+To compare the treatment groups,
+you can also add `fill = ` and the treatment column inside `aes()`.
+Add `labs()` to give each axis a title.
+
+Check: a histogram shows the spread of the values,
+and a bar chart shows one bar for each category.
+:::
+
+```{r}
+# your code here
+```
+
+### 2.3 Fit a model
+
+Should this outcome get a linear or a logistic regression?
+Say why in one sentence,
+based on what your plot in 2.2 shows.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+A linear regression models the average of an outcome
+that's a number on a continuous scale, like a weight or a time.
+A logistic regression models the odds of one of two outcomes,
+like yes or no.
+Which kind of plot did you need in 2.2?
+:::
+
+*Your answer here.*
+
+Fit the model with the treatment and at least one other variable,
+then show the estimates with confidence intervals using `tidy()`.
+For a logistic regression,
+use `exponentiate = TRUE` to get odds ratios.
+If an estimate or its confidence interval comes out enormous,
+count that variable against the outcome and see why.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+A model formula puts the outcome on the left of `~`
+and the explanatory variables on the right, joined by `+`:
+`outcome ~ treatment + age`.
+
+1. Start with `linear_reg()` or `logistic_reg()`,
+   then pipe it into `fit()` with your formula and `data = trial`.
+   Save the result as `trial_fit`.
+2. Use `tidy(trial_fit, conf.int = TRUE)` to see the estimates
+   with their 95% confidence intervals.
+   For a logistic regression, add `exponentiate = TRUE`
+   to turn the estimates into odds ratios.
+
+If an estimate is huge (with an `e+` in it, like `4.6e+07`)
+or a confidence limit is `NA`,
+run `count(trial, that_variable, outcome)`
+and look for a group where every patient had the same outcome.
+A model can't estimate an effect for that group,
+so leave the variable out
+or combine its levels with `fct_collapse()`.
+
+Check: `tidy()` gives one row for the intercept and one for each variable,
+with the columns `estimate`, `conf.low`, and `conf.high`.
+:::
+
+```{r}
+# your code here
+```
+
+### 2.4 What does the model say?
+
+Interpret at least two variables from your model in full sentences:
+the size and direction of each effect,
+in the outcome's units (or as an odds ratio),
+with its confidence interval.
+Then answer the trial's question.
+
+::: {.callout-tip collapse="true"}
+## Hint
+
+Each row of your `tidy()` output after the intercept is one variable.
+For a category, the estimate compares that group
+with the reference level (the control group, for the treatment).
+For a number, the estimate is the change for each 1-unit increase,
+such as one more year of age.
+
+You can fill in a sentence like one of these:
+
+- Linear regression:
+  "Holding the other variables constant,
+  patients who [group] had an average [outcome]
+  [estimate] [units] [higher or lower] than patients who [reference group]
+  (95% CI: [conf.low] to [conf.high])."
+- Logistic regression:
+  "Holding the other variables constant,
+  patients who [group] had [estimate] times the odds of [outcome]
+  of patients who [reference group]
+  (odds ratio [estimate], 95% CI: [conf.low] to [conf.high])."
+  An odds ratio below 1 means lower odds,
+  and above 1 means higher odds.
+
+If a confidence interval includes 0 (for a linear regression)
+or 1 (for a logistic regression),
+the data don't show a clear effect for that variable.
+Finish by answering the trial's question with yes or no,
+and in which direction.
+:::
+
+*Your answer here.*

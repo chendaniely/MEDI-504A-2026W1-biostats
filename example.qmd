@@ -19,7 +19,7 @@ then render this file.
 
 ## Packages
 
-We load every package the report uses once, at the top:
+Load every package the report uses once, at the top:
 the tidyverse for data and charts,
 `tidymodels` for modelling,
 and `medicaldata` for example datasets.
@@ -33,7 +33,7 @@ library(medicaldata)
 
 ## A first look at the data
 
-`data/patients.csv` is a small practice dataset of 12 made-up patients,
+`data/patients.csv` is a small practice dataset of 12 synthetic patients,
 from
 [`ehsanx/HDSx-workspace`](https://github.com/ehsanx/HDSx-workspace/blob/7e3d2f65348f3ac689be41dfaefb7eaf1c04fb2a/data/patients.csv).
 The code chunk below reads it and shows the first few rows.

@@ -485,7 +485,8 @@ let's look at the variable we want to explain, the **outcome**.
 Which variable answers your trial's question?
 Plot its distribution,
 with a histogram if it's a number on a continuous scale,
-or a bar chart of counts if it's a category.
+or a bar chart of counts if it's a category,
+and give each axis a title.
 
 ::: {.callout-tip collapse="true"}
 ## Hint
@@ -600,7 +601,8 @@ Interpret at least two variables from your model in full sentences.
 For each one,
 say how big the effect is and in which direction,
 in the outcome's units (or as an odds ratio),
-along with its confidence interval.
+along with its confidence interval,
+when the other variables in your model stay the same.
 Then use your model to answer the trial's question.
 
 ::: {.callout-tip collapse="true"}
@@ -694,20 +696,20 @@ Your TA grades the results your code printed and your written answers,
 not how your code looks,
 so any code that gets to the right result is fine.
 
-| Item | Marks |
-|---|--:|
-| 1.1 Tidy the data | 15 |
-| 1.2 The summary table | 15 |
-| 1.2 Why not `sum()`? | 5 |
-| 1.3 A figure | 5 |
-| 1.4 What do you see? | 10 |
-| 2.1 Clean the variables you need | 10 |
-| 2.2 A plot of the outcome | 10 |
-| 2.3 Linear or logistic, and why | 5 |
-| 2.3 The fitted model | 10 |
-| 2.4 What does the model say? | 15 |
-| Working with the agent | not graded |
-| **Total** | **100** |
+| Item | What we look for | Marks |
+|---|---|--:|
+| 1.1 Tidy the data | One row per country per report, with the date (as a date), the country, the cases, and the deaths | 15 |
+| 1.2 The summary table | One row per country with its first and last report dates, cases, deaths, and case fatality ratio, sorted by cases, saying whether you used the last report or the largest count | 15 |
+| 1.2 Why not `sum()`? | Why summing the counts gives the wrong number | 5 |
+| 1.3 A figure | One figure, with the axes labelled with their units | 5 |
+| 1.4 What do you see? | What your table and figure show, a comparison of the case fatality ratios, and which ratios you'd trust the least and why | 10 |
+| 2.1 Clean the variables you need | Readable labels instead of codes, and the control group as the treatment's reference level | 10 |
+| 2.2 A plot of the outcome | A histogram or a bar chart of counts, whichever fits your outcome, with axis titles | 10 |
+| 2.3 Linear or logistic, and why | The right model for your outcome, with a reason | 5 |
+| 2.3 The fitted model | The treatment and at least one other variable, with confidence intervals from `tidy()` (odds ratios for a logistic regression) | 10 |
+| 2.4 What does the model say? | Two variables, each with its size, direction, and confidence interval, when the other variables stay the same, and an answer to the trial's question | 15 |
+| Working with the agent | | not graded |
+| **Total** | | **100** |
 
 ## If you get stuck
 

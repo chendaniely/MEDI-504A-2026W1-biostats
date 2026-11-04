@@ -4,6 +4,7 @@
 #   make setup    check R, install the R packages and the Quarto extensions
 #   make preview  preview the website locally, re-rendering as you edit
 #   make render   render the whole website into _site/
+#   make homework render homework.qmd on its own, as students do (make solution: the TA copy)
 #   make notes    generate class notes from session recordings (see README-prompt.md)
 #
 # R and Quarto themselves must already be installed (see setup-local.qmd).
@@ -12,7 +13,7 @@
 CRAN ?= https://cloud.r-project.org
 R_PACKAGES = tidyverse tidymodels medicaldata knitr rmarkdown
 
-.PHONY: help setup check-r packages extensions preview render clean
+.PHONY: help setup check-r packages extensions preview render homework solution clean
 
 help:  ## List the targets
 	@grep -E '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-18s %s\n", $$1, $$2}'
@@ -43,6 +44,16 @@ preview:  ## Preview the website locally, re-rendering as you edit
 
 render:  ## Render the whole website into _site/
 	quarto render
+
+# The homework and its solution are not website pages:
+# each renders on its own, the way students render the homework,
+# into an HTML file and a PDF next to it.
+homework:  ## Render homework.qmd on its own, as students do (HTML and PDF)
+	quarto render homework.qmd
+
+solution:  ## Render the TA solution on its own; it stops if an answer no longer checks out
+	@test -f homework_solution.qmd || { echo "homework_solution.qmd is instructor-only and is not in this repository"; exit 1; }
+	quarto render homework_solution.qmd
 
 clean:  ## Remove the rendered website (_site/) and Quarto's cache (.quarto/)
 	rm -rf _site .quarto

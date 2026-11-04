@@ -13,9 +13,7 @@ author: "Daniel Chen, PhD, MPH"
 
 - Today we'll go over tidy data,
   how to wrangle and visualize it,
-  and fit a first model
-- I'll be live coding,
-  so follow along or just watch
+  and fit a first model.
 - On Wednesday we'll have a hands-on lab with medical data,
   where you'll clean data
   and fit linear and logistic regression models
@@ -31,7 +29,7 @@ author: "Daniel Chen, PhD, MPH"
 ## Get your Codespace running
 
 Start your Codespace now,
-since the first start takes about 4 minutes.
+since the first start takes about 10 minutes.
 
 1. Go to the [Codespaces](/setup-codespaces.qmd) page
    and click **Open in GitHub Codespaces**
