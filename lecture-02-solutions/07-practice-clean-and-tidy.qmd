@@ -16,8 +16,8 @@ library(medicaldata)
 
 ## Exercise 1: Tumour growth over time
 
-**(1)** Column headers are values, not variable names:
-the headers `0` to `28` are values of a `day` variable.
+**(1)** The column headers `0` to `28` are values of a `day` variable,
+not variable names.
 
 ```{r}
 tumor <- read_csv("data/tumorgrowth_wide.csv")
@@ -60,8 +60,8 @@ opt |>
   nrow()
 ```
 
-**(2)** 0 rows:
-`"Live birth"` doesn't match `"Live birth          "`.
+**(2)** 0 rows,
+because `"Live birth"` doesn't match `"Live birth          "`.
 
 ```{r}
 opt_clean <- opt |>
@@ -80,8 +80,8 @@ opt_clean |>
   summarize(across(everything(), \(x) sum(is.na(x))))
 ```
 
-**(4)** Only `BMI` has missing values:
-`r sum(is.na(opt_clean$BMI))` of `r nrow(opt_clean)` live births.
+**(4)** Only `BMI` has missing values,
+in `r sum(is.na(opt_clean$BMI))` of the `r nrow(opt_clean)` live births.
 
 ## Exercise 3: Cytomegalovirus
 

@@ -9,8 +9,7 @@ render it,
 and hand it in on Canvas.
 The due date is on Canvas.
 
-If you want to read through the homework before you start,
-you can also
+To read through the homework before you start,
 [view `homework.qmd` on GitHub](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/homework.qmd).
 
 ## 1. Open your fork
@@ -34,8 +33,7 @@ To bring it up to date:
 ## 3. Open the homework file
 
 Open `homework.qmd`
+(not this website's own `homework-instructions.qmd` file next to it)
 and follow the instructions at the top of the file.
-Be careful to open `homework.qmd`,
-and not this website's own `homework-instructions.qmd` file next to it.
 Every question has a hint,
 and the hints are written so you can paste them into Copilot Chat as your prompt.

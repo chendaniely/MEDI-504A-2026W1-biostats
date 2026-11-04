@@ -2,9 +2,10 @@
 title: "Linear regression"
 ---
 
-**Question:** in the Obstetrics and Periodontal Therapy trial,
-did periodontal treatment during pregnancy change the baby's birth weight?
-([Michalowicz et al., 2006](https://doi.org/10.1056/NEJMoa062249))
+Let's ask whether periodontal treatment during pregnancy
+changed the baby's birth weight
+in the Obstetrics and Periodontal Therapy trial
+([Michalowicz et al., 2006](https://doi.org/10.1056/NEJMoa062249)).
 
 Birth weight is a quantitative outcome,
 so we use linear regression.
@@ -16,10 +17,9 @@ library(tidymodels)
 library(medicaldata)
 ```
 
-We'll start from `opt_clean`:
-live births only,
-with `Group` labelled `control` and `treatment`.
-The code below makes it.
+We'll start from `opt_clean`, made by the code below,
+which keeps only live births
+and labels `Group` as `control` and `treatment`.
 Cleaning `opt` like this is an exercise in
 [Extra practice: cleaning and tidying](07-practice-clean-and-tidy.qmd).
 
@@ -46,8 +46,8 @@ $$
 ## Your turn
 
 1. Before we model, let's look at the outcome.
-   Plot birth weight by group:
-   a box plot with the individual babies jittered on top.
+   Plot birth weight by group as a box plot,
+   with the individual babies jittered on top.
    Do the groups look different?
 2. Fit the model with `linear_reg()`,
    and show the coefficients with 95% confidence intervals.

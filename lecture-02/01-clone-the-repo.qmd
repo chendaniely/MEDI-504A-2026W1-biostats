@@ -59,8 +59,8 @@ If it renders, everything you need for today is installed.
 ## Where things are
 
 - `data/`: the data files for today
-- `lecture-02/`: one file per section of today's lab;
-  open each `.qmd` and work through it.
+- `lecture-02/`: one `.qmd` file per section of today's lab,
+  for you to open and work through.
   The files that start with `07` to `09` are extra practice for after class.
 - `homework.qmd`: the homework
   (the [Homework](../homework-instructions.qmd) page explains it)
@@ -80,7 +80,10 @@ Positron and Codespaces run code from the top folder already.
 
 ## Save your work
 
-Commit and push to your fork as you go:
-in the **Source Control** panel (Positron, Codespaces)
-or the **Git** pane (RStudio),
-stage your changes, write a message, commit, then push.
+Commit and push to your fork as you go.
+In the **Source Control** panel (Positron, Codespaces)
+or the **Git** pane (RStudio):
+
+1. Stage your changes.
+2. Write a message and commit.
+3. Push.

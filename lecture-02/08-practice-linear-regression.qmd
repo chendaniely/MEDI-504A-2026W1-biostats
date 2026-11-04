@@ -15,10 +15,9 @@ library(tidymodels)
 library(medicaldata)
 ```
 
-They start from the lab's `opt_clean` data
-and its model of birth weight on group, `bw_fit`.
-The code below makes both again,
-so this page works on its own.
+The exercises start from the lab's `opt_clean` data
+and `bw_fit`, its model of birth weight on group.
+We make both again below so this page works on its own.
 
 ```{r}
 opt_clean <- opt |>
@@ -54,7 +53,7 @@ t.test(Birthweight ~ Group, data = opt_clean, var.equal = TRUE)
 ::: {.callout-note}
 ## Your turn
 
-1. Fit a model that also includes the mother's `Age`, `BMI`
+1. Fit a model that also includes the mother's `Age`, `BMI`,
    and the `Clinic` she enrolled at.
 2. Use `glance()` to find how many rows the model used (`nobs`).
    Why is it fewer than the rows in `opt_clean`?
@@ -100,7 +99,7 @@ The trial's main outcome was gestational age at birth
 ## Your turn
 
 Fit a linear regression of gestational age on `Group`,
-then adjust for `Age`, `BMI` and `Clinic`.
+then adjust for `Age`, `BMI`, and `Clinic`.
 Did the treatment change gestational age?
 :::
 

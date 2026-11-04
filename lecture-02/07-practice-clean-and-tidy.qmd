@@ -20,17 +20,20 @@ This exercise follows the
 [tidy data chapter](https://ds4biomed.tech/clean-data-tidy.html)
 of *Data Science for the Biomedical Sciences*.
 Mice with a human glioma xenograft were assigned to one of 4 groups:
-control (`1.CTR`), drug (`2.D`), radiation (`3.R`),
-or drug and radiation (`4.D+R`).
+
+- control (`1.CTR`)
+- drug (`2.D`)
+- radiation (`3.R`)
+- drug and radiation (`4.D+R`)
+
 Tumour size (mm³) was measured over 28 days.
 
-`data/tumorgrowth_wide.csv` is ds4biomed's
-`data/tumorgrowth_long.csv`
+`data/tumorgrowth_wide.csv` is a version of the `tumorgrowth` data
+from the [`medicaldata`](https://github.com/higgi13425/medicaldata) GitHub repository.
+It's ds4biomed's `data/tumorgrowth_long.csv`
 ([`chendaniely/ds4biomed`](https://github.com/chendaniely/ds4biomed/tree/learner/data),
 `learner` branch),
-renamed because it's in wide format:
-a version of the `tumorgrowth` data
-from the [`medicaldata`](https://github.com/higgi13425/medicaldata) GitHub repository.
+which we renamed because it's in wide format.
 
 ```{r}
 tumor <- read_csv("data/tumorgrowth_wide.csv")
@@ -88,11 +91,12 @@ opt |>
 2. How many rows does `filter(opt, Birth.outcome == "Live birth")` return?
    Why?
 3. Make `opt_clean`:
-   trim the spaces from `Birth.outcome` with `str_trim()`,
-   keep live births only,
-   relabel `Group` as `control` and `treatment`,
-   and keep `PID`, `Clinic`, `Group`, `Age`, `BMI`,
-   `Birthweight` and `GA.at.outcome`.
+
+   - trim the spaces from `Birth.outcome` with `str_trim()`
+   - keep live births only
+   - relabel `Group` as `control` and `treatment`
+   - keep `PID`, `Clinic`, `Group`, `Age`, `BMI`,
+     `Birthweight`, and `GA.at.outcome`
 4. How many values are missing in each column of `opt_clean`?
 
 ```{r}
@@ -118,14 +122,17 @@ This is the `opt_clean` that [Linear regression](04-linear-regression.qmd) start
 `cytomegalovirus` (from `medicaldata`) follows 64 patients
 after a stem cell transplant
 ([Sobecks et al., 2011](https://higgi13425.github.io/medicaldata/reference/cytomegalovirus.html)).
-`cmv` is whether CMV reactivated (0 = no, 1 = yes),
-and `recipient.cmv` and `donor.cmv` are the CMV serostatus
-of the patient and the donor (0 = negative, 1 = positive).
+Here are the columns we'll recode.
+
+- `cmv`: whether CMV reactivated (0 = no, 1 = yes)
+- `recipient.cmv`: the patient's CMV serostatus (0 = negative, 1 = positive)
+- `donor.cmv`: the donor's CMV serostatus (0 = negative, 1 = positive)
 
 ::: {.callout-note}
 ## Your turn
 
-1. Make `cmv`: recode `cmv` as a factor with labels `no` and `yes`,
+1. Make a data frame called `cmv`.
+   Recode the `cmv` column as a factor with labels `no` and `yes`,
    and `recipient.cmv` and `donor.cmv` as factors
    with labels `negative` and `positive`.
 2. How many values are missing in `time.to.transplant`?

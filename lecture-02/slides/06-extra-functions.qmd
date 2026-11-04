@@ -27,9 +27,8 @@ and hand it in.
 
 ## The functions we haven't used yet
 
-The homework uses a few functions we didn't get to in the lectures.
-Each of the next slides shows one of them on the penguins,
-the same data we used in Lecture 1's
+The next slides show each one on the penguins,
+the data we used in Lecture 1's
 [Wrangling and visualizing](/lecture-01/03-wrangle-visualize.qmd).
 
 ```{r}

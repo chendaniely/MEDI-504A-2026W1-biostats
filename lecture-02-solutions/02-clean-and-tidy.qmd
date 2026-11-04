@@ -43,7 +43,7 @@ gums_summary <- gums_tidy |>
 gums_summary
 ```
 
-**(c)** The treatment group's gums got better.
+**(3)** The treatment group's gums got better.
 Its mean pocket depth fell from 2.90 mm at baseline to 2.45 mm at visit 5,
 and its gingival index fell from 1.45 to 1.15,
 while the control group stayed about the same.

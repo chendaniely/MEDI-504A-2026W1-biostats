@@ -10,18 +10,16 @@ format:
 ## Welcome to your practice report
 
 This is a **Quarto** document.
-It mixes ordinary writing with live code,
-so your report and your analysis always stay in sync.
+It mixes prose text with R code and output.
 When you render it,
 Quarto runs the code below and builds a finished HTML page.
 
-Try it now:
-change `author: "Your Name"` in the header above to your own name,
+Change `author: "Your Name"` in the header above to your own name,
 then render this file.
 
 ## Packages
 
-Every package this report uses, loaded once at the top:
+We load every package the report uses once, at the top:
 the tidyverse for data and charts,
 `tidymodels` for modelling,
 and `medicaldata` for example datasets.
@@ -35,9 +33,9 @@ library(medicaldata)
 
 ## A first look at the data
 
-`data/patients.csv` is a small, made-up practice dataset of 12 synthetic patients,
-It comes from
-[`ehsanx/HDSx-workspace`](https://github.com/ehsanx/HDSx-workspace/blob/7e3d2f65348f3ac689be41dfaefb7eaf1c04fb2a/data/patients.csv),
+`data/patients.csv` is a small practice dataset of 12 made-up patients,
+from
+[`ehsanx/HDSx-workspace`](https://github.com/ehsanx/HDSx-workspace/blob/7e3d2f65348f3ac689be41dfaefb7eaf1c04fb2a/data/patients.csv).
 The code chunk below reads it and shows the first few rows.
 
 ```{r}
@@ -70,8 +68,8 @@ each described on the
 
 ::: {.callout-note}
 The website also lists a few newer datasets
-that the installed version (0.2.0, from CRAN) doesn't have yet:
-run `data(package = "medicaldata")` to see the ones you can load.
+that the installed version (0.2.0, from CRAN) doesn't have yet.
+Run `data(package = "medicaldata")` to see the ones you can load.
 
 To get the newer datasets too,
 install the development version from GitHub in the R terminal,
@@ -93,10 +91,10 @@ ggplot(covid_testing, aes(x = age)) +
 
 ## A quick model
 
-`licorice_gargle` comes from a randomised trial (Ruetzler et al., 2013):
-before surgery, patients gargled either licorice or sugar water,
+`licorice_gargle` comes from a randomised trial (Ruetzler et al., 2013)
+where patients gargled either licorice or sugar water before surgery
 and were asked about sore throat afterwards.
-A logistic regression compares the odds of a sore throat
+We fit a logistic regression to compare the odds of a sore throat
 30 minutes after surgery.
 An odds ratio below 1 means fewer sore throats with licorice.
 
@@ -116,5 +114,5 @@ logistic_reg() |>
 
 ## Your turn
 
-- Add a sentence here describing what you notice in the charts.
-- Render again and check that both your sentence and the charts appear.
+1. Add a sentence here describing what you notice in the charts.
+2. Render again and check that your sentence and the charts appear.

@@ -35,7 +35,7 @@ ggplot(blood, aes(x = rbc_age_group, fill = recurrence)) +
        fill = "Recurrence")
 ```
 
-**(1)** About 17–18% of men had a recurrence in every group.
+**(1)** About 16–18% of men had a recurrence in every group.
 
 ```{r}
 rec_fit <- logistic_reg() |>
@@ -45,11 +45,11 @@ rec_tidy <- tidy(rec_fit, exponentiate = TRUE, conf.int = TRUE)
 rec_tidy
 ```
 
-Compared with `younger` blood,
+**(4)** Compared with `younger` blood,
 the odds of recurrence are
 `r round(rec_tidy$estimate[2], 2)` times as high with `middle` blood
 (95% CI `r round(rec_tidy$conf.low[2], 2)` to `r round(rec_tidy$conf.high[2], 2)`)
 and `r round(rec_tidy$estimate[3], 2)` times as high with `older` blood
 (95% CI `r round(rec_tidy$conf.low[3], 2)` to `r round(rec_tidy$conf.high[3], 2)`).
-Both intervals include 1:
-no evidence that older stored blood is associated with recurrence.
+Both intervals include 1,
+so we have no evidence that older stored blood is associated with recurrence.

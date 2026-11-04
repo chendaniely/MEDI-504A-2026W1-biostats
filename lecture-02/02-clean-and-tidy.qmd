@@ -2,12 +2,12 @@
 title: "Cleaning and tidying medical data"
 ---
 
-Before you can model data, it has to be tidy and clean:
+Before we can model data, it has to be "tidy" and "clean":
 one row per observation,
 one column per variable,
-and values coded the way you'll analyze them.
-In class, we'll do one exercise that reshapes data into a tidy shape,
-and one that recodes numbers into categories we can read.
+and values coded the way we'll analyze them.
+In class, we'll reshape data into a tidy shape,
+then recode numbers into categories we can read.
 For more practice,
 see [Extra practice: cleaning and tidying](07-practice-clean-and-tidy.qmd).
 
@@ -19,14 +19,15 @@ library(medicaldata)
 
 ## Exercise 1: Gum health over the trial's visits
 
-`opt` (from `medicaldata`) is the Obstetrics and Periodontal Therapy trial:
-pregnant women with periodontal disease were randomized
+`opt` (from `medicaldata`) is the Obstetrics and Periodontal Therapy trial,
+which randomized pregnant women with periodontal disease
 to periodontal treatment (`T`) or control (`C`)
 ([Michalowicz et al., 2006](https://doi.org/10.1056/NEJMoa062249)).
 Their gums were examined at baseline (`BL`), visit 3 (`V3`), and visit 5 (`V5`).
 We'll look at two of the measures:
-the gingival index (`GE`, where higher means more inflamed gums)
-and the average pocket depth in millimetres (`PD.avg`).
+
+- `GE`, the gingival index, where higher means more inflamed gums
+- `PD.avg`, the average pocket depth in millimetres
 
 Every dataset in `medicaldata` is a base R data frame, not a tibble,
 so printing one prints every row.
@@ -102,10 +103,10 @@ blood_storage |>
 ::: {.callout-note}
 ## Your turn
 
-Make `blood`:
-add `recurrence`, a factor with labels `no` and `yes`,
-and `rbc_age_group`, a factor with labels `younger`, `middle` and `older`.
-Then count `rbc_age_group` by `recurrence`.
+1. Make `blood` by adding two factors to `blood_storage`:
+   `recurrence`, with labels `no` and `yes`,
+   and `rbc_age_group`, with labels `younger`, `middle`, and `older`.
+2. Count `rbc_age_group` by `recurrence`.
 
 ```{r}
 #| eval: false

@@ -1,9 +1,8 @@
 # MEDI 504A — Biostatistics with Tidyverse
 
 UBC MEDI 504A (Emerging Topics in Experimental Medicine), Winter 2026 term.
-Two sessions:
-tidy data as the foundation,
-then linear and logistic regression on medical data.
+Over two sessions, we start with tidy data,
+then fit linear and logistic regression models on medical data.
 
 Course website: <https://chendaniely.github.io/MEDI-504A-2026W1-biostats/>
 
@@ -55,8 +54,8 @@ and installed or updated by `make extensions`:
 - [`coatless-quarto/embedio`](https://github.com/coatless-quarto/embedio):
   embeds each slide deck at the top of its page.
 - [`mcanouil/quarto-revealjs-a11y`](https://github.com/mcanouil/quarto-revealjs-a11y)
-  (0.1.1): accessibility for the slides;
-  `+` and `-` change the font size and `0` resets it.
+  (0.1.1): accessibility for the slides.
+  `+` and `-` change the font size, and `0` resets it.
 - [`quarto-ext/pointer`](https://github.com/quarto-ext/pointer):
   a laser pointer on the slides (press `q`).
 - [`mcanouil/quarto-revealjs-cascade`](https://github.com/mcanouil/quarto-revealjs-cascade)
@@ -70,12 +69,12 @@ and installed or updated by `make extensions`:
 - [`UBC-MDS/ubc-quarto-brand`](https://github.com/UBC-MDS/ubc-quarto-brand)
   (`main` at `903cdaa`, before its first release):
   the UBC colours, fonts, and light and dark modes, through `format: ubc-html`.
-  The MDS logo it ships is deleted, since this is a different course;
-  `make extensions` deletes it again after each update.
+  We delete the MDS logo it ships, since this is a different course,
+  and `make extensions` deletes it again after each update.
 
 ## Licence
 
-The prose (lecture text, slides, exercises and the website)
+The prose (lecture text, slides, exercises, and the website)
 is licensed under [CC BY-NC-SA 4.0](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/LICENSE-CONTENT.md),
 and the code under the [MIT licence](https://github.com/chendaniely/MEDI-504A-2026W1-biostats/blob/main/LICENSE),
 matching *Data Science: A First Introduction*,

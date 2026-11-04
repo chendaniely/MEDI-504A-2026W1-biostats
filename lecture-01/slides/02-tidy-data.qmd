@@ -26,7 +26,8 @@ from the [Openscapes blog](https://www.openscapes.org/blog/2020/10/12/tidy-data/
 
 ## The original definition (2014)
 
-The original *Tidy Data* paper from 2014 defines it a little differently:
+The [*Tidy Data* paper](https://vita.had.co.nz/papers/tidy-data.pdf)
+defines it a little differently:
 
 1. Each variable forms a column
 2. Each observation forms a row
@@ -35,8 +36,8 @@ The original *Tidy Data* paper from 2014 defines it a little differently:
 The third rule is really about databases,
 where data is split into separate tables and joined back together.
 The newer definition replaces it with "each value is a cell".
-We'll come back to observational units in Lecture 2,
-in the [Observational units](/lecture-02/03-observational-units.qmd) section.
+We'll come back to observational units in Lecture 2's
+[Observational units](/lecture-02/03-observational-units.qmd) section.
 
 ## Tidy or not? (1 of 4)
 
@@ -111,7 +112,7 @@ Illustration by Julia Lowndes and Allison Horst (CC BY 4.0).
 
 ## Five ways data gets messy
 
-The *Tidy Data* paper lists five common ways data gets messy:
+From the [*Tidy Data* paper](https://vita.had.co.nz/papers/tidy-data.pdf):
 
 1. Column headers are values, not variable names
 2. Multiple variables are stored in one column
@@ -256,11 +257,12 @@ weather_tidy
 - `pew.csv`, `billboard.csv`, `weather.csv`:
   the tidy data paper's examples,
   via [`chendaniely/pandas_for_everyone`](https://github.com/chendaniely/pandas_for_everyone)
-  and [`hadley/tidy-data`](https://github.com/hadley/tidy-data).
-- `who2`: from tidyr, loaded with the tidyverse.
+  and [`hadley/tidy-data`](https://github.com/hadley/tidy-data)
+- `who2`: from tidyr, loaded with the tidyverse
 - Wickham, H. (2014). Tidy Data.
   *Journal of Statistical Software*, 59(10).
   <https://doi.org/10.18637/jss.v059.i10>
+  (PDF: <https://vita.had.co.nz/papers/tidy-data.pdf>)
 - The tidy-or-not quiz is adapted from
   [*Data Science: A First Introduction*](https://datasciencebook.ca/)
-  (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).
+  (Timbers, Campbell, and Lee; CC BY-NC-SA 4.0)

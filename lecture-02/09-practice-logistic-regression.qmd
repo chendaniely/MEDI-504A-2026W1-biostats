@@ -15,11 +15,10 @@ library(tidymodels)
 library(medicaldata)
 ```
 
-They start from the lab's `blood` data,
-and the last exercise uses `cmv`,
+The exercises start from the lab's `blood` data.
+The last exercise uses `cmv`
 from [Extra practice: cleaning and tidying](07-practice-clean-and-tidy.qmd).
-The code below makes both again,
-so this page works on its own.
+We make both again below so this page works on its own.
 
 ```{r}
 blood <- blood_storage |>
@@ -41,15 +40,16 @@ cmv <- cytomegalovirus |>
 
 ## Exercise 1: Adjust for other risk factors
 
-ds4biomed's model 3 adds age,
-prostate volume (`PVol`),
-preoperative PSA (`PreopPSA`, ng/mL)
-and tumour volume (`TVol`, coded 1 to 3).
+ds4biomed's model 3 adds `Age` and three more variables.
+
+- `PVol`: prostate volume
+- `PreopPSA`: preoperative PSA (ng/mL)
+- `TVol`: tumour volume, coded 1 to 3
 
 ::: {.callout-note}
 ## Your turn
 
-1. Add `Age`, `PVol`, `PreopPSA` and `factor(TVol)`
+1. Add `Age`, `PVol`, `PreopPSA`, and `factor(TVol)`
    to the lab's model of `recurrence` on `rbc_age_group`.
 2. Does storage age now show an association?
 3. Interpret the odds ratio for `PreopPSA`.
@@ -118,7 +118,7 @@ This is the exercise from ds4biomed's
 Start from `cmv`, made at the top of this page.
 
 1. Fit a logistic regression of `cmv` on `donor.cmv`,
-   `recipient.cmv` and `time.to.transplant`.
+   `recipient.cmv`, and `time.to.transplant`.
 2. Report the odds ratios with 95% confidence intervals.
    Which predictor is associated with CMV reactivation?
 :::

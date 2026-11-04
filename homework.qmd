@@ -13,13 +13,14 @@ reshaped it,
 summarized it,
 and then used it to fit linear and logistic regressions.
 In this homework,
-you'll go through these steps yourself on new data.
-In Part 1,
-we'll tidy and summarize the Ebola case counts
-from the 2014–2015 West Africa outbreak.
-In Part 2,
-you'll pick a clinical trial
-and use a model to answer the question it asks.
+you'll do the same on new data.
+
+- In Part 1,
+  we'll tidy and summarize the Ebola case counts
+  from the 2014–2015 West Africa outbreak.
+- In Part 2,
+  you'll pick a clinical trial
+  and use a model to answer its question.
 
 Write your code in the empty code chunks
 (the blocks that start with `{r}`),
@@ -50,13 +51,17 @@ In the rendered HTML,
 you can click on a hint to open it.
 
 Each hint says what the code needs to do, one step at a time.
-You're welcome to use GitHub Copilot in your Codespace for the homework,
-and the hints are written so you can use them as your prompt for Copilot Chat.
+Every function it mentions links to its documentation page,
+which says what the function does and has a few examples.
+Some hints also link to the lecture slides where we did the same thing.
+
+You're welcome to use GitHub Copilot in your Codespace,
+and the hints are written so you can paste them into Copilot Chat as your prompt.
 The [HDSx setup page](https://ehsanx.github.io/HDSx/weeks/week03-r-with-ai/r01-setup.html)
 shows how to use it.
 If you work on your own computer without Copilot,
 follow the hint's steps yourself,
-using the links to each function's documentation.
+using the documentation links.
 
 With Copilot, for each code chunk:
 
@@ -71,12 +76,8 @@ With Copilot, for each code chunk:
 
 Copilot can explain code as well as write it,
 so ask it about any line you don't understand.
-You'll be explaining your results in your own words,
+You'll explain your results in your own words,
 so you need to know what your code did.
-
-Every function a hint mentions links to its documentation page,
-where you'll find what the function does and a few examples.
-Some hints also link to the slides where we did the same thing in the lectures.
 
 At the end of each code chunk,
 put the name of the data frame you made on a line by itself,
@@ -84,13 +85,14 @@ for example `ebola_tidy`.
 This prints the data frame when you render,
 so your TA can grade it
 and you can compare it with the hint.
-The datasets from `medicaldata` are base R data frames, not tibbles,
-so printing one prints every row.
-For those, end the chunk with
-[`head()`](https://search.r-project.org/R/refmans/utils/html/head.html)
-instead, for example `head(trial)`,
-which prints the first 6 rows.
-For a figure, end the chunk with the plot.
+
+- The datasets from `medicaldata` are base R data frames, not tibbles,
+  so printing one prints every row.
+  For those, end the chunk with
+  [`head()`](https://search.r-project.org/R/refmans/utils/html/head.html)
+  instead, for example `head(trial)`,
+  which prints the first 6 rows.
+- For a figure, end the chunk with the plot.
 
 The packages we need are already loaded in the chunk below.
 If Copilot adds `library()` lines to its code,
@@ -126,8 +128,8 @@ This is the same problem as the `who2` data from Lecture 1.
 Make a new data frame, `ebola_tidy`,
 with one row for each country in each report,
 and a column each for the date, the country, the cases, and the deaths.
-This will take a `pivot_longer()` that splits the column names,
-and then a `pivot_wider()`.
+You'll need a `pivot_longer()` that splits the column names,
+then a `pivot_wider()`.
 The `Date` column is text,
 so we'll also turn it into a real date with `mdy()`.
 
@@ -185,15 +187,17 @@ The counts are **cumulative**.
 Each report gives the total number of cases so far,
 not the new cases since the last report.
 
-Make a table with one row for each country.
-It should have the date of the country's first and last report,
-its number of cases and deaths,
-and its case fatality ratio (the deaths divided by the cases).
+Make a table with one row for each country and these columns:
+
+- the date of its first and last report
+- its number of cases and deaths
+- its case fatality ratio (the deaths divided by the cases)
+
 Sort the table from the most cases to the fewest.
 
 A few counts go down from one report to the next,
 because a later report corrected an earlier one.
-That means you can use either the last report or the largest count,
+So you can use either the last report or the largest count,
 as long as you say which one you used.
 
 ::: {.callout-tip collapse="true"}
@@ -341,7 +345,7 @@ but write the answer in your own words.
 
 For Part 2,
 pick one of these three clinical trials.
-Each one comes with a question for you to answer with a model.
+Each one comes with a question to answer with a model.
 Before you start,
 read the trial's page on the medicaldata website
 to see what each variable means and how it's coded.
@@ -383,9 +387,11 @@ Like a lot of the data we get,
 these trials store some of their categories as codes.
 Recode the outcome, the treatment,
 and any other variables you plan to use.
-Numbers that stand for categories, like `0` and `1`,
-should become factors with readable labels,
-and labels like `1_yes` or `2_male` should become `yes` and `male`.
+
+- Numbers that stand for categories, like `0` and `1`,
+  should become factors with readable labels.
+- Labels like `1_yes` or `2_male` should become `yes` and `male`.
+
 Then check the **reference level** of each factor,
 the level that the other levels get compared to.
 For the treatment,
@@ -397,16 +403,17 @@ the reference level should be the control group.
 A **factor** is how R stores a categorical variable.
 Recode your variables the same way as the lab's
 [Coded variables exercise](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/02-clean-and-tidy.html#exercise-2-coded-variables).
-Use [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
-with [`factor(column, levels = ..., labels = ...)`](https://search.r-project.org/R/refmans/base/html/factor.html)
-to turn coded values into categories with readable names.
-The first level you list becomes the reference level,
-so list the control group first.
-Then use [`select()`](https://dplyr.tidyverse.org/reference/select.html)
-to keep only the columns you need,
-and [`drop_na()`](https://tidyr.tidyverse.org/reference/drop_na.html)
-to drop the rows with missing values in them.
-Save the result as `trial`.
+
+1. Use [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
+   with [`factor(column, levels = ..., labels = ...)`](https://search.r-project.org/R/refmans/base/html/factor.html)
+   to turn coded values into categories with readable names.
+   The first level you list becomes the reference level,
+   so list the control group first.
+2. Use [`select()`](https://dplyr.tidyverse.org/reference/select.html)
+   to keep only the columns you need.
+3. Use [`drop_na()`](https://tidyr.tidyverse.org/reference/drop_na.html)
+   to drop the rows with missing values.
+4. Save the result as `trial`.
 
 Here's what to recode in each trial (its page has the details):
 
@@ -480,7 +487,8 @@ you can also add `fill = ` and the treatment column inside `aes()`.
 Add [`labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
 to give each axis a title.
 
-A histogram shows how the values are spread out,
+When it works,
+a histogram shows how the values are spread out,
 and a bar chart shows one bar for each category.
 :::
 
@@ -538,6 +546,8 @@ Use your own column names in place of `outcome` and `treatment`.
    or a [logistic](https://broom.tidymodels.org/reference/tidy.glm.html) model).
    For a logistic regression, add `exponentiate = TRUE`
    to turn the estimates into odds ratios.
+   Make the `tidy()` line the last line of the chunk,
+   so its table prints.
 
 If an estimate is huge (with an `e+` in it, like `4.6e+07`)
 or a confidence limit is `NA`,
@@ -549,9 +559,6 @@ or combine its levels with
 [`fct_collapse()`](https://forcats.tidyverse.org/reference/fct_collapse.html)
 (see Lecture 2's Extra functions slide
 [`fct_relevel()` and `fct_collapse()`](https://chendaniely.github.io/MEDI-504A-2026W1-biostats/lecture-02/06-extra-functions.html#fct_relevel-and-fct_collapse)).
-
-Make the `tidy()` line the last line of the chunk,
-so its table prints.
 
 When it works,
 `tidy()` gives one row for the intercept and one for each variable,
@@ -576,12 +583,14 @@ Then use your model to answer the trial's question.
 ## Hint
 
 Each row of your `tidy()` output after the intercept is one variable.
-For a category,
-the estimate compares that group with the reference level
-(the control group, for the treatment).
-For a number,
-the estimate is the change for every 1 unit increase,
-such as one more year of age.
+
+- For a category,
+  the estimate compares that group with the reference level
+  (the control group, for the treatment).
+- For a number,
+  the estimate is the change for every 1 unit increase,
+  such as one more year of age.
+
 As in Lecture 1,
 each estimate is the change for one variable
 when the other variables stay the same

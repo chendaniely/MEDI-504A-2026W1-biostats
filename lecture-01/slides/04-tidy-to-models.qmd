@@ -29,12 +29,12 @@ On Wednesday we'll fit linear and logistic regressions on medical data.
 A model formula like `price ~ sqft` expects the data to have
 one row per observation (each house sale)
 and one column per variable (the price and the size),
-which is exactly what tidy data gives us.
+which is what tidy data gives us.
 
 ## Sacramento house sales
 
-This is a dataset of house sales in Sacramento, California.
-It comes with tidymodels, in the modeldata package.
+These are house sales in Sacramento, California,
+from the modeldata package that comes with tidymodels.
 
 ```{r}
 Sacramento
@@ -123,7 +123,7 @@ For the logistic regression we'll report odds ratios.
 
 ## Data and credits
 
-- `Sacramento`: from modeldata, loaded with tidymodels.
+- `Sacramento`: from modeldata, loaded with tidymodels
 - Adapted from chapter 8 of
   [*Data Science: A First Introduction*](https://datasciencebook.ca/)
-  (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).
+  (Timbers, Campbell, and Lee; CC BY-NC-SA 4.0)

@@ -4,7 +4,7 @@ title: "Local setup"
 
 You can follow along in a [Codespace](setup-codespaces.qmd)
 with nothing to install,
-and the Codespace is where you can use GitHub Copilot for the homework.
+and it's where you can use GitHub Copilot for the homework.
 To work on your own computer instead,
 install everything below before Lecture 2.
 None of it needs AI tools.

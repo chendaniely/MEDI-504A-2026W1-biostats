@@ -13,25 +13,25 @@ author: "Daniel Chen, PhD, MPH"
 
 - Today we'll go over tidy data,
   how to wrangle and visualize it,
-  and fit a first model.
-  I'll be live coding,
-  so feel free to follow along or just watch.
+  and fit a first model
+- I'll be live coding,
+  so follow along or just watch
 - On Wednesday we'll have a hands-on lab with medical data,
   where you'll clean data
-  and fit linear and logistic regression models.
+  and fit linear and logistic regression models
 
 ## How these pages work
 
 - Each section of the course website has the slides at the top
-  and the slide contents written out below,
-  so you can scroll and copy code without clicking through the slides.
+  and their contents written out below,
+  so you can scroll and copy code without clicking through slides
 - Course website:
   <https://chendaniely.github.io/MEDI-504A-2026W1-biostats/>
 
 ## Get your Codespace running
 
 Start your Codespace now,
-since it takes about 4 minutes to start up the first time.
+since the first start takes about 4 minutes.
 
 1. Go to the [Codespaces](/setup-codespaces.qmd) page
    and click **Open in GitHub Codespaces**
@@ -52,7 +52,7 @@ and get a first look at "visualize" and "model".
 
 ::: {.aside}
 Diagram from *R for Data Science* (2e),
-Wickham, Çetinkaya-Rundel and Grolemund.
+Wickham, Çetinkaya-Rundel, and Grolemund.
 :::
 
 ## References

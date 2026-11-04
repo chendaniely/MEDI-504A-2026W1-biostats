@@ -2,19 +2,14 @@
 title: "Logistic regression"
 ---
 
-**Question:** among men who received blood transfusions
-during radical prostatectomy,
-is the storage age of the transfused red blood cells
-associated with prostate cancer recurrence?
-([Cata et al., 2011](https://higgi13425.github.io/medicaldata/reference/blood_storage.html))
+Let's ask whether the storage age of transfused red blood cells
+is associated with prostate cancer recurrence
+in men who received blood transfusions during radical prostatectomy
+([Cata et al., 2011](https://higgi13425.github.io/medicaldata/reference/blood_storage.html)).
 
 Recurrence is a yes/no outcome,
 so we use logistic regression
 and report odds ratios.
-This section follows the
-[analysis](https://ds4biomed.tech/analysis-intro.html) and
-[tidymodels](https://ds4biomed.tech/machine-learning-tidymodels.html) chapters
-of *Data Science for the Biomedical Sciences*.
 
 ```{r}
 #| message: false
@@ -84,5 +79,7 @@ see [Extra practice: logistic regression](09-practice-logistic-regression.qmd).
 
 - `blood_storage` from
   [`medicaldata`](https://higgi13425.github.io/medicaldata/) (Higgins).
-- Adapted from the analysis and tidymodels chapters of
+- Adapted from the
+  [analysis](https://ds4biomed.tech/analysis-intro.html) and
+  [tidymodels](https://ds4biomed.tech/machine-learning-tidymodels.html) chapters of
   [*Data Science for the Biomedical Sciences*](https://ds4biomed.tech/).

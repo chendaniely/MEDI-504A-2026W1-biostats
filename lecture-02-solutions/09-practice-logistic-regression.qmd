@@ -15,7 +15,7 @@ library(tidymodels)
 library(medicaldata)
 ```
 
-`blood` and `cmv`, made at the top of the exercise page:
+We make `blood` and `cmv` the same way as the exercise page.
 
 ```{r}
 blood <- blood_storage |>
@@ -51,16 +51,21 @@ blood |>
   summarize(across(c(Age, PVol, PreopPSA, TVol), \(x) sum(is.na(x))))
 ```
 
-- `glm()` drops rows with missing `PVol`, `PreopPSA` or `TVol`.
-- Storage age still shows no association.
-- Each 1 ng/mL of preoperative PSA multiplies the odds of recurrence by
-  `r round(rec_or$estimate[rec_or$term == "PreopPSA"], 2)`
-  (95% CI `r round(rec_or$conf.low[rec_or$term == "PreopPSA"], 2)`
-  to `r round(rec_or$conf.high[rec_or$term == "PreopPSA"], 2)`).
-- Larger tumour volumes (`TVol` 2 and 3, compared with 1)
-  have much higher odds of recurrence,
-  but very wide confidence intervals:
-  few men in the lowest tumour-volume group had a recurrence.
+`glm()` drops rows with missing `PVol`, `PreopPSA`, or `TVol`.
+
+**(2)** Storage age still shows no association.
+
+**(3)** For every 1 ng/mL increase in preoperative PSA,
+the odds of recurrence are multiplied by
+`r round(rec_or$estimate[rec_or$term == "PreopPSA"], 2)`
+(95% CI `r round(rec_or$conf.low[rec_or$term == "PreopPSA"], 2)`
+to `r round(rec_or$conf.high[rec_or$term == "PreopPSA"], 2)`),
+when the other variables stay the same.
+
+**(4)** Larger tumour volumes (`TVol` 2 and 3, compared with 1)
+have much higher odds of recurrence,
+but very wide confidence intervals,
+because few men in the lowest tumour-volume group had a recurrence.
 
 ```{r}
 blood |>
@@ -91,8 +96,8 @@ logistic_reg() |>
   tidy(exponentiate = TRUE, conf.int = TRUE)
 ```
 
-The same odds ratios:
-`logistic_reg()` uses `glm()` underneath.
+The odds ratios are the same,
+because `logistic_reg()` uses `glm()` underneath.
 
 ## Exercise 4: What does this model ignore?
 
@@ -101,8 +106,8 @@ The men were followed for different lengths of time
 (`TimeToRecurrence`),
 and some left the study before a recurrence could be seen
 (`Censor`).
-Logistic regression only asks *whether* recurrence happened;
-survival analysis, as the original study used,
+Logistic regression only asks *whether* recurrence happened.
+Survival analysis, which the original study used,
 also models *when*.
 
 ## Exercise 5: Cytomegalovirus
@@ -115,8 +120,10 @@ cmv_or <- tidy(cmv_fit, exponentiate = TRUE, conf.int = TRUE)
 cmv_or
 ```
 
-A CMV-positive recipient has
+Compared with a CMV-negative recipient,
+a CMV-positive recipient has
 `r round(cmv_or$estimate[cmv_or$term == "recipient.cmvpositive"], 1)` times the odds of reactivation
 (95% CI `r round(cmv_or$conf.low[cmv_or$term == "recipient.cmvpositive"], 1)`
-to `r round(cmv_or$conf.high[cmv_or$term == "recipient.cmvpositive"], 1)`).
+to `r round(cmv_or$conf.high[cmv_or$term == "recipient.cmvpositive"], 1)`),
+when donor status and time to transplant stay the same.
 With only 64 patients, every interval is wide.

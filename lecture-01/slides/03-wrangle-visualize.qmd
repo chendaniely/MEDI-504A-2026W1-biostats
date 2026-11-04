@@ -13,9 +13,9 @@ library(tidyverse)
 
 ![](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_wrangling.png){fig-alt="Cartoon of fuzzy monsters wrangling data with dplyr." width="55%"}
 
-Data we get in the real world is usually messy.
-Once we have it in a tidy shape,
-there are only a few dplyr functions we need for most of our work.
+Real-world data is usually messy.
+Once it's in a tidy "shape",
+we only need a few dplyr functions for most of our work.
 
 ::: {.aside}
 Artwork by Allison Horst (CC BY 4.0).
@@ -23,7 +23,7 @@ Artwork by Allison Horst (CC BY 4.0).
 
 ## The Palmer penguins
 
-This dataset has 344 penguins of 3 different species,
+This dataset has 344 penguins of 3 species,
 collected from 3 islands near Palmer Station, Antarctica.
 It's been built into R since version 4.5.
 We'll convert it into a tibble so it prints nicely.
@@ -89,8 +89,7 @@ penguins_nested <- select(
 
 The pipe takes whatever is on its left
 and passes it in as the first argument of the function on its right.
-When you read code with pipes,
-you can say "and then" for each `|>`.
+We can read each `|>` as "and then".
 
 ```{r}
 penguins |>
@@ -110,8 +109,8 @@ penguins |>
   summarize(avg_body_mass = mean(body_mass, na.rm = TRUE))
 ```
 
-We need `na.rm = TRUE` to skip over the missing values,
-otherwise a single `NA` makes the whole mean `NA`.
+We need `na.rm = TRUE` to skip the missing values.
+Otherwise, a single `NA` makes the whole mean `NA`.
 
 ## How many values are missing?
 
@@ -130,8 +129,8 @@ penguins |>
 ![](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/ggplot2_exploratory.png){fig-alt="Cartoon of fuzzy monsters exploring data with ggplot2." width="45%"}
 
 When we make a plot,
-we're trying to answer a question about our data.
-A good plot answers that question clearly.
+we're trying to answer a question about our data,
+and a good plot answers it clearly.
 
 ::: {.aside}
 Artwork by Allison Horst (CC BY 4.0).
@@ -147,7 +146,7 @@ Every ggplot2 plot is built from the same parts:
    (`geom_point()`, `geom_histogram()`, `geom_bar()`)
 3. Scales and labels for the axes, colours, and titles
 
-We add each layer, one at a time, with `+`.
+We add each layer with `+`.
 
 ## Scatter plot: two quantitative variables
 
@@ -199,7 +198,7 @@ ggplot(penguins, aes(x = island, fill = species)) +
 ## Data and credits
 
 - `penguins`: R's `datasets::penguins` (R 4.5 or newer),
-  Horst, Hill and Gorman's Palmer penguins.
+  Horst, Hill, and Gorman's Palmer penguins
 - Adapted from chapters 3 and 4 of
   [*Data Science: A First Introduction*](https://datasciencebook.ca/)
-  (Timbers, Campbell and Lee; CC BY-NC-SA 4.0).
+  (Timbers, Campbell, and Lee; CC BY-NC-SA 4.0)
