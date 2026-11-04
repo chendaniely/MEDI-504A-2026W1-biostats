@@ -72,7 +72,7 @@ opt_clean <- opt |>
   ) |>
   filter(Birth.outcome == "Live birth") |>
   select(PID, Clinic, Group, Age, BMI, Birthweight, GA.at.outcome)
-opt_clean
+head(opt_clean)
 ```
 
 ```{r}

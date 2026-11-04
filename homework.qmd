@@ -84,6 +84,12 @@ for example `ebola_tidy`.
 This prints the data frame when you render,
 so your TA can grade it
 and you can compare it with the hint.
+The datasets from `medicaldata` are base R data frames, not tibbles,
+so printing one prints every row.
+For those, end the chunk with
+[`head()`](https://search.r-project.org/R/refmans/utils/html/head.html)
+instead, for example `head(trial)`,
+which prints the first 6 rows.
 For a figure, end the chunk with the plot.
 
 The packages we need are already loaded in the chunk below.
@@ -425,7 +431,9 @@ Here's what to recode in each trial (its page has the details):
   `baseline_condition` is `1_Good`, `2_Fair`, or `3_Poor`.
   `gender` and `baseline_cavitation` are already readable.
 
-Put `trial` on the last line of the chunk so it prints.
+End the chunk with `head(trial)`, so it prints the first 6 rows.
+`trial` is a base R data frame, like the dataset it came from,
+so printing `trial` itself would print every row.
 
 To check your work,
 run [`count()`](https://dplyr.tidyverse.org/reference/count.html)
@@ -436,7 +444,7 @@ with the control group listed first.
 
 ```{r}
 # your code here
-# end the chunk with trial on its own line, so it prints
+# end the chunk with head(trial), so it prints the first 6 rows
 ```
 
 ### 2.2 Look at the outcome

@@ -28,10 +28,15 @@ We'll look at two of the measures:
 the gingival index (`GE`, where higher means more inflamed gums)
 and the average pocket depth in millimetres (`PD.avg`).
 
+Every dataset in `medicaldata` is a base R data frame, not a tibble,
+so printing one prints every row.
+We'll use [`head()`](https://search.r-project.org/R/refmans/utils/html/head.html)
+to print just the first 6.
+
 ```{r}
 gums <- opt |>
   select(PID, Group, BL.GE, BL.PD.avg, V3.GE, V3.PD.avg, V5.GE, V5.PD.avg)
-gums
+head(gums)
 ```
 
 ::: {.callout-note}
