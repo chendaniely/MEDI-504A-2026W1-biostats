@@ -1,0 +1,177 @@
+---
+title: "Interpreting a logistic regression"
+---
+
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+library(medicaldata)
+```
+
+## A sore throat after surgery
+
+`licorice_gargle` (from `medicaldata`) is a trial of 235 adults
+having thoracic surgery with a large breathing tube.
+Before the tube went in,
+they were randomized to gargle licorice or sugar water.
+Our outcome is any sore throat 30 minutes after surgery.
+
+## Recode the variables
+
+```{r}
+sore <- licorice_gargle |>
+  mutate(
+    sore_throat = factor(pacu30min_throatPain > 0,
+                         levels = c(FALSE, TRUE),
+                         labels = c("no", "yes")),
+    treatment = factor(treat, levels = c(0, 1),
+                       labels = c("sugar", "licorice")),
+    smoking = factor(preOp_smoking, levels = c(3, 2, 1),
+                     labels = c("never", "past",
+                                "current"))
+  ) |>
+  select(sore_throat, treatment,
+         bmi = preOp_calcBMI, smoking) |>
+  drop_na()
+```
+
+## Which level are we modelling?
+
+- `logistic_reg()` models the odds of the outcome's **second** level
+- `sore_throat` has the levels `no`, then `yes`,
+  so every result is about the odds of a sore throat
+- The predictors are a mix of both kinds:
+  - `treatment`: 2 levels, so 1 dummy variable (reference `sugar`)
+  - `bmi`: continuous, in kg/m²
+  - `smoking`: 3 levels, so 2 dummy variables (reference `never`)
+
+```{r}
+count(sore, sore_throat)
+```
+
+## Fit the model
+
+```{r}
+sore_fit <- logistic_reg() |>
+  fit(sore_throat ~ treatment + bmi + smoking,
+      data = sore)
+
+tidy(sore_fit, conf.int = TRUE)
+```
+
+- These estimates are on the **log-odds** scale,
+  $\log\left(\frac{p}{1 - p}\right)$,
+  which is hard to read
+
+## Exponentiate to get odds ratios
+
+```{r}
+sore_or <- sore_fit |>
+  tidy(exponentiate = TRUE, conf.int = TRUE)
+sore_or
+```
+
+```{r}
+#| include: false
+# pull one number out of the odds ratio table, for the sentences on the next slides
+get_or <- function(term, column = "estimate") {
+  sore_or[[column]][sore_or$term == term]
+}
+# show an odds ratio with 2 decimals, and turn it into a percent lower
+two <- function(x) sprintf("%.2f", x)
+pct_lower <- function(term) round(100 * (1 - get_or(term)))
+```
+
+- `exponentiate = TRUE` turns each estimate and its interval
+  into an **odds ratio**
+  (`std.error`, `statistic`, and `p.value` stay on the log-odds scale)
+- An odds ratio of 1 means no difference,
+  below 1 means lower odds,
+  and above 1 means higher odds
+
+## Interpreting a continuous variable
+
+> For every 1 [unit] increase in [variable],
+> we expect the odds of [outcome] to be multiplied by [odds ratio],
+> all else remaining the same.
+
+For `bmi`:
+
+> For every 1 kg/m² increase in BMI,
+> we expect the odds of a sore throat to be multiplied by `r two(get_or("bmi"))`,
+> all else remaining the same
+> (95% CI: `r two(get_or("bmi", "conf.low"))` to `r two(get_or("bmi", "conf.high"))`).
+
+- Multiplied by `r two(get_or("bmi"))` is the same as
+  `r pct_lower("bmi")`% lower odds
+- The interval includes 1,
+  so the data don't show a clear effect of BMI
+
+## Interpreting a categorical variable
+
+> We expect the odds of [outcome] for [level]
+> to be [odds ratio] times the odds for [reference level],
+> all else remaining the same.
+
+For `treatmentlicorice`:
+
+> We expect the odds of a sore throat for patients who gargled licorice
+> to be `r two(get_or("treatmentlicorice"))` times the odds
+> for patients who gargled sugar water,
+> all else remaining the same
+> (95% CI: `r two(get_or("treatmentlicorice", "conf.low"))` to `r two(get_or("treatmentlicorice", "conf.high"))`).
+
+- That's `r pct_lower("treatmentlicorice")`% lower odds,
+  and the interval doesn't include 1
+
+## A categorical variable with more levels
+
+Each dummy variable compares one level with the reference, `never`.
+For `smokingpast`:
+
+> We expect the odds of a sore throat for past smokers
+> to be `r two(get_or("smokingpast"))` times the odds for people who never smoked,
+> all else remaining the same
+> (95% CI: `r two(get_or("smokingpast", "conf.low"))` to `r two(get_or("smokingpast", "conf.high"))`).
+
+- `smokingcurrent` compares current smokers with people who never smoked,
+  not with past smokers
+- Its interval (`r two(get_or("smokingcurrent", "conf.low"))` to `r two(get_or("smokingcurrent", "conf.high"))`)
+  includes 1, so that comparison isn't clear
+
+## Odds, not probability
+
+- An odds ratio compares odds, not probabilities
+- Say "`r two(get_or("treatmentlicorice"))` times the odds",
+  not "`r two(get_or("treatmentlicorice"))` times as likely"
+  or "`r pct_lower("treatmentlicorice")`% less likely"
+- The two are close only when the outcome is rare,
+  and here `r round(100 * mean(sore$sore_throat == "yes"))`% of patients had a sore throat
+
+## The same model in base R
+
+Base R's `glm()` fits the same model with less code:
+
+```{r}
+glm(sore_throat ~ treatment + bmi + smoking,
+    family = binomial, data = sore) |>
+  tidy(exponentiate = TRUE, conf.int = TRUE)
+```
+
+- `family = binomial` is what makes `glm()` a logistic regression
+- The same odds ratios and intervals as `logistic_reg()`
+- We use tidymodels because every kind of model goes through the same steps
+
+## Data and credits
+
+- `licorice_gargle` from
+  [`medicaldata`](https://higgi13425.github.io/medicaldata/reference/licorice_gargle.html),
+  contributed by Amy Nowacki
+  ([TSHS Resources Portal](https://www.causeweb.org/tshs/licorice-gargle/))
+- Odds ratios with tidymodels follow the
+  [analysis](https://ds4biomed.tech/analysis-intro.html) and
+  [tidymodels](https://ds4biomed.tech/machine-learning-tidymodels.html) chapters
+  of *Data Science for the Biomedical Sciences*

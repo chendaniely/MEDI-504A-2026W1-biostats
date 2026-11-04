@@ -1,0 +1,153 @@
+---
+title: "Interpreting a linear regression"
+---
+
+## Packages
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+```
+
+## Back to Sacramento
+
+On Monday we fit `price ~ sqft` on the Sacramento house sales.
+Let's add `type`, a categorical variable,
+so we can see how to read both kinds of variables.
+
+```{r}
+Sacramento |>
+  count(type)
+```
+
+## Dummy variables
+
+- A regression needs numbers,
+  so R turns a categorical variable (a factor)
+  into **dummy variables**, also called indicator variables
+- Each dummy variable is a 0/1 column for one level,
+  and there's one for every level except the first
+- The level without a column is the **reference level**,
+  and every other level gets compared with it
+
+## Two names for the same idea
+
+- Statistics calls this **dummy variable encoding**
+- Computer science and machine learning call it **one-hot encoding**
+- Both turn each level of a categorical variable into a 0/1 column
+- One-hot encoding usually keeps a column for every level,
+  while a regression with an intercept drops one,
+  the reference level (R does this for us)
+
+## `type` as dummy variables
+
+`type` has 3 levels, so it becomes 2 dummy variables,
+with `Condo` as the reference:
+
+| `type` | `typeMulti_Family` | `typeResidential` |
+|---|:-:|:-:|
+| `Condo` | 0 | 0 |
+| `Multi_Family` | 1 | 0 |
+| `Residential` | 0 | 1 |
+
+## Fit the model
+
+```{r}
+house_fit <- linear_reg() |>
+  fit(price ~ sqft + type, data = Sacramento)
+
+house_tidy <- tidy(house_fit, conf.int = TRUE)
+house_tidy
+```
+
+```{r}
+#| include: false
+# pull one number out of the tidy table, for the sentences on the next slides
+get_value <- function(term, column = "estimate") {
+  house_tidy[[column]][house_tidy$term == term]
+}
+usd <- scales::label_dollar(accuracy = 1)
+```
+
+- One row for `sqft`
+- One row for each dummy variable,
+  and no row for `Condo`, the reference level
+
+## Interpreting a continuous variable
+
+> For every 1 [unit] increase in [variable],
+> we expect [outcome] to increase (or decrease) by [estimate] [units],
+> all else remaining the same.
+
+For `sqft`:
+
+> For every 1 square foot increase in size,
+> we expect the sale price to increase by `r usd(get_value("sqft"))`,
+> all else remaining the same
+> (95% CI: `r usd(get_value("sqft", "conf.low"))` to `r usd(get_value("sqft", "conf.high"))`).
+
+- "All else remaining the same" means the other variables in the model,
+  so here, a house of the same `type`
+
+## Interpreting a categorical variable
+
+> We expect [outcome] for [level] to be [estimate] [units] higher (or lower)
+> than for [reference level],
+> all else remaining the same.
+
+For `typeMulti_Family`:
+
+> We expect multi-family homes to sell for
+> `r usd(abs(get_value("typeMulti_Family")))` less than condos,
+> all else remaining the same
+> (95% CI: `r usd(abs(get_value("typeMulti_Family", "conf.high")))`
+> to `r usd(abs(get_value("typeMulti_Family", "conf.low")))` less).
+
+- Here "all else" is the size:
+  a multi-family home and a condo with the same square footage
+- The comparison is always with the reference level, `Condo`
+
+## When the interval includes 0
+
+For `typeResidential`:
+
+> We expect residential homes to sell for
+> `r usd(get_value("typeResidential"))` more than condos,
+> all else remaining the same
+> (95% CI: `r usd(get_value("typeResidential", "conf.low"))` to `r usd(get_value("typeResidential", "conf.high"))`).
+
+- The interval includes 0,
+  so the data don't show a clear difference
+  between residential homes and condos of the same size
+- We still report the estimate and its interval,
+  and say that it's unclear
+
+## The intercept
+
+- The intercept is the expected outcome
+  when every continuous variable is 0
+  and every categorical variable is at its reference level
+- Here that's a condo with 0 square feet,
+  which doesn't exist,
+  so we don't interpret it
+
+## The same model in base R
+
+Base R's `lm()` fits the same model with less code:
+
+```{r}
+lm(price ~ sqft + type, data = Sacramento) |>
+  tidy(conf.int = TRUE)
+```
+
+- The same estimates and intervals as `linear_reg()`
+- We use tidymodels because every kind of model goes through the same steps
+
+## Data and credits
+
+- `Sacramento`: from modeldata, loaded with tidymodels
+- Interpreting coefficients follows chapter 8 of
+  [*Data Science: A First Introduction*](https://datasciencebook.ca/)
+  and the [analysis chapter](https://ds4biomed.tech/analysis-intro.html)
+  of *Data Science for the Biomedical Sciences*

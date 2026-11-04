@@ -58,7 +58,7 @@ glance(bw_fit_adj)
 ```
 
 **(2)** The model used `r glance(bw_fit_adj)$nobs` of `r nrow(opt_clean)` rows,
-because `lm()` drops the `r sum(is.na(opt_clean$BMI))` rows with missing BMI.
+because the model drops the `r sum(is.na(opt_clean$BMI))` rows with missing BMI.
 
 **(3)** The treatment estimate moves from `r round(bw_tidy$estimate[2])`
 to `r round(bw_adj_tidy$estimate[2])` g,

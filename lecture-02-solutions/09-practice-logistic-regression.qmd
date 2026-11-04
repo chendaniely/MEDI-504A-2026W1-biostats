@@ -51,7 +51,7 @@ blood |>
   summarize(across(c(Age, PVol, PreopPSA, TVol), \(x) sum(is.na(x))))
 ```
 
-`glm()` drops rows with missing `PVol`, `PreopPSA`, or `TVol`.
+The model drops rows with missing `PVol`, `PreopPSA`, or `TVol`.
 
 **(2)** Storage age still shows no association.
 
