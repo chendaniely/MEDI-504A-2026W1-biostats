@@ -6,6 +6,9 @@ then fit linear and logistic regression models on medical data.
 
 Course website: <https://chendaniely.github.io/MEDI-504A-2026W1-biostats/>
 
+Official course description, on UBC's Data Science and Health site:
+<https://datascienceandhealth.ubc.ca/collaborative-projects/medi-504a-emerging-topics-experimental-medicine>
+
 ## Sessions
 
 - **Lecture 1: Tidy data.**

@@ -21,6 +21,8 @@ website:
   repo-url: https://github.com/chendaniely/MEDI-504A-2026W1-biostats
   navbar:
     left:
+      - href: homework-instructions.qmd
+        text: Homework
       - href: setup-local.qmd
         text: Local setup
       - href: setup-codespaces.qmd
@@ -54,11 +56,6 @@ website:
           - lecture-02/04-linear-regression.qmd
           - lecture-02/05-logistic-regression.qmd
           - lecture-02/06-extra-functions.qmd
-      - section: "Extra practice"
-        contents:
-          - lecture-02/07-practice-clean-and-tidy.qmd
-          - lecture-02/08-practice-linear-regression.qmd
-          - lecture-02/09-practice-logistic-regression.qmd
       - section: "Lecture 2 solutions"
         contents:
           - lecture-02-solutions/02-clean-and-tidy.qmd
@@ -67,8 +64,13 @@ website:
           - lecture-02-solutions/07-practice-clean-and-tidy.qmd
           - lecture-02-solutions/08-practice-linear-regression.qmd
           - lecture-02-solutions/09-practice-logistic-regression.qmd
-      - href: homework-instructions.qmd
-        text: Homework
+      # Homework is in the navbar, not here: a navbar link that is also in the
+      # sidebar is marked as the current page on every page.
+      - section: "Extra practice"
+        contents:
+          - lecture-02/07-practice-clean-and-tidy.qmd
+          - lecture-02/08-practice-linear-regression.qmd
+          - lecture-02/09-practice-logistic-regression.qmd
 
 # custom-callout: define new callout types under `custom-callout:` (none yet).
 # include-code-files: show a code file in a page, `{.r include="file.R"}`.
