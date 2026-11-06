@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>notes-plaud – MEDI 504A: Biostatistics with Tidyverse</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b7768052ea28175cafb50d37197cef29.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-415ea5fd9bc44906cd393fcacb61f9bf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b7768052ea28175cafb50d37197cef29.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-23cb96394853766321799e15746e136a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-638f546255ededd57f15e6049f05e28d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome-7-free-7.2.0/fontawesome.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+div.callout-activity.callout {
+  border-left-color: #0055B7;
+}
+div.callout-activity.callout-style-default .callout-header {
+  background-color: rgba(0, 85, 183, 0.13);
+}
+div.callout-activity .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-activity.callout-style-default .callout-icon::before, div.callout-activity.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\e53d' !important;
+  background-image: none;
+}
+div.callout-definition.callout {
+  border-left-color: #8A6D2B;
+}
+div.callout-definition.callout-style-default .callout-header {
+  background-color: rgba(138, 109, 43, 0.13);
+}
+div.callout-definition .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-definition.callout-style-default .callout-icon::before, div.callout-definition.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f518' !important;
+  background-image: none;
+}
+div.callout-exercise.callout {
+  border-left-color: #1C5F2E;
+}
+div.callout-exercise.callout-style-default .callout-header {
+  background-color: rgba(28, 95, 46, 0.13);
+}
+div.callout-exercise .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-exercise.callout-style-default .callout-icon::before, div.callout-exercise.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f44b' !important;
+  background-image: none;
+}
+div.callout-relevance-project.callout {
+  border-left-color: #0077C8;
+}
+div.callout-relevance-project.callout-style-default .callout-header {
+  background-color: rgba(0, 119, 200, 0.13);
+}
+div.callout-relevance-project .callout-toggle::before {  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(33, 37, 41)" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');}
+div.callout-relevance-project.callout-style-default .callout-icon::before, div.callout-relevance-project.callout-titled .callout-icon::before {
+  font-family: 'Font Awesome 7 Free';
+  font-weight: 900;
+  font-style: normal;
+  content: '\f542' !important;
+  background-image: none;
+}
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">MEDI 504A: Biostatistics with Tidyverse</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../homework-instructions.html"> 
+<span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../setup-local.html"> 
+<span class="menu-text">Local setup</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../setup-codespaces.html"> 
+<span class="menu-text">Codespaces</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../example.html"> 
+<span class="menu-text">Example</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/chendaniely/MEDI-504A-2026W1-biostats"> <i class="bi bi-github" role="img" aria-label="GitHub repository">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../class-notes.html">AI Class Notes</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-04/notes-class-main--claude-opus-5-5.html">Lecture 2 (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-04/notes-plaud.html">Plaud notes</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 1: Tidy data (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/01-welcome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/02-tidy-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/03-wrangle-visualize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wrangling and visualizing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-01/04-tidy-to-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From tidy data to models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2: Modelling lab (Wed, Nov 4)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/01-clone-the-repo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clone the repository</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/03-observational-units.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Observational units</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interpreting a linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interpreting a logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/06-extra-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra functions for the homework</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../class-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AI Class Notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lecture 1 (Mon, Nov 2)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-class-main--claude-opus-5-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Claude Opus notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-class-main--qwen3.6-35b-a3b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.6 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-class-main--qwen3.8-27b-sglang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.8 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/notes-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plaud notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/transcript-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transcript</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-02/materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slides used</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture 2 (Wed, Nov 4)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-04/notes-class-main--claude-opus-5-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Claude Opus notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-04/notes-class-main--qwen3.6-35b-a3b.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.6 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-04/notes-class-main--qwen3.8-27b-sglang.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Qwen 3.8 notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-04/notes-plaud.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Plaud notes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-04/transcript-plaud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transcript</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/2026-11-04/materials.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slides used</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../README-prompt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How the notes are made</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../prompt-notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The prompt</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Extra practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Solutions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/02-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Cleaning and tidying medical data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/04-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/05-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Logistic regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/07-practice-clean-and-tidy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: cleaning and tidying</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/08-practice-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: linear regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lecture-02-solutions/09-practice-logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions: Extra practice: logistic regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#knowledge-points" id="toc-knowledge-points" class="nav-link" data-scroll-target="#knowledge-points">Knowledge Points</a>
+  <ul class="collapse">
+  <li><a href="#accessing-course-materials-and-setting-up-a-workspace" id="toc-accessing-course-materials-and-setting-up-a-workspace" class="nav-link" data-scroll-target="#accessing-course-materials-and-setting-up-a-workspace">1. Accessing course materials and setting up a workspace</a></li>
+  <li><a href="#quarto-documents-rendering-and-preserving-work" id="toc-quarto-documents-rendering-and-preserving-work" class="nav-link" data-scroll-target="#quarto-documents-rendering-and-preserving-work">2. Quarto documents, rendering, and preserving work</a></li>
+  <li><a href="#ai-generated-course-notes-and-coding-assistants" id="toc-ai-generated-course-notes-and-coding-assistants" class="nav-link" data-scroll-target="#ai-generated-course-notes-and-coding-assistants">3. AI-generated course notes and coding assistants</a></li>
+  <li><a href="#tidy-data-database-structure-and-healthcare-datasets" id="toc-tidy-data-database-structure-and-healthcare-datasets" class="nav-link" data-scroll-target="#tidy-data-database-structure-and-healthcare-datasets">4. Tidy data, database structure, and healthcare datasets</a></li>
+  <li><a href="#data-tidying-and-date-handling" id="toc-data-tidying-and-date-handling" class="nav-link" data-scroll-target="#data-tidying-and-date-handling">5. Data tidying and date handling</a></li>
+  <li><a href="#regression-choosing-and-preparing-a-model" id="toc-regression-choosing-and-preparing-a-model" class="nav-link" data-scroll-target="#regression-choosing-and-preparing-a-model">6. Regression: choosing and preparing a model</a></li>
+  <li><a href="#linear-regression-fitting-and-interpretation" id="toc-linear-regression-fitting-and-interpretation" class="nav-link" data-scroll-target="#linear-regression-fitting-and-interpretation">7. Linear regression fitting and interpretation</a></li>
+  <li><a href="#logistic-regression-fitting-and-interpretation" id="toc-logistic-regression-fitting-and-interpretation" class="nav-link" data-scroll-target="#logistic-regression-fitting-and-interpretation">8. Logistic regression fitting and interpretation</a></li>
+  </ul></li>
+  <li><a href="#assignments" id="toc-assignments" class="nav-link" data-scroll-target="#assignments">Assignments</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../class-notes.html">AI Class Notes</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-04/notes-class-main--claude-opus-5-5.html">Lecture 2 (Wed, Nov 4)</a></li><li class="breadcrumb-item"><a href="../../sessions/2026-11-04/notes-plaud.html">Plaud notes</a></li></ol></nav></header>
+
+
+
+
+
+<blockquote class="blockquote">
+<p><strong>Date and Time:</strong> 2026-11-04 13:00:11 (one session dated 2026-11-04 13:00:11)</p>
+<p><strong>Location:</strong> [Insert Location]</p>
+<p><strong>Instructor:</strong> Daniel Chen</p>
+</blockquote>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Daniel Chen covered how to access course materials and complete homework through GitHub, Codespaces, or a local setup using RStudio or Positron. He demonstrated Quarto workflows and troubleshooting, explained how to preserve work in Codespaces, and discussed the course’s AI-generated notes and summaries.</p>
+<p>The lectures also covered tidy data and database design, synthetic and standardized healthcare data, and linear and logistic regression. Students learned to prepare and inspect data, fit models, interpret coefficients, and distinguish predictions from coefficient interpretations. Demonstrations with AI coding agents emphasized incremental prompting, careful review of code and results, and protecting sensitive data.</p>
+</section>
+<section id="knowledge-points" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-points">Knowledge Points</h2>
+<section id="accessing-course-materials-and-setting-up-a-workspace" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-course-materials-and-setting-up-a-workspace">1. Accessing course materials and setting up a workspace</h3>
+<ul>
+<li><strong>Course repository and Codespaces</strong>
+<ul>
+<li>Students need a GitHub account to access the course repository. On its GitHub page, select <strong>Code</strong>, open the <strong>Codespaces</strong> tab, and choose the option to create or open a Codespace, typically on the main branch. Initial setup may take around ten minutes.</li>
+<li>Codespaces may sleep or shut down after inactivity. Returning to the same Codespace preserves its work; restarting it may be faster after the first setup.</li>
+<li>If GitHub reports that the maximum number of Codespaces has been reached, visit <code>github.com/codespaces</code>, delete unused instances, and try again. Check the source and name of each instance before deleting anything. A stopped instance can be restarted; do not delete the one containing work you want to keep.</li>
+<li>A Codespace can be opened from a fork, but forking is not required for lectures or homework.</li>
+</ul></li>
+<li><strong>Accessing materials without Git or Codespaces</strong>
+<ul>
+<li>The rendered course site contains lecture materials, with slides and related content in the left-hand navigation. The link to the GitHub repository is near the top-right of the site.</li>
+<li>Students can select <strong>Download ZIP</strong> on GitHub to get the homework files and work locally. The instructor noted that Git is not required. Students can also copy and paste assignment materials as needed.</li>
+<li>Repository files, including datasets and slides, are included in the downloaded folder, and the homework file is at the top level.</li>
+<li>Local work requires R and an IDE such as RStudio or Positron. Quarto may need to be installed separately. Codespaces is already configured with the required tools and packages.</li>
+</ul></li>
+<li><strong>R, Quarto, and package setup</strong>
+<ul>
+<li>Local setup instructions explain how to install Quarto and the packages used in the course. Tidyverse should already have been installed for an earlier week; the course introduces tidymodels and healthcare datasets from the <code>medicaldata</code> package.</li>
+<li>Students can run the provided package-installation commands in the RStudio console. Reinstalling or updating tidyverse is fine; those who already have it may skip that step.</li>
+<li>Quarto is used to create HTML and PDF homework outputs. It can be installed from the Quarto website for the relevant operating system. The instructor recommends installing it separately for a smoother local experience.</li>
+</ul></li>
+<li><strong>Positron, RStudio, and VS Code</strong>
+<ul>
+<li>Positron is an optional IDE from the people behind RStudio. It is built on VS Code and incorporates familiar RStudio-style data science features, including a variable viewer, console, terminal, and plot viewer. It supports R and Python.</li>
+<li>Codespaces is based on VS Code, so its interface differs from local RStudio or Positron. For example, Codespaces does not show the same variable viewer; students can inspect variables by printing them in a code chunk.</li>
+<li>In VS Code, install the Quarto extension through the Extensions panel if it is not already present. It is already installed in the course Codespaces and included in Positron. In RStudio, use <strong>Render</strong> when Quarto is installed.</li>
+</ul></li>
+</ul>
+</section>
+<section id="quarto-documents-rendering-and-preserving-work" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-documents-rendering-and-preserving-work">2. Quarto documents, rendering, and preserving work</h3>
+<ul>
+<li><strong>Previewing and rendering</strong>
+<ul>
+<li>Positron has a <strong>Preview</strong> button. In Codespaces, use the Command Palette if a Preview option is not visible. Open it with Control+Shift+P, Command+Shift+P, or Apple+Shift+P, or use the interface button; type <code>&gt;</code> to enter command-finding mode.</li>
+<li>Rendering a Quarto document runs its code, captures the output, and can produce HTML and PDF files. The intended homework deliverables include the Quarto source file and its rendered HTML and PDF versions. Grading alternatives may be available if rendering fails, but completing the setup is also a learning objective.</li>
+<li>Quarto combines code, output, and explanatory prose in one reproducible document. Code can be run from top to bottom, with explanations alongside it. It supports reports, websites, and presentations, and works with multiple programming languages.</li>
+<li>Quarto is the successor to R Markdown; R Markdown remains supported but is not expected to receive new features. Quarto’s code-cell syntax resembles R Markdown’s, while Quarto bundles capabilities that otherwise may require separate R Markdown packages.</li>
+<li>To work in traditional R Markdown, students can copy the <code>.qmd</code> contents into an <code>.rmd</code> file and remove Quarto-specific formatting lines before rendering.</li>
+</ul></li>
+<li><strong>Saving Codespaces work</strong>
+<ul>
+<li>Work is saved in the specific Codespace instance, not automatically back to Git, even if the student has forked the repository.</li>
+<li>Closing the browser tab or allowing the Codespace to time out does not delete the work. Returning to the same named instance preserves it. Deleting the Codespace permanently deletes its work.</li>
+<li>The simplest recommended way to preserve homework is to copy the QMD contents and save them in a local file. Students familiar with Git can use the VS Code Git interface to add, commit, and push changes to their fork.</li>
+<li>Forking the course repository creates a personal copy that remains available if the instructor’s repository is deleted. If the instructor updates the original repository, <strong>Sync from Upstream</strong> can bring changes into the fork. Syncing takes additional steps; the instructor said they would try to avoid changing homework files.</li>
+</ul></li>
+</ul>
+</section>
+<section id="ai-generated-course-notes-and-coding-assistants" class="level3">
+<h3 class="anchored" data-anchor-id="ai-generated-course-notes-and-coding-assistants">3. AI-generated course notes and coding assistants</h3>
+<ul>
+<li><strong>Course notes and model comparisons</strong>
+<ul>
+<li>The course site has an <strong>AI class notes</strong> section containing lecture transcripts and AI-generated summaries. The current lecture’s notes were expected to be available by the end of November 4, 2026.</li>
+<li>Students can use headings and summaries to check their understanding, then consult the corresponding transcript or detailed notes as needed.</li>
+<li>The instructor records lectures and uses transcripts to generate summaries with an Anthropic model. Course materials also include outputs from local models, allowing students to compare different models’ summaries of the same material. The instructor’s notes may be particularly detailed because the generation prompt requests substantial detail; the prompt is included with the materials.</li>
+</ul></li>
+<li><strong>Using coding agents effectively</strong>
+<ul>
+<li>Coding agents can inspect project files, write and run code, and suggest file edits. Their capabilities differ from those of a web-based chatbot, and their access to local files creates additional risks.</li>
+<li>For learning, ask an agent to handle one small step or code chunk at a time—roughly five lines—rather than generating a large script all at once. Smaller changes are easier to review and understand.</li>
+<li>Provide specific prompts with relevant context, technical terms, and directions. Students can name a course function they want the agent to use, ask why it chose another method, or ask it to explain unfamiliar code.</li>
+<li>Models and settings differ in speed, cost, and level of explanation. CodeSpaces may use a smaller, less deliberative model, while a higher-thinking model may take longer and provide more detail. Review generated code particularly carefully, regardless of the model.</li>
+</ul></li>
+<li><strong>Reviewing agent output and visualizations</strong>
+<ul>
+<li>An agent can make plausible but incorrect edits. In one demonstration, it placed code for the next problem where the requested data-cleaning code belonged. Human approval prompts provide a safeguard, but students must still check the changes.</li>
+<li>Run generated code, inspect intermediate results, and confirm that they make sense. Fewer syntax errors do not prove that the code performed the right operation.</li>
+<li>Model-generated descriptions of figures can also be wrong. In a demonstration using <code>mtcars</code>, a figure had been altered to show a positive relationship between horsepower and miles per gallon, but the model described the usual negative relationship instead. Check interpretations against the actual data and figure.</li>
+<li>A useful workflow is to draft a rough figure caption or description yourself, then ask the model to improve or rephrase it.</li>
+</ul></li>
+<li><strong>Privacy and security</strong>
+<ul>
+<li>Agents may write and run code that prints data frames or other file contents for inspection. That output can be transmitted to third-party model providers, potentially exposing sensitive information such as patient names or medical record numbers.</li>
+<li>An agent with file access might encounter credentials or other sensitive files and could potentially take damaging actions, such as exposing information or deleting data. Review requests before approving changes.</li>
+<li>Do not use personal AI subscriptions or unsanctioned agents with clinical or other sensitive data. Healthcare or enterprise use requires organization-approved deployments, secure hosting, and established data-sharing agreements.</li>
+</ul></li>
+</ul>
+</section>
+<section id="tidy-data-database-structure-and-healthcare-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-data-database-structure-and-healthcare-datasets">4. Tidy data, database structure, and healthcare datasets</h3>
+<ul>
+<li><strong>Tidy data and observational units</strong>
+<ul>
+<li>Tidy-data principles include organizing each type of observational unit as a table; a commonly cited formulation also says each cell should contain one bit of information.</li>
+<li>Identifying observational units helps with cleaning and storage. Analysis-ready data may already be combined, but analysts building datasets or saving data to databases may need to decide what belongs in separate tables and how those tables relate.</li>
+</ul></li>
+<li><strong>Analysis-ready data versus storage-efficient tables</strong>
+<ul>
+<li>In the Billboard example, <code>pivot_longer()</code> reshapes week columns so each row represents a song’s ranking for a particular week.</li>
+<li>A combined tidy table can repeat details such as artist, track, year, and time many times for the same song. This is useful for analysis and modeling, but inefficient for storage and prone to inconsistent corrections.</li>
+<li>A storage-oriented design can put each song’s details in a song table with a unique song ID, and store its weekly date and rank in a separate rankings table. The original analysis table can be reconstructed by joining the tables on the ID.</li>
+<li>Assigning a unique ID is similar to assigning a medical record number (MRN) to a patient. In hospital data, patient demographics can be kept in a patients table and events in an encounters table; the MRN links them. A demographic correction then needs to be made in one place.</li>
+<li>Joining patient and encounter records can support analyses such as estimating the average age of patients receiving an X-ray. MRNs are highly private because they can connect a record to an individual’s demographics and events.</li>
+</ul></li>
+<li><strong>Synthetic and standardized healthcare data</strong>
+<ul>
+<li>Synthea provides synthetic hospital-like datasets in CSV and healthcare-related formats such as HL7, FHIR, CDA, and CCDA. Dataset sizes range from small examples to hundreds of thousands or even a million patients. It is available for practice, but is not required for the homework.</li>
+<li>The OHDSI community’s OMOP Common Data Model standardizes healthcare data structures. When institutions use the same model, analysts can share code for another hospital to run on its own data instead of transferring protected patient records.</li>
+<li>OMOP can support standardized coding and mappings across systems, including mappings between ICD-10 and codes used in other countries. Multi-site analysis depends on participating institutions structuring their data according to the shared model.</li>
+<li>Healthcare analyses may require joining multiple tables. For example, studying 30-day readmissions after a heart attack may require encounters to identify visits, patient data for demographics, and an appropriate heart-attack code. Analysts should not assume they will receive a preassembled dataset.</li>
+</ul></li>
+</ul>
+</section>
+<section id="data-tidying-and-date-handling" class="level3">
+<h3 class="anchored" data-anchor-id="data-tidying-and-date-handling">5. Data tidying and date handling</h3>
+<ul>
+<li><strong>Ebola dataset tidying</strong>
+<ul>
+<li>The homework uses data-tidying operations such as <code>pivot_longer()</code>, <code>pivot_wider()</code>, and <code>mutate()</code>.</li>
+<li>In the Ebola dataset, cells contain combined information that must be separated. Repeated column patterns suggest using <code>pivot_longer()</code> on relevant columns while excluding <code>date</code> and <code>day</code>.</li>
+<li>Inspect intermediate results: the first reshape may leave case and death information combined or otherwise unsuitable for analysis, requiring a <code>pivot_wider()</code> step to separate them.</li>
+<li>The assignment asks students to produce a frequency table for each country showing the first and last report and the corresponding cases and deaths, and to create and describe a figure from a selected column.</li>
+</ul></li>
+<li><strong>Date parsing</strong>
+<ul>
+<li>The demonstrated source <code>date</code> column was character text in month-day-year format. An MDY parsing function converts it into a date object.</li>
+<li>A date object supports operations such as subtracting one date from another. It may display in year-month-day order because that is the ISO 8601 standard, even if the input was month-day-year.</li>
+<li>Use the corresponding YMD parser for year-month-day input. The display format alone does not indicate that parsing was incorrect.</li>
+</ul></li>
+</ul>
+</section>
+<section id="regression-choosing-and-preparing-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="regression-choosing-and-preparing-a-model">6. Regression: choosing and preparing a model</h3>
+<ul>
+<li><strong>Linear and logistic regression as baselines</strong>
+<ul>
+<li>Linear and logistic regression are useful first models: they are relatively simple, run quickly, and are generally easier to interpret than more complex approaches. “Best” is comparative, so these models can provide baselines.</li>
+<li>Interpretability can matter in healthcare and finance, where people may need to explain treatment, policy, or financial decisions. These models are not universally superior, and the lectures focus on fitting and interpreting models rather than comprehensively evaluating them.</li>
+<li>Linear regression is appropriate for a continuous numeric outcome, such as house price or albumin level. Logistic regression is used for a binary categorical outcome, such as sore throat after surgery coded yes/no or 1/0.</li>
+</ul></li>
+<li><strong>Identify the outcome and explore the data</strong>
+<ul>
+<li>First identify the outcome being measured or predicted and locate it in a data column. If it is not represented appropriately, the data may need cleaning or restructuring.</li>
+<li>The outcome type informs the model choice. Predictors can be continuous or categorical; their type alone does not determine whether the model is linear or logistic.</li>
+<li>Examine frequencies and visualizations before modeling. Imbalanced categories can make accuracy misleading: a model that predicts only the majority class could achieve 99% accuracy if 99 of 100 cases belong to that class, while failing to identify the minority cases of interest.</li>
+<li>In the sore-throat example, predicting “no” for everyone could still be 75% correct. Check class balance and prediction patterns rather than relying on accuracy alone.</li>
+<li>Ordered categories, such as disease stages, are sometimes treated as numbers even though they are not necessarily true numeric quantities. Consider whether that coding is appropriate.</li>
+</ul></li>
+<li><strong>Categorical predictors and reference categories</strong>
+<ul>
+<li>Categorical predictors need encoding because categories are not quantities with a meaningful one-unit increase. Dummy-variable encoding, also called one-hot encoding, is commonly used; tidy modeling tools can perform some of it automatically.</li>
+<li>For a variable with (n) categories, the described approach creates (n-1) columns. Each column indicates membership in a category, and the all-zero pattern represents the omitted reference category.</li>
+<li>In the housing example, condo is the reference for multifamily and residential. In the licorice-gargle example, sugar is the treatment reference; smoking categories are compared with never smokers.</li>
+<li>Software may select a default reference, often the first factor level. Check the omitted category explicitly, especially when a variable has many levels, and change it when another comparison is more meaningful.</li>
+<li>The reference choice changes the coefficients and their interpretation, not the underlying model fit. Data cleaning may be needed to set the intended labels and reference levels; consult the codebook when numeric codes or category names are unclear.</li>
+</ul></li>
+<li><strong>Choosing predictors</strong>
+<ul>
+<li>Predictors should be selected according to the research question and study design. Adding covariates gives the model additional coefficients and can change existing estimates because the model accounts for other factors.</li>
+<li>Including variables indiscriminately can cause problems. Confounders and, in epidemiology, collider variables affect which predictors should be included; this is a research-design decision, not simply a matter of trying every available variable.</li>
+<li>Data preparation continues during modeling, including encoding categorical variables. Automatic tools can help, but analysts need to understand the transformations being applied.</li>
+</ul></li>
+</ul>
+</section>
+<section id="linear-regression-fitting-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="linear-regression-fitting-and-interpretation">7. Linear regression fitting and interpretation</h3>
+<ul>
+<li><strong>Fitting and extracting results</strong>
+<ul>
+<li>The Sacramento housing example predicts sale price from square footage and housing type. In base R, <code>lm</code> fits a linear model; the tidy-models approach provides an equivalent workflow.</li>
+<li>Fitting produces a model object. The <code>tidy</code> function returns a data frame of model results, making coefficients easier to interpret, plot, or save as CSV or Excel.</li>
+<li>A full statistical analysis may also consider p-values, confidence intervals, AIC, BIC, degrees of freedom, and other metadata; the coefficient examples focus on estimates.</li>
+</ul></li>
+<li><strong>Interpreting coefficients</strong>
+<ul>
+<li>A continuous-variable coefficient describes the expected outcome change for a one-unit increase in that predictor, holding other modeled variables constant. Confirm the variable’s units and transformations: one unit could mean an original measurement unit or, for a standardized variable, one standard deviation.</li>
+<li>In the Sacramento example, the square-footage estimate is 139. Because square footage is untransformed, the model estimates a $139 increase in sale price for each additional square foot, holding other modeled variables constant.</li>
+<li>Categorical coefficients compare each category with its reference category. With condo as the reference, the multifamily estimate is approximately (-$66{,}000), and the residential estimate is $8,253. These estimates describe price differences relative to condos at the same square footage.</li>
+<li>The precise meaning of “multifamily” requires checking the data codebook.</li>
+</ul></li>
+<li><strong>Predictions and the intercept</strong>
+<ul>
+<li>Interpreting an individual coefficient is different from predicting an outcome. To predict, supply values for the case, multiply each predictor value by its coefficient, and add the terms and the intercept.</li>
+<li>For example, a square-footage coefficient of 139 contributes 139,000 for a 1,000-square-foot house. A residential house also adds the residential coefficient of 8,253; the other terms and intercept are included in the prediction.</li>
+<li>The intercept is the baseline prediction when all predictor values are zero. It is needed for prediction but may not have a useful real-world interpretation, such as for a zero-square-foot condo.</li>
+</ul></li>
+</ul>
+</section>
+<section id="logistic-regression-fitting-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression-fitting-and-interpretation">8. Logistic regression fitting and interpretation</h3>
+<ul>
+<li><strong>Fitting binary-outcome models</strong>
+<ul>
+<li>Logistic regression is used for a two-category outcome. A multi-category outcome can be recoded as a binary outcome to address a specific question, such as cancer versus no cancer.</li>
+<li>The model formula follows the general pattern used for linear regression, with the outcome on one side of the tilde and predictors on the other. In base R, use <code>glm</code> with <code>family = binomial</code>; the lecture also demonstrates tidy-model syntax.</li>
+<li>Linear and logistic regression belong to the generalized linear model family. GLMs use a transformation appropriate to the outcome; Poisson models are another example in this family.</li>
+</ul></li>
+<li><strong>Log odds and odds ratios</strong>
+<ul>
+<li>A straight-line model can predict values below zero or above one, which are invalid probabilities for a binary outcome. Logistic regression uses a transformation to keep modeled values within the zero-to-one range.</li>
+<li>Logistic-regression coefficients are on the log-odds scale, not direct probability changes. Odds are (P/(1-P)), so they are related to but distinct from probabilities.</li>
+<li>Exponentiating a log-odds coefficient yields an odds ratio. For BMI in the sore-throat example, the coefficient is approximately (-0.0517); exponentiating it gives about 0.95. For each one-unit increase in BMI (one kilogram per meter squared), the odds of a sore throat are multiplied by 0.95, holding other variables constant.</li>
+<li>In the treatment example, the odds of a sore throat for patients who gargled licorice are 0.38 times the odds for those who gargled sugar water. An example for sometimes or current smokers gives 4.38 times the odds compared with never smokers.</li>
+<li>Describe these as odds, not probabilities. Odds ratios are commonly reported in epidemiology, including analyses based on two-by-two tables.</li>
+<li>Categorical coefficients compare each level with the reference category. Changing the reference changes the comparison and coefficient values, but not the underlying model fit.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="assignments" class="level2">
+<h2 class="anchored" data-anchor-id="assignments">Assignments</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Access the homework repository through Codespaces or download the repository as a ZIP for local work. Install R, an IDE, Quarto, and required packages if working locally; follow the setup instructions for packages such as tidymodels and <code>medicaldata</code>.</label></li>
+<li><label><input type="checkbox">Preserve your work by saving a local copy of the QMD contents or, if familiar with Git, committing and pushing changes to your fork. Do not delete the Codespace containing your work.</label></li>
+<li><label><input type="checkbox">Render the homework Quarto document as HTML and PDF and save the source file. If rendering fails, follow the instructor’s stated submission alternatives.</label></li>
+<li><label><input type="checkbox">Clean the Ebola dataset, inspect intermediate results, and confirm that case and death information is correctly separated. Produce a per-country frequency table showing the first and last report with the corresponding cases and deaths.</label></li>
+<li><label><input type="checkbox">Create a figure from a selected Ebola dataset column and describe what it shows, checking the description against the actual figure and data.</label></li>
+<li><label><input type="checkbox">Choose one of the three provided datasets, fit a linear or logistic regression model, use <code>tidy</code> to obtain its coefficient table, and write an interpretation of a coefficient.</label></li>
+<li><label><input type="checkbox">Check the codebook for the meaning of the “multifamily” housing category. Verify variable units, transformations, outcome type, category frequencies, and reference levels before interpreting or fitting models.</label></li>
+<li><label><input type="checkbox">When interpreting logistic-regression coefficients, exponentiate them to obtain odds ratios and describe the results as odds, not probabilities.</label></li>
+<li><label><input type="checkbox">Review the AI class notes, summaries, and transcripts to check understanding. Use AI coding tools incrementally, verify their code and results, and never submit sensitive or clinical data to an unapproved service.</label></li>
+<li><label><input type="checkbox">Optionally explore Synthea’s synthetic healthcare datasets for practice; Synthea is not required for the homework.</label></li>
+<li><label><input type="checkbox">Optionally fork the course repository to keep a personal copy and use <strong>Sync from Upstream</strong> to incorporate instructor updates.</label></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<!--
+  Theme the quizdown quizzes.
+
+  `_extensions/quizdown` renders every quiz into a shadow root
+  (`attachShadow({mode: "open"})`), so nothing in `styles.scss` reaches inside
+  one -- a quiz arrives on the page wearing quizdown's own defaults, which are
+  `steelblue` on `#f2f2f2` with black text. In dark mode that is not merely
+  off-brand, it is unreadable: the parts that take a *background* from
+  quizdown's palette but *inherit* their text colour -- the left column of a
+  matching question, an evaluated slot, the per-pair feedback -- end up
+  painting the page's near-white body text onto a near-white fill, 1.03:1.
+
+  Two facts make that fixable from outside the shadow root:
+
+    * custom properties inherit *through* the shadow boundary, so the
+      `--mds-quiz-*` values set on `:root` in `styles.scss` are readable from
+      inside a quiz;
+    * quizdown writes its three colours as inline styles on
+      `.quizdown-content`, and `!important` in a stylesheet beats an inline
+      declaration.
+
+  So this file injects one stylesheet into each quiz's shadow root, written
+  entirely against `--mds-quiz-*`. The light and dark values of those live in
+  `styles.scss` and `styles-dark.scss`, and Quarto swaps those two bundles on
+  the colour-mode toggle -- so a quiz follows the toggle with no JavaScript of
+  its own.
+
+  Wired in from `format.html.include-after-body` in `_quarto.yml`, which is
+  what keeps the vendored extension under `_extensions/quizdown/` untouched: a
+  re-add or an update of that extension cannot clobber any of this.
+
+  Two things are deliberately left alone:
+
+    * `.hljs`, the highlight.js "github" theme quizdown bundles for a *fenced*
+      code block inside a question. Its plate is light in both colour modes,
+      but so are the token colours painted on it, so it stays self-consistent
+      and readable; re-tinting the plate alone would break it, and re-tinting
+      the tokens means shipping a second syntax theme. No question in the book
+      uses a fenced block -- inline code is themed below, and inline code is
+      what the questions actually use.
+    * `.print-review`, the plain questions-and-answers block quizdown reveals
+      under `@media print`. Paper is white in both colour modes, so the light
+      colours there are already the right ones.
+-->
+<script>
+  (() => {
+    // Note for editing: this is a template literal, so nothing inside it may
+    // be quoted in backticks the way the prose around it is -- a stray one
+    // ends the string, and the page fails with a JavaScript syntax error
+    // rather than with anything you would notice in the CSS.
+    //
+    // Every declaration below is `!important`, for two reasons that are not
+    // about winning an argument with the extension. Svelte scopes its own
+    // rules with a build hash (`.prompt.svelte-1ge161l`), which out-specifies
+    // anything we can write without hard-coding a hash that changes on every
+    // quizdown release; and the order our <style> ends up in relative to
+    // Svelte's, inside a shadow root neither of us owns, is not ours to pick.
+    const CSS = `
+      /* ---- the three knobs quizdown itself exposes ------------------------
+         Set as inline styles on .quizdown-content from the quiz config, so
+         !important is the only thing that can move them. Remapping these three
+         alone fixes most of dark mode: everything that reads its background
+         from --quizdown-color-secondary and inherits its text colour then
+         lands on a surface that belongs to the current mode. */
+      .quizdown-content {
+        --quizdown-color-primary: var(--mds-quiz-accent) !important;
+        --quizdown-color-secondary: var(--mds-quiz-surface) !important;
+        --quizdown-color-text: var(--mds-quiz-fg) !important;
+      }
+
+      /* ---- inline code in a question -------------------------------------
+         quizdown paints this #333 on #f8f8f8 in both modes. The book has its
+         own inline-code pair, one per mode, under typography.monospace-inline
+         in _brand.yml. */
+      code {
+        color: var(--mds-quiz-code-fg) !important;
+        background-color: var(--mds-quiz-code-bg) !important;
+      }
+
+      /* ---- buttons -------------------------------------------------------
+         Hard-coded to a white fill, which is a glaring plate on the dark page.
+         The hover is brightness(0.9): darkening is only a change you can see
+         when the surface starts light, so its direction is per-mode too. */
+      button {
+        background-color: var(--mds-quiz-surface) !important;
+        color: var(--mds-quiz-fg) !important;
+      }
+      button:disabled {
+        background-color: var(--mds-quiz-surface) !important;
+        color: var(--mds-quiz-muted) !important;
+      }
+      button:hover:not(:checked):not(:active):not(:disabled) {
+        filter: var(--mds-quiz-press) !important;
+      }
+
+      /* ---- multiple choice and single choice ------------------------------
+         The option rows are already painted from the two variables remapped
+         above; only the hover is hard-coded. */
+      [type='checkbox']:hover + span,
+      [type='checkbox']:focus + span,
+      [type='radio']:hover + span,
+      [type='radio']:focus + span {
+        filter: var(--mds-quiz-press) !important;
+      }
+
+      /* ---- sequence (drag to order) --------------------------------------
+         The rows come from the variables; the reorder buttons take a black
+         focus ring, which is invisible on the dark page. */
+      .buttons button:focus {
+        border-color: var(--mds-quiz-accent) !important;
+      }
+
+      /* ---- matching (drag a chip into a slot) -----------------------------
+         The type with the most hard-coded colour in it, and the one where the
+         dark-mode failure was actually visible: .prompt takes its fill from
+         quizdown's palette and its text colour from the page, so it painted
+         near-white body text onto near-white #f2f2f2. */
+      .arrow,
+      .placeholder {
+        color: var(--mds-quiz-muted) !important;
+      }
+      .slot,
+      .pool {
+        border-color: var(--mds-quiz-border) !important;
+      }
+      .slot-selected,
+      .slot-dragover,
+      .pool-dragover {
+        background-color: var(--mds-quiz-surface) !important;
+      }
+      .chip:hover {
+        filter: var(--mds-quiz-press) !important;
+      }
+      .chip-used {
+        background-color: var(--mds-quiz-surface) !important;
+        border-color: var(--mds-quiz-muted) !important;
+      }
+
+      /* ---- the evaluated state -------------------------------------------
+         Green and red, which the book already has: the success and danger
+         roles in _brand.yml each carry a value per mode. */
+      .slot.correct {
+        border-color: var(--mds-quiz-correct) !important;
+        background-color: var(--mds-quiz-correct-bg) !important;
+      }
+      .slot.wrong,
+      .slot.empty-eval {
+        border-color: var(--mds-quiz-wrong) !important;
+        background-color: var(--mds-quiz-wrong-bg) !important;
+      }
+      .badge-correct,
+      .correct-hint {
+        color: var(--mds-quiz-correct) !important;
+      }
+      .badge-wrong {
+        color: var(--mds-quiz-wrong) !important;
+      }
+      .pair-feedback {
+        border-left-color: var(--mds-quiz-correct) !important;
+        background-color: var(--mds-quiz-correct-bg) !important;
+      }
+      .pair-feedback-wrong {
+        border-left-color: var(--mds-quiz-wrong) !important;
+        background-color: var(--mds-quiz-wrong-bg) !important;
+      }
+
+      /* ---- the credit line under every quiz ------------------------------- */
+      .credits,
+      .credits a {
+        color: var(--mds-quiz-muted) !important;
+      }
+    `;
+
+    // Returns the number of quizzes that do not have a shadow root yet.
+    const paint = () => {
+      let waiting = 0;
+      for (const host of document.querySelectorAll(".quizdown")) {
+        const root = host.shadowRoot;
+        if (!root) {
+          waiting += 1;
+          continue;
+        }
+        if (root.querySelector("style[data-mds-quiz-theme]")) continue;
+        const style = document.createElement("style");
+        style.setAttribute("data-mds-quiz-theme", "");
+        style.textContent = CSS;
+        root.appendChild(style);
+      }
+      return waiting;
+    };
+
+    // quizdown creates the shadow roots from a `load` listener that it only
+    // registers once `DOMContentLoaded` has fired -- later than this script,
+    // which is inline at the end of <body>. A `load` listener added here would
+    // therefore run *before* the one that creates the thing we want to style,
+    // so the first attempt is deferred by a task, and then retried for a few
+    // frames in case a future version of the extension moves that work again.
+    // Bounded, so a quiz that never renders cannot leave a frame loop running.
+    const GIVE_UP_AFTER_MS = 5000;
+    addEventListener("load", () => {
+      const started = performance.now();
+      const tick = () => {
+        if (paint() > 0 && performance.now() - started < GIVE_UP_AFTER_MS) {
+          requestAnimationFrame(tick);
+        }
+      };
+      setTimeout(tick, 0);
+    });
+  })();
+</script>
+<!--
+  The extension's own addition to `quizdown-theme.html`, which stays as
+  fetched from DSCI 521 (Q&A 22, 26).
+
+  quizdown paints a matching question's answer chips a fixed light green
+  (`#e8f5e9`) and lets them inherit the page's text colour: in dark mode,
+  near-white text on near-white. `quizdown-theme.html` themes every other part
+  of a matching question but not the chip itself, so this injects one more
+  rule into each quiz's shadow root, the same way, written against
+  `--mds-quiz-chip-*` from `ubc.scss`. Used and placed chips keep the looks
+  quizdown and `quizdown-theme.html` give them.
+-->
+<script>
+  (() => {
+    const CSS = `
+      .chip:not(.chip-used):not(.chip-placed) {
+        background-color: var(--mds-quiz-chip-bg) !important;
+        border-color: var(--mds-quiz-chip-border) !important;
+        color: var(--mds-quiz-fg) !important;
+      }
+    `;
+
+    // Returns the number of quizzes that do not have a shadow root yet.
+    const paint = () => {
+      let waiting = 0;
+      for (const host of document.querySelectorAll(".quizdown")) {
+        const root = host.shadowRoot;
+        if (!root) {
+          waiting += 1;
+          continue;
+        }
+        if (root.querySelector("style[data-ubc-quiz-chips]")) continue;
+        const style = document.createElement("style");
+        style.setAttribute("data-ubc-quiz-chips", "");
+        style.textContent = CSS;
+        root.appendChild(style);
+      }
+      return waiting;
+    };
+
+    // As in `quizdown-theme.html`: quizdown makes the shadow roots after
+    // `load`, so the first try waits a task, then retries for a few frames,
+    // and gives up after five seconds.
+    addEventListener("load", () => {
+      const started = performance.now();
+      const tick = () => {
+        if (paint() > 0 && performance.now() - started < 5000) {
+          requestAnimationFrame(tick);
+        }
+      };
+      setTimeout(tick, 0);
+    });
+  })();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chendaniely\.github\.io\/MEDI-504A-2026W1-biostats\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Prose: CC BY-NC-SA 4.0 · Code: MIT</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
