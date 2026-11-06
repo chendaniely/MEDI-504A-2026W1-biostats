@@ -29,3 +29,15 @@ read [How the notes are made](README-prompt.md).
 - [The transcript](sessions/2026-11-02/transcript-plaud.md)
 - [The slides the notes were written from](sessions/2026-11-02/materials.md),
   with their code and output
+
+## Lecture 2: Modelling lab (Wed, Nov 4)
+
+- [The recording](https://web.plaud.ai/s/pub_7f23d49d-5213-4a09-9ef4-e7b6ad64459f::wxVchnmfOflfd-xLynDfCPXPqvMkjC49lp_NkU6-HZLOHrEfQK_9NrJuvvCCMhsUd0Jk-mgJd0QM3DkC), on Plaud
+- Class notes from
+  [Claude Opus](sessions/2026-11-04/notes-class-main--claude-opus-5-5.md),
+  [Qwen 3.6](sessions/2026-11-04/notes-class-main--qwen3.6-35b-a3b.md),
+  and [Qwen 3.8](sessions/2026-11-04/notes-class-main--qwen3.8-27b-sglang.md)
+- [Plaud's own notes](sessions/2026-11-04/notes-plaud.md)
+- [The transcript](sessions/2026-11-04/transcript-plaud.md)
+- [The slides the notes were written from](sessions/2026-11-04/materials.md),
+  with their code and output
